@@ -72,57 +72,83 @@ def run_docker(deployment: Deployment, plan: Plan):
     image_name = deployment.project.docker_image_name
     volume_media = f"{container_name}_media"
     volume_db = f"{db_container_name}_data"
+    network_name = "deploy_network"
 
-    ensure_traefik_running(client)
+    # ---------------- Traefik ----------------
+    try:
+        client.containers.get("traefik")
+        logger.info("Traefik already running")
+    except docker.errors.NotFound:
+        # الشبكة
+        try:
+            client.networks.get(network_name)
+        except docker.errors.NotFound:
+            client.networks.create(network_name, driver="bridge")
 
-    # التحقق من وجود الصورة
+        # ملفات Traefik
+        traefik_yml = "/opt/traefik/traefik.yml"
+        acme_file = "/opt/traefik/acme.json"
+        os.makedirs(os.path.dirname(acme_file), exist_ok=True)
+        if not os.path.exists(acme_file):
+            open(acme_file, 'a').close()
+            os.chmod(acme_file, 0o600)
+
+        # تشغيل Traefik
+        client.containers.run(
+            "traefik:latest",
+            name="traefik",
+            detach=True,
+            network=network_name,
+            ports={"80/tcp": 80, "443/tcp": 443},
+            volumes={
+                traefik_yml: {"bind": "/traefik.yml", "mode": "ro"},
+                acme_file: {"bind": "/acme.json", "mode": "rw"},
+                "/var/run/docker.sock": {"bind": "/var/run/docker.sock", "mode": "ro"}
+            }
+        )
+        logger.info("Traefik started")
+
+    # ---------------- Images ----------------
     try:
         client.images.get(image_name)
     except docker.errors.ImageNotFound:
+        logger.info(f"Pulling image {image_name}")
         client.images.pull(image_name)
 
-    # توليد منفذ متاح
+    # ---------------- Ports ----------------
     try:
         port = get_free_port()
-    except Exception as e:
+    except RuntimeError as e:
         update_deployment(deployment, "5", "3", container_name)
         logger.error(f"No free ports available: {e}")
         return False
 
-    # إعداد الموارد
+    # ---------------- Resources ----------------
     ram_limit = getattr(plan, "ram", 512)
     cpu_limit = getattr(plan, "cpu", 0.5)
-    storage_limit = str(getattr(plan, "storage", '1'))
     mem_limit = f"{ram_limit}m"
     cpu_quota = int(cpu_limit * 100000)
+    storage_limit = str(getattr(plan, "storage", '1'))
 
-    # إعداد DB vars
+    # ---------------- DB ----------------
     db_name = f"db_{deployment.id}"
     db_user = "postgres"
     db_pass = "postgres"
-    db_port = 5432
-
-    # شبكة مشتركة
-    network_name = "deploy_network"
-    try:
-        client.networks.get(network_name)
-    except docker.errors.NotFound:
-        client.networks.create(network_name, driver="bridge")
 
     # حذف الحاويات القديمة
-    for old in [container_name, db_container_name]:
+    for cname in [container_name, db_container_name]:
         try:
-            c = client.containers.get(old)
+            c = client.containers.get(cname)
             c.remove(force=True)
-            logger.info(f"Removed old container {old}")
-        except NotFound:
+            logger.info(f"Removed old container {cname}")
+        except docker.errors.NotFound:
             pass
 
     # إنشاء Volumes
     for vol in [volume_media, volume_db]:
         try:
             client.volumes.get(vol)
-        except NotFound:
+        except docker.errors.NotFound:
             client.volumes.create(name=vol)
             logger.info(f"Volume {vol} created")
 
@@ -142,30 +168,26 @@ def run_docker(deployment: Deployment, plan: Plan):
             restart_policy={"Name": "unless-stopped"}
         )
     except docker.errors.APIError as e:
+        update_deployment(deployment, "5", "3", container_name)
         logger.error(f"Failed to start DB container {db_container_name}: {e}")
         return False
 
-    # تحديث الحالة
     update_deployment(deployment, "3", "3", container_name)
 
-    # تشغيل حاوية المشروع
+    # ---------------- Environment ----------------
     domain = deployment.domain
-
-    # اجمع متغيرات البيئة من DeploymentEnvVar
     env_vars = {env.var_name.key: env.value for env in DeploymentEnvVar.objects.filter(deployment=deployment)}
-
-    # أضف المتغيرات الثابتة المطلوبة مثل USERNAME و DB...
     fixed_env = {
         "USERNAME": deployment.user.username,
         "PLAN": plan.name,
         "PROJECT": deployment.project.name,
-        "DOMAIN": domain,        
+        "DOMAIN": domain,
         "DATABASE_URL": f"postgres://{db_user}:{db_pass}@{db_container_name}:5432/{db_name}",
         "ALLOWED_HOSTS": f"localhost,127.0.0.1,{domain}",
     }
-
-    # دمج الثوابت مع المتغيرات الديناميكية
     final_env = {**fixed_env, **env_vars}
+
+    # ---------------- Project Container ----------------
     try:
         container = client.containers.run(
             image=image_name,
@@ -181,24 +203,22 @@ def run_docker(deployment: Deployment, plan: Plan):
             detach=True,
             mem_limit=mem_limit,
             cpu_quota=cpu_quota,
-            # storage_opt={'size': storage_limit},
             volumes={volume_media: {'bind': '/app/media', 'mode': 'rw'}},
             environment=final_env,
             network=network_name,
             restart_policy={"Name": "unless-stopped"}
         )
-
         deployment.volume_media = volume_media
         update_deployment(deployment, "4", "2", container_name, port)
         deployment.domain = domain
         deployment.save()
         logger.info(f"Deployment succeeded: {container_name} on port {port}")
         return True
-
     except (DockerException, APIError, ContainerError) as e:
         update_deployment(deployment, "5", "3", container_name)
         logger.error(f"Deployment failed for {container_name}: {e}")
         return False
+
 
 
 def delete_docker(deployment: Deployment):
