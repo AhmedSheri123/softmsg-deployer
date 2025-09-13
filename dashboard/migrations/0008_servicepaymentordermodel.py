@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('subscription_id', models.CharField(max_length=254, null=True)),
                 ('progress_paid_plan_scope', models.CharField(choices=[('1', 'Monthly'), ('2', 'Yearly')], max_length=254, null=True)),
-                ('orderID', models.CharField(default=dashboard.models.payOrderCodeGen, max_length=250, null=True, verbose_name='الاسم الثلاثي')),
+                ('orderID', models.CharField(default='', max_length=250, null=True, verbose_name='الاسم الثلاثي')),
                 ('transactionNo', models.CharField(max_length=250, null=True)),
                 ('is_buyed', models.BooleanField(default=False)),
                 ('creation_date', models.DateTimeField(null=True, verbose_name='تاريخ الانشاء')),

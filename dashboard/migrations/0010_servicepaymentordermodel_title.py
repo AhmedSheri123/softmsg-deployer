@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='servicepaymentordermodel',
             name='title',
-            field=models.CharField(default=dashboard.models.payOrderCodeGen, max_length=250, null=True, verbose_name='الاسم الثلاثي'),
+            field=models.CharField(default='', max_length=250, null=True, verbose_name='الاسم الثلاثي'),
         ),
     ]
