@@ -187,11 +187,7 @@ def run_docker(deployment: Deployment, plan: Plan):
             network=network_name,
             restart_policy={"Name": "unless-stopped"}
         )
-        exit_code, output = container.exec_run(
-            "python manage.py migrate",
-            stdout=True,
-            stderr=True
-        )
+
         deployment.volume_media = volume_media
         update_deployment(deployment, "4", "2", container_name, port)
         deployment.domain = domain
