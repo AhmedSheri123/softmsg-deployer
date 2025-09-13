@@ -195,10 +195,11 @@ def run_docker(deployment: Deployment, plan: Plan):
             labels={
                 "traefik.enable": "true",
                 f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
-                f"traefik.http.routers.{container_name}.entrypoints": "websecure",
+                f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
                 f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
                 f"traefik.http.services.{container_name}.loadbalancer.server.port": "8000"
             },
+
             ports={"8000/tcp": port},
             detach=True,
             mem_limit=mem_limit,
