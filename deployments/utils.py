@@ -181,7 +181,7 @@ def run_docker(deployment: Deployment, plan: Plan):
             detach=True,
             mem_limit=mem_limit,
             cpu_quota=cpu_quota,
-            storage_opt={'size': storage_limit},
+            # storage_opt={'size': storage_limit},
             volumes={volume_media: {'bind': '/app/media', 'mode': 'rw'}},
             environment=final_env,
             network=network_name,
