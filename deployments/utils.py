@@ -187,20 +187,21 @@ def run_docker(deployment: Deployment, plan: Plan):
     }
     final_env = {**fixed_env, **env_vars}
 
+    # Traefik labels
+    labels = {
+        "traefik.enable": "true",
+        f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
+        f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
+        f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
+        f"traefik.http.services.{container_name}.loadbalancer.server.port": "8000"
+    }
+
     # ---------------- Project Container ----------------
     try:
         container = client.containers.run(
             image=image_name,
             name=container_name,
-            labels={
-                "traefik.enable": "true",
-                f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
-                f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
-                f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
-                f"traefik.http.services.{container_name}.loadbalancer.server.port": "8000"
-            },
-
-            ports={"8000/tcp": port},
+            labels=labels,
             detach=True,
             mem_limit=mem_limit,
             cpu_quota=cpu_quota,
@@ -209,6 +210,7 @@ def run_docker(deployment: Deployment, plan: Plan):
             network=network_name,
             restart_policy={"Name": "unless-stopped"}
         )
+
         deployment.volume_media = volume_media
         update_deployment(deployment, "4", "2", container_name, port)
         deployment.domain = domain
