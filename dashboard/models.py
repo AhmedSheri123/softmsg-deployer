@@ -4,12 +4,6 @@ import random, string, datetime
 from django.utils.translation import gettext_lazy as _ 
 # Create your models here.
 
-def payOrderCodeGen(N = 4):
-    res = ''.join(random.choices(string.digits, k=N))
-    order = ServicePaymentOrderModel.objects.filter(orderID=res)
-    if order.exists():
-        res = payOrderCodeGen(N+1)
-    return 'o' + str(res)
 
 def payOrderSecretCodeGen():
     N = 99
