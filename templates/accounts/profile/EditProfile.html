@@ -1,0 +1,246 @@
+{% extends "dashboard_base.html" %}
+{% load static %}
+{% load i18n %}
+{% block links %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
+{% endblock links %}
+{% block sheri %}
+
+{% comment %} <div class="bg-light-orange p-3">
+    <a href="{% url 'AddService' %}" class="btn btn-light">Add Service</a>
+</div> {% endcomment %}
+
+<!-- Project Form -->
+<div class="container p-4 ">
+    <h5>{% trans "Edit profile" %}</h5>
+
+    <form class="bg-body-tertiary p-4 rounded needs-validation" novalidate id="project_form" method="post">
+        <div class="text-center">
+            {% if user.userprofile.img_base64 %}
+            <div id="cropped-result">
+              <div class="carousel-item-content position-relative d-inline-block rounded-circle overflow-hidden" id="cropped-result">
+                <img src="{{user.userprofile.img_base64}}" width="150" alt="..." data-bs-toggle="modal" data-bs-target="#cropImagePop">
+                <input type="hidden" value="{{user.userprofile.img_base64}}" id="userprofile-avatar" name="profile_img" class="form-control" >
+                <i class="bi bi-trash-fill position-absolute fixed-bottom bg-dark text-light" role="button" onclick="CarouselOnclickRemove()"></i>
+              </div>
+            </div>
+            {% else %}
+            <div id="cropped-result">
+              <img src="{% static 'img/profile_default/default-profile-img-2.png' %}" class="d-inline-block rounded-circle mx-auto" width="150" data-bs-toggle="modal" data-bs-target="#cropImagePop">
+              <input type="hidden" id="userprofile-avatar" name="profile_img" class="form-control" >
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn bg-light-orange mt-2 mb-4" style="margin: auto;display: block;" data-bs-toggle="modal" data-bs-target="#cropImagePop">
+            {% trans "Upload profile image" %} 
+        </button>
+        <!-- End Button trigger modal -->
+
+        {% csrf_token %}
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-pen"></i>
+                    {% trans "First name" %}
+                </label>
+                {{user_form.first_name}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill your first name." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-pen"></i>
+                    {% trans "Last name" %}
+                </label>
+                {{user_form.last_name}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill your last name." %}
+                  </div>
+            </div>
+
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-pen"></i>
+                    {% trans "Email" %}
+                </label>
+                {{user_form.email}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill your email." %}
+                  </div>
+            </div>
+
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-pen"></i>
+                    {% trans "Phone number" %}
+                </label>
+                {{userprofile_form.phone_number}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill your phone number." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-pen"></i>
+                    {% trans "Company name" %}
+                </label>
+                {{userprofile_form.company_name}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill your company name." %}
+                  </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn bg-light-orange">
+            {% trans "Save" %}
+            <i class="bi bi-floppy"></i>
+        </button>
+    </form>
+</div>
+<!-- End Project Form -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="cropImagePop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <!-- <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h1 class="fw-bold mb-0 fs-2">Change Profile Image</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> -->
+
+            <div class="modal-body p-5">
+
+                <div class="demo-wrap upload-demo mb-5">
+                    <div class="container mx-0">
+                        <div class="pull-left mb-3">
+
+                            <!-- <label for="exampleInputEmail1" class="form-label">رفع صورة</label> -->
+                            <input type="file" id="upload" class="form-control" value="" accept="image/*" />
+
+                        </div>
+                        <div class="pull-left">
+                            <div class="upload-msg" onclick="document.querySelector('#upload').click()">
+                                {% trans "Preview" %}
+                            </div>
+                            <div class="upload-demo-wrap">
+                                <div id="upload-demo"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-100 mb-2 btn btn-lg rounded-3 bg-light-orange upload-result" type="submit">{% trans "Change" %}</button>
+                <button type="button" class="w-100 mb-2 btn btn-lg rounded-3 btn-dark" data-bs-dismiss="modal">{% trans "Close" %}</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Modal -->
+
+<style>
+.upload-demo .upload-demo-wrap,
+.upload-demo.ready .upload-msg {
+    display: none;
+}
+.upload-demo.ready .upload-result,
+.upload-demo.ready .upload-demo-wrap {
+    display: block;
+}
+.cr-boundary, .cr-boundary img {
+    border-radius: 15px !important;
+}
+
+.upload-demo-wrap {
+    width: min(100%, 300px);
+    height: 300px;
+    margin: 0 auto;
+}
+
+.upload-msg {
+    text-align: center;
+    padding: 50px;
+    font-size: 22px;
+    color: #aaa;
+    width: 260px;
+    margin: 50px auto;
+    border: 1px solid #aaa;
+}
+</style>
+
+<div class="py-4"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+<script>
+  
+    $(document).ready(function(){
+    var $uploadCrop;
+    function readFile(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+    
+        reader.onload = function (e) {
+            $('.upload-demo').addClass('ready');
+            $uploadCrop.croppie('bind', {
+                    url: e.target.result
+            }).then(function(){
+                    console.log('jQuery bind complete');
+            });
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+    else {
+            console.log("Sorry - you're browser doesn't support the FileReader API");
+        }
+    }
+    
+    $uploadCrop = $('#upload-demo').croppie({
+            viewport: {
+                    width: 200,
+                    height: 200,
+                    type: 'circle'
+            },
+            enableExif: true
+    });
+    
+    $('#upload').on('change', function () { readFile(this); });
+    $('.upload-result').on('click', function (ev) {
+    $uploadCrop.croppie('result', {
+      type: 'canvas',
+      size: 'viewport'
+    }).then(function (resp) {
+        // in this hidden input we can send cropped image to server
+        $('#userprofile-avatar').val(resp);
+        $('#cropped-result img').attr('src',resp);
+        $('#cropImagePop').modal('hide');
+    });
+    });    
+    
+    });
+    
+    
+    function CarouselOnclickRemove() {
+      let imgBox = document.querySelector('#cropped-result')
+      imgBox.querySelector('img').src = default_img_profile
+      imgBox.querySelector('input').value = ""
+    }
+    </script>
+{% endblock %}

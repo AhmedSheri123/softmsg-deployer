@@ -1,0 +1,523 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block meta %}
+<meta name="description" content="{% trans "A versatile software suite transforming businesses of all sizes by simplifying complex systems into efficient work environments." %}">
+{% endblock meta %}
+
+{% block sheri %}
+<!-- header -->
+<div class="px-4 py-5 text-center">
+    <div class="py-4 text-body-emphasis">
+      <h1 class="display-5 fw-bold container mb-4">
+        {% trans "Management systems in one place for <br><span class='text-primary'> faster, precise results" %}</span>
+      </h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4">
+            {% trans "A versatile software suite transforming businesses of all sizes by simplifying complex systems into efficient work environments." %}
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a href="{% url 'Signup' %}" class="btn btn-primary btn-lg px-4">
+            {% trans "Get started for free" %}
+            <i class="fa-solid fa-caret-right"></i>
+          </a>
+          <a href="https://wa.me/963980606953" target="_blank" class="btn btn-success btn-lg px-4">
+            {% trans "Contact us" %}
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end header -->
+
+<!-- Trusted industry -->
+<div class="container py-5 text-center">
+    <h2 class="py-4">
+        {% trans "Trusted by industry leaders" %}
+    </h2>
+    <div class="py-4 row row-cols-2 row-cols-sm-3 row-cols-lg-6 g-2 g-lg-3">
+        <div class="col">
+            <i class="fa-brands fa-amazon fa-2x"></i>
+            <span>mazon</span>
+        </div>
+        <div class="col">
+            <i class="fa-brands fa-facebook-f fa-2x"></i>
+            <span>acebook</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-w fa-2x"></i>
+            <span>hatsapp</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-o fa-2x"></i>
+            <span>pen AI</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-d fa-2x"></i>
+            <span>jango</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-u fa-2x"></i>
+            <span>ltra MSG</span>
+        </div>
+
+    </div>
+</div>
+<!-- End Trusted industry -->
+
+
+<!-- Solutions -->
+<div class="container py-5">
+    
+    <div class="bg-black p-4 p-md-5 rounded-4 text-center">
+        <h2 class="text-white">
+            {% trans "Solutions that actually <span class='text-success'>solve <br> your problems</span>" %}
+        </h2>
+
+
+        <ul class="p-0 py-4 row row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-2 g-lg-3 text-white" style="list-style: none;">
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-ticket fa-2x"></i>
+                <p>{% trans "IT tickets" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-list-check fa-2x"></i>
+                <p>{% trans "Tasks" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-chart-simple fa-2x"></i>
+                <p>{% trans "Sales pipeline" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-address-book fa-2x"></i>
+                <p>{% trans "Contacts" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-calendar-check fa-2x"></i>
+                <p>{% trans "Appointments" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-map fa-2x"></i>
+                <p>{% trans "Roadmap planning" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-user-group fa-2x"></i>
+                <p>{% trans "Recruitment" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-users-gear fa-2x"></i>
+                <p>{% trans "Resource management" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-print fa-2x"></i>
+                <p>{% trans "Reporting" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-file-export fa-2x"></i>
+                <p>{% trans "Exporting" %}</p>
+                </button>
+            </li>
+
+            
+    
+        </ul>
+    </div>
+
+</div>
+<!-- End Solutions -->
+
+
+
+<!-- Services Features -->
+ <div class="container py-5">
+    <h2 class="text-center py-4">{% trans "Services Features" %}</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-display fa-3x mb-2"></i>
+                    <p class="text-success my-2">{% trans "Dashboard" %}</p>
+                    <h3 class="py-3">{% trans "User-friendly dashboard" %}</h3>
+                    <p>{% trans "A simple and intuitive interface that allows you to manage all your operations easily, even for non-technical users." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-shield-halved fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Security" %}</p>
+                    <h3 class="py-3">{% trans "Protected from security vulnerabilities" %}</h3>
+                    <p>{% trans "A system equipped with advanced protection technologies to safeguard your data from threats and cyber-attacks." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-cube fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Customize" %}</p>
+                    <h3 class="py-3">{% trans "Customizable" %}</h3>
+                    <p>{% trans "A flexible design that allows you to modify the system to suit your specific business needs." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-tablet-screen-button fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Responsive" %}</p>
+                    <h3 class="py-3">{% trans "Multi-device support" %}</h3>
+                    <p>{% trans "Access the system across different devices such as computers, smartphones, or tablets." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-hand fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Permissions" %}</p>
+                    <h3 class="py-3">{% trans "User management and permissions" %}</h3>
+                    <p>{% trans "An advanced control system that allows you to assign different roles and permissions to users within the system." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-headset fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Support" %}</p>
+                    <h3 class="py-3">{% trans "24/7 technical support" %}</h3>
+                    <p>{% trans "A dedicated support team available around the clock to assist you with any issues or inquiries." %}</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    
+ </div>
+<!-- End Services Features -->
+
+
+
+
+<!-- Customer reviews -->
+<div class="container py-5">
+    <h2 class="text-center py-4 border-top">{% trans "Customer reviews" %}</h2>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col zoom-anim">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload"
+            data-bg="{% static 'img/reviews/background-diva-26694057.webp' %}">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+
+                    <h3 class="my-4 lh-1 fw-bold">{% trans "An all-in-one management solution that has significantly improved our workflow. It's fast, accurate, and incredibly efficient." %}</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="{% static 'img/reviews/review-0.webp' %}" alt="reviewer person 1" width="32" height="32"
+                                class="rounded-circle border border-white" loading="lazy">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"></use>
+                            </svg>
+                            <small>{% trans "Romania" %}</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            <small>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col zoom-anim">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload"
+            data-bg="{% static 'img/reviews/unsplash-photo-3.webp' %}">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h3 class="my-4 lh-1 fw-bold">{% trans "A game-changer for our business! The software's versatility and ease of use have enhanced our productivity like never before." %}</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="{% static 'img/reviews/review-2.webp' %}" alt="reviewer person 2" width="32" height="32"
+                                class="rounded-circle border border-white" loading="lazy">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"></use>
+                            </svg>
+                            <small>{% trans "German" %}</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            <small>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col zoom-anim">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload"
+            data-bg="{% static 'img/reviews/background-rccbtn-61760629.webp'%}">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                    <h3 class="my-4 lh-1 fw-bold">{% trans "We’ve tried several management solutions before, but this one stands out for its efficiency and ease of use." %}</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="{% static 'img/reviews/review-3.webp' %}" alt="reviewer person 3" width="32" height="32"
+                                class="rounded-circle border border-white" loading="lazy">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"></use>
+                            </svg>
+                            <small>{% trans "Romania" %}</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            <small>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Customer reviews -->
+
+
+<!-- Our developers -->
+<div class="container py-5">
+    <h2 class="text-center py-4">{% trans "Our Team" %}</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="px-3 px-sm-5 py-4 text-center btn btn-warning rounded-4">
+                    <img src="{% static 'img/developers/ahmed-sheri.png' %}" width="150" class="rounded-circle" alt="ahmed sheri developer" loading="lazy">
+                    <div class="mb-3">
+                        <h3 class="text-white m-0">Ahmed Sheri</h3>
+                        <span class="text-light text-opacity-75">
+                            <i class="fa-solid fa-briefcase"></i>
+                            {% trans "Backend Dev" %}
+                        </span>
+                    </div>
+
+                    <p>{% trans "A highly skilled and trusted Backend Developer with deep expertise in building secure, integrated systems tailored to your business needs. Specializing in designing robust infrastructures and developing custom solutions that ensure efficiency, high performance, and data security. Your ideal partner for creating a flexible and sustainable system that meets your goals with confidence." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="px-3 px-sm-5 py-4 text-center btn btn-warning rounded-4">
+                    <img src="{% static 'img/developers/mohhamad-sheri.webp' %}" width="150" class="rounded-circle" alt="mohammad sheri developer" loading="lazy">
+                    <div class="mb-3">
+                        <h3 class="text-white m-0">Mohammad Sheri</h3>
+                        <span class="text-light text-opacity-75">
+                            <i class="fa-solid fa-briefcase"></i>
+                            {% trans "UI/UX Designer" %}
+                        </span>
+                    </div>
+
+                    <p>{% trans "A highly skilled UI/UX Designer with expertise in creating innovative user interfaces and seamless user experiences. Focused on achieving a balance between functional aesthetics and ease of use, ensuring an engaging and effective interactive experience for users. Always striving to transform ideas into exceptional designs that contribute to the success of the project and deliver an unparalleled user experience." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="px-3 px-sm-5 py-4 text-center btn btn-warning rounded-4">
+                    <img src="{% static 'img/developers/mohammad-alali.webp' %}" width="150" class="rounded-circle" alt="mohammad alali developer" loading="lazy">
+                    <div class="mb-3">
+                        <h3 class="text-white m-0">Mohammad Alali</h3>
+                        <span class="text-light text-opacity-75">
+                            <i class="fa-solid fa-briefcase"></i>
+                            {% trans "Frontend Designer" %}
+                        </span>
+                    </div>
+
+                    <p>{% trans "An exceptional Frontend Developer with expertise in transforming designs into interactive, user-friendly websites and applications. Focused on writing clean and efficient code, ensuring a seamless user experience across all devices and browsers. A trusted partner in bringing your vision to life with stunning and fully integrated digital interfaces." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="px-3 px-sm-5 py-4 text-center btn btn-warning rounded-4">
+                    <img src="{% static 'img/developers/nour-jalal.webp' %}" width="150" class="rounded-circle" alt="nour jalal manager" loading="lazy">
+                    <div class="mb-3">
+                        <h3 class="text-white m-0">Nour Jalal</h3>
+                        <span class="text-light text-opacity-75">
+                            <i class="fa-solid fa-briefcase"></i>
+                            {% trans "Project Manager" %}
+                        </span>
+                    </div>
+
+                    <p>{% trans "A professional female Project Manager with extensive experience in successfully planning and executing projects. She is responsible for coordinating between different teams, setting objectives and tasks, and managing resources to ensure project delivery on time and within budget. She possesses strong leadership skills and problem-solving abilities, making her a key partner in achieving project success and guiding it toward desired outcomes." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+ <!-- End Our developers -->
+
+<div id="contact-us" class="mb-4"></div>
+
+
+<div id="contact-us" class=""></div>
+
+<!-- Contact -->
+<div class="bg-dark">
+    <div class="container  py-5" style="max-width: 568px;">
+        <h2 class="text-center text-light py-4">{% trans "Do you want to develop a custom program that <span class='text-primary'>meets your specific needs?" %}</span></h2>
+
+        <form method="post" action="{% url 'Contact' %}" class="bg-body-tertiary p-3 p-sm-5 rounded-4 shadow-sm border border-1 mx-auto mb-5 text-primary needs-validation" novalidate>
+            {% csrf_token %}
+
+            <h3 class="mb-3 text-dark-emphasis text-center">{% trans "Contact Form" %}</h3>
+            <hr>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-3">
+                <a href="https://wa.me/963980606953" target="_blank" class="btn btn-success btn-lg px-4">
+                    {% trans "Contact us" %}
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+        <p class="text-dark">{% trans "Fill out the contact form now, and our dedicated team is ready to provide you with the support you need and turn your dreams into reality. Take the first step towards success!" %}</p>
+            <hr>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-user"></i>
+                    {% trans "Full Name" %}
+                </label>
+                {{form.full_name}}
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-envelope"></i>
+                    {% trans "Email address" %}
+                </label>
+                {{form.email}}
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-phone"></i>
+                    {% trans "Phone Number" %}
+                </label>
+                {{form.phone_number}}
+            </div>
+            {% comment %} <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-circle-question"></i>
+                    {% trans "Project Title" %}
+                </label>
+                {{form.project_title}}
+                <div class="form-text">{% trans "Provide a concise title that accurately describes your project." %}</div>
+            </div> {% endcomment %}
+
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">
+                    <i class="fa-solid fa-message"></i>
+                    {% trans "Project Description" %}
+                </label>
+                {{form.project_description}}
+
+                    <div class="form-text">{% trans "Enter a detailed description of your project." %}</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">
+                    <i class="fa-solid fa-clone"></i>
+                    {% trans "Examples of similar websites" %}
+                </label>
+                {{form.similar_websites}}
+
+                    <div class="form-text">{% trans "Provide examples or links to designs and websites you like." %}</div>
+            </div>
+            {% comment %} <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-wallet"></i>
+                    {% trans "Expected budget" %}
+                </label>
+                {{form.expected_budget}}
+                <div class="form-text">{% trans "The planned amount of money to cover project expenses." %}</div>
+            </div> {% endcomment %}
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input shadow" required id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">{% trans "By sending this form I confirm that I have read and accept the Privacy Policy" %}</label>
+                <div class="invalid-feedback">
+                    {% trans "You must agree before submitting." %}
+                  </div>
+              </div>
+            <button class="btn btn-primary mx-auto d-block">
+                {% trans "Submit" %}
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+<!-- End Contact -->
+{% endblock sheri %}

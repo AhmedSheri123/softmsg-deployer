@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block sheri %}
+
+
+ <!-- Contact -->
+ <div class="px-3 my-5">
+    <div class="container py-3 border rounded shadow-lg" style="max-width: 568px;">
+        <form class="p-4 p-sm-5" method="post">
+            {% csrf_token %}
+            <div class="text-center">
+                <img width="130" src="{% static 'img/softmsg-logo.webp' %}" alt="" class="mb-2">
+                <h3 class="mb-3 text-dark">{% trans "Create an account" %}</h3>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-envelope"></i>
+                    {% trans "Email Address" %}
+                </label>
+                {{form.email}}
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-star"></i>
+                    {% trans "Password" %}
+                </label>
+                {{form.password}}
+            </div>
+
+
+            <button class="btn btn-dark mx-auto d-block">
+                {% trans "Log in" %}
+                <i class="fa-solid fa-right-to-bracket"></i>
+            </button>
+        </form>
+    </div>
+</div>
+ <!-- End Contact -->
+
+{% endblock sheri %}

@@ -1,0 +1,204 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+{% block sheri %}
+{% comment %} <div class="bg-light-orange p-3">
+    <a href="{% url 'AddService' %}" class="btn btn-light">Add Service</a>
+</div>
+ {% endcomment %}
+
+
+
+<!-- Project Form -->
+<div class="container p-4 ">
+    <h5>
+        <i class="bi bi-gear-fill"></i>
+        {% trans "School Settings" %}</h5>
+
+    <form class="bg-body-tertiary p-4 rounded needs-validation" novalidate id="project_form" method="post">
+        {% csrf_token %}
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "First name" %}
+                </label>
+                {{form.first_name}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill a first name." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-down"></i>
+                    {% trans "Last name" %}
+                </label>
+                {{form.last_name}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill a last name." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-fingerprint"></i>
+                    {% trans "Username" %}
+                </label>
+                {{form.username}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill a username." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-key"></i>
+                    {% trans "Password" %}
+                </label>
+                {{form.password}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill a password." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-hospital"></i>
+                    {% trans "School name" %}
+                </label>
+                {{form.name}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill a School name." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-telephone"></i>
+                    {% trans "Phone number" %}
+                </label>
+                {{form.number}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill a phone number." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-geo-alt"></i>
+                    {% trans "School address" %}
+                </label>
+                {{form.address}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill a School address." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-geo-alt"></i>
+                    {% trans "Academic Year" %}
+                </label>
+                {{form.academic_year}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill a Academic Year." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-translate"></i>
+                    {% trans "Language" %}
+                </label>
+                {{form.lang}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                </div>
+                <div class="invalid-feedback">
+                    {% trans "Please select a language." %}
+                </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-translate"></i>
+                    {% trans "Country" %}
+                </label>
+                {{form.country}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                </div>
+                <div class="invalid-feedback">
+                    {% trans "Please select a Country." %}
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Progress -->
+        <div class="mb-3">
+            <h5>{% trans "Progress" %}</h5>
+            <div class="row row-cols-2 row-cols-md-4 justify-content-md-between g-4 text-center text-black">
+                <div class="col">
+                    <button type="button" class="btn btn-outline-success px-3 rounded-4 active">
+                        <i class="bi bi-1-square fs-5"></i>
+                    </button>
+                    <span class="fw-bold d-block text-success">
+                      <i class="bi bi-patch-check-fill"></i>
+                      {% trans "Create Project" %}</span>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-success px-3 rounded-4 active">
+                        <i class="bi bi-2-square fs-5"></i>
+                    </button>
+                    <span class="fw-bold d-block text-success">
+                      <i class="bi bi-patch-check-fill"></i>
+                      {% trans "Choose Plan" %}</span>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-dark px-3 rounded-4 active">
+                        <i class="bi bi-3-square fs-5"></i>
+                    </button>
+                    <span class="fw-bold d-block">
+                      <i class="bi bi-hourglass-split"></i>
+                        {% trans "Project Settings" %}</span>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-dark px-3 rounded-4">
+                        <i class="bi bi-4-square fs-5"></i>
+                    </button>
+                    <span class="fw-bold d-block">
+                      <i class="bi bi-patch-exclamation"></i>
+                        {% trans "Done" %}</span>
+                </div>
+            </div>
+        </div>
+        <!-- End Progress -->
+
+
+        <button type="submit" class="btn bg-light-orange">{% trans "Next" %}
+            <i class="bi bi-caret-right-fill"></i>
+        </button>
+    </form>
+</div>
+<!-- End Project Form -->
+<div class="py-4"></div>
+
+
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block sheri %}
+
+
+ <!-- Contact -->
+ <div class="px-3 my-5">
+    <div class="container py-3 border rounded shadow-lg" style="max-width: 568px;">
+        <form class="p-4 p-sm-5" method='post'>
+            {% csrf_token %}
+            <div class="text-center">
+                <img width="130" src="{% static 'img/softmsg-logo.webp' %}" alt="" class="mb-2">
+                <h3 class="mb-3 text-dark">{% trans "Create an account" %}</h3>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2">
+                <div class="mb-3 col">
+                    <label for="exampleFormControlInput1" class="form-label">
+                        {% trans "First Name" %}
+                    </label>
+                    {{user_form.first_name}}
+                </div>
+                <div class="mb-3 col">
+                    <label for="exampleFormControlInput1" class="form-label">
+                        {% trans "Last Name" %}
+                    </label>
+                    {{user_form.last_name}}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-envelope"></i>
+                    {% trans "Email Address" %}
+                </label>
+                {{user_form.email}}
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-phone"></i>
+                    {% trans "Phone" %}
+                </label>
+                {{userprofile_form.phone_number}}
+            </div>
+            
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-building"></i>
+                    {% trans "Company Name" %}
+                </label>
+                {{userprofile_form.company_name}}
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="fa-solid fa-star"></i>
+                    {% trans "Password" %}
+                </label>
+                {{user_form.password}}
+            </div>
+
+
+            <button class="btn btn-dark mx-auto d-block">
+                <i class="fa-solid fa-user"></i>
+                {% trans "Create" %}
+            </button>
+        </form>
+    </div>
+</div>
+ <!-- End Contact -->
+
+{% endblock sheri %}

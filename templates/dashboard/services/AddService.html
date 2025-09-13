@@ -1,0 +1,126 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+{% block sheri %}
+<div class="bg-light-orange p-3">
+    <a href="{% url 'AddService' %}" class="btn btn-light">{% trans "Add Service" %}</a>
+</div>
+
+
+
+
+<!-- Project Form -->
+<div class="container p-4 ">
+    <h5>{% trans "Create Project" %}</h5>
+
+    <form class="bg-body-tertiary p-4 rounded needs-validation" novalidate id="project_form" method="post">
+        {% csrf_token %}
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-pen"></i>
+                    {% trans "Project Name" %}
+                </label>
+                {{form.project_name}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                  </div>
+                  <div class="invalid-feedback">
+                    {% trans "Please fill a project name." %}
+                  </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-hdd"></i>
+                    {% trans "Service" %}
+                </label>
+                {{form.service}}
+                <div class="valid-feedback">
+                    {% trans "Looks good!" %}
+                </div>
+                <div class="invalid-feedback">
+                    {% trans "Please select a service." %}
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">
+                <i class="bi bi-card-list"></i>
+                {% trans "Service Description" %}
+            </label>
+            <textarea class="form-control" id="ServiceDescription" name="" id="" rows="5" disabled></textarea>
+        </div>
+
+        <!-- Progress -->
+        <div class="mb-3">
+            <h5>{% trans "Progress" %}</h5>
+            <div class="row row-cols-2 row-cols-md-4 justify-content-md-between g-4 text-center text-black">
+                <div class="col">
+                    <button type="button" class="btn btn-outline-dark px-3 rounded-4 active">
+                        <i class="bi bi-1-square fs-5"></i>
+                    </button>
+                    <span class="fw-bold d-block">
+                      <i class="bi bi-hourglass-split"></i>
+                      {% trans "Create Project" %}</span>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-dark px-3 rounded-4">
+                        <i class="bi bi-2-square fs-5"></i>
+                    </button>
+                    <span class="fw-bold d-block">
+                      <i class="bi bi-patch-exclamation"></i>
+                      {% trans "Choose Plan" %}</span>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-dark px-3 rounded-4">
+                        <i class="bi bi-3-square fs-5"></i>
+                    </button>
+                    <span class="fw-bold d-block">
+                      <i class="bi bi-patch-exclamation"></i>
+                        {% trans "Project Settings" %}</span>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-dark px-3 rounded-4">
+                        <i class="bi bi-4-square fs-5"></i>
+                    </button>
+                    <span class="fw-bold d-block">
+                      <i class="bi bi-patch-exclamation"></i>
+                        {% trans "Done" %}</span>
+                </div>
+            </div>
+        </div>
+        <!-- End Progress -->
+
+
+        <button type="submit" class="btn bg-light-orange">{% trans "Next" %}
+            <i class="bi bi-caret-right-fill"></i>
+        </button>
+    </form>
+</div>
+<!-- End Project Form -->
+<div class="py-4"></div>
+
+
+<script>
+    const selectService = document.querySelector('#project_form select[name="service"]')
+    selectService.addEventListener('change', GetServiceInfo)
+
+    function GetServiceInfo() {
+        let ServiceDescription = document.querySelector('#ServiceDescription')
+        
+        if (selectService.value) {
+            fetchAsync(`{{service_info_url}}?id=${selectService.value}`).then(data => {
+            if (data) {
+                if (data.status) {
+                    
+                    ServiceDescription.innerHTML = data.subtitle
+                }
+            }
+            })
+
+        } else {
+                ServiceDescription.innerHTML = ''
+        }
+    }
+</script>
+{% endblock %}

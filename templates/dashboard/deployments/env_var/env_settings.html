@@ -1,0 +1,83 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+
+{% block sheri %}
+
+<div class="container py-3">
+    <h4 class="mb-4">{% trans "Settings" %}</h4>
+
+    <form id="env-vars-form">
+        {% csrf_token %}
+
+        <div class="row g-3">
+        {% for env_var in deployment.deploymentenvvar_set.all %}
+            <div class="col-md-6">
+                <label class="form-label fw-bold">{{ env_var.var_name.label }}</label>
+                <input
+                {% if env_var.var_name.is_secret %}type="password"{% else %}type="text"{% endif %}
+                    
+                    name="env_{{ env_var.id }}" 
+                    class="form-control"
+                    value="{{ env_var.value }}"
+                    data-env-id="{{ env_var.id }}"
+                    placeholder="{{ env_var.var_name.label }}"
+                    {% if env_var.var_name.required %}required{% endif %}
+                >
+            </div>
+        {% endfor %}
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success" id="save-env-btn">
+                {% trans "Save All" %}
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const form = document.getElementById('env-vars-form');
+    const button = document.getElementById('save-env-btn');
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        button.disabled = true;
+        const originalText = button.innerHTML;
+        button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...`;
+
+        const data = {};
+        form.querySelectorAll('input[name^="env_"]').forEach(input => {
+            const envId = input.dataset.envId;
+            data[envId] = input.value;
+        });
+
+        fetch("{% url 'update_all_env_vars' deployment.id %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(resp => {
+            button.disabled = false;
+            button.innerHTML = originalText;
+
+            if(resp.success){
+                showToast(randomGen(), 'نظام', `{% trans 'Environment variables updated successfully!' %}`, '');
+            } else {
+                showToast(randomGen(), 'نظام', `${resp.error}`, '');
+            }
+        })
+        .catch(err => {
+            button.disabled = false;
+            button.innerHTML = originalText;
+            alert("Error: " + err);
+        });
+    });
+});
+</script>
+
+{% endblock sheri %}

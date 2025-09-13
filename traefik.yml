@@ -1,0 +1,24 @@
+# /opt/traefik/traefik.yml
+entryPoints:
+  web:
+    address: ":80"
+
+  websecure:
+    address: ":443"
+
+providers:
+  docker:
+    exposedByDefault: false
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: you@example.com
+      storage: /acme.json
+      httpChallenge:
+        entryPoint: web
+=================================
+
+sudo mkdir -p /opt/traefik
+sudo touch /opt/traefik/acme.json
+sudo chmod 600 /opt/traefik/acme.json

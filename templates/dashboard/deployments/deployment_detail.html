@@ -1,0 +1,201 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+
+{% block sheri %}
+
+<div class="bg-light p-3 mb-3 rounded d-flex flex-wrap gap-2">
+    <a href="http://{{ deployment.domain }}" target="_blank" class="btn btn-dark my-1">{% trans "Go To Dashboard" %}</a>
+    <a href="{% url 'env_settings' deployment.id %}" class="btn btn-dark my-1">{% trans "Settings" %}</a>
+
+
+    {% for action in deployment.project.actions.all %}
+    <button class="btn btn-dark my-1" data-bs-toggle="modal" data-bs-target="#ActionModal{{ action.id }}">
+        {{ action.label }}
+    </button>
+
+    {% include "dashboard/projects/actions/run_action_modal.html" with deployment=deployment action=action %}
+    {% endfor %}
+    <a href="/resources/{{ deployment.project.id }}" target="_blank" class="btn btn-dark my-1">{% trans "Documentations" %}</a>
+</div>
+
+
+<!-- Resources Info -->
+<div class="container p-4">
+
+  <h5>{% trans "Resource Allocation" %}</h5>
+  <div class="row row-cols-1 row-cols-md-3 g-3">
+    {% for res in resources %}
+    <div class="col">
+      <div class="card shadow-sm rounded p-3 h-100">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="d-flex align-items-center gap-2">
+            <span class="fs-4">{{ res.icon|safe }}</span>
+            <h6 class="mb-0">{{ res.name }}</h6>
+          </div>
+          <small class="text-muted" id="label-{{ res.name }}">{{ res.used }} {{ res.unit }}</small>
+        </div>
+
+        <div class="progress mb-2" style="height: 22px;">
+          <div id="progress-{{ res.name }}" class="progress-bar {{ res.color }} progress-bar-striped" role="progressbar"
+               style="width: {{ res.percent }}%;" aria-valuenow="{{ res.percent }}"
+               aria-valuemin="0" aria-valuemax="100">
+            <strong>{{ res.percent }}%</strong>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <small class="text-muted">{{ res.used }} / {{ res.limit }} {{ res.unit }}</small>
+          <small class="text-muted">{{ res.percent }}% {% trans "used" %}</small>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+    <div class="badge  mb-3 d-block mx-auto">
+        <button id="restart-btn" class="btn btn-sm btn-primary my-1">{% trans "Restart" %}</button>
+        <button id="stopstart-btn" class="btn btn-sm btn-dark my-1">
+            {% if deployment.status == 2 %}{% trans "Stop" %}{% else %}{% trans "Start" %}{% endif %}
+        </button>
+        <button id="logs-btn" class="btn btn-sm btn-info my-1">{% trans "Logs" %}</button>
+        <a class="btn btn-danger btn-sm my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">{% trans "Delete" %}</a>
+    </div>
+
+</div>
+<!-- End Resources Info -->
+
+
+
+<!-- Deployment Info -->
+<div class="container p-4">
+    <h5>{% trans "Deployment Info" %}</h5>
+    <div class="bg-body-tertiary p-4 rounded">
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+
+            <div class="col">
+                <label class="form-label"><i class="bi bi-person-up"></i> {% trans "Username" %}</label>
+                <input type="text" class="form-control" disabled value="{{ deployment.user.username }}">
+            </div>
+
+            <div class="col">
+                <label class="form-label"><i class="bi bi-box-seam"></i> {% trans "Project Name" %}</label>
+                <input type="text" class="form-control" disabled value="{{ deployment.project.name }}">
+            </div>
+
+            <div class="col">
+                <label class="form-label"><i class="bi bi-hdd"></i> {% trans "Plan" %}</label>
+                <input type="text" class="form-control" disabled value="{{ deployment.plan.name }}">
+            </div>
+
+            <div class="col">
+                <label class="form-label"><i class="bi bi-server"></i> {% trans "Domain" %}</label>
+                <input type="text" class="form-control" disabled value="{{ deployment.domain|default:"N/A" }}">
+            </div>
+
+            <div class="col">
+                <label class="form-label"><i class="bi bi-activity"></i> {% trans "Status" %}</label>
+                <span class="badge 
+                    {% if deployment.status == 'Running' %}bg-success
+                    {% elif deployment.status == 'Stopped' %}bg-danger
+                    {% else %}bg-secondary{% endif %}">
+                    {{ deployment.get_status_display }}
+                </span>
+            </div>
+
+            <div class="col">
+                <label class="form-label"><i class="bi bi-progress-bar"></i> {% trans "Progress" %}</label>
+                <span class="badge 
+                    {% if deployment.progress == '1' %}bg-primary
+                    {% elif deployment.progress == '2' %}bg-warning text-dark
+                    {% elif deployment.progress == '3' %}bg-info text-dark
+                    {% elif deployment.progress == '4' %}bg-success
+                    {% elif deployment.progress == '5' %}bg-danger
+                    {% else %}bg-secondary{% endif %}">
+                    {{ deployment.get_progress_display }}
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Deployment Info -->
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-3 shadow">
+        <div class="modal-body p-4 text-center">
+            <h5 class="mb-0">{% trans "Delete this service?" %}</h5>
+            <p class="mb-0">{% trans "after deleting this service you can't restore again." %}</p>
+        </div>
+        <div class="modal-footer flex-nowrap p-0">
+            <a type="button" href="{% url 'delete_deployment' deployment.id %}" id="yesDelete" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>{% trans "Yes, delete" %}</strong></a>
+            <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">{% trans "No thanks" %}</button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- end Modal  -->
+
+<script>
+function refreshUsage() {
+    fetch("{% url 'deployment_usage_api' deployment.id %}")
+        .then(response => response.json())
+        .then(data => {
+            for (const [key, res] of Object.entries(data)) {
+                const bar = document.querySelector(`#progress-${key}`);
+                const label = document.querySelector(`#label-${key}`);
+                if (bar && label) {
+                    let percent = Math.min(100, Math.round((res.used / res.limit) * 100));
+                    bar.style.width = percent + "%";
+                    bar.setAttribute("aria-valuenow", percent);
+                    bar.className = `progress-bar ${res.color} progress-bar-striped`;
+                    bar.textContent = `${percent}%`;
+                    label.textContent = `${res.used} / ${res.limit} ${res.unit}`;
+                }
+            }
+        })
+        .catch(err => console.error("Usage fetch error:", err));
+}
+
+// تشغيل مباشرة عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", () => {
+    refreshUsage();
+    setInterval(refreshUsage, 5000);
+});
+
+
+
+
+
+document.getElementById("restart-btn").addEventListener("click", () => {
+    fetch("{% url 'restart_deployment' deployment.id %}", {method: "POST", headers: {'X-CSRFToken': '{{ csrf_token }}'}})
+    .then(res => res.json())
+    .then(data => alert(data.message))
+    .catch(err => console.error(err));
+});
+
+document.getElementById("stopstart-btn").addEventListener("click", () => {
+    fetch("{% url 'stopstart_deployment' deployment.id %}", {method: "POST", headers: {'X-CSRFToken': '{{ csrf_token }}'}})
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        location.reload(); // لتحديث زر Stop/Start
+    })
+    .catch(err => console.error(err));
+});
+
+document.getElementById("logs-btn").addEventListener("click", () => {
+    fetch("{% url 'deployment_logs' deployment.id %}")
+    .then(res => res.text())
+    .then(data => {
+        // عرض logs في نافذة صغيرة
+        let logWin = window.open("", "Logs", "width=800,height=600,scrollbars=1");
+        logWin.document.write("<pre>"+data+"</pre>");
+    })
+    .catch(err => console.error(err));
+});
+
+</script>
+
+{% endblock sheri %}

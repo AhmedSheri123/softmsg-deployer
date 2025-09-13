@@ -1,0 +1,71 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+{% block sheri %}
+<div class="bg-light-orange p-3">
+    <a href="{% url 'project_list' %}" class="btn btn-light">{% trans "Buy Service" %}</a>
+</div>
+
+
+
+<div class="container p-4 ">
+    <h5>{% trans "My Service" %}</h5>
+  <div class="tabel-box">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">{% trans "Project" %}</th>
+          <th scope="col">{% trans "Service" %}</th>
+          <th scope="col">{% trans "Status" %}</th>
+          {% comment %} <th scope="col">Subscription</th> {% endcomment %}
+          <th scope="col">{% trans "Options" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for user_service in user_services %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{user_service.project_name}}</td>
+          <td>{{user_service.service.get_service_display}}</td>
+          <td><span class="bg-light-orange px-2 py-1 rounded text-nowrap">{{user_service.get_progress_display}}</span></td>
+          {% comment %} <td>remaining 2 days, {{user_service.remaining_subscription}}</td> {% endcomment %}
+          <td>
+              <a href="{% url 'UserServiceCreationProgress' user_service.id %}" class="btn bg-light-orange my-1">
+                  {% trans "View" %}
+              </a>
+              <a class="btn btn-danger my-1" data-bs-toggle="modal" onclick="deleteItem('{% url 'DeleteService' user_service.id %}')" data-bs-target="#exampleModal">{% trans "Delete" %}</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content rounded-3 shadow">
+      <div class="modal-body p-4 text-center">
+        <h5 class="mb-0">{% trans "Delete this service?" %}</h5>
+        <p class="mb-0">{% trans "after deleting this service you can't restore again." %}</p>
+      </div>
+      <div class="modal-footer flex-nowrap p-0">
+        <a type="button" id="yesDelete" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>{% trans "Yes, delete" %}</strong></a>
+        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">{% trans "No thanks" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal  -->
+
+<script>
+  function deleteItem(id){
+    document.querySelector('#yesDelete').href = id
+  }
+</script>
+{% endblock sheri %}

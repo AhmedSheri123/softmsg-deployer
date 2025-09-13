@@ -1,0 +1,101 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+
+{% block sheri %}
+
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h1 class="display-4 fw-normal text-body-emphasis">{% trans "Plans" %}</h1>
+        <p class="fs-5 text-body-secondary">{{ project.name }}</p>
+    </div>
+
+    <!-- Toggle Monthly/Yearly -->
+    <div class="text-center mb-4">
+        <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" onclick="togglePrice('monthly')" name="subscription_type" id="monthly" autocomplete="off" checked>
+            <label class="btn btn-outline-dark" for="monthly">{% trans "Monthly" %}</label>
+
+            <input type="radio" class="btn-check" onclick="togglePrice('yearly')" name="subscription_type" id="yearly" autocomplete="off">
+            <label class="btn btn-outline-dark" for="yearly">{% trans "Yearly" %}</label>
+        </div>
+    </div>
+
+    <!-- Plans Grid -->
+    <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+        {% for plan in plans %}
+        <div class="col">
+            <div class="card shadow-sm rounded-3 {% if plan.Theem %} border-{{ plan.Theem }} {% endif %}">
+                <div class="card-header py-3 {% if plan.Theem %} text-bg-{{ plan.Theem }} {% endif %}">
+                    <h4 class="my-0 fw-normal">{{ plan.name }}</h4>
+                </div>
+                <div class="card-body">
+
+                    <!-- Monthly Price -->
+                    <div class="price monthlyPrice">
+                        <h2 class="card-title pricing-card-title">
+                            {% if plan.monthly_price == 0 %}
+                                {% trans "Free" %}
+                            {% else %}
+                                ${{ plan.monthly_price }}
+                            {% endif %}
+                            <small class="text-body-secondary fw-light">/{% trans "mo" %}</small>
+                        </h2>
+                    </div>
+
+                    <!-- Yearly Price -->
+                    <div class="price yearlyPrice d-none">
+                        <h2 class="card-title pricing-card-title">
+                            {% if plan.yearly_price == 0 %}
+                                {% trans "Free" %}
+                            {% else %}
+                                ${{ plan.yearly_price }}
+                            {% endif %}
+                            <small class="text-body-secondary fw-light">/{% trans "yr" %}</small>
+                        </h2>
+                    </div>
+
+                    <!-- Plan Features -->
+                    <ul class="list-unstyled mt-3 mb-4 text-start">
+                        <li>RAM: {{ plan.ram }} MB</li>
+                        <li>Storage: {{ plan.storage }} GB</li>
+                        <li>CPU: {{ plan.cpu }} cores</li>
+                        <li>Database: {{ plan.database }}</li>
+                        <li>Type: {{ plan.plan_type }}</li>
+                    </ul>
+
+                    <form method="post" action="{% url 'create_order' project.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="plan_id" value="{{ plan.id }}">
+                        <input type="hidden" name="subscription_type" class="subscription_type_input" value="monthly">
+                        <button type="submit" class="w-100 btn btn-lg {% if plan.Theem %} btn-{{ plan.Theem }} {% else %} btn-outline-dark {% endif %}">
+                            {% trans "Select Plan" %}
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<script>
+function togglePrice(type) {
+    const monthly = document.querySelectorAll('.monthlyPrice');
+    const yearly = document.querySelectorAll('.yearlyPrice');
+    const input = document.querySelectorAll('.subscription_type_input');
+    input.forEach(e => e.value = type);
+    
+
+    if (type === 'monthly') {
+        monthly.forEach(e => e.classList.remove('d-none'));
+        yearly.forEach(e => e.classList.add('d-none'));
+    } else {
+        monthly.forEach(e => e.classList.add('d-none'));
+        yearly.forEach(e => e.classList.remove('d-none'));
+    }
+}
+</script>
+
+{% endblock %}

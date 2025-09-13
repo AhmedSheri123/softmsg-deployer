@@ -1,0 +1,54 @@
+{% load static %}
+{% load i18n %}
+
+<footer class=" py-3 border-top py-5 px-3 px-lg-5">
+    <div class="row row-cols-1 row-cols-md-2">
+      <ul class="nav justify-content-start  pb-3 mb-3">
+        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link px-2 text-body-secondary">{% trans "Home" %}</a></li>
+        {% comment %} <li class="nav-item"><a href="{% url 'index' %}" class="nav-link px-2 text-body-secondary">{% trans "FAQ" %}</a></li> {% endcomment %}
+        <li class="nav-item"><a href="/{{LANGUAGE_CODE}}/#contact-us" class="nav-link px-2 text-body-secondary">{% trans "Contact us" %}</a></li>
+        <li class="nav-item"><a href="{% url 'PrivacyPolicy' %}" class="nav-link px-2 text-body-secondary">{% trans "Privacy Policy" %}</a></li>
+        <li class="nav-item"><a href="/{{LANGUAGE_CODE}}/#contact-us" class="nav-link px-2 text-body-secondary">{% trans "Build Custom System For You" %}</a></li>
+      </ul>
+      <div class="col-md-5 offset-md-1 mb-3">
+        <form method="get" action="{% url 'SubscribeToUs' %}">
+          <h2 class="fs-5">{% trans "Subscribe to our newsletter" %}</h2>
+          <p>{% trans "Monthly digest of what's new and exciting from us." %}</p>
+          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden">{% trans "Email address" %}</label>
+            <input id="newsletter1" type="text" class="form-control" name="email" placeholder="{% trans "Email address" %}">
+            <button class="btn btn-success" type="submit">{% trans "Subscribe" %}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+              <img width="100" src="{% static 'img/softmsg-logo.webp' %}" alt="website logo" loading="lazy">
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2025 SOFTmsg</span>
+        </div>
+{% comment %}     
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex fs-3">
+            <li class="me-3">
+                <a class="text-body-secondary" href="https://www.facebook.com/share/1CjTiEF9cv/">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+            </li>
+            <li class="me-3">
+                <a class="text-body-secondary" href="https://www.instagram.com/softmsg.c/">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </li>
+            <li class="me-3">
+                <a class="text-body-secondary" href="#">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+            </li>
+        </ul> {% endcomment %}
+    </div>
+    
+</footer>

@@ -1,0 +1,67 @@
+body {
+    padding-top: 3.5rem
+}
+
+.bg-black:hover {
+    background-color: #1e1e1e !important;
+}
+
+.bg-gray {
+    background-color: #6C757D;
+}
+.text-gray {
+    color: #6C757D;
+}
+
+
+.glass-eff {
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.zoom-anim, .zoom-anim-small {
+    transition: transform .2s; /* Animation */
+
+
+  }
+.zoom-anim:hover {
+    transform: scale(1.1);
+    z-index: 800;
+}
+
+.zoom-anim-small:hover {
+    transform: scale(1.05);
+    z-index: 800;
+  }
+
+.bg-purple {
+    background-color: purple;
+}
+
+.bg-purple:hover {
+    background-color: rgb(92, 0, 92);
+}
+
+.glass-dark {
+    background: linear-gradient(209.01889947243856deg, rgb(0 0 0 / 34%) 0%, rgb(172 172 172) 100%);
+}
+
+.glass-light-dark {
+    background: linear-gradient(209.01889947243856deg, rgba(199, 199, 199, 0.16) 0%, rgb(247, 247, 247) 100%);
+}
+
+.lazyload {
+    background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP8=');  /* صورة شفافة placeholder */
+    background-size: cover;
+    background-position: center;
+}
+
+
+.lazyloaded {
+    background-image: var(--bg);  /* سيتم تحميل الصورة الخلفية عند ظهور العنصر */
+}

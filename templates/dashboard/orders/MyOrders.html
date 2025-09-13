@@ -1,0 +1,53 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+
+{% block sheri %}
+<div class="bg-light p-3 mb-3 rounded">
+    <a href="{% url 'project_list' %}" class="btn btn-outline-primary">{% trans "Buy Service" %}</a>
+</div>
+
+
+
+<div class="container p-4 ">
+    <h5>{% trans "My Order List" %}</h5>
+    
+    <div class="tabel-box">
+
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">ID</th>
+              <th scope="col">{% trans "Project name" %}</th>
+              <th scope="col">{% trans "Service" %}</th>
+              <th scope="col">{% trans "Scope" %}</th>
+              <th scope="col">{% trans "Status" %}</th>
+              <th scope="col">{% trans "Option" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <th scope="row">1</th>
+              <td>{{order.orderID}}</td>
+              <td>{{order.project.name}}</td>
+              <td>{{order.plan.name}}</td>
+              <td><span class="bg-light-orange px-2 py-1 rounded">{{order.get_duration_display}}</span></td>
+              <td><span class="bg-light-orange px-2 py-1 rounded">{{order.get_progress_display}}</span></td>
+              <td>
+                {% if order.progress == '1' %}
+                <a href="{% url 'ServicePayment' order.orderID %}" class="btn btn-success">{% trans "Continue" %}</a>
+                {% elif order.progress == '2' %}
+                <a href="{% url 'UpgradeOrRenewServiceSubscription' order.orderID %}" class="btn btn-success">{% trans "Use" %}</a>
+                {% endif %}
+                <a href="{% url 'DeleteOrder' order.orderID %}" class="btn btn-danger">{% trans "Delete" %}</a>
+              </td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+</div>
+
+{% endblock sheri %}

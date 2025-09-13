@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block meta %}
+<meta name="description" content="{% trans "Make managing your school easier and more professional with our all-in-one system. From tracking students and organizing classes to managing exams, teachers, and staff, everything is available in one user-friendly and secure platform. Start now and focus on improving education, while we take care of the rest!" %}">
+{% endblock meta %}
+
+{% block sheri %}
+<!-- header -->
+<div class="text-dark px-4 py-5 text-center">
+    <div class="py-4 text-body-emphasis">
+      <h1 class="display-5 fw-bold container mb-4">
+        {% trans "School Management System <br><span class='text-primary'>manage all your operations easily</span>" %}
+      </h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4">
+            {% trans "Make managing your school easier and more professional with our all-in-one system. From tracking students and organizing classes to managing exams, teachers, and staff, everything is available in one user-friendly and secure platform. Start now and focus on improving education, while we take care of the rest!" %}
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a href="{% url 'Signup' %}" class="btn btn-primary btn-lg px-4">
+            {% trans "Get started for free" %}
+            <i class="fa-solid fa-caret-right"></i>
+          </a>
+          <a href="https://wa.me/963980606953" target="_blank" class="btn btn-success btn-lg px-4">
+            {% trans "Contact us" %}
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end header -->
+
+<!-- Trusted industry -->
+<div class="container py-5 text-center">
+    <h2 class="py-4">
+        {% trans "Trusted by industry leaders" %}
+    </h2>
+    <div class="py-4 row row-cols-2 row-cols-sm-3 row-cols-lg-6 g-2 g-lg-3">
+        <div class="col">
+            <i class="fa-brands fa-amazon fa-2x"></i>
+            <span>mazon</span>
+        </div>
+        <div class="col">
+            <i class="fa-brands fa-facebook-f fa-2x"></i>
+            <span>acebook</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-w fa-2x"></i>
+            <span>hatsapp</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-o fa-2x"></i>
+            <span>pen AI</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-d fa-2x"></i>
+            <span>jango</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-u fa-2x"></i>
+            <span>ltra MSG</span>
+        </div>
+
+    </div>
+</div>
+<!-- End Trusted industry -->
+
+<!-- Solutions -->
+<div class="container py-5">
+    
+    <div class="bg-black p-4 p-md-5 rounded-4 text-center">
+        <h2 class="text-white">
+            {% trans "School Management System <span class='text-success'> <br> Solutions</span>" %}
+        </h2>
+
+
+        <ul class="p-0 py-4 row row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-2 g-lg-3 text-white" style="list-style: none;">
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-chart-simple fa-2x"></i>
+                <p>{% trans "Analytics" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-graduation-cap fa-2x"></i>
+                <p>{% trans "Manage Students" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-user-tie fa-2x"></i>
+                <p>{% trans "Manage Employees" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-chalkboard-user fa-2x"></i>
+                <p>{% trans "Manage Teachers" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-street-view fa-2x"></i>
+                <p>{% trans "Manage Guardians" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-book fa-2x"></i>
+                <p>{% trans "Manage Librarys" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-check fa-2x"></i>
+                <p>{% trans "Manage Exams" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-money-bill fa-2x"></i>
+                <p>{% trans "Tuition Fees" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-file-invoice fa-2x"></i>
+                <p>{% trans "Student Invoice & Fees" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-book-bookmark fa-2x"></i>
+                <p>{% trans "Student Loans" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-book-bookmark fa-2x"></i>
+                <p>{% trans "Teacher Loans" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-print fa-2x"></i>
+                <p>{% trans "Reports" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-hand-holding-dollar fa-2x"></i>
+                <p>{% trans "Employee Salarys" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-calendar-check fa-2x"></i>
+                <p>{% trans "Employee Leaves" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-qrcode fa-2x"></i>
+                <p>{% trans "Attendance & Departure" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-wallet fa-2x"></i>
+                <p>{% trans "Financial Affairs" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-shuffle fa-2x"></i>
+                <p>{% trans "Multi Academic Year" %}</p>
+                </button>
+            </li>
+
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-users-gear fa-2x"></i>
+                <p>{% trans "Multi Manager" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-hands-asl-interpreting fa-2x"></i>
+                <p>{% trans "Permissions" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-file-export fa-2x"></i>
+                <p>{% trans "Exporting" %}</p>
+                </button>
+            </li>
+
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-bell fa-2x"></i>
+                <p>{% trans "Notifications" %}</p>
+                </button>
+            </li>
+
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-language fa-2x"></i>
+                <p>{% trans "Multi Languages" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-square-pen fa-2x"></i>
+                <p>{% trans "System Customizing" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                <i class="fa-solid fa-shield fa-2x"></i>
+                <p>{% trans "Protection" %}</p>
+                </button>
+            </li>
+
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-wrench fa-2x"></i>
+                <p>{% trans "Updates" %}</p>
+                </button>
+            </li>
+
+            
+    
+        </ul>
+    </div>
+
+</div>
+<!-- End Solutions -->
+
+
+
+<!-- Services Features -->
+<div class="container py-5">
+    <h2 class="text-center py-4">{% trans "System Features" %}</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-display fa-3x mb-2"></i>
+                    <p class="text-success my-2">{% trans "Dashboard" %}</p>
+                    <h3 class="py-3">{% trans "User-friendly dashboard" %}</h3>
+                    <p>{% trans "A simple and intuitive interface that allows you to manage all your operations easily, even for non-technical users." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-shield-halved fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Security" %}</p>
+                    <h3 class="py-3">{% trans "Protected from security vulnerabilities" %}</h3>
+                    <p>{% trans "A system equipped with advanced protection technologies to safeguard your data from threats and cyber-attacks." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-cube fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Customize" %}</p>
+                    <h3 class="py-3">{% trans "Customizable" %}</h3>
+                    <p>{% trans "A flexible design that allows you to modify the system to suit your specific business needs." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-tablet-screen-button fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Responsive" %}</p>
+                    <h3 class="py-3">{% trans "Multi-device support" %}</h3>
+                    <p>{% trans "Access the system across different devices such as computers, smartphones, or tablets." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-hand fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Permissions" %}</p>
+                    <h3 class="py-3">{% trans "User management and permissions" %}</h3>
+                    <p>{% trans "An advanced control system that allows you to assign different roles and permissions to users within the system." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-headset fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Support" %}</p>
+                    <h3 class="py-3">{% trans "24/7 technical support" %}</h3>
+                    <p>{% trans "A dedicated support team available around the clock to assist you with any issues or inquiries." %}</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    
+ </div>
+<!-- End Services Features -->
+
+
+
+
+<!-- Discibe System -->
+<div class="container py-5">
+    <h2 class="text-center py-4">{% trans "Some pictures of the system" %}</h2>
+    <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="6" aria-label="Slide 7"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" aria-label="Slide 8"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="8" aria-label="Slide 9"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="9" aria-label="Slide 10"></button>
+        </div>
+        <div class="carousel-inner rounded border-0">
+
+          <div class="carousel-item active">
+            <img src="{% static 'services/SchoolManagement/home-page.webp' %}" class="d-block w-100" alt="home page" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Home Page" %}</h3>
+              <p>{% trans "Your main interface provides you with a comprehensive overview of everything you need to know, You can track performance and analyze data with flexibility and speed." %}</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="{% static 'services/SchoolManagement/Financial-Affairs.webp' %}" class="d-block w-100" alt="Financial Affairs" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Financial Affairs Analysis" %}</h3>
+              <p>{% trans "Financial Affairs Analysis offers you a comprehensive and flexible solution for managing your school's finances with ease and precision. Track tuition payments, generate detailed financial reports, and monitor expenses all in one place. With advanced features to manage payroll, budget planning, and financial forecasting, this system ensures you have complete control over your school's financial health. Our platform adapts to your needs, providing insightful data to help you make informed decisions, while maintaining the highest level of security and efficiency." %}</p>
+            </div>
+          </div>
+          
+          <div class="carousel-item">
+            <img src="{% static 'services/SchoolManagement/students.webp' %}" class="d-block w-100" alt="students" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Manage Students" %}</h3>
+              <p>{% trans "Student Management offers a seamless and professional approach to handling all aspects of student administration. From enrollment and academic records to attendance tracking and exam results, our system ensures that every detail is organized and easily accessible. With powerful tools for monitoring student performance and generating comprehensive reports, you can efficiently manage each student’s journey. The system adapts to your school’s unique needs, providing flexibility and precision to keep your operations running smoothly, all while maintaining a user-friendly interface." %}</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="{% static 'services/SchoolManagement/employees.webp' %}" class="d-block w-100" alt="employees" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Manage Employee" %}</h3>
+              <p>{% trans "Our Employee Management section offers a streamlined, professional solution for managing all aspects of your staff, including teachers and administrative personnel. From recruitment and attendance to payroll and performance evaluations, our system provides complete control over employee data. The flexibility of the platform allows for easy tracking of promotions, leaves, and work schedules, ensuring smooth operations. With insightful reporting tools and a user-friendly interface, managing your school’s human resources becomes efficient, precise, and adaptable to your specific needs." %}</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'services/SchoolManagement/attendace-report.webp' %}" class="d-block w-100" alt="attendace report" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Attendance & Departure System" %}</h3>
+              <p>{% trans "Our Attendance & Departure system is designed to provide seamless tracking of both student and employee attendance. With its professional and flexible interface, it allows you to monitor daily attendance records, generate detailed reports, and set automated notifications for absences or tardiness. The system also integrates easily with other modules, offering a comprehensive view of attendance trends. Additionally, it sends real-time notifications to parents when a student arrives or departs, keeping them informed and engaged. Whether you need to track attendance for payroll or student performance, this tool ensures accuracy and efficiency, tailored to the unique requirements of your institution." %}</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'services/SchoolManagement/invoice.webp' %}" class="d-block w-100" alt="invoice" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Student Invoices" %}</h3>
+              <p>{% trans "we offer you a Students Invoice section that allows you to manage invoices easily and professionally. You can issue customized invoices for each student, accurately track payment statuses, and obtain detailed reports on paid and unpaid invoices. With customizable design, you can add your institution's logo and enhance the visual identity of the invoices. Join us today and enjoy flexibility in managing your students' accounts." %}</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'services/SchoolManagement/library.webp' %}" class="d-block w-100" alt="librarys" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Library" %}</h3>
+              <p>{% trans "our Library section offers you a comprehensive solution for efficiently and professionally managing library resources. You can easily add books, organize them, and track loans, ensuring a seamless experience for users. The system provides you with detailed reports to help you make informed decisions about inventory. With a flexible and user-friendly interface, you can access all the information you need with just a few clicks. Join us today and enjoy managing your library with the utmost professionalism." %}</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'services/SchoolManagement/managers.webp' %}" class="d-block w-100" alt="managers" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Permissions" %}</h3>
+              <p>{% trans "The feature for defining user permissions in our system enhances security and flexibility in managing information. You have complete control over each user's permissions based on their needs, ensuring access to sensitive pages and data is limited to those who require it. This ability to customize permissions gives you comprehensive control over the system, helping protect information and ensure efficient workflow. Invest in the solution that provides you with the security and flexibility needed to manage your team effectively." %}</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'services/SchoolManagement/report.webp' %}" class="d-block w-100" alt="report" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Export Report" %}</h3>
+              <p>{% trans "we offer you the ability to generate comprehensive reports with ease and professionalism. You can customize the format of the reports according to your needs, allowing you to present data in a way that highlights important information. With our flexible interface, you can choose different formats and details to include, making it easier for you to make informed decisions. Join us today and enjoy managing your data efficiently and professionally." %}</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'services/SchoolManagement/send-msg.webp' %}" class="d-block w-100" alt="send messages" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Permissions" %}</h3>
+              <p>{% trans "The feature for defining user permissions in our system enhances security and flexibility in managing information. You have complete control over each user's permissions based on their needs, ensuring access to sensitive pages and data is limited to those who require it. This ability to customize permissions gives you comprehensive control over the system, helping protect information and ensure efficient workflow. Invest in the solution that provides you with the security and flexibility needed to manage your team effectively." %}</p>
+            </div>
+          </div>
+
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">{% trans "Previous" %}</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">{% trans "Next" %}</span>
+        </button>
+      </div>
+</div>
+<!-- End Discibe System -->
+
+<!-- Signup -->
+<div class="container py-5">
+    <h2 class="text-center py-4">{% trans "Join the future of school management with our advanced system and get the first 30 days of free and unique experience!" %}</h2>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="{% url 'Signup' %}" class="btn btn-primary btn-lg px-4">
+            {% trans "Get started for free" %}
+            <i class="fa-solid fa-caret-right"></i>
+        </a>
+        <a href="https://wa.me/963980606953" target="_blank" class="btn btn-success btn-lg px-4">
+            {% trans "Contact us" %}
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
+<!-- End Signup -->
+{% endblock %}

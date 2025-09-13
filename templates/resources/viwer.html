@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load resources_tags %}
+
+{% block meta %}
+<meta name="description" content="{{content.desc}}">
+{% endblock meta %}
+
+{% block sheri %}
+
+<div class="container bd-gutter mt-3 my-md-4 bd-layout ">
+    <aside class="bd-sidebar">
+        <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+            <div class="offcanvas-header border-bottom">
+                <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">{{service.name}} docs</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                    data-bs-target="#bdSidebar"></button>
+            </div>
+        
+            <div class="offcanvas-body">
+                <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
+                    <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2">
+                        {% for section in sections %}
+                        <li class="bd-links-group py-2">
+                            <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold mb-2">
+                                {{section.name}}
+                            </strong>
+        
+                            <ul class="list-group ">
+                                {% get_contents_by_section section.id as s_contents %}
+                                {% for s_content in s_contents %}
+                                <li class="list-group-item rounded {% if s_content.id == content.id  %} active {% endif %}">
+                                    <a href="{% url 'view_service_resources' service.id %}?content_id={{s_content.id}}" class="nav-link">{{s_content.name}}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+        
+            </div>
+        </div>
+    </aside>
+    
+    <main class="bd-main order-1 pt-4">
+        <h1 class="bd-title mb-0" id="content">{{content.get_title}}</h1>
+        <p class="bd-lead mb-5">{{content.desc}}</p>
+        {{content.content|safe}}
+    </main>
+</div>
+
+
+
+<style>
+.bd-sidebar {
+    grid-area: sidebar;
+    width: auto;
+}
+@media (min-width: 992px) {
+    .bd-sidebar {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 5rem;
+        display: block !important;
+        height: calc(100vh - 6rem);
+        padding-left: .25rem;
+        margin-left: -.25rem;
+        overflow-y: auto;
+    }
+}
+.bd-gutter {
+    --bs-gutter-x: 3rem;
+    }
+@media (min-width: 992px) {
+    .bd-layout {
+        display: grid;
+        grid-template-areas: "sidebar main";
+        grid-template-columns: 1fr 5fr;
+        gap: 1.5rem;
+    }
+}
+
+
+</style>
+{% endblock sheri %}

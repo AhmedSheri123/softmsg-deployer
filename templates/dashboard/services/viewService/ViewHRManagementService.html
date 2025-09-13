@@ -1,0 +1,204 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+{% block sheri %}
+<div class="bg-light-orange p-3">
+    <a href="http://{{data.user_service.subdomain}}.softmsg.com/login/?username={{data.username}}" target="_blank" class="btn btn-light my-1">{% trans "Go To Dashboard" %}</a>
+    <a data-bs-toggle="modal" data-bs-target="#ResetPasswordModal" class="btn btn-light my-1">{% trans "Reset Password" %}</a>
+    <a href="/resources/4" target="_blank" class="btn btn-light my-1">{% trans "Documentations" %}</a>
+    <a class="btn btn-danger my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">{% trans "Delete" %}</a>
+</div>
+
+
+<div class="container p-4">
+    <h5>Project Info</h5>
+    <div class="bg-body-tertiary p-4 rounded">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Username" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{data.username}}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Project name" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{data.user_service.project_name}}">
+            </div>
+
+        </div>
+        
+        <label class="form-label">
+            <i class="bi bi-tools"></i>
+            {% trans "Login Tools" %}
+        </label>
+        <div>
+            <a href="http://{{data.user_service.subdomain}}.softmsg.com/login/?username={{data.username}}" target="_blank" class="btn btn-dark my-1">{% trans "Go To Dashboard" %}</a>
+            <a data-bs-toggle="modal" data-bs-target="#ResetPasswordModal" class="btn btn-dark my-1">{% trans "Change Password" %}</a>
+            <a href="/resources/4" target="_blank" class="btn btn-dark my-1">{% trans "Documentations" %}</a>
+            <a class="btn btn-danger my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">{% trans "Delete" %}</a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Subscription -->
+<div class="container p-4">
+    <h5>{% trans "Subscription Info" %}</h5>
+    <div class="bg-body-tertiary p-4 rounded">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "title" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{data.subscription.title}}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Plan scope" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{data.subscription.plan_scope}}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Subscription status" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{% if data.subscription.has_subscription %}Active{% else %}Expired{% endif %}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Subscription date" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{data.subscription.creation_date}}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Subscription end date" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{data.subscription.end_date}}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Actions" %}
+                </label>
+                <div>
+                    <form class="d-inline-block" action="{% url 'ServicePlans' data.user_service.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="plan_scope" id="plan_scope" value="{{data.subscription.plan_scope_id}}">
+                        <input type="hidden" name="selected_service_id" id="selected_service_id" value="{{data.user_service.service_subscription_id}}">
+                        <button type="submit" class="btn bg-light-orange">{% trans "Renew plan" %}</button>
+                    </form>
+
+                    <a href="{% url 'ServicePlans' data.user_service.id %}" class="btn btn-success">{% trans "Upgrade plan" %}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Subscription -->
+
+
+<!-- Plan Info -->
+<div class="container p-4 text-center">
+    <h5>{% trans "Plan Info" %}</h5>
+<main>
+    {% for plan in plans_data %}
+
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm {% if plan.theme.type == 'premium' %} border-{{plan.theme.theme}} {% endif %}">
+          <div class="card-header py-3 {% if plan.theme.type == 'premium' %} text-bg-{{plan.theme.theme}} border-{{plan.theme.theme}} {% endif %}">
+            <h4 class="my-0 fw-normal">{{plan.title}}</h4>
+          </div>
+          <div class="card-body">
+
+            <ul class="list-unstyled mt-3 mb-4 text-start row row-cols-1 row-cols-md-2">
+                {% for feature in plan.features %}
+                <li class="d-flex justify-content-between col border-bottom p-1">
+                  <span class="mx-3">
+                    {% if feature.type == 'num' %}
+                        {{feature.value}}
+                    {% elif feature.type == 'bool' %}
+                        {% if feature.value %}
+                            <i class="bi bi-check"></i>
+                        {% else %}
+                            <i class="bi bi-x"></i>
+                        {% endif %}
+                    {% endif %}
+                  </span>
+                  <span>
+                      {{feature.name}}
+                  </span>
+                </li>
+                {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+  </main>
+</div>
+<!-- End Plan Info -->
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-3 shadow">
+        <div class="modal-body p-4 text-center">
+            <h5 class="mb-0">{% trans "Delete this service?" %}</h5>
+            <p class="mb-0">{% trans "after deleting this service you can't restore again." %}</p>
+        </div>
+        <div class="modal-footer flex-nowrap p-0">
+            <a type="button" href="{% url 'DeleteService' data.user_service.id %}" id="yesDelete" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>{% trans "Yes, delete" %}</strong></a>
+            <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">{% trans "No thanks" %}</button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- end Modal  -->
+
+
+<!-- Reset Password Modal -->
+<div class="modal fade" id="ResetPasswordModal" tabindex="-1" aria-labelledby="ResetPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header p-5 pb-4 border-bottom-0">
+            <h1 class="fw-bold mb-0 fs-2">{% trans "Reset Project Password" %}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+    
+          <div class="modal-body p-5 pt-0">
+            <form class="" method="post" action="{% url 'ResetPasswordService' data.user_service.id %}">
+                {% csrf_token %}
+              <div class="form-floating mb-3">
+                <input type="password" name="password" class="form-control rounded-3" id="floatingInput" placeholder="{% trans "New Password" %}">
+                <label for="floatingInput">{% trans "New Password" %}</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" name="password2" class="form-control rounded-3" id="floatingPassword" placeholder="{% trans "repeat new password" %}">
+                <label for="floatingPassword">{% trans "repeat new password" %}</label>
+              </div>
+              <button class="w-100 mb-2 btn btn-lg rounded-3 bg-light-orange" type="submit">{% trans "Reset" %}</button>
+              <small class="text-body-secondary">{% trans "By clicking Reset, you will change the project dashboard password." %}</small>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
+<!-- end Modal  -->
+
+<div class="py-4"></div>
+
+{% endblock %}

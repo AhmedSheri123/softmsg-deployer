@@ -1,0 +1,104 @@
+{% load static %}
+{% load i18n %}
+{% load resources_tags %}
+
+<nav class="navbar navbar-expand-lg fixed-top mt-3">
+  <div class="container-fluid container justify-content-center justify-content-lg-between">
+      
+      {% if '/resources/' in request.path %}
+      <div class="bd-navbar-toggle">
+        <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+          <span class="navbar-toggler-icon"></span>
+          <span class="d-none fs-6 pe-1">{% trans "Browse" %}</span>
+        </button>
+      </div>
+      {% endif %}
+
+      <a class="navbar-brand glass-eff p-2" href="{% url 'index' %}">
+        <img width="130" src="{% static 'img/softmsg-logo.webp' %}" alt="website logo">
+      </a>
+      <button class="navbar-toggler glass-eff" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto p-2 my-3 my-lg-0 ps-4 glass-eff">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'index' %}">{% trans "Home" %}</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {% trans "Services" %}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'HRManagement' %}">{% trans "HR Management" %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'PatientManagement' %}">{% trans "Patient Management" %}</a></li>
+              <li><a class="dropdown-item" href="{% url 'SchoolManagement' %}">{% trans "School Management" %}</a></li>
+              <li><a href="#" class="dropdown-item disabled">{% trans "Inventory Management (Coming Soon)" %}</a></li>
+            </ul>
+          </li>
+
+
+
+          {% comment %} <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#">Pricing</a>
+          </li> {% endcomment %}
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {% trans "Documentations" %}
+            </a>
+            <ul class="dropdown-menu">
+              {% get_doc_services '1' as doc_services %}
+              {% for doc_service in doc_services %}
+              <li><a class="dropdown-item" href="{% url 'view_service_resources' doc_service.id %}">{{doc_service}}</a></li>
+              {% endfor %}
+
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/#contact-us">{% trans "Contact us" %}</a>
+          </li>
+
+        </ul>
+
+
+        <div class="d-flex justify-content-center" role="search">
+          <div class="dropdown me-2">
+            <!-- زر تغيير اللغة -->
+            <button class="btn btn-light dropdown-toggle rounded-4" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-globe" aria-hidden="true"></i> 
+                {% trans "Language" %}
+            </button>
+        
+            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                <form method="post" action="{% url 'change_language' %}" id="language-form">
+                    {% csrf_token %}
+                    <li><button type="submit" name="language" value="en" class="dropdown-item">English</button></li>
+                    <li><button type="submit" name="language" value="ar" class="dropdown-item">العربية</button></li>
+                    <li><button type="submit" name="language" value="ro" class="dropdown-item">română</button></li>
+                    <li><button type="submit" name="language" value="de" class="dropdown-item">Deutsch</button></li>
+                </form>
+            </ul>
+        </div>
+        
+        
+          {% if user.is_authenticated %}
+          <a class="btn btn-dark me-2 rounded-4" href="{% url 'Logout' %}">{% trans "Log out" %}</a>
+          <a class="btn btn-primary me-2 rounded-4" href="{% url 'DashboardHome' %}">{% trans "Dashboard" %}</a>
+          {% else %}
+          <div class="d-flex" role="search">
+            <a class="btn btn-dark me-2 rounded-4" href="{% url 'Login' %}">{% trans "Log in" %}</a>
+            <a class="btn btn-primary me-2 rounded-4" href="{% url 'Signup' %}">
+                {% trans "Sign Up" %}
+                <i class="fa-solid fa-caret-right"></i>
+            </a>
+          </div>
+          {% endif %}
+        </div>
+        
+      </div>
+    </div>
+    
+  </nav>

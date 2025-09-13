@@ -1,0 +1,41 @@
+{% load static %}
+{% load notifications_tags %}
+{% load i18n %}
+
+{% has_not_readed_noti request.user.id as has_not_readed_noti_notification %}
+
+<div class="msgs-main-box">
+    {% get_notifications request.user.id as notifications %}
+    {% for notification in notifications %}
+    {% get_user_profile_img notification.sender.id as profile_image %}
+    <div class="msg-main-box p-2 d-flex align-items-center rounded">
+    {% if profile_image %}
+    <img src="{{profile_image}}" width="50" class="rounded-circle">
+    {% else %}
+    <img src="{% static 'img/profile_default/default-profile-img-2.png' %}" width="50" class="rounded-circle">
+    {% endif %}
+        <div  class="msg-main-content text-decoration-none ms-2 text-dark rounded p-2">
+            <div class="position-relative">
+                <h6 class="m-0">{% if notification.sender.is_superuser %} {% trans "Administrative message" %} {% else %}{{notification.sender.username}}{% endif %}</h6>
+                {% if not request.user in notification.reaed_users.all %}
+                    <span class="position-absolute top-0 start-0 translate-middle p-2 bg-danger border border-light rounded-circle not-readed">
+                        <span class="visually-hidden">{% trans "New alerts" %}</span>
+                    </span>
+                {% endif %}
+            </div>
+            <div class="msg-msg-box row row-cols-2 justify-content-between">
+                <div class="row col" >
+                    <div class="w-100" style="min-width: 200px;">
+                        {{notification.msg|safe}}
+                    </div>
+                </div>
+                  <p class="msg-msg-time text-wrap w-100 m-0 ps-2 text-end col">
+                    {{notification.whenpublished}}
+                  </p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>{% trans "There are no notifications at the moment." %}</p>
+    {% endfor %}
+</div>

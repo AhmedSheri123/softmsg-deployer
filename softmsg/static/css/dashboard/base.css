@@ -1,0 +1,79 @@
+:root {
+--light-orange: 255, 212, 128;
+--light-orange-hover: 200, 212, 128;
+--bs-tertiary-bg-rgb: 245, 241, 229;
+}
+
+.nav.nav-pills li i {
+    font-size: 20px;
+}
+.nav.nav-pills .nav-link.active {
+    color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) !important;
+    background-color: rgb(var(--light-orange)) !important;
+}
+
+.bg-light-orange {
+    background-color: rgb(var(--light-orange));
+}
+.offcanvas-sidbar .nav-link:hover, a.bg-light-orange:hover, .btn.bg-light-orange:hover {
+    background-color: rgba(var(--light-orange-hover), 1);
+}
+.offcanvas-sidbar .nav-link{margin-top: 4px;}
+
+.content-main-box {
+    overflow-x: hidden;
+}
+.tabel-box {
+    overflow-x: scroll;
+}
+
+
+/* Offcanvas Sidbar */
+.offcanvas-sidbar {
+    position: relative;
+
+}
+
+.offcanvas-start.hide, .offcanvas-start.hiding {
+    width: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none;
+    transform: translateX(-100%);
+    filter: blur(10px);
+
+    transition: all .6s ease;
+}
+
+/* .offcanvas-start.hiding a, .offcanvas-start.hide a{
+    opacity: 0 !important;
+    transition: all .6s ease;
+} */
+
+.offcanvas-start.showing, .offcanvas-start.show {
+    width: 280px;
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+    transition: all .6s ease;
+}
+
+/* End Offcanvas Sidbar */
+
+
+
+/* Notifications Messages Popover */
+.msg-main-content:hover {
+    background-color: #f1f1f1;
+}
+.msgs-main-box {
+    max-height: 600px;
+    padding-left: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.MessagesPopover {
+    --bs-popover-max-width: min(100%, 400px); 
+}
+.popover-body {padding-left:5px;}
+.popover-header {text-align: right;}
+/* End Notifications Messages Popover */

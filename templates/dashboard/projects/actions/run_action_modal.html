@@ -1,0 +1,100 @@
+{% load i18n %}
+
+<!-- Modal -->
+<div class="modal fade" id="ActionModal{{ action.id }}" tabindex="-1" aria-labelledby="ActionModalLabel{{ action.id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h1 class="fw-bold mb-0 fs-4">{{ action.label }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form id="actionForm{{ action.id }}" method="post" action="{% url 'run_action' deployment.id action.id %}">
+                    {% csrf_token %}
+
+                    {% for param in action.parameters.all %}
+                        <div class="form-floating mb-3">
+                            {% if param.data_type == "boolean" %}
+                                <select name="{{ param.name }}" class="form-select rounded-3">
+                                    <option value="true">{% trans "Yes" %}</option>
+                                    <option value="false">{% trans "No" %}</option>
+                                </select>
+                                <label>{{ param.label }}</label>
+                            {% else %}
+                                <input 
+                                    type="{% if param.data_type == 'int' %}number{% else %}text{% endif %}" 
+                                    name="{{ param.name }}" 
+                                    class="form-control rounded-3"
+                                    value="{{ param.default|default:'' }}" 
+                                    placeholder="{{ param.label }}"
+                                    {% if param.required %}required{% endif %}
+                                >
+                                <label>{{ param.label }}</label>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <button id="submitBtn{{ action.id }}" type="submit" class="w-100 mb-2 btn btn-lg rounded-3 bg-light-orange">
+                        <span class="btn-text">{{ action.label }}</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
+
+                    <div id="actionResult{{ action.id }}" class="mt-3"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    const form = document.getElementById("actionForm{{ action.id }}");
+    const submitBtn = document.getElementById("submitBtn{{ action.id }}");
+    const btnText = submitBtn.querySelector(".btn-text");
+    const spinner = submitBtn.querySelector(".spinner-border");
+
+
+    form.addEventListener("submit", function(e){
+        e.preventDefault();
+
+        // تفعيل السبينر
+        btnText.classList.add("d-none");
+        spinner.classList.remove("d-none");
+        submitBtn.disabled = true;
+
+        const url = form.getAttribute("action");
+        const formData = new FormData(form);
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+              showToast(randomGen(), 'نظام', `${data.message}`, '')
+                
+                // إغلاق المودال بعد ثانية
+                setTimeout(() => {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById("ActionModal{{ action.id }}"));
+                    modal.hide();
+                }, 1000);
+            } else {
+                showToast(randomGen(), 'نظام', `${data.message || "Error"}`, '')
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            showToast(randomGen(), 'نظام', `Server error`, '')
+        })
+        .finally(() => {
+            // إعادة الزر للوضع الطبيعي
+            btnText.classList.remove("d-none");
+            spinner.classList.add("d-none");
+            submitBtn.disabled = false;
+        });
+    });
+});
+</script>

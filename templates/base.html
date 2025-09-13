@@ -1,0 +1,94 @@
+{% load static %}
+{% load i18n %}
+
+<!doctype html>
+<html lang="{{LANGUAGE_CODE}}" {% if LANGUAGE_CODE == 'ar' or LANGUAGE_CODE == 'he' %}dir="rtl"{% endif %}>
+  <head>
+    <title>SOFTmsg {% trans "for management systems" %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block meta %}
+    {% endblock meta %}
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    {% if LANGUAGE_CODE == 'ar' or LANGUAGE_CODE == 'he' %}
+    <link href="{% static 'bootstrap/css/bootstrap.rtl.min.css' %}" rel="stylesheet">
+    {% else %}
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    {% endif %}
+    <link href="{% static 'css/pages/base.css' %}" rel="stylesheet" media="print" onload="this.onload=null;this.media='all';">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/softmsg-short-logo.webp' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/fontawesome.min.css" integrity="sha512-lauN4D/0AgFUGvmMR+knQnbOADyD/XuQ8VF18I8Ll0+TLvsujshyxvU+uzogmQbSq6qJd5jnUdYtK8ShxXMlSg==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.onload=null;this.media='all';" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/solid.min.css" integrity="sha512-bdqdas3Yr82pkTg5i0X1gcAT3tBXz/8H3J1ec7RyEKAvr/YiSCJNV2dnkukmL8CicjKb9rxmd+ILK8Kg2o2wvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.onload=null;this.media='all';" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/brands.min.css" integrity="sha512-7rXIvd/xj1FnI2zKQjjXzDFxC4twqBByp8yxOgEQJs4C/aNzNyoQsOO7VxH0RgYNhbAYLJLwzqslaP50KTTHIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.onload=null;this.media='all';" />
+    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> {% endcomment %}
+
+    {% comment %} <script src="https://kit.fontawesome.com/69a53501fd.js" crossorigin="anonymous"></script> {% endcomment %}
+  
+  
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11509825034">
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-11509825034');
+    </script>
+  
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HMFY34XGS6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HMFY34XGS6');
+</script>
+  </head>
+  <body >
+
+    {% include "parts/navbar.html" %}
+    {% block sheri %}
+    {% endblock sheri %}
+    {% include "parts/footer.html" %}
+
+    <div class="toast-container start-0 p-3" style="position: fixed; bottom: 40px;" id="toast-box">
+    </div>
+    <script>
+      const default_img_profile = `{% static 'img/profile_default/default-profile-img-2.png' %}`
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/pages/base.js' %}"></script>
+    <script>
+
+      $(document).ready(function() {
+        {% for message in messages %}
+        showToast(randomGen(), 'نظام', '{{message|safe}}', '')
+        {% endfor %}
+      })
+    </script>
+
+        <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/673e69314304e3196ae5df13/1id5slqqb';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js" async=""></script>
+
+
+  </body>
+</html>

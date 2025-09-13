@@ -1,0 +1,90 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+
+{% block sheri %}
+
+<div class="container p-4">
+    <h5>Overall</h5>
+    <div class="py-3 row row-cols-2 justify-content-center justify-content-md-between">
+
+        <div class="col card rounded-4 bg-light-orange me-2 p-2 mt-2" style="width: 15rem;">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-body-secondary">{% trans "Active Service" %}</h6>
+                <h2 class="mt-4">
+                    <i class="bi bi-hdd-stack-fill text-body-secondary"></i>
+                    {{active_user_services}} {% trans "Services" %}
+                </h2>
+                {% trans "last update" %} <strong>{% trans "just now" %}</strong>
+            </div>
+        </div>
+        <div class="col card rounded-4 bg-body-tertiary me-2 p-2 mt-2" style="width: 15rem;">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-body-secondary">{% trans "Copmlited Orders" %}</h6>
+                <h2 class="mt-4">
+                    <i class="bi bi-cart-check-fill text-body-secondary"></i>
+                    {{copmlited_orders}} {% trans "Orders" %}
+                </h2>
+                {% trans "last update" %} <strong>{% trans "just now" %}</strong>
+                {% comment %} last order <strong>3 days ago</strong> {% endcomment %}
+            </div>
+        </div>
+        <div class="col card rounded-4 bg-danger-subtle me-2 p-2 mt-2" style="width: 15rem;">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-body-secondary">{% trans "Uncopmlited Orders" %}</h6>
+                <h2 class="mt-4">
+                    <i class="bi bi-stop-fill text-body-secondary"></i>
+                    {{uncopmlited_orders}} {% trans "Orders" %}
+                </h2>
+                {% trans "last update" %} <strong>{% trans "just now" %}</strong>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div class="container p-4 ">
+    <h5>{% trans "Last Orders" %}</h5>
+
+    <div class="tabel-box">
+
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">ID</th>
+              <th scope="col">{% trans "Project name" %}</th>
+              <th scope="col">{% trans "Service" %}</th>
+              <th scope="col">{% trans "Scope" %}</th>
+              <th scope="col">{% trans "Status" %}</th>
+              <th scope="col">{% trans "Option" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <th scope="row">1</th>
+              <td>{{order.orderID}}</td>
+              <td>{{order.project.name}}</td>
+              <td>{{order.plan.name}}</td>
+              <td><span class="bg-light-orange px-2 py-1 rounded">{{order.get_duration_display}}</span></td>
+              <td><span class="bg-light-orange px-2 py-1 rounded">{{order.get_progress_display}}</span></td>
+              <td>
+                {% if order.progress == '1' %}
+                <a href="{% url 'ServicePayment' order.orderID %}" class="btn btn-success">{% trans "Continue" %}</a>
+                {% elif order.progress == '2' %}
+                <a href="{% url 'UpgradeOrRenewServiceSubscription' order.orderID %}" class="btn btn-success">{% trans "Use" %}</a>
+                {% endif %}
+                <a href="{% url 'DeleteOrder' order.orderID %}" class="btn btn-danger">{% trans "Delete" %}</a>
+              </td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+        </div>
+</div>
+
+{% endblock sheri %}

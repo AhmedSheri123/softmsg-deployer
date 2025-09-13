@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block sheri %}
+<style>
+    .pay-img {
+        width: 75px;
+
+    }
+    .pay-img-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<div style="margin-top: 100px;"></div>
+<div style="padding: 20px;">
+<div style="max-width: 768px; border-radius: 10px; border: 1px solid rgb(216, 216, 216); margin: auto;">
+        <div class="pay-img-box" style="background-color: #f1f1f1; border-bottom: 1px solid rgb(216, 216, 216);padding: 10px;">
+            <img class="pay-img" src="https://static.vecteezy.com/system/resources/previews/020/975/567/original/visa-logo-visa-icon-transparent-free-png.png" alt="">
+            <img class="pay-img" src="https://cdn.icon-icons.com/icons2/1178/PNG/512/mastercard_82049.png" alt="">
+            <img class="pay-img" src="https://alkahhal.com.sa/web/assets/images/Archive/mada-logo.png" alt="">
+        </div>
+        <div style="padding: 10px;">
+            <div class="mt-3 mb-3">
+                <p><strong>{% trans "Service Address" %} :</strong> {{plan.name}}</p>
+                <p><strong>{% trans "Service purchase price" %} :</strong> {{price}}$</p>
+            </div>
+        </div>
+
+        <div class="text-center" style=" padding: 20px;  background-color: #f1f1f1; border-top: 1px solid rgb(216, 216, 216);">
+            <form action="" method="post">
+                <div>
+            {% csrf_token %}
+            <button class="btn btn-warning d-block mx-auto mb-2">
+                        <i class="bi bi-shield-fill-check"></i>
+                        
+                        {% trans "Complete the payment process" %}</button>
+                    <!-- <a class="btn btn-warning">
+                        <i class="bi bi-shield-fill-check"></i>
+                        Paypal</a> -->
+                </div>
+            </form>
+            <div>
+                {{paypal_form.render}}
+
+            </div>
+
+            <p class="mt-3 text-center">
+                <i class="bi bi-shield-lock-fill"></i>
+                {% trans "All payments are made securely." %}</p>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock sheri %}

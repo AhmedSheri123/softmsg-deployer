@@ -1,0 +1,5600 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-27 08:23+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+#: .\accounts\forms.py:13
+msgid "your name..."
+msgstr "Numele dumneavoastră..."
+
+#: .\accounts\forms.py:14
+msgid "your last name..."
+msgstr "Numele tău de familie ..."
+
+#: .\accounts\forms.py:15 .\accounts\forms.py:29 .\pages\forms.py:13
+#: .\pages\forms.py:28
+msgid "name@example.com"
+msgstr "name@example.com"
+
+#: .\accounts\forms.py:24
+msgid "phone number"
+msgstr "număr de telefon"
+
+#: .\accounts\forms.py:25
+msgid "your company name..."
+msgstr "Numele companiei dvs. ..."
+
+#: .\accounts\forms.py:30 .\templates\accounts\login.html:27
+#: .\templates\accounts\signup.html:57
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:76
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:63
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:63
+msgid "Password"
+msgstr "Parolă"
+
+#: .\dashboard\models.py:20 .\templates\parts\navbar.html:35
+msgid "Patient Management"
+msgstr "Managementul pacientului"
+
+#: .\dashboard\models.py:21 .\templates\parts\navbar.html:36
+msgid "School Management"
+msgstr "Managementul școlii"
+
+#: .\dashboard\models.py:22 .\templates\parts\navbar.html:34
+msgid "HR Management"
+msgstr "Managementul resurselor umane"
+
+#: .\dashboard\models.py:26 .\templates\dashboard\services\ServicePlans.html:23
+msgid "Monthly"
+msgstr "Lunar"
+
+#: .\dashboard\models.py:27
+msgid "Yearly"
+msgstr "Anual"
+
+#: .\dashboard\models.py:31
+msgid "Pending"
+msgstr ""
+
+#: .\dashboard\models.py:32
+msgid "Paid"
+msgstr ""
+
+#: .\dashboard\models.py:33 .\dashboard\models.py:41
+msgid "Complited"
+msgstr "A complicat"
+
+#: .\dashboard\models.py:34
+msgid "Cancelled"
+msgstr ""
+
+#: .\dashboard\models.py:38 .\templates\dashboard\services\AddService.html:13
+#: .\templates\dashboard\services\AddService.html:64
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:140
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:138
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:164
+#: .\templates\dashboard\services\ServicePlans.html:92
+msgid "Create Project"
+msgstr "Creați proiect"
+
+#: .\dashboard\models.py:39 .\templates\dashboard\services\AddService.html:72
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:148
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:146
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:172
+#: .\templates\dashboard\services\ServicePlans.html:100
+msgid "Choose Plan"
+msgstr "Alege Planul"
+
+#: .\dashboard\models.py:40 .\templates\dashboard\services\AddService.html:80
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:156
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:154
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:180
+#: .\templates\dashboard\services\ServicePlans.html:108
+msgid "Project Settings"
+msgstr "Setări de proiect"
+
+#: .\dashboard\models.py:45
+msgid "Service Title"
+msgstr "Titlul serviciului"
+
+#: .\dashboard\models.py:46
+msgid "Subtitle"
+msgstr "Subtitlu"
+
+#: .\dashboard\models.py:47 .\dashboard\models.py:62
+#: .\templates\dashboard\home.html:60
+#: .\templates\dashboard\orders\MyOrders.html:22
+#: .\templates\dashboard\services\AddService.html:34
+#: .\templates\dashboard\services\MyServices.html:18
+msgid "Service"
+msgstr "Serviciu"
+
+#: .\dashboard\models.py:49 .\dashboard\models.py:70 .\dashboard\models.py:96
+msgid "Creation Date"
+msgstr "Data creației"
+
+#: .\dashboard\models.py:52
+msgid "Service Model"
+msgstr "Model de serviciu"
+
+#: .\dashboard\models.py:53
+msgid "Service Models"
+msgstr "Modele de servicii"
+
+#: .\dashboard\models.py:60
+#: .\venv\Lib\site-packages\grappelli\templates\admin\object_history.html:27
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\object_history.html:14
+msgid "User"
+msgstr "Utilizator"
+
+#: .\dashboard\models.py:61 .\templates\dashboard\services\AddService.html:21
+msgid "Project Name"
+msgstr "Numele proiectului"
+
+#: .\dashboard\models.py:63 .\templates\dashboard\services\AddService.html:56
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:132
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:130
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:156
+#: .\templates\dashboard\services\ServicePlans.html:84
+msgid "Progress"
+msgstr "Progres"
+
+#: .\dashboard\models.py:65
+msgid "Service Subscription ID"
+msgstr "ID de abonament de serviciu"
+
+#: .\dashboard\models.py:66
+msgid "Service User ID"
+msgstr "ID de utilizator de serviciu"
+
+#: .\dashboard\models.py:67
+msgid "Service Subscription Date"
+msgstr "Data abonamentului de serviciu"
+
+#: .\dashboard\models.py:68
+msgid "Plan Scope"
+msgstr "Domeniul de aplicare"
+
+#: .\dashboard\models.py:73
+msgid "User Service Model"
+msgstr "Modelul serviciului de utilizator"
+
+#: .\dashboard\models.py:74
+msgid "User Service Models"
+msgstr "Modele de servicii de utilizator"
+
+#: .\dashboard\models.py:88
+msgid "User Service"
+msgstr "Serviciu de utilizator"
+
+#: .\dashboard\models.py:89 .\pages\models.py:7
+#: .\templates\pages\index.html:434
+msgid "Full Name"
+msgstr "Numele complet"
+
+#: .\dashboard\models.py:90
+msgid "Subscription ID"
+msgstr "ID de abonament"
+
+#: .\dashboard\models.py:91
+msgid "Paid Plan Scope"
+msgstr "Domeniul de plan plătit"
+
+#: .\dashboard\models.py:92
+msgid "Order ID"
+msgstr "ID de comandă"
+
+#: .\dashboard\models.py:93
+msgid "Order Secret Code"
+msgstr "Comandați cod secret"
+
+#: .\dashboard\models.py:94
+msgid "Transaction Number"
+msgstr "Numărul tranzacției"
+
+#: .\dashboard\models.py:95
+msgid "Order Progress"
+msgstr "Progresul comenzii"
+
+#: .\dashboard\models.py:99
+msgid "Service Payment Order Model"
+msgstr ""
+
+#: .\dashboard\models.py:100
+msgid "Service Payment Order Models"
+msgstr ""
+
+#: .\pages\forms.py:12
+msgid "write your name..."
+msgstr "Scrie -ți numele ..."
+
+#: .\pages\forms.py:14
+msgid "e.g., +1 234 567 890"
+msgstr "De exemplu, +1 234 567 890"
+
+#: .\pages\forms.py:16
+msgid "How can our team help you?"
+msgstr "Cum te poate ajuta echipa noastră?"
+
+#: .\pages\forms.py:17
+msgid "https://example.com"
+msgstr "https://example.com"
+
+#: .\pages\views.py:29
+msgid "Your has been subscribed successfully."
+msgstr "A fost abonat cu succes."
+
+#: .\pages\views.py:38
+msgid ""
+"Your message has been sent successfully. You will be replied after reviewing "
+"the details."
+msgstr ""
+"Mesajul dvs. a fost trimis cu succes. Vi se va răspunde după examinarea "
+"detaliilor."
+
+#: .\templates\accounts\login.html:14 .\templates\accounts\signup.html:14
+msgid "Create an account"
+msgstr "Creați un cont"
+
+#: .\templates\accounts\login.html:20 .\templates\accounts\signup.html:34
+msgid "Email Address"
+msgstr "Adresa de e-mail"
+
+#: .\templates\accounts\login.html:34 .\templates\parts\navbar.html:93
+#: .\venv\Lib\site-packages\grappelli\templates\admin\login.html:26
+#: .\venv\Lib\site-packages\grappelli\templates\admin\login.html:67
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_complete.html:17
+msgid "Log in"
+msgstr "Log in"
+
+#: .\templates\accounts\profile\EditProfile.html:16
+msgid "Edit profile"
+msgstr "Editați profilul"
+
+#: .\templates\accounts\profile\EditProfile.html:38
+msgid "Upload profile image"
+msgstr "Încărcați imaginea profilului"
+
+#: .\templates\accounts\profile\EditProfile.html:47
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:24
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:24
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:24
+msgid "First name"
+msgstr "Prenume"
+
+#: .\templates\accounts\profile\EditProfile.html:51
+#: .\templates\accounts\profile\EditProfile.html:64
+#: .\templates\accounts\profile\EditProfile.html:78
+#: .\templates\accounts\profile\EditProfile.html:92
+#: .\templates\accounts\profile\EditProfile.html:105
+#: .\templates\dashboard\services\AddService.html:25
+#: .\templates\dashboard\services\AddService.html:38
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:28
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:41
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:54
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:67
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:80
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:93
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:106
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:120
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:28
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:41
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:54
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:67
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:80
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:93
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:106
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:119
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:28
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:41
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:54
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:67
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:80
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:93
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:106
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:119
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:132
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:145
+msgid "Looks good!"
+msgstr "Arată bine!"
+
+#: .\templates\accounts\profile\EditProfile.html:54
+msgid "Please fill your first name."
+msgstr "Vă rugăm să completați prenumele."
+
+#: .\templates\accounts\profile\EditProfile.html:60
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:37
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:37
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:37
+msgid "Last name"
+msgstr "Nume"
+
+#: .\templates\accounts\profile\EditProfile.html:67
+msgid "Please fill your last name."
+msgstr "Vă rugăm să completați numele de familie."
+
+#: .\templates\accounts\profile\EditProfile.html:74
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:63
+msgid "Email"
+msgstr "E-mail"
+
+#: .\templates\accounts\profile\EditProfile.html:81
+msgid "Please fill your email."
+msgstr "Vă rugăm să completați e -mailul."
+
+#: .\templates\accounts\profile\EditProfile.html:88
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:102
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:89
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:89
+msgid "Phone number"
+msgstr "Număr de telefon"
+
+#: .\templates\accounts\profile\EditProfile.html:95
+msgid "Please fill your phone number."
+msgstr "Vă rugăm să completați numărul de telefon."
+
+#: .\templates\accounts\profile\EditProfile.html:101
+msgid "Company name"
+msgstr "Numele companiei"
+
+#: .\templates\accounts\profile\EditProfile.html:108
+msgid "Please fill your company name."
+msgstr "Vă rugăm să completați numele companiei."
+
+#: .\templates\accounts\profile\EditProfile.html:114
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list.html:249
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm.html:257
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm_sidebar.html:254
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_sidebar.html:248
+#: .\venv\Lib\site-packages\grappelli\templates\admin\constance\change_list.html:108
+#: .\venv\Lib\site-packages\grappelli\templates\admin\submit_line.html:11
+msgid "Save"
+msgstr "Salva"
+
+#: .\templates\accounts\profile\EditProfile.html:143
+msgid "Preview"
+msgstr "Previzualizare"
+
+#: .\templates\accounts\profile\EditProfile.html:151
+#: .\venv\Lib\site-packages\django\forms\widgets.py:465
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:26
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\tabular.html:78
+#: .\venv\Lib\site-packages\grappelli\templates\related_widget_wrapper.html:10
+msgid "Change"
+msgstr "Schimba"
+
+#: .\templates\accounts\profile\EditProfile.html:152
+msgid "Close"
+msgstr "Aproape"
+
+#: .\templates\accounts\signup.html:19
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:14
+msgid "First Name"
+msgstr "Prenume"
+
+#: .\templates\accounts\signup.html:25
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:15
+msgid "Last Name"
+msgstr "Nume"
+
+#: .\templates\accounts\signup.html:41
+msgid "Phone"
+msgstr "Telefon"
+
+#: .\templates\accounts\signup.html:49
+msgid "Company Name"
+msgstr "Numele companiei"
+
+#: .\templates\accounts\signup.html:65
+msgid "Create"
+msgstr "Crea"
+
+#: .\templates\base.html:7
+msgid "for management systems"
+msgstr "pentru sisteme de management"
+
+#: .\templates\dashboard\home.html:12
+msgid "Active Service"
+msgstr "Serviciu activ"
+
+#: .\templates\dashboard\home.html:15 .\templates\parts\navbar.html:31
+msgid "Services"
+msgstr "Servicii"
+
+#: .\templates\dashboard\home.html:17 .\templates\dashboard\home.html:27
+#: .\templates\dashboard\home.html:39
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:22
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:33
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:44
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:55
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:65
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:75
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:85
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:95
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:22
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:33
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:44
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:55
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:65
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:75
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:85
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:95
+msgid "last update"
+msgstr "Ultima actualizare"
+
+#: .\templates\dashboard\home.html:17 .\templates\dashboard\home.html:27
+#: .\templates\dashboard\home.html:39
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:22
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:33
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:44
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:55
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:65
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:75
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:85
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:95
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:22
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:33
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:44
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:55
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:65
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:75
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:85
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:95
+msgid "just now"
+msgstr "Chiar acum"
+
+#: .\templates\dashboard\home.html:22
+msgid "Copmlited Orders"
+msgstr "Comenzi copMlitate"
+
+#: .\templates\dashboard\home.html:25 .\templates\dashboard\home.html:37
+#: .\templates\parts\dashboard\sidebar.html:26
+msgid "Orders"
+msgstr "Comenzi"
+
+#: .\templates\dashboard\home.html:34
+msgid "Uncopmlited Orders"
+msgstr "Comenzi necompmitabile"
+
+#: .\templates\dashboard\home.html:50
+msgid "Last Orders"
+msgstr "Ultimele comenzi"
+
+#: .\templates\dashboard\home.html:59
+#: .\templates\dashboard\orders\MyOrders.html:21
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:119
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:117
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:117
+msgid "Project name"
+msgstr "Numele proiectului"
+
+#: .\templates\dashboard\home.html:61
+#: .\templates\dashboard\orders\MyOrders.html:23
+msgid "Service progress"
+msgstr "Progresul serviciului"
+
+#: .\templates\dashboard\home.html:62
+#: .\templates\dashboard\orders\MyOrders.html:24
+#: .\templates\dashboard\services\MyServices.html:19
+msgid "Status"
+msgstr "Statut"
+
+#: .\templates\dashboard\home.html:63
+#: .\templates\dashboard\orders\MyOrders.html:25
+msgid "Subscription"
+msgstr "Abonament"
+
+#: .\templates\dashboard\home.html:64
+#: .\templates\dashboard\orders\MyOrders.html:26
+msgid "Scope"
+msgstr "Sfera de aplicare"
+
+#: .\templates\dashboard\home.html:65
+#: .\templates\dashboard\orders\MyOrders.html:27
+msgid "Option"
+msgstr "Opţiune"
+
+#: .\templates\dashboard\home.html:81
+#: .\templates\dashboard\orders\MyOrders.html:43
+msgid "Continue"
+msgstr "Continua"
+
+#: .\templates\dashboard\home.html:83
+#: .\templates\dashboard\orders\MyOrders.html:45
+msgid "Use"
+msgstr "Utilizare"
+
+#: .\templates\dashboard\home.html:85
+#: .\templates\dashboard\orders\MyOrders.html:47
+#: .\templates\dashboard\services\MyServices.html:39
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:8
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:147
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:7
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:144
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:7
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:144
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_confirmation.html:19
+#: .\venv\Lib\site-packages\grappelli\templates\admin\submit_line.html:8
+#: .\venv\Lib\site-packages\grappelli\templates\related_widget_wrapper.html:26
+msgid "Delete"
+msgstr "Şterge"
+
+#: .\templates\dashboard\orders\MyOrders.html:6
+#: .\templates\dashboard\services\AddService.html:5
+#: .\templates\dashboard\services\MyServices.html:5
+msgid "Add Service"
+msgstr "Adăugați serviciu"
+
+#: .\templates\dashboard\orders\MyOrders.html:12
+msgid "My Order List"
+msgstr "Lista mea de comenzi"
+
+#: .\templates\dashboard\services\AddService.html:28
+msgid "Please fill a project name."
+msgstr "Vă rugăm să completați un nume de proiect."
+
+#: .\templates\dashboard\services\AddService.html:41
+msgid "Please select a service."
+msgstr "Vă rugăm să selectați un serviciu."
+
+#: .\templates\dashboard\services\AddService.html:49
+msgid "Service Description"
+msgstr "Descrierea serviciului"
+
+#: .\templates\dashboard\services\AddService.html:88
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:164
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:162
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:188
+#: .\templates\dashboard\services\ServicePlans.html:116
+msgid "Done"
+msgstr "Făcut"
+
+#: .\templates\dashboard\services\AddService.html:95
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:171
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:169
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:195
+#: .\templates\pages\services\HRManagement.html:803
+#: .\templates\pages\services\PatientManagement.html:479
+#: .\templates\pages\services\SchoolManagement.html:418
+msgid "Next"
+msgstr "Următorul"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:16
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:16
+msgid "School Settings"
+msgstr "Setări școlare"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:31
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:31
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:31
+msgid "Please fill a first name."
+msgstr "Vă rugăm să completați un nume."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:44
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:44
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:44
+msgid "Please fill a last name."
+msgstr "Vă rugăm să completați un nume de familie."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:50
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:50
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:50
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:112
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:110
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:110
+msgid "Username"
+msgstr "Nume de utilizator"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:57
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:57
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:57
+msgid "Please fill a username."
+msgstr "Vă rugăm să completați un nume de utilizator."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:70
+msgid "Please fill a Email."
+msgstr "Vă rugăm să completați un e -mail."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:83
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:70
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:70
+msgid "Please fill a password."
+msgstr "Vă rugăm să completați o parolă."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:89
+msgid "Organization Name"
+msgstr "Numele organizației"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:96
+msgid "Please fill a Organization name."
+msgstr "Vă rugăm să completați un nume de organizație."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:109
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:96
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:96
+msgid "Please fill a phone number."
+msgstr "Vă rugăm să completați un număr de telefon."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:116
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:115
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:128
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:133
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:131
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:131
+#: .\templates\parts\navbar.html:73
+msgid "Language"
+msgstr "Limbă"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:123
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:122
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:135
+msgid "Please select a language."
+msgstr "Vă rugăm să selectați o limbă."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:16
+msgid "Hospital Settings"
+msgstr "Setări spitalicești"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:76
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:126
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:124
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:124
+msgid "Hospital name"
+msgstr "Numele spitalului"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:83
+msgid "Please fill a hospital name."
+msgstr "Vă rugăm să completați un nume de spital."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:102
+msgid "Hospital address"
+msgstr "Adresa spitalului"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:109
+msgid "Please fill a hospital address."
+msgstr "Vă rugăm să completați o adresă de spital."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:76
+msgid "School name"
+msgstr "Numele școlii"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:83
+msgid "Please fill a School name."
+msgstr "Vă rugăm să completați un nume de școală."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:102
+msgid "School address"
+msgstr "Adresa școlii"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:109
+msgid "Please fill a School address."
+msgstr "Vă rugăm să completați o adresă școlară."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:115
+msgid "Academic Year"
+msgstr "Anul universitar"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:122
+msgid "Please fill a Academic Year."
+msgstr "Vă rugăm să completați un an academic."
+
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:141
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:19
+msgid "Country"
+msgstr "Ţară"
+
+#: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:148
+msgid "Please select a Country."
+msgstr "Vă rugăm să selectați o țară."
+
+#: .\templates\dashboard\services\MyServices.html:11
+msgid "My Service"
+msgstr "Serviciul meu"
+
+#: .\templates\dashboard\services\MyServices.html:17
+msgid "Project"
+msgstr "Proiect"
+
+#: .\templates\dashboard\services\MyServices.html:22
+msgid "Options"
+msgstr "Opțiuni"
+
+#: .\templates\dashboard\services\MyServices.html:37
+msgid "View"
+msgstr "Vedere"
+
+#: .\templates\dashboard\services\MyServices.html:56
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:264
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:261
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:261
+msgid "Delete this service?"
+msgstr "Ștergeți acest serviciu?"
+
+#: .\templates\dashboard\services\MyServices.html:57
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:265
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:262
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:262
+msgid "after deleting this service you can't restore again."
+msgstr "După ștergerea acestui serviciu, nu puteți restabili din nou."
+
+#: .\templates\dashboard\services\MyServices.html:60
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:268
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:265
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:265
+msgid "Yes, delete"
+msgstr "Da, Ștergeți"
+
+#: .\templates\dashboard\services\MyServices.html:61
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:269
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:266
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:266
+msgid "No thanks"
+msgstr "Nu, mulțumesc"
+
+#: .\templates\dashboard\services\ServicePlans.html:11
+msgid "Plans"
+msgstr "Planuri"
+
+#: .\templates\dashboard\services\ServicePlans.html:26
+msgid "yearly"
+msgstr "anual"
+
+#: .\templates\dashboard\services\ServicePlans.html:41
+msgid "mo"
+msgstr "pentru"
+
+#: .\templates\dashboard\services\ServicePlans.html:42
+#: .\templates\dashboard\services\ServicePlans.html:46
+msgid "Discounted, Save"
+msgstr "Reduceți, salvați"
+
+#: .\templates\dashboard\services\ServicePlans.html:45
+msgid "ye"
+msgstr "voi"
+
+#: .\templates\dashboard\services\ServicePlans.html:72
+msgid "Select"
+msgstr "Selecta"
+
+#: .\templates\dashboard\services\ServicePlans.html:128
+msgid "Compare plans"
+msgstr "Comparați planurile"
+
+#: .\templates\dashboard\services\ServicePlans.html:134
+msgid "Plan"
+msgstr "Plan"
+
+#: .\templates\dashboard\services\ServicePlans.html:168
+msgid "Multi Plans"
+msgstr "Planuri multi"
+
+#: .\templates\dashboard\services\ServicePlans.html:170
+msgid ""
+"Choose from subscription plans designed to meet your needs and benefit from "
+"powerful features that simplify your operations and help you get the most "
+"out of our integrated system. Whether you manage a small business or a large "
+"organization, you'll find the perfect plan that offers the best value for "
+"your investment. Start today and be confident that you're investing in a "
+"service that enhances your efficiency and ensures a smooth experience for "
+"your team."
+msgstr ""
+"Alegeți din planurile de abonament concepute pentru a răspunde nevoilor dvs. "
+"și beneficiați de funcții puternice care vă simplifică operațiunile și vă "
+"ajută să obțineți la maximum sistemul nostru integrat. Indiferent dacă "
+"gestionați o afacere mică sau o organizație mare, veți găsi planul perfect "
+"care oferă cea mai bună valoare pentru investiția dvs. Începeți astăzi și "
+"aveți încredere că investiți într -un serviciu care vă îmbunătățește "
+"eficiența și vă asigură o experiență lină pentru echipa dvs."
+
+#: .\templates\dashboard\services\payment\pay.html:25
+msgid "Service Address"
+msgstr "Adresa de serviciu"
+
+#: .\templates\dashboard\services\payment\pay.html:26
+msgid "Service purchase price"
+msgstr "Prețul de achiziție a serviciilor"
+
+#: .\templates\dashboard\services\payment\pay.html:37
+msgid "Complete the payment process"
+msgstr "Completați procesul de plată"
+
+#: .\templates\dashboard\services\payment\pay.html:50
+msgid "All payments are made securely."
+msgstr "Toate plățile sunt făcute în siguranță."
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:5
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:144
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:5
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:142
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:5
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:142
+msgid "Go To Dashboard"
+msgstr "Mergeți la tabloul de bord"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:6
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:6
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:6
+msgid "Reset Password"
+msgstr "Resetați parola"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:7
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:146
+#: .\templates\parts\navbar.html:50
+msgid "Documentations"
+msgstr "Documentații"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:141
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:139
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:139
+msgid "Login Tools"
+msgstr "Instrumente de autentificare"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:145
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:143
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:143
+msgid "Change Password"
+msgstr "Schimbaţi parola"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:156
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:153
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:153
+msgid "Subscription Info"
+msgstr "Informații despre abonament"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:162
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:159
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:159
+msgid "title"
+msgstr "titlu"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:169
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:166
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:166
+msgid "Plan scope"
+msgstr "Domeniul de aplicare"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:176
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:173
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:173
+msgid "Subscription status"
+msgstr "Starea abonamentului"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:183
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:180
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:180
+msgid "Subscription date"
+msgstr "Data abonamentului"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:190
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:187
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:187
+msgid "Subscription end date"
+msgstr "Data de încheiere a abonamentului"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:197
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:194
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:194
+msgid "Actions"
+msgstr "Acțiuni"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:204
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:201
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:201
+msgid "Renew plan"
+msgstr "Plan de reînnoire"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:207
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:204
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:204
+msgid "Upgrade plan"
+msgstr "Plan de actualizare"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:219
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:216
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:216
+msgid "Plan Info"
+msgstr "Informații despre plan"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:282
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:279
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:279
+msgid "Reset Project Password"
+msgstr "Resetați parola proiectului"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:290
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:291
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:287
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:288
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:287
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:288
+msgid "New Password"
+msgstr "Parolă Nouă"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:294
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:295
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:291
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:292
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:291
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:292
+msgid "repeat new password"
+msgstr "Repetați parola nouă"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:297
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:294
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:294
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm.html:196
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm_sidebar.html:180
+msgid "Reset"
+msgstr "Resetează"
+
+#: .\templates\dashboard\services\viewService\ViewHRManagementService.html:298
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:295
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:295
+msgid "By clicking Reset, you will change the project dashboard password."
+msgstr "Făcând clic pe Resetare, veți schimba parola de bord al proiectului."
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:12
+msgid "Project analytics"
+msgstr "Analiza proiectului"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:17
+msgid "Total Managers"
+msgstr "Total manageri"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:20
+msgid "Managers"
+msgstr "Manageri"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:28
+msgid "Inactive Service"
+msgstr "Serviciu inactiv"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:31
+msgid "Patients"
+msgstr "Pacienți"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:39
+msgid "Total visits"
+msgstr "Vizite totale"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:42
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:53
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:63
+msgid "visits"
+msgstr "vizite"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:50
+#: .\templates\pages\services\PatientManagement.html:100
+msgid "Local visits"
+msgstr "Vizite locale"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:60
+#: .\templates\pages\services\PatientManagement.html:106
+msgid "Home visits"
+msgstr "Vizite la domiciliu"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:70
+msgid "Medical reports"
+msgstr "Rapoarte medicale"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:73
+msgid "reports"
+msgstr "Rapoarte"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:80
+msgid "Local money"
+msgstr "Bani locali"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:90
+msgid "Home money"
+msgstr "Banii de acasă"
+
+#: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:104
+msgid "Project Info"
+msgstr "Informații despre proiect"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:17
+msgid "total Students"
+msgstr "Total studenți"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:20
+msgid "Students"
+msgstr "Studenți"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:28
+msgid "Total Teachers"
+msgstr "Total profesori"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:31
+msgid "Teachers"
+msgstr "Profesori"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:39
+msgid "Total Employees"
+msgstr "Total angajați"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:42
+msgid "Employees"
+msgstr "Angajați"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:50
+msgid "Total Librarys"
+msgstr "Total biblioteci"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:53
+msgid "Librarys"
+msgstr "Biblioteci"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:60
+msgid "Total Budget"
+msgstr "Bugetul total"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:70
+msgid "Total Expense"
+msgstr "Cheltuieli totale"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:80
+msgid "Total Salary"
+msgstr "Salariu total"
+
+#: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:90
+msgid "Total Income"
+msgstr "Venit total"
+
+#: .\templates\dashboard_base.html:9 .\templates\pages\index.html:160
+#: .\templates\pages\services\HRManagement.html:279
+#: .\templates\pages\services\PatientManagement.html:221
+#: .\templates\pages\services\SchoolManagement.html:252
+#: .\templates\parts\navbar.html:90
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:87
+msgid "Dashboard"
+msgstr "Bord"
+
+#: .\templates\notifications\viewNotifications.html:19
+msgid "Administrative message"
+msgstr "Mesaj administrativ"
+
+#: .\templates\notifications\viewNotifications.html:22
+#: .\templates\parts\dashboard\navbar.html:22
+msgid "New alerts"
+msgstr "Alerte noi"
+
+#: .\templates\notifications\viewNotifications.html:39
+msgid "There are no notifications at the moment."
+msgstr "În acest moment nu există notificări."
+
+#: .\templates\pages\PrivacyPolicy.html:6
+msgid ""
+"Clear answers to the most frequently asked questions about our services to "
+"help you get information quickly and easily."
+msgstr ""
+"Răspunsuri clare la cele mai frecvente întrebări despre serviciile noastre "
+"pentru a vă ajuta să obțineți informații rapid și ușor."
+
+#: .\templates\pages\index.html:6 .\templates\pages\index.html:18
+msgid ""
+"A versatile software suite transforming businesses of all sizes by "
+"simplifying complex systems into efficient work environments."
+msgstr ""
+"O suită software versatilă care transformă întreprinderile de toate "
+"dimensiunile prin simplificarea sistemelor complexe în medii de lucru "
+"eficiente."
+
+#: .\templates\pages\index.html:14
+msgid ""
+"Management systems in one place for <br><span class='text-primary'> faster, "
+"precise results"
+msgstr ""
+"Sisteme de management într-un singur loc pentru <br> <span class = 'text-"
+"primar'> rezultate mai rapide și precise"
+
+#: .\templates\pages\index.html:22
+#: .\templates\pages\services\HRManagement.html:22
+#: .\templates\pages\services\HRManagement.html:816
+#: .\templates\pages\services\PatientManagement.html:21
+#: .\templates\pages\services\PatientManagement.html:583
+#: .\templates\pages\services\SchoolManagement.html:21
+#: .\templates\pages\services\SchoolManagement.html:429
+msgid "Get started for free"
+msgstr "Începeți gratuit"
+
+#: .\templates\pages\index.html:26 .\templates\pages\index.html:424
+#: .\templates\pages\services\HRManagement.html:26
+#: .\templates\pages\services\HRManagement.html:820
+#: .\templates\pages\services\PatientManagement.html:25
+#: .\templates\pages\services\PatientManagement.html:587
+#: .\templates\pages\services\SchoolManagement.html:25
+#: .\templates\pages\services\SchoolManagement.html:433
+#: .\templates\parts\footer.html:10 .\templates\parts\navbar.html:62
+msgid "Contact us"
+msgstr "Contactaţi-ne"
+
+#: .\templates\pages\index.html:38
+#: .\templates\pages\services\HRManagement.html:38
+#: .\templates\pages\services\PatientManagement.html:37
+#: .\templates\pages\services\SchoolManagement.html:37
+msgid "Trusted by industry leaders"
+msgstr "Încredere de liderii industriei"
+
+#: .\templates\pages\index.html:76
+msgid ""
+"Solutions that actually <span class='text-success'>solve <br> your problems</"
+"span>"
+msgstr ""
+"Soluții care de fapt <span class = 'text-succes'> rezolvați <br> Problemele "
+"dvs. </span>"
+
+#: .\templates\pages\index.html:84
+msgid "IT tickets"
+msgstr "Bilete"
+
+#: .\templates\pages\index.html:90
+msgid "Tasks"
+msgstr "Sarcini"
+
+#: .\templates\pages\index.html:96
+msgid "Sales pipeline"
+msgstr "Conductă de vânzări"
+
+#: .\templates\pages\index.html:102
+msgid "Contacts"
+msgstr "Contacte"
+
+#: .\templates\pages\index.html:108
+#: .\templates\pages\services\PatientManagement.html:130
+msgid "Appointments"
+msgstr "Numiri"
+
+#: .\templates\pages\index.html:114
+msgid "Roadmap planning"
+msgstr "Planificarea foii de parcurs"
+
+#: .\templates\pages\index.html:120
+msgid "Recruitment"
+msgstr "Recrutare"
+
+#: .\templates\pages\index.html:126
+msgid "Resource management"
+msgstr "Gestionarea resurselor"
+
+#: .\templates\pages\index.html:132
+msgid "Reporting"
+msgstr "Raportare"
+
+#: .\templates\pages\index.html:138
+#: .\templates\pages\services\HRManagement.html:224
+#: .\templates\pages\services\PatientManagement.html:161
+#: .\templates\pages\services\SchoolManagement.html:197
+msgid "Exporting"
+msgstr "Exportator"
+
+#: .\templates\pages\index.html:154
+msgid "Services Features"
+msgstr "Caracteristici de servicii"
+
+#: .\templates\pages\index.html:161
+#: .\templates\pages\services\HRManagement.html:280
+#: .\templates\pages\services\PatientManagement.html:222
+#: .\templates\pages\services\SchoolManagement.html:253
+msgid "User-friendly dashboard"
+msgstr "Tabloul de bord ușor de utilizat"
+
+#: .\templates\pages\index.html:162
+#: .\templates\pages\services\HRManagement.html:281
+#: .\templates\pages\services\PatientManagement.html:223
+#: .\templates\pages\services\SchoolManagement.html:254
+msgid ""
+"A simple and intuitive interface that allows you to manage all your "
+"operations easily, even for non-technical users."
+msgstr ""
+"O interfață simplă și intuitivă care vă permite să vă gestionați cu ușurință "
+"toate operațiunile, chiar și pentru utilizatorii non-tehnici."
+
+#: .\templates\pages\index.html:170
+#: .\templates\pages\services\HRManagement.html:289
+#: .\templates\pages\services\PatientManagement.html:231
+#: .\templates\pages\services\SchoolManagement.html:262
+msgid "Security"
+msgstr "Securitate"
+
+#: .\templates\pages\index.html:171
+#: .\templates\pages\services\HRManagement.html:290
+#: .\templates\pages\services\PatientManagement.html:232
+#: .\templates\pages\services\SchoolManagement.html:263
+msgid "Protected from security vulnerabilities"
+msgstr "Protejat de vulnerabilitățile de securitate"
+
+#: .\templates\pages\index.html:172
+#: .\templates\pages\services\HRManagement.html:291
+#: .\templates\pages\services\PatientManagement.html:233
+#: .\templates\pages\services\SchoolManagement.html:264
+msgid ""
+"A system equipped with advanced protection technologies to safeguard your "
+"data from threats and cyber-attacks."
+msgstr ""
+"Un sistem echipat cu tehnologii avansate de protecție pentru a vă proteja "
+"datele de amenințări și atacuri cibernetice."
+
+#: .\templates\pages\index.html:180
+#: .\templates\pages\services\HRManagement.html:299
+#: .\templates\pages\services\PatientManagement.html:241
+#: .\templates\pages\services\SchoolManagement.html:272
+msgid "Customize"
+msgstr "Personalizați"
+
+#: .\templates\pages\index.html:181
+#: .\templates\pages\services\HRManagement.html:300
+#: .\templates\pages\services\PatientManagement.html:242
+#: .\templates\pages\services\SchoolManagement.html:273
+msgid "Customizable"
+msgstr "Personalizabil"
+
+#: .\templates\pages\index.html:182
+#: .\templates\pages\services\HRManagement.html:301
+#: .\templates\pages\services\PatientManagement.html:243
+#: .\templates\pages\services\SchoolManagement.html:274
+msgid ""
+"A flexible design that allows you to modify the system to suit your specific "
+"business needs."
+msgstr ""
+"Un design flexibil care vă permite să modificați sistemul pentru a se "
+"potrivi nevoilor dvs. specifice de afaceri."
+
+#: .\templates\pages\index.html:190
+#: .\templates\pages\services\HRManagement.html:309
+#: .\templates\pages\services\PatientManagement.html:251
+#: .\templates\pages\services\SchoolManagement.html:282
+msgid "Responsive"
+msgstr "Receptiv"
+
+#: .\templates\pages\index.html:191
+#: .\templates\pages\services\HRManagement.html:310
+#: .\templates\pages\services\PatientManagement.html:252
+#: .\templates\pages\services\SchoolManagement.html:283
+msgid "Multi-device support"
+msgstr "Suport cu mai multe dispozitive"
+
+#: .\templates\pages\index.html:192
+#: .\templates\pages\services\HRManagement.html:311
+#: .\templates\pages\services\PatientManagement.html:253
+#: .\templates\pages\services\SchoolManagement.html:284
+msgid ""
+"Access the system across different devices such as computers, smartphones, "
+"or tablets."
+msgstr ""
+"Accesați sistemul pe diferite dispozitive, cum ar fi computere, smartphone -"
+"uri sau tablete."
+
+#: .\templates\pages\index.html:200
+#: .\templates\pages\services\HRManagement.html:218
+#: .\templates\pages\services\HRManagement.html:319
+#: .\templates\pages\services\PatientManagement.html:155
+#: .\templates\pages\services\PatientManagement.html:261
+#: .\templates\pages\services\PatientManagement.html:466
+#: .\templates\pages\services\SchoolManagement.html:191
+#: .\templates\pages\services\SchoolManagement.html:292
+#: .\templates\pages\services\SchoolManagement.html:391
+#: .\templates\pages\services\SchoolManagement.html:405
+msgid "Permissions"
+msgstr "Permisiuni"
+
+#: .\templates\pages\index.html:201
+#: .\templates\pages\services\HRManagement.html:320
+#: .\templates\pages\services\PatientManagement.html:262
+#: .\templates\pages\services\SchoolManagement.html:293
+msgid "User management and permissions"
+msgstr "Gestionarea utilizatorilor și permisiunile"
+
+#: .\templates\pages\index.html:202
+#: .\templates\pages\services\HRManagement.html:321
+#: .\templates\pages\services\PatientManagement.html:263
+#: .\templates\pages\services\SchoolManagement.html:294
+msgid ""
+"An advanced control system that allows you to assign different roles and "
+"permissions to users within the system."
+msgstr ""
+"Un sistem de control avansat care vă permite să atribuiți diferite roluri și "
+"permisiuni utilizatorilor din sistem."
+
+#: .\templates\pages\index.html:210
+#: .\templates\pages\services\HRManagement.html:329
+#: .\templates\pages\services\PatientManagement.html:271
+#: .\templates\pages\services\SchoolManagement.html:302
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:165
+msgid "Support"
+msgstr "Sprijin"
+
+#: .\templates\pages\index.html:211
+#: .\templates\pages\services\HRManagement.html:330
+#: .\templates\pages\services\PatientManagement.html:272
+#: .\templates\pages\services\SchoolManagement.html:303
+msgid "24/7 technical support"
+msgstr "Sprijin tehnic 24/7"
+
+#: .\templates\pages\index.html:212
+#: .\templates\pages\services\HRManagement.html:331
+#: .\templates\pages\services\PatientManagement.html:273
+#: .\templates\pages\services\SchoolManagement.html:304
+msgid ""
+"A dedicated support team available around the clock to assist you with any "
+"issues or inquiries."
+msgstr ""
+"O echipă de asistență dedicată disponibilă în timpul ceasului pentru a vă "
+"ajuta cu probleme sau întrebări."
+
+#: .\templates\pages\index.html:228
+#: .\templates\pages\services\HRManagement.html:356
+#: .\templates\pages\services\PatientManagement.html:287
+msgid "Customer reviews"
+msgstr "Recenzii ale clienților"
+
+#: .\templates\pages\index.html:236
+#: .\templates\pages\services\HRManagement.html:364
+#: .\templates\pages\services\PatientManagement.html:295
+msgid ""
+"An all-in-one management solution that has significantly improved our "
+"workflow. It's fast, accurate, and incredibly efficient."
+msgstr ""
+"O soluție de management all-in-one care ne-a îmbunătățit semnificativ fluxul "
+"de lucru. Este rapid, precis și incredibil de eficient."
+
+#: .\templates\pages\index.html:246 .\templates\pages\index.html:312
+#: .\templates\pages\services\HRManagement.html:374
+#: .\templates\pages\services\HRManagement.html:439
+#: .\templates\pages\services\PatientManagement.html:305
+#: .\templates\pages\services\PatientManagement.html:370
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:285
+msgid "Romania"
+msgstr "Romania"
+
+#: .\templates\pages\index.html:269
+#: .\templates\pages\services\HRManagement.html:397
+#: .\templates\pages\services\PatientManagement.html:328
+msgid ""
+"A game-changer for our business! The software's versatility and ease of use "
+"have enhanced our productivity like never before."
+msgstr ""
+"Un schimbător de jocuri pentru afacerea noastră! Versatilitatea și ușurința "
+"de utilizare a software -ului ne -au îmbunătățit productivitatea ca "
+"niciodată."
+
+#: .\templates\pages\index.html:279
+#: .\templates\pages\services\HRManagement.html:407
+#: .\templates\pages\services\PatientManagement.html:338
+msgid "German"
+msgstr "german"
+
+#: .\templates\pages\index.html:302
+#: .\templates\pages\services\HRManagement.html:429
+#: .\templates\pages\services\PatientManagement.html:360
+msgid ""
+"We’ve tried several management solutions before, but this one stands out for "
+"its efficiency and ease of use."
+msgstr ""
+"Am mai încercat mai multe soluții de management, dar acesta se remarcă "
+"pentru eficiența și ușurința de utilizare a acestuia."
+
+#: .\templates\pages\index.html:337
+msgid "Our Team"
+msgstr "Echipa noastră"
+
+#: .\templates\pages\index.html:347
+msgid "Backend Dev"
+msgstr "Backend dev"
+
+#: .\templates\pages\index.html:351
+msgid ""
+"A highly skilled and trusted Backend Developer with deep expertise in "
+"building secure, integrated systems tailored to your business needs. "
+"Specializing in designing robust infrastructures and developing custom "
+"solutions that ensure efficiency, high performance, and data security. Your "
+"ideal partner for creating a flexible and sustainable system that meets your "
+"goals with confidence."
+msgstr ""
+"Un dezvoltator de backend cu înaltă calificare și de încredere, cu expertiză "
+"profundă în construirea de sisteme sigure, integrate, adaptate nevoilor "
+"afacerii tale. Specializat în proiectarea infrastructurilor robuste și "
+"dezvoltarea de soluții personalizate care asigură eficiență, performanțe "
+"ridicate și securitate a datelor. Partenerul dvs. ideal pentru crearea unui "
+"sistem flexibil și durabil, care să -și îndeplinească obiectivele cu "
+"încredere."
+
+#: .\templates\pages\index.html:363
+msgid "UI/UX Designer"
+msgstr "UI/UX Designer"
+
+#: .\templates\pages\index.html:367
+msgid ""
+"A highly skilled UI/UX Designer with expertise in creating innovative user "
+"interfaces and seamless user experiences. Focused on achieving a balance "
+"between functional aesthetics and ease of use, ensuring an engaging and "
+"effective interactive experience for users. Always striving to transform "
+"ideas into exceptional designs that contribute to the success of the project "
+"and deliver an unparalleled user experience."
+msgstr ""
+"Un proiectant UI/UX cu înaltă calificare, cu expertiză în crearea de "
+"interfețe inovatoare pentru utilizatori și experiențe de utilizator fără "
+"probleme. Concentrat pe obținerea unui echilibru între estetica funcțională "
+"și ușurința de utilizare, asigurând o experiență interactivă implicit și "
+"eficientă pentru utilizatori. Întotdeauna străduindu -se să transforme "
+"ideile în modele excepționale care contribuie la succesul proiectului și să "
+"ofere o experiență de utilizator inegalabilă."
+
+#: .\templates\pages\index.html:379
+msgid "Frontend Designer"
+msgstr "Frontend Designer"
+
+#: .\templates\pages\index.html:383
+msgid ""
+"An exceptional Frontend Developer with expertise in transforming designs "
+"into interactive, user-friendly websites and applications. Focused on "
+"writing clean and efficient code, ensuring a seamless user experience across "
+"all devices and browsers. A trusted partner in bringing your vision to life "
+"with stunning and fully integrated digital interfaces."
+msgstr ""
+"Un dezvoltator de frontend excepțional, cu expertiză în transformarea "
+"proiectelor în site-uri și aplicații interactive, ușor de utilizat. "
+"Concentrat pe scrierea codului curat și eficient, asigurând o experiență de "
+"utilizator fără probleme pe toate dispozitivele și browserele. Un partener "
+"de încredere în a -ți aduce viziunea la viață cu interfețe digitale "
+"uimitoare și complet integrate."
+
+#: .\templates\pages\index.html:395
+msgid "Project Manager"
+msgstr "Manager de proiect"
+
+#: .\templates\pages\index.html:399
+msgid ""
+"A professional female Project Manager with extensive experience in "
+"successfully planning and executing projects. She is responsible for "
+"coordinating between different teams, setting objectives and tasks, and "
+"managing resources to ensure project delivery on time and within budget. She "
+"possesses strong leadership skills and problem-solving abilities, making her "
+"a key partner in achieving project success and guiding it toward desired "
+"outcomes."
+msgstr ""
+"O manager de proiect profesionist cu experiență vastă în planificarea cu "
+"succes și executarea proiectelor. Ea este responsabilă de coordonarea între "
+"diferite echipe, stabilirea obiectivelor și sarcinilor și gestionarea "
+"resurselor pentru a asigura livrarea proiectului la timp și în buget. Ea "
+"deține abilități puternice de conducere și abilități de rezolvare a "
+"problemelor, ceea ce o face un partener cheie în obținerea succesului "
+"proiectului și ghidarea acestuia către rezultatele dorite."
+
+#: .\templates\pages\index.html:415
+msgid ""
+"Do you want to develop a custom program that <span class='text-"
+"primary'>meets your specific needs?"
+msgstr ""
+"Doriți să dezvoltați un program personalizat care <span class = 'text-"
+"Primary'> satisface nevoile dvs. specifice?"
+
+#: .\templates\pages\index.html:420
+msgid "Contact Form"
+msgstr "Formular de contact"
+
+#: .\templates\pages\index.html:428
+msgid ""
+"Fill out the contact form now, and our dedicated team is ready to provide "
+"you with the support you need and turn your dreams into reality. Take the "
+"first step towards success!"
+msgstr ""
+"Completați acum formularul de contact, iar echipa noastră dedicată este gata "
+"să vă ofere sprijinul de care aveți nevoie și să vă transformați visele în "
+"realitate. Faceți primul pas către succes!"
+
+#: .\templates\pages\index.html:441 .\templates\parts\footer.html:19
+#: .\templates\parts\footer.html:20
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1845
+msgid "Email address"
+msgstr "Adresa de e-mail"
+
+#: .\templates\pages\index.html:448
+msgid "Phone Number"
+msgstr "Număr de telefon"
+
+#: .\templates\pages\index.html:465
+msgid "Project Description"
+msgstr "Descrierea proiectului"
+
+#: .\templates\pages\index.html:469
+msgid "Enter a detailed description of your project."
+msgstr "Introduceți o descriere detaliată a proiectului dvs."
+
+#: .\templates\pages\index.html:474
+msgid "Examples of similar websites"
+msgstr "Exemple de site -uri web similare"
+
+#: .\templates\pages\index.html:478
+msgid "Provide examples or links to designs and websites you like."
+msgstr ""
+"Oferiți exemple sau link -uri către modele și site -uri web care vă place."
+
+#: .\templates\pages\index.html:491
+msgid ""
+"By sending this form I confirm that I have read and accept the Privacy Policy"
+msgstr ""
+"Prin trimiterea acestui formular, confirm că am citit și accept Politica de "
+"confidențialitate"
+
+#: .\templates\pages\index.html:493
+msgid "You must agree before submitting."
+msgstr "Trebuie să fiți de acord înainte de a trimite."
+
+#: .\templates\pages\index.html:497
+msgid "Submit"
+msgstr "Depune"
+
+#: .\templates\pages\services\HRManagement.html:6
+#: .\templates\pages\services\HRManagement.html:18
+msgid ""
+"Save time and effort with an integrated platform to manage employees, "
+"salaries, attendance, evaluations, and much more in one place – for smooth "
+"and efficient management."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:14
+msgid ""
+"Smart Human Resources System <br><span class='text-primary'>Organize your "
+"company and achieve maximum productivity</span>"
+msgstr ""
+"Sistem de resurse umane inteligente <br> <span class = 'text-Primary'> "
+"Organizați-vă compania și obțineți productivitate maximă </span>"
+
+#: .\templates\pages\services\HRManagement.html:75
+msgid "HR Management System <span class='text-success'> <br> Solutions</span>"
+msgstr ""
+"Sistemul de gestionare HR <span class = 'text-succes'> <br> soluții </span>"
+
+#: .\templates\pages\services\HRManagement.html:83
+#: .\templates\pages\services\PatientManagement.html:82
+#: .\templates\pages\services\SchoolManagement.html:82
+msgid "Analytics"
+msgstr "Analitică"
+
+#: .\templates\pages\services\HRManagement.html:89
+msgid "Manage Recruitment"
+msgstr "Gestionează recrutarea"
+
+#: .\templates\pages\services\HRManagement.html:95
+#: .\templates\pages\services\SchoolManagement.html:94
+msgid "Manage Employees"
+msgstr "Gestionați angajații"
+
+#: .\templates\pages\services\HRManagement.html:101
+msgid "Manage Attendance"
+msgstr "Gestionează prezența"
+
+#: .\templates\pages\services\HRManagement.html:108
+msgid "Manage Leave"
+msgstr "Gestionează concediul"
+
+#: .\templates\pages\services\HRManagement.html:114
+msgid "Manage Onboarding"
+msgstr "Gestionează la bord"
+
+#: .\templates\pages\services\HRManagement.html:120
+msgid "PMS"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:126
+msgid "Manage Assets"
+msgstr "Gestionați activele"
+
+#: .\templates\pages\services\HRManagement.html:132
+msgid "Manage Payroll"
+msgstr "Gestionați salarizarea"
+
+#: .\templates\pages\services\HRManagement.html:138
+msgid "Manage Offboarding"
+msgstr "Gestionați offboarding"
+
+#: .\templates\pages\services\HRManagement.html:144
+msgid "Manage Help Desk"
+msgstr "Gestionați biroul de asistență"
+
+#: .\templates\pages\services\HRManagement.html:151
+msgid "Contract Management"
+msgstr "Managementul contractului"
+
+#: .\templates\pages\services\HRManagement.html:157
+msgid "Training & Development"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:163
+msgid "Rewards & Incentives"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:169
+msgid "Disciplinary Actions"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:175
+msgid "Overtime Management"
+msgstr "Managementul orei suplimentare"
+
+#: .\templates\pages\services\HRManagement.html:181
+msgid "Meetings & Appointments"
+msgstr "Întâlniri și programări"
+
+#: .\templates\pages\services\HRManagement.html:187
+msgid "Feedback & Complaints System"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:193
+msgid "Ticketing System"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:199
+msgid "Digital Document Management"
+msgstr "Gestionarea documentelor digitale"
+
+#: .\templates\pages\services\HRManagement.html:206
+#: .\templates\pages\services\SchoolManagement.html:148
+msgid "Reports"
+msgstr "Rapoarte"
+
+#: .\templates\pages\services\HRManagement.html:212
+#: .\templates\pages\services\PatientManagement.html:149
+#: .\templates\pages\services\SchoolManagement.html:185
+msgid "Multi Manager"
+msgstr "Multi Manager"
+
+#: .\templates\pages\services\HRManagement.html:230
+#: .\templates\pages\services\PatientManagement.html:173
+#: .\templates\pages\services\SchoolManagement.html:204
+msgid "Notifications"
+msgstr "Notificări"
+
+#: .\templates\pages\services\HRManagement.html:236
+#: .\templates\pages\services\PatientManagement.html:180
+#: .\templates\pages\services\SchoolManagement.html:211
+msgid "Multi Languages"
+msgstr "Limbi multiple"
+
+#: .\templates\pages\services\HRManagement.html:242
+#: .\templates\pages\services\PatientManagement.html:186
+#: .\templates\pages\services\SchoolManagement.html:217
+msgid "System Customizing"
+msgstr "Personalizarea sistemului"
+
+#: .\templates\pages\services\HRManagement.html:248
+#: .\templates\pages\services\PatientManagement.html:192
+#: .\templates\pages\services\SchoolManagement.html:223
+msgid "Protection"
+msgstr "Protecţie"
+
+#: .\templates\pages\services\HRManagement.html:254
+#: .\templates\pages\services\PatientManagement.html:199
+#: .\templates\pages\services\SchoolManagement.html:230
+msgid "Updates"
+msgstr "Actualizări"
+
+#: .\templates\pages\services\HRManagement.html:260
+msgid "Technical Support"
+msgstr "Asistență tehnică"
+
+#: .\templates\pages\services\HRManagement.html:273
+#: .\templates\pages\services\PatientManagement.html:215
+#: .\templates\pages\services\SchoolManagement.html:246
+msgid "System Features"
+msgstr "Caracteristici de sistem"
+
+#: .\templates\pages\services\HRManagement.html:344
+msgid "Quick Guide to the HR Management System"
+msgstr "Ghid rapid pentru sistemul de management al resurselor umane"
+
+#: .\templates\pages\services\HRManagement.html:463
+msgid "Does this sound like your business?"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:467
+msgid "You are still using outdated paper-based management"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:471
+msgid "Your business struggles with inefficient workflows and slow processes"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:475
+msgid ""
+"You lack a centralized system to manage employees, clients, and financial "
+"data"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:478
+msgid "How would it be if?"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:482
+msgid ""
+"You had a fully digital system to automate and streamline all operations"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:486
+msgid ""
+"Your business can efficiently manage employees and reports through a single "
+"integrated system"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:490
+msgid "Your business was fully automated and optimized for efficiency"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:497
+msgid "A Comprehensive HR Solution<br>for Your Business"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:500
+msgid ""
+"Streamline HR processes, enhance productivity, and manage your workforce "
+"efficiently with our all-in-one solution."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:505
+msgid "Get Started"
+msgstr "Începeți"
+
+#: .\templates\pages\services\HRManagement.html:516
+msgid "Employee Performance"
+msgstr "Performanța angajaților"
+
+#: .\templates\pages\services\HRManagement.html:517
+msgid ""
+"Track and analyze <span class='fw-bold'>employee performance</span> with "
+"real-time insights using our customizable tools."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:525
+msgid "Goal-based evaluations"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:529
+msgid "Automated performance reports"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:533
+msgid "Custom KPI tracking"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:542
+msgid "Employee Engagement"
+msgstr "Angajarea angajaților"
+
+#: .\templates\pages\services\HRManagement.html:543
+msgid ""
+"Boost morale with <span class='fw-bold'>engagement tools</span> and feedback "
+"systems integrated within our solution."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:551
+msgid "Real-time feedback & surveys"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:555
+msgid "Employee recognition programs"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:559
+msgid "Workplace social engagement"
+msgstr "Implicarea socială la locul de muncă"
+
+#: .\templates\pages\services\HRManagement.html:568
+msgid "HR Process Automation"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:569
+msgid ""
+"Automate manual tasks and streamline HR processes with <span class=\"fw-bold"
+"\">smart HR automation tools</span>."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:577
+msgid "Automated payroll & attendance"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:581
+msgid "Self-service employee portal"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:585
+msgid "HR analytics for data-driven decision-making"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:597
+#: .\templates\pages\services\PatientManagement.html:489
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:604
+msgid "How can I get started with an administrative system for my business?"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:610
+msgid ""
+"You can start by creating a free account or by booking a free consultation. "
+"We'll analyze your business needs and recommend the best solution tailored "
+"to your operations."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:619
+#: .\templates\pages\services\PatientManagement.html:496
+msgid "How much does an administrative system cost?"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:625
+#: .\templates\pages\services\PatientManagement.html:502
+msgid ""
+"Pricing depends on the features and scale of the system. We offer flexible "
+"subscription plans and customized solutions based on your business size and "
+"needs."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:634
+#: .\templates\pages\services\PatientManagement.html:511
+msgid "How long does it take to implement the system?"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:640
+#: .\templates\pages\services\PatientManagement.html:517
+msgid ""
+"You can create an account and get started with the system immediately in a "
+"simple and straightforward manner. There's no complex setup required, "
+"allowing you to begin using the system right away."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:649
+#: .\templates\pages\services\PatientManagement.html:526
+msgid "Do you provide training and support after setup?"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:655
+#: .\templates\pages\services\PatientManagement.html:532
+msgid ""
+"Yes, we offer training sessions for your team and ongoing support to ensure "
+"smooth operation of the system. You can always reach out for updates and "
+"troubleshooting."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:664
+#: .\templates\pages\services\PatientManagement.html:541
+msgid "Can I customize the system based on my business needs?"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:670
+#: .\templates\pages\services\PatientManagement.html:547
+msgid ""
+"Absolutely! Our system is modular and can be tailored to match your specific "
+"workflow. We also offer API integrations with existing software you may be "
+"using."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:679
+#: .\templates\pages\services\PatientManagement.html:556
+msgid "Is my business data secure?"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:685
+#: .\templates\pages\services\PatientManagement.html:562
+msgid ""
+"Yes! We prioritize security with encrypted data storage, secure cloud "
+"hosting, and regular system updates to ensure the highest level of "
+"protection."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:704
+msgid "System Images"
+msgstr "Imagini de sistem"
+
+#: .\templates\pages\services\HRManagement.html:722
+#: .\templates\pages\services\PatientManagement.html:422
+#: .\templates\pages\services\SchoolManagement.html:339
+msgid "Home Page"
+msgstr "Pagina principală"
+
+#: .\templates\pages\services\HRManagement.html:723
+msgid ""
+"The home page provides you with a comprehensive overview of everything you "
+"need. You can track performance and analyze data with flexibility and speed."
+msgstr ""
+"Pagina principală vă oferă o imagine de ansamblu cuprinzătoare a tot ceea ce "
+"aveți nevoie. Puteți urmări performanța și analiza datele cu flexibilitate "
+"și viteză."
+
+#: .\templates\pages\services\HRManagement.html:730
+msgid "Employee Management"
+msgstr "Managementul angajaților"
+
+#: .\templates\pages\services\HRManagement.html:731
+msgid ""
+"Our Employee Management section offers a flexible and professional solution "
+"to manage all aspects of employees. From recruitment and attendance tracking "
+"to payroll and evaluations, our system provides complete control over "
+"employee data."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:739
+msgid "Employment Management"
+msgstr "Managementul ocupării forței de muncă"
+
+#: .\templates\pages\services\HRManagement.html:740
+msgid ""
+"Our Employment Management section helps you efficiently manage hiring, "
+"onboarding, and tracking of employees. From contract creation to performance "
+"evaluations, we make managing employees easy and streamlined."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:748
+msgid "Asset Management"
+msgstr "Gestionarea activelor"
+
+#: .\templates\pages\services\HRManagement.html:749
+msgid ""
+"Our Asset Management system allows you to track and manage the assets "
+"assigned to employees, including equipment, tools, and other company-owned "
+"items. Ensure accountability and efficient asset allocation across your "
+"organization."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:759
+msgid "Payroll & Benefits"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:760
+msgid ""
+"Our Payroll & Benefits system provides a flexible and professional way to "
+"calculate salaries, benefits, bonuses, and employee leave. Generate detailed "
+"reports with ease."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:767
+msgid "Performance Evaluations"
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:768
+msgid ""
+"The Performance Evaluation system helps manage and track employee "
+"performance effectively, with regular assessments, manager feedback, and "
+"goal setting for team success."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:775
+msgid "Attendance System"
+msgstr "Sistem de participare"
+
+#: .\templates\pages\services\HRManagement.html:776
+msgid ""
+"Our Attendance system is designed to accurately and flexibly track employee "
+"attendance. Generate detailed reports and set automated notifications for "
+"late arrivals or absences."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:783
+msgid "Leave Management"
+msgstr "Managementul concediului"
+
+#: .\templates\pages\services\HRManagement.html:784
+msgid ""
+"Leave Management provides you with a flexible tool to handle leave requests "
+"and absences for all employees. Monitor leave balances and ensure smooth "
+"workflow."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:791
+msgid "Permissions Management"
+msgstr "Gestionarea permisiunilor"
+
+#: .\templates\pages\services\HRManagement.html:792
+msgid ""
+"Our Permissions Management system allows you to define user permissions, "
+"enhancing security and flexibility in managing access to sensitive "
+"information."
+msgstr ""
+
+#: .\templates\pages\services\HRManagement.html:799
+#: .\templates\pages\services\PatientManagement.html:475
+#: .\templates\pages\services\SchoolManagement.html:414
+msgid "Previous"
+msgstr "Anterior"
+
+#: .\templates\pages\services\HRManagement.html:813
+msgid ""
+"Join the future of HR management with our advanced system and get the first "
+"30 days of free and unique experience!"
+msgstr ""
+"Alăturați -vă viitorului managementului resurselor umane cu sistemul nostru "
+"avansat și obțineți primele 30 de zile de experiență gratuită și unică!"
+
+#: .\templates\pages\services\PatientManagement.html:6
+#: .\templates\pages\services\PatientManagement.html:18
+msgid ""
+"Imagine having a powerful tool at your fingertips that simplifies all "
+"aspects of patient management and operates with high efficiency. With our "
+"integrated system, you don't just have to imagine it, you can achieve it now!"
+msgstr ""
+"Imaginați -vă că aveți un instrument puternic la îndemână, care simplifică "
+"toate aspectele managementului pacientului și funcționează cu o eficiență "
+"ridicată. Cu sistemul nostru integrat, nu trebuie doar să -l imaginezi, îl "
+"poți realiza acum!"
+
+#: .\templates\pages\services\PatientManagement.html:14
+msgid ""
+"Patient Management System <br><span class='text-primary'>manage all your "
+"operations easily</span>"
+msgstr ""
+"Sistemul de gestionare a pacienților <br> <span class = 'text-primary'> "
+"Gestionați-vă cu ușurință toate operațiunile </span>"
+
+#: .\templates\pages\services\PatientManagement.html:74
+msgid ""
+"Patient Management System <span class='text-success'> <br> Solutions</span>"
+msgstr ""
+"Sistemul de gestionare a pacienților <span class = 'text-succes'> <br> "
+"soluții </span>"
+
+#: .\templates\pages\services\PatientManagement.html:88
+msgid "Manage Patient"
+msgstr "Gestionați pacientul"
+
+#: .\templates\pages\services\PatientManagement.html:94
+msgid "Manage visits"
+msgstr "Gestionează vizitele"
+
+#: .\templates\pages\services\PatientManagement.html:112
+msgid "Payment & Fees"
+msgstr "Plata și taxele"
+
+#: .\templates\pages\services\PatientManagement.html:118
+msgid "Patient File Manager"
+msgstr "Manager de fișiere pentru pacient"
+
+#: .\templates\pages\services\PatientManagement.html:124
+msgid "Medical Reports"
+msgstr "Rapoarte medicale"
+
+#: .\templates\pages\services\PatientManagement.html:136
+msgid "Report Customizing"
+msgstr "Raportează personalizarea"
+
+#: .\templates\pages\services\PatientManagement.html:142
+msgid "Medical Tests"
+msgstr "Teste medicale"
+
+#: .\templates\pages\services\PatientManagement.html:167
+#: .\templates\pages\services\PatientManagement.html:459
+msgid "Chat System"
+msgstr "Sistem de chat"
+
+#: .\templates\pages\services\PatientManagement.html:394
+msgid "Quick Guide to the Patient Management System"
+msgstr "Ghid rapid pentru sistemul de gestionare a pacienților"
+
+#: .\templates\pages\services\PatientManagement.html:406
+#: .\templates\pages\services\SchoolManagement.html:320
+msgid "Some pictures of the system"
+msgstr "Câteva imagini ale sistemului"
+
+#: .\templates\pages\services\PatientManagement.html:423
+msgid ""
+"Your main interface provides you with a comprehensive overview of everything "
+"you need to know, from the number of patients to payment details. You can "
+"track performance and analyze data with flexibility and speed."
+msgstr ""
+"Interfața dvs. principală vă oferă o imagine de ansamblu cuprinzătoare a tot "
+"ceea ce trebuie să știți, de la numărul de pacienți la detalii de plată. "
+"Puteți urmări performanța și analiza datele cu flexibilitate și viteză."
+
+#: .\templates\pages\services\PatientManagement.html:430
+msgid "Comprehensive Management"
+msgstr "Management cuprinzător"
+
+#: .\templates\pages\services\PatientManagement.html:431
+msgid ""
+"You can easily add, edit, and delete patient records, with an advanced file "
+"manager to store all important documents and images. Keep your patients' "
+"data organized and accessible at any time."
+msgstr ""
+"Puteți adăuga, edita și șterge cu ușurință înregistrările pacientului, cu un "
+"manager avansat de fișiere pentru a stoca toate documentele și imaginile "
+"importante. Păstrați în orice moment datele pacienților dvs. organizate și "
+"accesibile în orice moment."
+
+#: .\templates\pages\services\PatientManagement.html:438
+msgid "File Manager"
+msgstr "Manager de fișiere"
+
+#: .\templates\pages\services\PatientManagement.html:439
+msgid ""
+"With the advanced file manager, you'll no longer worry about losing "
+"important documents or having difficulty accessing them. Store all your "
+"patients' files and images in one secure, organized place, and retrieve them "
+"easily when needed. Make patient file management more efficient and faster, "
+"and focus on providing the best medical care to your patients. Start now and "
+"enjoy solutions that save you time and effort."
+msgstr ""
+"Cu Advanced File Manager, nu vă veți mai face griji cu privire la pierderea "
+"documentelor importante sau să aveți dificultăți în accesarea acestora. "
+"Stocați toate fișierele și imaginile pacienților dvs. într -un singur loc "
+"sigur, organizat și recuperați -le cu ușurință atunci când este nevoie. "
+"Faceți gestionarea fișierelor pacientului mai eficiente și mai rapide și "
+"concentrați -vă pe furnizarea celor mai bune îngrijiri medicale pacienților "
+"dvs. Începeți acum și bucurați -vă de soluții care vă economisesc timp și "
+"efort."
+
+#: .\templates\pages\services\PatientManagement.html:445
+msgid ""
+"Get comprehensive and organized medical reports that include all essential "
+"details"
+msgstr ""
+"Obțineți rapoarte medicale cuprinzătoare și organizate care includ toate "
+"detaliile esențiale"
+
+#: .\templates\pages\services\PatientManagement.html:446
+msgid ""
+"patient and doctor information, reason for the visit, basic measurements "
+"like pulse, blood pressure, oxygen, and sugar levels, clinical examination, "
+"treatment, diagnosis, and recommendations, along with the doctor's stamp and "
+"signature. Our system makes it easy for you to prepare reports quickly and "
+"professionally, enhancing workflow efficiency and saving you time to provide "
+"the best care for your patients. Choose the smart solution for managing your "
+"medical reports."
+msgstr ""
+"Informații despre pacient și medic, motiv pentru vizită, măsurători de bază "
+"precum puls, tensiune arterială, oxigen și zahăr, examinare clinică, "
+"tratament, diagnostic și recomandări, împreună cu ștampila și semnătura "
+"medicului. Sistemul nostru vă face ușor să pregătiți rapoartele rapid și "
+"profesional, îmbunătățind eficiența fluxului de lucru și economisindu -vă "
+"timp pentru a oferi cea mai bună îngrijire pentru pacienții dvs. Alegeți "
+"soluția inteligentă pentru gestionarea rapoartelor medicale."
+
+#: .\templates\pages\services\PatientManagement.html:452
+msgid "Medical Tests Reports"
+msgstr "Rapoarte de teste medicale"
+
+#: .\templates\pages\services\PatientManagement.html:453
+msgid ""
+"Gain full control over managing medical tests with our advanced system. You "
+"can enter all necessary details. Enjoy data accuracy and quick access, "
+"making it easier for you to make informed medical decisions. Invest in the "
+"solution that enhances your workflow efficiency and ensures excellent "
+"healthcare for your patients."
+msgstr ""
+"Obțineți un control complet asupra gestionării testelor medicale cu sistemul "
+"nostru avansat. Puteți introduce toate detaliile necesare. Bucurați -vă de "
+"precizia datelor și acces rapid, ceea ce vă este mai ușor să luați decizii "
+"medicale în cunoștință de cauză. Investește în soluția care îți "
+"îmbunătățește eficiența fluxului de lucru și asigură asistență medicală "
+"excelentă pentru pacienții tăi."
+
+#: .\templates\pages\services\PatientManagement.html:460
+msgid ""
+"Enjoy a seamless and effective communication experience with our innovative "
+"chat system! This system is built using the latest technologies to ensure "
+"real-time message delivery, allowing you to open conversations between all "
+"users, whether they are employees, doctors, analysts, secretaries, or report "
+"owners Invest in the solution that enhances your team's communication and "
+"ensures the best service for patients."
+msgstr ""
+"Bucurați -vă de o experiență de comunicare perfectă și eficientă cu sistemul "
+"nostru de chat inovator! Acest sistem este construit folosind cele mai noi "
+"tehnologii pentru a asigura transmiterea de mesaje în timp real, permițându-"
+"vă să deschideți conversații între toți utilizatorii, indiferent dacă sunt "
+"angajați, medici, analiști, secretari sau proprietari de raporturi investesc "
+"în soluția care îmbunătățește comunicarea echipei dvs. și se asigură Cel mai "
+"bun serviciu pentru pacienți."
+
+#: .\templates\pages\services\PatientManagement.html:467
+#: .\templates\pages\services\SchoolManagement.html:392
+#: .\templates\pages\services\SchoolManagement.html:406
+msgid ""
+"The feature for defining user permissions in our system enhances security "
+"and flexibility in managing information. You have complete control over each "
+"user's permissions based on their needs, ensuring access to sensitive pages "
+"and data is limited to those who require it. This ability to customize "
+"permissions gives you comprehensive control over the system, helping protect "
+"information and ensure efficient workflow. Invest in the solution that "
+"provides you with the security and flexibility needed to manage your team "
+"effectively."
+msgstr ""
+"Caracteristica pentru definirea permisiunilor de utilizator în sistemul "
+"nostru îmbunătățește securitatea și flexibilitatea în gestionarea "
+"informațiilor. Aveți un control complet asupra permisiunilor fiecărui "
+"utilizator în funcție de nevoile lor, asigurând accesul la pagini sensibile "
+"și datele este limitat la cei care o solicită. Această abilitate de a "
+"personaliza permisiunile vă oferă un control cuprinzător asupra sistemului, "
+"contribuind la protejarea informațiilor și la asigurarea fluxului de lucru "
+"eficient. Investiți în soluția care vă oferă securitatea și flexibilitatea "
+"necesară pentru a vă gestiona echipa în mod eficient."
+
+#: .\templates\pages\services\PatientManagement.html:580
+msgid ""
+"Join the future of patient management with our advanced system and get the "
+"first 30 days of free and unique experience!"
+msgstr ""
+"Alăturați -vă viitorului managementului pacientului cu sistemul nostru "
+"avansat și obțineți primele 30 de zile de experiență gratuită și unică!"
+
+#: .\templates\pages\services\SchoolManagement.html:6
+#: .\templates\pages\services\SchoolManagement.html:18
+msgid ""
+"Make managing your school easier and more professional with our all-in-one "
+"system. From tracking students and organizing classes to managing exams, "
+"teachers, and staff, everything is available in one user-friendly and secure "
+"platform. Start now and focus on improving education, while we take care of "
+"the rest!"
+msgstr ""
+"Faceți gestionarea școlii dvs. mai ușor și mai profesionist cu sistemul "
+"nostru all-in-one. De la urmărirea elevilor și organizarea cursurilor până "
+"la gestionarea examenelor, a profesorilor și a personalului, totul este "
+"disponibil într-o singură platformă ușor de utilizat și sigură. Începeți "
+"acum și concentrați -vă pe îmbunătățirea educației, în timp ce avem grijă de "
+"restul!"
+
+#: .\templates\pages\services\SchoolManagement.html:14
+msgid ""
+"School Management System <br><span class='text-primary'>manage all your "
+"operations easily</span>"
+msgstr ""
+"Sistemul de management școlar <br> <span class = 'text-primary'> Gestionați-"
+"vă cu ușurință toate operațiunile </span>"
+
+#: .\templates\pages\services\SchoolManagement.html:74
+msgid ""
+"School Management System <span class='text-success'> <br> Solutions</span>"
+msgstr ""
+"Sistem de management școlar <span class = 'text-succes'> <br> soluții </span>"
+
+#: .\templates\pages\services\SchoolManagement.html:88
+#: .\templates\pages\services\SchoolManagement.html:355
+msgid "Manage Students"
+msgstr "Gestionați elevii"
+
+#: .\templates\pages\services\SchoolManagement.html:100
+msgid "Manage Teachers"
+msgstr "Gestionați profesorii"
+
+#: .\templates\pages\services\SchoolManagement.html:106
+msgid "Manage Guardians"
+msgstr "Gestionați tutorii"
+
+#: .\templates\pages\services\SchoolManagement.html:112
+msgid "Manage Librarys"
+msgstr "Gestionați bibliotecile"
+
+#: .\templates\pages\services\SchoolManagement.html:118
+msgid "Manage Exams"
+msgstr "Gestionați examenele"
+
+#: .\templates\pages\services\SchoolManagement.html:124
+msgid "Tuition Fees"
+msgstr "Taxe de școlarizare"
+
+#: .\templates\pages\services\SchoolManagement.html:130
+msgid "Student Invoice & Fees"
+msgstr "Factură și taxe pentru studenți"
+
+#: .\templates\pages\services\SchoolManagement.html:136
+msgid "Student Loans"
+msgstr "Împrumuturi pentru studenți"
+
+#: .\templates\pages\services\SchoolManagement.html:142
+msgid "Teacher Loans"
+msgstr "Împrumuturi pentru profesori"
+
+#: .\templates\pages\services\SchoolManagement.html:154
+msgid "Employee Salarys"
+msgstr "Salarii ale angajaților"
+
+#: .\templates\pages\services\SchoolManagement.html:160
+msgid "Employee Leaves"
+msgstr "Prunlea angajatului"
+
+#: .\templates\pages\services\SchoolManagement.html:166
+msgid "Attendance & Departure"
+msgstr "Participare și plecare"
+
+#: .\templates\pages\services\SchoolManagement.html:172
+msgid "Financial Affairs"
+msgstr "Afaceri financiare"
+
+#: .\templates\pages\services\SchoolManagement.html:178
+msgid "Multi Academic Year"
+msgstr "Anul universitar multi"
+
+#: .\templates\pages\services\SchoolManagement.html:340
+msgid ""
+"Your main interface provides you with a comprehensive overview of everything "
+"you need to know, You can track performance and analyze data with "
+"flexibility and speed."
+msgstr ""
+"Interfața dvs. principală vă oferă o imagine de ansamblu cuprinzătoare a tot "
+"ceea ce trebuie să știți, puteți urmări performanța și analiza datele cu "
+"flexibilitate și viteză."
+
+#: .\templates\pages\services\SchoolManagement.html:347
+msgid "Financial Affairs Analysis"
+msgstr "Analiza afacerilor financiare"
+
+#: .\templates\pages\services\SchoolManagement.html:348
+msgid ""
+"Financial Affairs Analysis offers you a comprehensive and flexible solution "
+"for managing your school's finances with ease and precision. Track tuition "
+"payments, generate detailed financial reports, and monitor expenses all in "
+"one place. With advanced features to manage payroll, budget planning, and "
+"financial forecasting, this system ensures you have complete control over "
+"your school's financial health. Our platform adapts to your needs, providing "
+"insightful data to help you make informed decisions, while maintaining the "
+"highest level of security and efficiency."
+msgstr ""
+"Analiza afacerilor financiare vă oferă o soluție cuprinzătoare și flexibilă "
+"pentru gestionarea finanțelor școlii dvs. cu ușurință și precizie. Urmăriți "
+"plățile de școlarizare, generați rapoarte financiare detaliate și "
+"monitorizați cheltuielile toate într -un singur loc. Cu funcții avansate "
+"pentru a gestiona salarizarea, planificarea bugetară și prognoza financiară, "
+"acest sistem vă asigură că aveți un control complet asupra sănătății "
+"financiare a școlii dvs. Platforma noastră se adaptează la nevoile dvs., "
+"oferind date interesante care să vă ajute să luați decizii în cunoștință de "
+"cauză, menținând în același timp cel mai înalt nivel de securitate și "
+"eficiență."
+
+#: .\templates\pages\services\SchoolManagement.html:356
+msgid ""
+"Student Management offers a seamless and professional approach to handling "
+"all aspects of student administration. From enrollment and academic records "
+"to attendance tracking and exam results, our system ensures that every "
+"detail is organized and easily accessible. With powerful tools for "
+"monitoring student performance and generating comprehensive reports, you can "
+"efficiently manage each student’s journey. The system adapts to your "
+"school’s unique needs, providing flexibility and precision to keep your "
+"operations running smoothly, all while maintaining a user-friendly interface."
+msgstr ""
+"Managementul studenților oferă o abordare perfectă și profesională pentru a "
+"gestiona toate aspectele administrației studenților. De la înscriere și "
+"înregistrări academice până la urmărirea prezenței și rezultatele "
+"examenelor, sistemul nostru se asigură că fiecare detaliu este organizat și "
+"ușor accesibil. Cu instrumente puternice pentru monitorizarea performanței "
+"elevilor și generarea de rapoarte cuprinzătoare, puteți gestiona eficient "
+"călătoria fiecărui student. Sistemul se adaptează la nevoile unice ale "
+"școlii dvs., oferind flexibilitate și precizie pentru a vă menține "
+"operațiunile în funcțiune fără probleme, toate menținând o interfață ușor de "
+"utilizat."
+
+#: .\templates\pages\services\SchoolManagement.html:363
+msgid "Manage Employee"
+msgstr "Gestionați angajatul"
+
+#: .\templates\pages\services\SchoolManagement.html:364
+msgid ""
+"Our Employee Management section offers a streamlined, professional solution "
+"for managing all aspects of your staff, including teachers and "
+"administrative personnel. From recruitment and attendance to payroll and "
+"performance evaluations, our system provides complete control over employee "
+"data. The flexibility of the platform allows for easy tracking of "
+"promotions, leaves, and work schedules, ensuring smooth operations. With "
+"insightful reporting tools and a user-friendly interface, managing your "
+"school’s human resources becomes efficient, precise, and adaptable to your "
+"specific needs."
+msgstr ""
+"Secțiunea noastră de gestionare a angajaților oferă o soluție profesională "
+"eficientizată pentru gestionarea tuturor aspectelor personalului dvs., "
+"inclusiv a profesorilor și a personalului administrativ. De la recrutare și "
+"prezență la evaluări de salarizare și performanță, sistemul nostru oferă un "
+"control complet asupra datelor angajaților. Flexibilitatea platformei "
+"permite urmărirea ușoară a promoțiilor, frunzelor și programelor de lucru, "
+"asigurând operațiuni lină. Cu instrumente de raportare perspicace și o "
+"interfață ușor de utilizat, gestionarea resurselor umane ale școlii dvs. "
+"devine eficientă, precisă și adaptabilă la nevoile dvs. specifice."
+
+#: .\templates\pages\services\SchoolManagement.html:370
+msgid "Attendance & Departure System"
+msgstr "Sistem de participare și plecare"
+
+#: .\templates\pages\services\SchoolManagement.html:371
+msgid ""
+"Our Attendance & Departure system is designed to provide seamless tracking "
+"of both student and employee attendance. With its professional and flexible "
+"interface, it allows you to monitor daily attendance records, generate "
+"detailed reports, and set automated notifications for absences or tardiness. "
+"The system also integrates easily with other modules, offering a "
+"comprehensive view of attendance trends. Additionally, it sends real-time "
+"notifications to parents when a student arrives or departs, keeping them "
+"informed and engaged. Whether you need to track attendance for payroll or "
+"student performance, this tool ensures accuracy and efficiency, tailored to "
+"the unique requirements of your institution."
+msgstr ""
+"Sistemul nostru de participare și plecare este conceput pentru a oferi "
+"urmărirea perfectă atât a prezenței studenților și a angajaților. Cu "
+"interfața sa profesională și flexibilă, vă permite să monitorizați "
+"înregistrările de prezență zilnice, să generați rapoarte detaliate și să "
+"setați notificări automate pentru absențe sau întârziere. De asemenea, "
+"sistemul se integrează ușor cu alte module, oferind o viziune cuprinzătoare "
+"a tendințelor de prezență. În plus, trimite notificări în timp real "
+"părinților atunci când un student ajunge sau pleacă, păstrându-i informați "
+"și angajați. Indiferent dacă trebuie să urmăriți prezența la salarii sau la "
+"performanța studenților, acest instrument asigură precizia și eficiența, "
+"adaptată la cerințele unice ale instituției dvs."
+
+#: .\templates\pages\services\SchoolManagement.html:377
+msgid "Student Invoices"
+msgstr "Facturile studenților"
+
+#: .\templates\pages\services\SchoolManagement.html:378
+msgid ""
+"we offer you a Students Invoice section that allows you to manage invoices "
+"easily and professionally. You can issue customized invoices for each "
+"student, accurately track payment statuses, and obtain detailed reports on "
+"paid and unpaid invoices. With customizable design, you can add your "
+"institution's logo and enhance the visual identity of the invoices. Join us "
+"today and enjoy flexibility in managing your students' accounts."
+msgstr ""
+"Vă oferim o secțiune de factură a studenților care vă permite să gestionați "
+"facturile cu ușurință și profesional. Puteți emite facturi personalizate "
+"pentru fiecare student, urmăriți cu exactitate starea de plată și puteți "
+"obține rapoarte detaliate despre facturile plătite și neplătite. Cu un "
+"design personalizabil, puteți adăuga logo -ul instituției dvs. și îmbunătăți "
+"identitatea vizuală a facturilor. Alăturați -ne astăzi și bucurați -vă de "
+"flexibilitate în gestionarea conturilor elevilor."
+
+#: .\templates\pages\services\SchoolManagement.html:384
+msgid "Library"
+msgstr "Bibliotecă"
+
+#: .\templates\pages\services\SchoolManagement.html:385
+msgid ""
+"our Library section offers you a comprehensive solution for efficiently and "
+"professionally managing library resources. You can easily add books, "
+"organize them, and track loans, ensuring a seamless experience for users. "
+"The system provides you with detailed reports to help you make informed "
+"decisions about inventory. With a flexible and user-friendly interface, you "
+"can access all the information you need with just a few clicks. Join us "
+"today and enjoy managing your library with the utmost professionalism."
+msgstr ""
+"Secțiunea noastră de bibliotecă vă oferă o soluție cuprinzătoare pentru "
+"gestionarea eficientă și profesională a resurselor de bibliotecă. Puteți "
+"adăuga cu ușurință cărți, organiza și urmări împrumuturile, asigurând o "
+"experiență perfectă pentru utilizatori. Sistemul vă oferă rapoarte detaliate "
+"pentru a vă ajuta să luați decizii în cunoștință de cauză cu privire la "
+"inventar. Cu o interfață flexibilă și ușor de utilizat, puteți accesa toate "
+"informațiile de care aveți nevoie cu doar câteva clicuri. Alăturați -ne "
+"astăzi și bucurați -vă de gestionarea bibliotecii dvs. cu cel mai mare "
+"profesionalism."
+
+#: .\templates\pages\services\SchoolManagement.html:398
+msgid "Export Report"
+msgstr "Raport de export"
+
+#: .\templates\pages\services\SchoolManagement.html:399
+msgid ""
+"we offer you the ability to generate comprehensive reports with ease and "
+"professionalism. You can customize the format of the reports according to "
+"your needs, allowing you to present data in a way that highlights important "
+"information. With our flexible interface, you can choose different formats "
+"and details to include, making it easier for you to make informed decisions. "
+"Join us today and enjoy managing your data efficiently and professionally."
+msgstr ""
+"Vă oferim capacitatea de a genera rapoarte cuprinzătoare cu ușurință și "
+"profesionalism. Puteți personaliza formatul rapoartelor în funcție de "
+"nevoile dvs., permițându -vă să prezentați date într -un mod care să "
+"evidențieze informații importante. Cu interfața noastră flexibilă, puteți "
+"alege diferite formate și detalii pe care să le includeți, făcându -vă mai "
+"ușor să luați decizii în cunoștință de cauză. Alăturați -ne astăzi și "
+"bucurați -vă de gestionarea datelor dvs. în mod eficient și profesional."
+
+#: .\templates\pages\services\SchoolManagement.html:426
+msgid ""
+"Join the future of school management with our advanced system and get the "
+"first 30 days of free and unique experience!"
+msgstr ""
+"Alăturați -vă viitorului managementului școlii cu sistemul nostru avansat și "
+"obțineți primele 30 de zile de experiență gratuită și unică!"
+
+#: .\templates\parts\dashboard\sidebar.html:14 .\templates\parts\footer.html:7
+#: .\templates\parts\navbar.html:26
+#: .\venv\Lib\site-packages\grappelli\dashboard\templates\admin\index.html:25
+#: .\venv\Lib\site-packages\grappelli\templates\admin\500.html:9
+#: .\venv\Lib\site-packages\grappelli\templates\admin\app_index.html:11
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:7
+#: .\venv\Lib\site-packages\grappelli\templates\admin\base.html:142
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_form.html:153
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list.html:141
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm.html:141
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm_sidebar.html:142
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_sidebar.html:142
+#: .\venv\Lib\site-packages\grappelli\templates\admin\constance\change_list.html:72
+#: .\venv\Lib\site-packages\grappelli\templates\admin\csv_export_selected_confirmation.html:9
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_confirmation.html:13
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_selected_confirmation.html:13
+#: .\venv\Lib\site-packages\grappelli\templates\admin\index.html:18
+#: .\venv\Lib\site-packages\grappelli\templates\admin\invalid_setup.html:9
+#: .\venv\Lib\site-packages\grappelli\templates\admin\object_history.html:9
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:8
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\index.html:9
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\missing_docutils.html:8
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\model_detail.html:20
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\model_index.html:23
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\template_filter_index.html:25
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\template_tag_index.html:27
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\view_detail.html:7
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\view_index.html:23
+#: .\venv\Lib\site-packages\grappelli\templates\grp_doc\basic_page_structure.html:132
+#: .\venv\Lib\site-packages\grappelli\templates\grp_doc\context_navigation.html:55
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_done.html:6
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_form.html:6
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\recover_form.html:7
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\recover_list.html:6
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\revision_form.html:7
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\load_data_form.html:24
+msgid "Home"
+msgstr "Acasă"
+
+#: .\templates\parts\dashboard\sidebar.html:20
+msgid "My Projects"
+msgstr "Proiectele mele"
+
+#: .\templates\parts\dashboard\sidebar.html:39
+msgid "FAQ"
+msgstr "FAQ"
+
+#: .\templates\parts\dashboard\sidebar.html:83
+msgid "Admin"
+msgstr "Administrator"
+
+#: .\templates\parts\dashboard\sidebar.html:92
+msgid "New project..."
+msgstr "Proiect nou ..."
+
+#: .\templates\parts\dashboard\sidebar.html:95
+msgid "Profile"
+msgstr "Profil"
+
+#: .\templates\parts\dashboard\sidebar.html:97
+msgid "Sign out"
+msgstr "Sign out"
+
+#: .\templates\parts\footer.html:11
+msgid "Privacy Policy"
+msgstr "Politica de confidențialitate"
+
+#: .\templates\parts\footer.html:12
+msgid "Build Custom System For You"
+msgstr "Construiți un sistem personalizat pentru dvs."
+
+#: .\templates\parts\footer.html:16
+msgid "Subscribe to our newsletter"
+msgstr "Abonați -vă la newsletter -ul nostru"
+
+#: .\templates\parts\footer.html:17
+msgid "Monthly digest of what's new and exciting from us."
+msgstr "Digestia lunară a ceea ce este nou și interesant de la noi."
+
+#: .\templates\parts\footer.html:21
+msgid "Subscribe"
+msgstr "Abonați -vă"
+
+#: .\templates\parts\navbar.html:12
+msgid "Browse"
+msgstr "Căutați"
+
+#: .\templates\parts\navbar.html:37
+msgid "Inventory Management (Coming Soon)"
+msgstr "Gestionarea stocurilor (în curând)"
+
+#: .\templates\parts\navbar.html:89
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:137
+#: .\venv\Lib\site-packages\grappelli\templates\admin\base.html:110
+msgid "Log out"
+msgstr "Deconectați -vă"
+
+#: .\templates\parts\navbar.html:95
+msgid "Sign Up"
+msgstr "Înscrieți -vă"
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:15
+msgid "Messages"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:50
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:52
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:54
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:104
+#: .\venv\Lib\site-packages\django\forms\fields.py:752
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:165
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:176
+msgid "Enter a valid email address."
+msgstr "Introduceți o adresă de e -mail validă."
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:259
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:267
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:279
+#: .\venv\Lib\site-packages\django\core\validators.py:287
+#: .\venv\Lib\site-packages\django\core\validators.py:316
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:296
+#: .\venv\Lib\site-packages\django\core\validators.py:317
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:308
+#: .\venv\Lib\site-packages\django\core\validators.py:315
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:351
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:357
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:392
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:401
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:410
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:420
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:438
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:461
+#: .\venv\Lib\site-packages\django\forms\fields.py:347
+#: .\venv\Lib\site-packages\django\forms\fields.py:386
+msgid "Enter a number."
+msgstr "Introduceți un număr."
+
+#: .\venv\Lib\site-packages\django\core\validators.py:463
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:468
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:473
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:544
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:605
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1423
+#: .\venv\Lib\site-packages\django\forms\models.py:893
+msgid "and"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1425
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:17
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:128
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:129
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:130
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:131
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:173
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1094
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1095
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1097
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1147
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1149
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1253
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1354
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1358
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1493
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1362
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1489
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1497
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1502
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1626
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1628
+msgid "Decimal number"
+msgstr "Număr zecimal"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1789
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1793
+msgid "Duration"
+msgstr "Durată"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1870
+msgid "File path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1948
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1950
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1990
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1992
+msgid "Integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2088
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2105
+msgid "Small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2113
+msgid "IPv4 address"
+msgstr "Adresa IPv4"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2144
+msgid "IP address"
+msgstr "Adresa IP"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2237
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2238
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2240
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2291
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2306
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2321
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2337
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2373
+msgid "Text"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2448
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2452
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2456
+msgid "Time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2564
+msgid "URL"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2588
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2653
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2655
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:232
+msgid "File"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
+msgid "Image"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:28
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:919
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:921
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1212
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1269
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1271
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1319
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:184
+msgid ":?.!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:91
+msgid "This field is required."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:298
+msgid "Enter a whole number."
+msgstr "Introduceți un număr întreg."
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:467
+#: .\venv\Lib\site-packages\django\forms\fields.py:1241
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:490
+#: .\venv\Lib\site-packages\django\forms\fields.py:1242
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:517
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:551
+msgid "Enter a valid duration."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:552
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:621
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:622
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:623
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:625
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:630
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:694
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:857
+#: .\venv\Lib\site-packages\django\forms\fields.py:949
+#: .\venv\Lib\site-packages\django\forms\models.py:1566
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:951
+#: .\venv\Lib\site-packages\django\forms\fields.py:1070
+#: .\venv\Lib\site-packages\django\forms\models.py:1564
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1071
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1310
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1340
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:98
+msgid ":"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:244
+#: .\venv\Lib\site-packages\django\forms\forms.py:328
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:63
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:67
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:72
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] "Vă rugăm să completați un nume de familie."
+msgstr[1] "Vă rugăm să completați un nume de familie."
+msgstr[2] "Vă rugăm să completați un nume de familie."
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr "Comanda"
+
+#: .\venv\Lib\site-packages\django\forms\models.py:886
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:891
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:898
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:907
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1338
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1429
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1568
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:226
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:463
+msgid "Clear"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:464
+msgid "Currently"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:794
+msgid "Unknown"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:795
+msgid "Yes"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:796
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:874
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:904
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:921
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:923
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:925
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:927
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:929
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:931
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:73
+msgid "p.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "a.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:79
+msgid "PM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "AM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:152
+msgid "midnight"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:154
+msgid "noon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr "Mele"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr "Sat"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr "noiembrie"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr "sep"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr "OCT"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr "noiembrie"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:137
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:322
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:341
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:111
+msgid "Forbidden"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:112
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:116
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:122
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:127
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:136
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:142
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:148
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:349
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:380
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:38
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:40
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:79
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:220
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:221
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:229
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:230
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:238
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:239
+msgid "Get started with Django"
+msgstr "Începeți cu Django"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:247
+msgid "Django Community"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:248
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:131
+msgid "Quick links"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:134
+msgid "Return to site"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:135
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:11
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:57
+#: .\venv\Lib\site-packages\grappelli\templates\admin\base.html:103
+msgid "Change password"
+msgstr "Schimbaţi parola"
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:143
+#: .\venv\Lib\site-packages\grappelli\dashboard\modules.py:216
+msgid "Applications"
+msgstr "Aplicații"
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:149
+msgid "Administration"
+msgstr "Administrare"
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:154
+#: .\venv\Lib\site-packages\grappelli\dashboard\modules.py:295
+#: .\venv\Lib\site-packages\grappelli\templates\admin\index.html:69
+msgid "Recent actions"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:158
+msgid "Latest Django News"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:168
+msgid "Django documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:174
+msgid "Django \"django-users\" mailing list"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\dashboards.py:180
+msgid "Django irc channel"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\modules.py:184
+msgid "Links"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\modules.py:356
+msgid "RSS Feed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\templates\grappelli\dashboard\modules\app_list.html:19
+#: .\venv\Lib\site-packages\grappelli\dashboard\templates\grappelli\dashboard\modules\model_list.html:9
+#: .\venv\Lib\site-packages\grappelli\templates\admin\app_index.html:30
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_form.html:159
+#: .\venv\Lib\site-packages\grappelli\templates\admin\index.html:44
+#: .\venv\Lib\site-packages\grappelli\templates\related_widget_wrapper.html:18
+msgid "Add"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\dashboard\templates\grappelli\dashboard\modules\recent_actions.html:18
+msgid "None Available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\404.html:7
+#: .\venv\Lib\site-packages\grappelli\templates\admin\404.html:11
+msgid "Page not found"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\404.html:12
+msgid "We're sorry, but the requested page could not be found."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\500.html:10
+msgid "Server error"
+msgstr "Eroare de server"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\500.html:15
+msgid "Server error (500)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\500.html:19
+msgid "Server Error <em>(500)</em>"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\500.html:20
+msgid ""
+"There's been an error. It's been reported to the site administrators via e-"
+"mail and should be fixed shortly. Thanks for your patience."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\actions.html:4
+msgid "Run the selected action"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\actions.html:4
+msgid "Go"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\actions.html:11
+msgid "Click here to select the objects across all pages"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\actions.html:11
+#, python-format
+msgid "Select all %(total_count)s %(module_name)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\actions.html:12
+msgid "Clear selection"
+msgstr "Selecție clară"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\app_index.html:13
+#, python-format
+msgid "<li>%(name)s</li>"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\app_index.html:37
+#: .\venv\Lib\site-packages\grappelli\templates\admin\index.html:52
+msgid "You don´t have permission to edit anything."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:15
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_done.html:7
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_form.html:7
+msgid "Password change"
+msgstr "Schimbarea parolei"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:24
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:27
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_form.html:190
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list.html:222
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm.html:230
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm_sidebar.html:227
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_sidebar.html:221
+#: .\venv\Lib\site-packages\grappelli\templates\admin\login.html:31
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\load_data_form.html:40
+msgid "Please correct the error below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:27
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_form.html:190
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list.html:222
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm.html:230
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm_sidebar.html:227
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_sidebar.html:221
+#: .\venv\Lib\site-packages\grappelli\templates\admin\login.html:31
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\load_data_form.html:42
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:34
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_form.html:30
+msgid "New password"
+msgstr "Parolă Nouă"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:46
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_form.html:37
+msgid "Password (again)"
+msgstr "Parolă (din nou)"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\auth\user\change_password.html:50
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_confirm.html:29
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\base.html:82
+msgid "Django administration"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\base.html:119
+msgid "View site"
+msgstr "Vizualizare site"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\base.html:124
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:9
+msgid "Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_form.html:143
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:9
+msgid "Open All Items"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_form.html:144
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:10
+msgid "Close All Items"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_form.html:171
+#: .\venv\Lib\site-packages\grappelli\templates\admin\object_history.html:15
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\revision_form.html:11
+msgid "History"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_form.html:172
+msgid "View on site"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list.html:159
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm.html:159
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm_sidebar.html:160
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_sidebar.html:160
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\change_list.html:15
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list.html:188
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm.html:188
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm_sidebar.html:175
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_sidebar.html:175
+msgid "Filter"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm.html:195
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_filter_confirm_sidebar.html:179
+msgid "Apply"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_results.html:18
+msgid "Toggle sorting"
+msgstr "Comutați sortarea"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_results.html:19
+#, python-format
+msgid "Sorting priority: %(priority_number)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\change_list_results.html:20
+msgid "Remove from sorting"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\constance\includes\results_list.html:8
+msgid "Name"
+msgstr "Nume"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\constance\includes\results_list.html:13
+msgid "Default"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\constance\includes\results_list.html:18
+msgid "Value"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\constance\includes\results_list.html:23
+msgid "Is modified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\constance\includes\results_list.html:67
+msgid "Reset to default"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\csv_export_selected_confirmation.html:12
+msgid "Export selection as CSV"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\csv_export_selected_confirmation.html:31
+msgid "Export following fields:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\csv_export_selected_confirmation.html:34
+msgid "Select all"
+msgstr "Selectați toate"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\csv_export_selected_confirmation.html:54
+msgid "Back"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\csv_export_selected_confirmation.html:55
+#: .\venv\Lib\site-packages\grappelli\templates\admin\import_export\change_list_export_item.html:4
+msgid "Export"
+msgstr "Export"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_confirmation.html:29
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_confirmation.html:37
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_confirmation.html:47
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_confirmation.html:55
+msgid "No, take me back"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_confirmation.html:56
+msgid "Yes, I’m sure"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_selected_confirmation.html:16
+msgid "Delete multiple objects"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_selected_confirmation.html:26
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_selected_confirmation.html:34
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following "
+"protected related objects:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_selected_confirmation.html:44
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_selected_confirmation.html:58
+msgid "Cancel"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\delete_selected_confirmation.html:59
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:11
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:60
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\tabular.html:108
+msgid "Add Item"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:29
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\tabular.html:81
+msgid "View on Site"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:31
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\tabular.html:83
+msgid "Move Item"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:35
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:40
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\tabular.html:87
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\tabular.html:92
+msgid "Delete Item"
+msgstr "Ștergeți elementul"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\stacked.html:58
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\tabular.html:106
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\edit_inline\tabular.html:9
+msgid "Add Another"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\filter.html:4
+#: .\venv\Lib\site-packages\grappelli\templates\admin\filter_listing.html:3
+#, python-format
+msgid "%(filter_title)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\import_export\change_list_import_item.html:4
+msgid "Import"
+msgstr "Import"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\includes\object_delete_summary.html:3
+msgid "Summary"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\index.html:57
+msgid "Custom Views"
+msgstr "Vizualizări personalizate"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\index.html:71
+msgid "My actions"
+msgstr "Acțiunile mele"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\index.html:74
+msgid "None available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\invalid_setup.html:16
+msgid ""
+"Something's wrong with your database installation. Make sure the appropriate "
+"database tables have been created, and make sure the database is readable by "
+"the appropriate user."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\login.html:60
+msgid "Forgotten your password or username?"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\object_history.html:26
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\object_history.html:13
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\recover_list.html:22
+msgid "Date/time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\object_history.html:28
+msgid "Action"
+msgstr "Acţiune"
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\object_history.html:34
+msgid "DATETIME_FORMAT"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\object_history.html:42
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\object_history.html:36
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\pagination.html:9
+#: .\venv\Lib\site-packages\grappelli\views\related.py:257
+#, python-format
+msgid "%(counter)s result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\pagination.html:14
+#: .\venv\Lib\site-packages\grappelli\templates\admin\pagination.html:16
+#, python-format
+msgid "%(full_result_count)s total"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\pagination.html:22
+#, python-format
+msgid ""
+"\n"
+"                        %(counter)s result\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        %(counter)s results\n"
+"                    "
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\pagination.html:31
+#: .\venv\Lib\site-packages\grappelli\templates\admin\pagination.html:44
+msgid "Show all"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\popup_response.html:3
+msgid "Popup closing..."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\related_widget_wrapper.html:24
+#: .\venv\Lib\site-packages\grappelli\templates\admin\widgets\related_widget_wrapper.html:18
+#: .\venv\Lib\site-packages\grappelli\templates\related_widget_wrapper.html:16
+#, python-format
+msgid "Add another %(model)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\submit_line.html:14
+msgid "Save as new"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\submit_line.html:17
+msgid "Save and add another"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\submit_line.html:20
+msgid "Save and continue editing"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\widgets\related_widget_wrapper.html:11
+#: .\venv\Lib\site-packages\grappelli\templates\related_widget_wrapper.html:8
+#, python-format
+msgid "Change selected %(model)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin\widgets\related_widget_wrapper.html:25
+#: .\venv\Lib\site-packages\grappelli\templates\related_widget_wrapper.html:24
+#, python-format
+msgid "Delete selected %(model)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:10
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:16
+msgid "Bookmarklets"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:13
+msgid "Documentation bookmarklets"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:18
+msgid ""
+"\n"
+"            <p>To install bookmarklets, drag the link to your bookmarks\n"
+"    toolbar, or right-click the link and add it to your bookmarks. Now you "
+"can\n"
+"    select the bookmarklet from any page in the site.  Note that some of "
+"these\n"
+"    bookmarklets require you to be viewing the site from a computer "
+"designated\n"
+"    as \"internal\" (talk to your system administrator if you aren't sure "
+"if\n"
+"    your computer is \"internal\").</p>\n"
+"        "
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:27
+msgid "Documentation for this page"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:28
+msgid ""
+"Jumps you from any page to the documentation for the view that generates "
+"that page."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:31
+msgid "Show object ID"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:32
+msgid ""
+"Shows the content-type and unique ID for pages that represent a single "
+"object."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:35
+msgid "Edit this object (current window)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:36
+msgid "Jumps to the admin page for pages that represent a single object."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:39
+msgid "Edit this object (new window)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\bookmarklets.html:40
+msgid "As above, but opens the admin page in a new window."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\view_index.html:43
+msgid "Empty namespace"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\admin_doc\view_index.html:57
+msgid "Views by empty namespace"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\logged_out.html:16
+msgid "Log in again"
+msgstr "Conectați -vă din nou"
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_done.html:16
+msgid "Your password was changed."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_form.html:18
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_form.html:23
+msgid "Old password"
+msgstr "Parola veche"
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_change_form.html:46
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_confirm.html:35
+msgid "Change my password"
+msgstr "Schimbați -mi parola"
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_complete.html:16
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_confirm.html:18
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_confirm.html:21
+msgid "New password:"
+msgstr "Parolă Nouă:"
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_confirm.html:26
+msgid "Confirm password:"
+msgstr "Confirmați parola:"
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_confirm.html:47
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_done.html:5
+msgid "Password reset successful"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_done.html:16
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_done.html:17
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_form.html:5
+msgid "Password reset"
+msgstr "Resetare parolă"
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_form.html:17
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_form.html:20
+msgid "Email address:"
+msgstr "Adresa de e-mail:"
+
+#: .\venv\Lib\site-packages\grappelli\templates\registration\password_reset_form.html:28
+msgid "Reset my password"
+msgstr "Resetează -mi parola"
+
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\change_list.html:6
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\recover_form.html:10
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\recover_list.html:9
+#, python-format
+msgid "Recover deleted %(name)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\object_history.html:7
+msgid ""
+"Choose a date from the list below to revert to a previous version of this "
+"object."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\object_history.html:15
+msgid "Comment"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\recover_form.html:20
+msgid "Press the save button below to recover this version of the object."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\recover_list.html:16
+msgid ""
+"Choose a date from the list below to recover a deleted version of an object."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\recover_list.html:36
+msgid "There are no deleted objects to recover."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\revision_form.html:12
+#, python-format
+msgid "Revert %(verbose_name)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\reversion\revision_form.html:21
+msgid "Press the save button below to revert to this version of the object."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\change_list.html:7
+msgid "Dump data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\change_list.html:11
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\load_data_form.html:6
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\load_data_form.html:25
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\load_data_form.html:35
+msgid "Load data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\load_data_form.html:46
+msgid ""
+"Existing items with same <strong>primary key</strong> will be overwritten."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templates\smuggler\load_data_form.html:53
+msgid "Load"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\templatetags\grp_tags.py:63
+msgid "Django site admin"
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\tests\test_switch.py:101
+#: .\venv\Lib\site-packages\grappelli\tests\test_switch.py:160
+#: .\venv\Lib\site-packages\grappelli\views\switch.py:44
+#: .\venv\Lib\site-packages\grappelli\views\switch.py:55
+msgid "Permission denied."
+msgstr "Acces refuzat."
+
+#: .\venv\Lib\site-packages\grappelli\tests\test_switch.py:144
+#: .\venv\Lib\site-packages\grappelli\views\switch.py:47
+#: .\venv\Lib\site-packages\grappelli\views\switch.py:58
+#, python-format
+msgid "%(name)s object with primary key %(key)r does not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\grappelli\views\related.py:127
+#: .\venv\Lib\site-packages\grappelli\views\related.py:157
+msgid "?"
+msgstr ""
+
+#: .\venv\Lib\site-packages\modeltranslation\widgets.py:32
+msgid "None"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:110
+msgid "United States of America"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:111
+msgid "Canada"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:112
+msgid "Afghanistan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:113
+msgid "Albania"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:114
+msgid "Algeria"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:115
+msgid "American Samoa"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:116
+msgid "Andorra"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:117
+msgid "Angola"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:118
+msgid "Anguilla"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:119
+msgid "Antarctica"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:120
+msgid "Antigua & Barbuda"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:121
+msgid "Argentina"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:122
+msgid "Armenia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:123
+msgid "Aruba"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:124
+msgid "Australia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:125
+msgid "Austria"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:126
+msgid "Azerbaijan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:127
+msgid "Bahama"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:128
+msgid "Bahrain"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:129
+msgid "Bangladesh"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:130
+msgid "Barbados"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:131
+msgid "Belarus"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:132
+msgid "Belgium"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:133
+msgid "Belize"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:134
+msgid "Benin"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:135
+msgid "Bermuda"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:136
+msgid "Bhutan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:137
+msgid "Bolivia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:138
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:139
+msgid "Botswana"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:140
+msgid "Bouvet Island"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:141
+msgid "Brazil"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:142
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:143
+msgid "British Virgin Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:144
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:145
+msgid "Bulgaria"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:146
+msgid "Burkina Faso"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:147
+msgid "Burundi"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:148
+msgid "Cambodia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:149
+msgid "Cameroon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:150
+msgid "Cape Verde"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:151
+msgid "Cayman Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:152
+msgid "Central African Republic"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:153
+msgid "Chad"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:154
+msgid "Chile"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:155
+msgid "China"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:156
+msgid "Christmas Island"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:157
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:158
+msgid "Colombia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:159
+msgid "Comoros"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:160
+msgid "Congo"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:161
+msgid "Cook Iislands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:162
+msgid "Costa Rica"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:163
+msgid "Croatia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:164
+msgid "Cuba"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:165
+msgid "Cyprus"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:166
+msgid "Czech Republic"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:167
+msgid "Denmark"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:168
+msgid "Djibouti"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:169
+msgid "Dominica"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:170
+msgid "Dominican Republic"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:171
+msgid "East Timor"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:172
+msgid "Ecuador"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:173
+msgid "Egypt"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:174
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:175
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:176
+msgid "Eritrea"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:177
+msgid "Estonia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:178
+msgid "Ethiopia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:179
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:180
+msgid "Faroe Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:181
+msgid "Fiji"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:182
+msgid "Finland"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:183
+msgid "France"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:184
+msgid "France, Metropolitan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:185
+msgid "French Guiana"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:186
+msgid "French Polynesia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:187
+msgid "French Southern Territories"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:188
+msgid "Gabon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:189
+msgid "Gambia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:190
+msgid "Georgia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:191
+msgid "Germany"
+msgstr "Germania"
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:192
+msgid "Ghana"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:193
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:194
+msgid "Greece"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:195
+msgid "Greenland"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:196
+msgid "Grenada"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:197
+msgid "Guadeloupe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:198
+msgid "Guam"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:199
+msgid "Guatemala"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:200
+msgid "Guinea"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:201
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:202
+msgid "Guyana"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:203
+msgid "Haiti"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:204
+msgid "Heard & McDonald Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:205
+msgid "Honduras"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:206
+msgid "Hong Kong"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:207
+msgid "Hungary"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:208
+msgid "Iceland"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:209
+msgid "India"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:210
+msgid "Indonesia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:211
+msgid "Iraq"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:212
+msgid "Ireland"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:213
+msgid "Islamic Republic of Iran"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:214
+msgid "Israel"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:215
+msgid "Italy"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:216
+msgid "Ivory Coast"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:217
+msgid "Jamaica"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:218
+msgid "Japan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:219
+msgid "Jordan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:220
+msgid "Kazakhstan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:221
+msgid "Kenya"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:222
+msgid "Kiribati"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:223
+msgid "Korea, Democratic People's Republic of"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:224
+msgid "Korea, Republic of"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:225
+msgid "Kuwait"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:226
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:227
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:228
+msgid "Latvia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:229
+msgid "Lebanon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:230
+msgid "Lesotho"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:231
+msgid "Liberia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:232
+msgid "Libyan Arab Jamahiriya"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:233
+msgid "Liechtenstein"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:234
+msgid "Lithuania"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:235
+msgid "Luxembourg"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:236
+msgid "Macau"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:237
+msgid "Madagascar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:238
+msgid "Malawi"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:239
+msgid "Malaysia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:240
+msgid "Maldives"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:241
+msgid "Mali"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:242
+msgid "Malta"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:243
+msgid "Marshall Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:244
+msgid "Martinique"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:245
+msgid "Mauritania"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:246
+msgid "Mauritius"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:247
+msgid "Mayotte"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:248
+msgid "Mexico"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:249
+msgid "Micronesia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:250
+msgid "Moldova, Republic of"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:251
+msgid "Monaco"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:252
+msgid "Mongolia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:253
+msgid "Monserrat"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:254
+msgid "Morocco"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:255
+msgid "Mozambique"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:256
+msgid "Myanmar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:257
+msgid "Namibia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:258
+msgid "Nauru"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:259
+msgid "Nepal"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:260
+msgid "Netherlands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:261
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:262
+msgid "New Caledonia"
+msgstr "Noua Caledonie"
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:263
+msgid "New Zealand"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:264
+msgid "Nicaragua"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:265
+msgid "Niger"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:266
+msgid "Nigeria"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:267
+msgid "Niue"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:268
+msgid "Norfolk Island"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:269
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:270
+msgid "Norway"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:271
+msgid "Oman"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:272
+msgid "Pakistan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:273
+msgid "Palau"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:274
+msgid "Panama"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:275
+msgid "Papua New Guinea"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:276
+msgid "Paraguay"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:277
+msgid "Peru"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:278
+msgid "Philippines"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:279
+msgid "Pitcairn"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:280
+msgid "Poland"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:281
+msgid "Portugal"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:282
+msgid "Puerto Rico"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:283
+msgid "Qatar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:284
+msgid "Reunion"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:286
+msgid "Russian Federation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:287
+msgid "Rwanda"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:288
+msgid "Saint Lucia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:289
+msgid "Samoa"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:290
+msgid "San Marino"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:291
+msgid "Sao Tome & Principe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:292
+msgid "Saudi Arabia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:293
+msgid "Senegal"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:294
+msgid "Seychelles"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:295
+msgid "Sierra Leone"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:296
+msgid "Singapore"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:297
+msgid "Slovakia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:298
+msgid "Slovenia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:299
+msgid "Solomon Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:300
+msgid "Somalia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:301
+msgid "South Africa"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:302
+msgid "South Georgia and the South Sandwich Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:303
+msgid "Spain"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:304
+msgid "Sri Lanka"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:305
+msgid "St. Helena"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:306
+msgid "St. Kitts and Nevis"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:307
+msgid "St. Pierre & Miquelon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:308
+msgid "St. Vincent & the Grenadines"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:309
+msgid "Sudan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:310
+msgid "Suriname"
+msgstr "Surinam"
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:311
+msgid "Svalbard & Jan Mayen Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:312
+msgid "Swaziland"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:313
+msgid "Sweden"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:314
+msgid "Switzerland"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:315
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:316
+msgid "Taiwan, Province of China"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:317
+msgid "Tajikistan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:318
+msgid "Tanzania, United Republic of"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:319
+msgid "Thailand"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:320
+msgid "Togo"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:321
+msgid "Tokelau"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:322
+msgid "Tonga"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:323
+msgid "Trinidad & Tobago"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:324
+msgid "Tunisia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:325
+msgid "Turkey"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:326
+msgid "Turkmenistan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:327
+msgid "Turks & Caicos Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:328
+msgid "Tuvalu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:329
+msgid "Uganda"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:330
+msgid "Ukraine"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:331
+msgid "United Arab Emirates"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:332
+msgid "United Kingdom (Great Britain)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:333
+msgid "United States Minor Outlying Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:334
+msgid "United States Virgin Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:335
+msgid "Unknown or unspecified country"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:336
+msgid "Uruguay"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:337
+msgid "Uzbekistan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:338
+msgid "Vanuatu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:339
+msgid "Vatican City State (Holy See)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:340
+msgid "Venezuela"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:341
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:342
+msgid "Wallis & Futuna Islands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:343
+msgid "Western Sahara"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:344
+msgid "Yemen"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:345
+msgid "Yugoslavia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:346
+msgid "Zaire"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:347
+msgid "Zambia"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\fields.py:348
+msgid "Zimbabwe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:16
+msgid "Street Address"
+msgstr "Adresă"
+
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:17
+msgid "City"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:18
+msgid "State"
+msgstr "Stat"
+
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:20
+msgid "Postal / Zip Code"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:21
+msgid "Credit Card Number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:22
+msgid "Expiration Date"
+msgstr ""
+
+#: .\venv\Lib\site-packages\paypal\pro\forms.py:23
+msgid "Card Security Code"
+msgstr "Cod de securitate a cardului"
+
+#: .\venv\Lib\site-packages\paypal\standard\forms.py:83
+#, python-format
+msgid "Invalid date format %(value)s: %(e)s"
+msgstr ""
+
+#~ msgid "Resources"
+#~ msgstr "Resurse"
+
+#~ msgid ""
+#~ "You turned my digital vision into reality! The website you designed for "
+#~ "me is not only attractive but also user-friendly and significantly "
+#~ "enhances my experience with customers."
+#~ msgstr ""
+#~ "Mi -ai transformat viziunea digitală în realitate! Site-ul pe care l-ați "
+#~ "proiectat pentru mine nu este doar atractiv, ci și ușor de utilizat și "
+#~ "îmi îmbunătățește semnificativ experiența cu clienții."
+
+#~ msgid ""
+#~ "Since the launch of the new website, we’ve noticed a significant increase "
+#~ "in engagement and sales. Thank you for a website that reflects the "
+#~ "professionalism of our business."
+#~ msgstr ""
+#~ "De la lansarea noului site web, am observat o creștere semnificativă a "
+#~ "implicării și vânzărilor. Vă mulțumim pentru un site web care reflectă "
+#~ "profesionalismul afacerii noastre."
+
+#~ msgid ""
+#~ "If you're looking for an unforgettable website design, this is the place! "
+#~ "Exceptional service and continuous support even after the website is "
+#~ "delivered."
+#~ msgstr ""
+#~ "Dacă sunteți în căutarea unui design de site de neuitat, acesta este "
+#~ "locul! Servicii excepționale și asistență continuă chiar și după livrarea "
+#~ "site -ului web."
+
+#~ msgid "Start your website"
+#~ msgstr "Începeți site -ul dvs. web"

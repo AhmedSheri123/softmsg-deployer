@@ -1,0 +1,35 @@
+[
+    {
+        "id": 2,
+        "title": "Free",
+        "subtitle": "",
+        "theme": {
+            "type": "premium",
+            "theme": "primary"
+        },
+        "price": {
+            "monthly": {
+                "value": 0,
+                "save_value": 0,
+                "discont": 0
+            },
+            "yearly": {
+                "value": 8,
+                "save_value": 2,
+                "discont": 20
+            }
+        },
+        "features": [
+            {
+                "name": "users included",
+                "type": "num",
+                "value": 10
+            },
+            {
+                "name": "Priority email support",
+                "type": "bool",
+                "value": false
+            }
+        ]
+    }
+]

@@ -1,0 +1,825 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block meta %}
+<meta name="description" content="{% trans "Save time and effort with an integrated platform to manage employees, salaries, attendance, evaluations, and much more in one place – for smooth and efficient management." %}">
+{% endblock meta %}
+
+{% block sheri %}
+<!-- header -->
+<div class="text-dark px-4 py-5 text-center">
+    <div class="py-4 text-body-emphasis">
+      <h1 class="display-5 fw-bold container mb-4">
+        {% trans "Smart Human Resources System <br><span class='text-primary'>Organize your company and achieve maximum productivity</span>" %}
+      </h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4">
+            {% trans "Save time and effort with an integrated platform to manage employees, salaries, attendance, evaluations, and much more in one place – for smooth and efficient management." %}
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a href="{% url 'Signup' %}" class="btn btn-primary btn-lg px-4">
+            {% trans "Get started for free" %}
+            <i class="fa-solid fa-caret-right"></i>
+          </a>
+          <a href="https://wa.me/963980606953" target="_blank" class="btn btn-success btn-lg px-4">
+            {% trans "Contact us" %}
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end header -->
+
+<!-- Trusted industry -->
+<div class="container py-5 text-center">
+    <h2 class="py-4">
+        {% trans "Trusted by industry leaders" %}
+    </h2>
+    <div class="py-4 row row-cols-2 row-cols-sm-3 row-cols-lg-6 g-2 g-lg-3" dir="ltr">
+        <div class="col">
+            <i class="fa-brands fa-amazon fa-2x"></i>
+            <span>mazon</span>
+        </div>
+        <div class="col">
+            <i class="fa-brands fa-facebook-f fa-2x"></i>
+            <span>acebook</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-w fa-2x"></i>
+            <span>hatsapp</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-o fa-2x"></i>
+            <span>pen AI</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-d fa-2x"></i>
+            <span>jango</span>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-u fa-2x"></i>
+            <span>ltra MSG</span>
+        </div>
+
+    </div>
+</div>
+<!-- End Trusted industry -->
+
+<!-- Solutions -->
+<div class="container py-5">
+    
+    <div class="bg-black p-4 p-md-5 rounded-4 text-center">
+        <h2 class="text-white">
+            {% trans "HR Management System <span class='text-success'> <br> Solutions</span>" %}
+        </h2>
+
+
+        <ul class="p-0 py-4 row row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-2 g-lg-3 text-white" style="list-style: none;">
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-chart-line fa-2x"></i>
+                    <p>{% trans "Analytics" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-user-plus fa-2x"></i>
+                    <p>{% trans "Manage Recruitment" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-users fa-2x"></i>
+                    <p>{% trans "Manage Employees" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-clock fa-2x"></i>
+                    <p>{% trans "Manage Attendance" %}</p>
+                </button>
+            </li>
+
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-calendar-check fa-2x"></i>
+                    <p>{% trans "Manage Leave" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-user-check fa-2x"></i>
+                    <p>{% trans "Manage Onboarding" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-hand-holding-dollar fa-2x"></i>
+                    <p>{% trans "PMS" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-boxes-stacked fa-2x"></i>
+                    <p>{% trans "Manage Assets" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-money-check-dollar fa-2x"></i>
+                    <p>{% trans "Manage Payroll" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-people-arrows fa-2x"></i>
+                    <p>{% trans "Manage Offboarding" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-headset fa-2x"></i>
+                    <p>{% trans "Manage Help Desk" %}</p>
+                </button>
+            </li>
+
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-file-contract fa-2x"></i>
+                    <p>{% trans "Contract Management" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-chalkboard-teacher fa-2x"></i>
+                    <p>{% trans "Training & Development" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-trophy fa-2x"></i>
+                    <p>{% trans "Rewards & Incentives" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-gavel fa-2x"></i>
+                    <p>{% trans "Disciplinary Actions" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-clock fa-2x"></i>
+                    <p>{% trans "Overtime Management" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-calendar-check fa-2x"></i>
+                    <p>{% trans "Meetings & Appointments" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-comments fa-2x"></i>
+                    <p>{% trans "Feedback & Complaints System" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-ticket fa-2x"></i>
+                    <p>{% trans "Ticketing System" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-folder-open fa-2x"></i>
+                    <p>{% trans "Digital Document Management" %}</p>
+                </button>
+            </li>
+                        
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-chart-pie fa-2x"></i>
+                    <p>{% trans "Reports" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-users-gear fa-2x"></i>
+                    <p>{% trans "Multi Manager" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-user-lock fa-2x"></i>
+                    <p>{% trans "Permissions" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-file-export fa-2x"></i>
+                    <p>{% trans "Exporting" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-bell fa-2x"></i>
+                    <p>{% trans "Notifications" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-globe fa-2x"></i>
+                    <p>{% trans "Multi Languages" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-wrench fa-2x"></i>
+                    <p>{% trans "System Customizing" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-shield-alt fa-2x"></i>
+                    <p>{% trans "Protection" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-rotate fa-2x"></i>
+                    <p>{% trans "Updates" %}</p>
+                </button>
+            </li>
+            <li class="col">
+                <button class="btn btn-outline-light p-4 w-100 h-100">
+                    <i class="fa-solid fa-life-ring fa-2x"></i>
+                    <p>{% trans "Technical Support" %}</p>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<!-- End Solutions -->
+
+
+
+<!-- Services Features -->
+<div class="container py-5">
+    <h2 class="text-center py-4">{% trans "System Features" %}</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-display fa-3x mb-2"></i>
+                    <p class="text-success my-2">{% trans "Dashboard" %}</p>
+                    <h3 class="py-3">{% trans "User-friendly dashboard" %}</h3>
+                    <p>{% trans "A simple and intuitive interface that allows you to manage all your operations easily, even for non-technical users." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-shield-halved fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Security" %}</p>
+                    <h3 class="py-3">{% trans "Protected from security vulnerabilities" %}</h3>
+                    <p>{% trans "A system equipped with advanced protection technologies to safeguard your data from threats and cyber-attacks." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-cube fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Customize" %}</p>
+                    <h3 class="py-3">{% trans "Customizable" %}</h3>
+                    <p>{% trans "A flexible design that allows you to modify the system to suit your specific business needs." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-tablet-screen-button fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Responsive" %}</p>
+                    <h3 class="py-3">{% trans "Multi-device support" %}</h3>
+                    <p>{% trans "Access the system across different devices such as computers, smartphones, or tablets." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-hand fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Permissions" %}</p>
+                    <h3 class="py-3">{% trans "User management and permissions" %}</h3>
+                    <p>{% trans "An advanced control system that allows you to assign different roles and permissions to users within the system." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border d-grid border-0 h-100">
+                <div class="bg-black p-5 text-start text-white rounded-4">
+                    <i class="fa-solid fa-headset fa-3x"></i>
+                    <p class="text-success my-2">{% trans "Support" %}</p>
+                    <h3 class="py-3">{% trans "24/7 technical support" %}</h3>
+                    <p>{% trans "A dedicated support team available around the clock to assist you with any issues or inquiries." %}</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    
+ </div>
+<!-- End Services Features -->
+
+<!-- vedio -->
+<div class="container py-5">
+    <h2 class="text-center py-4 border-top">{% trans "Quick Guide to the HR Management System" %}</h2>
+
+    {% if LANGUAGE_CODE == 'ar'%}
+    <iframe class="w-100 rounded" height="315" src="https://www.youtube.com/embed/0R6bNRPDEIY?si=ZJRMLbc3EpuO5S-p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    {% else %}
+    <iframe class="w-100 rounded" height="315" src="https://www.youtube.com/embed/pYhkvIPtn18?si=5ayEp-9qbFY5tC6V" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    {% endif %}
+</div>
+<!-- end vedio -->
+
+<!-- Customer reviews -->
+<div class="container py-5">
+    <h2 class="text-center py-4 border-top">{% trans "Customer reviews" %}</h2>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col zoom-anim">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload" 
+            data-bg="{% static 'img/reviews/background-diva-26694057.webp' %}">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+
+                    <h3 class="my-4 lh-1 fw-bold">{% trans "An all-in-one management solution that has significantly improved our workflow. It's fast, accurate, and incredibly efficient." %}</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="{% static 'img/reviews/review-0.webp' %}" alt="reviewer person 1" width="32" height="32"
+                                class="rounded-circle border border-white" loading="lazy">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"></use>
+                            </svg>
+                            <small>{% trans "Romania" %}</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            <small>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col zoom-anim">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload"
+            data-bg="{% static 'img/reviews/unsplash-photo-3.webp' %}">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h3 class="my-4 lh-1 fw-bold">{% trans "A game-changer for our business! The software's versatility and ease of use have enhanced our productivity like never before." %}</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="{% static 'img/reviews/review-2.webp' %}" alt="reviewer person 2" width="32" height="32"
+                                class="rounded-circle border border-white" loading="lazy">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"></use>
+                            </svg>
+                            <small>{% trans "German" %}</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            <small>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col zoom-anim">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload" data-bg="{% static 'img/reviews/background-rccbtn-61760629.webp'%}">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                    <h3 class="my-4 lh-1 fw-bold">{% trans "We’ve tried several management solutions before, but this one stands out for its efficiency and ease of use." %}</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="{% static 'img/reviews/review-3.webp' %}" alt="reviewer person 3" width="32" height="32"
+                                class="rounded-circle border border-white" loading="lazy">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"></use>
+                            </svg>
+                            <small>{% trans "Romania" %}</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            <small>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Customer reviews -->
+
+<!-- Start -->
+<div class="container py-5">
+    <h2 class="text-center py-4 border-top">{% trans "Does this sound like your business?" %}</h2>
+
+    <div class="p-4 glass-eff mb-3 rounded-4 mx-auto d-flex align-items-center zoom-anim" style="max-width: 768px;">
+        <i class="fa-solid fa-triangle-exclamation fa-2x text-danger"></i>
+        <h3 class="ms-2 fs-6">{% trans "You are still using outdated paper-based management" %}</h3>
+    </div>
+    <div class="p-4 glass-eff mb-3 rounded-4 mx-auto d-flex align-items-center zoom-anim" style="max-width: 768px;">
+        <i class="fa-solid fa-triangle-exclamation fa-2x text-danger"></i>
+        <h3 class="ms-2 fs-6">{% trans "Your business struggles with inefficient workflows and slow processes" %}</h3>
+    </div>
+    <div class="p-4 glass-eff mb-3 rounded-4 mx-auto d-flex align-items-center zoom-anim" style="max-width: 768px;">
+        <i class="fa-solid fa-triangle-exclamation fa-2x text-danger"></i>
+        <h3 class="ms-2 fs-6">{% trans "You lack a centralized system to manage employees, clients, and financial data" %}</h3>
+    </div>
+
+    <h2 class="text-center py-4 ">{% trans "How would it be if?" %}</h2>
+
+    <div class="p-4 glass-eff mb-3 rounded-4 mx-auto d-flex align-items-center zoom-anim" style="max-width: 768px;">
+        <i class="fa-solid fa-chart-line fa-2x text-success"></i>
+        <h3 class="ms-2 fs-6">{% trans "You had a fully digital system to automate and streamline all operations" %}</h3>
+    </div>
+    <div class="p-4 glass-eff mb-3 rounded-4 mx-auto d-flex align-items-center zoom-anim" style="max-width: 768px;">
+        <i class="fa-solid fa-user-check fa-2x text-success"></i>
+        <h3 class="ms-2 fs-6">{% trans "Your business can efficiently manage employees and reports through a single integrated system" %}</h3>
+    </div>
+    <div class="p-4 glass-eff mb-3 rounded-4 mx-auto d-flex align-items-center zoom-anim" style="max-width: 768px;">
+        <i class="fa-solid fa-rocket fa-2x text-success"></i>
+        <h3 class="ms-2 fs-6">{% trans "Your business was fully automated and optimized for efficiency" %}</h3>
+    </div>
+</div>
+<!-- END Services Features -->
+<!-- Services Features -->
+<div class="p-2 p-md-5 py-5 bg-body-tertiary">
+    <h2 class="text-center py-4 ">
+        {% trans "A Comprehensive HR Solution<br>for Your Business" %}
+    </h2>
+    <p class="text-center col-lg-6 mx-auto">
+        {% trans "Streamline HR processes, enhance productivity, and manage your workforce efficiently with our all-in-one solution." %}
+    </p>
+
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="{% url 'Signup' %}" class="btn btn-primary btn-lg px-4 zoom-anim rounded-4 shadow-lg">
+            {% trans "Get Started" %}
+            <i class="fa-solid fa-caret-right"></i>
+        </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+
+        <!-- Employee Performance -->
+        <div class="col zoom-anim">
+            <div class="d-flex flex-column h-100 p-4 pb-3 text-dark text-shadow-1 glass-eff glass-light-dark">
+                <i class="fa-solid fa-chart-line fa-2x mb-2 text-primary"></i>
+                <h3 class="lh-1 fw-bold">{% trans "Employee Performance" %}</h3>
+                <p>{% trans "Track and analyze <span class='fw-bold'>employee performance</span> with real-time insights using our customizable tools." %}</p>
+                
+                <div class="mb-3">
+                    <img src="{% static 'img/systems/hr/dashboard.webp' %}" alt="hr dashboard" height="200" style="object-fit: cover; object-position: top left;" class="w-100 rounded-4 shadow" loading="lazy">
+                </div>
+                
+                <div class="mb-2">
+                    <i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Goal-based evaluations" %}</span>
+                </div>
+                <div class="mb-2">
+                    <i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Automated performance reports" %}</span>
+                </div>
+                <div class="mb-2">
+                    <i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Custom KPI tracking" %}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee Engagement -->
+        <div class="col zoom-anim">
+            <div class="d-flex flex-column h-100 p-4 pb-3 text-dark text-shadow-1 glass-eff glass-light-dark">
+                <i class="fa-solid fa-users fa-2x mb-2 text-primary"></i>
+                <h3 class="lh-1 fw-bold">{% trans "Employee Engagement" %}</h3>
+                <p>{% trans "Boost morale with <span class='fw-bold'>engagement tools</span> and feedback systems integrated within our solution." %}</p>
+                
+                <div class="mb-3">
+                    <img src="{% static 'img/systems/hr/employees.webp' %}" alt="manage employees" class="w-100 rounded-4 shadow" loading="lazy">
+                </div>
+
+                <div class="mb-2">
+                    <i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Real-time feedback & surveys" %}</span>
+                </div>
+                <div class="mb-2">
+                    <i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Employee recognition programs" %}</span>
+                </div>
+                <div class="mb-2">
+                    <i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Workplace social engagement" %}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- HR Process Automation -->
+        <div class="col zoom-anim">
+            <div class="d-flex flex-column h-100 p-4 pb-3 text-dark text-shadow-1 glass-eff glass-light-dark">
+                <i class="fa-solid fa-robot fa-2x mb-2 text-primary"></i>
+                <h3 class="lh-1 fw-bold">{% trans "HR Process Automation" %}</h3>
+                <p>{% trans 'Automate manual tasks and streamline HR processes with <span class="fw-bold">smart HR automation tools</span>.' %}</p>
+
+                <div class="mb-3">
+                    <img src="{% static 'img/systems/hr/employee-profile.webp' %}" alt="employee profile" class="w-100 rounded-4 shadow" loading="lazy">
+                </div>
+
+                <div class="mb-2">
+                    <i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Automated payroll & attendance" %}</span>
+                </div>
+                <div class="mb-2">
+                    <i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Self-service employee portal" %}</span>
+                </div>
+                <div class="mb-2">
+                    <i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "HR analytics for data-driven decision-making" %}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- End Services Features -->
+
+<!-- FAQ Section -->
+<div class="py-5 px-2 px-md-4 glass-light-dark">
+    <h2 class="text-center py-4">{% trans "Frequently Asked Questions" %}</h2>
+    <div class="accordion accordion-flush mx-auto" id="accordionFlushExample" style="max-width: 1080px;">
+
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    {% trans "How can I get started with an administrative system for my business?" %}
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                role="region" aria-labelledby="flush-headingOne">
+                <div class="accordion-body">
+                    {% trans "You can start by creating a free account or by booking a free consultation. We'll analyze your business needs and recommend the best solution tailored to your operations." %}
+                </div>
+            </div>
+        </div>
+    
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    {% trans "How much does an administrative system cost?" %}
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                role="region" aria-labelledby="flush-headingTwo">
+                <div class="accordion-body">
+                    {% trans "Pricing depends on the features and scale of the system. We offer flexible subscription plans and customized solutions based on your business size and needs." %}
+                </div>
+            </div>
+        </div>
+    
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow">
+            <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    {% trans "How long does it take to implement the system?" %}
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                role="region" aria-labelledby="flush-headingThree">
+                <div class="accordion-body">
+                    {% trans "You can create an account and get started with the system immediately in a simple and straightforward manner. There's no complex setup required, allowing you to begin using the system right away." %}
+                </div>
+            </div>
+        </div>
+    
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow">
+            <h2 class="accordion-header" id="flush-headingFour">
+                <button class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    {% trans "Do you provide training and support after setup?" %}
+                </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                role="region" aria-labelledby="flush-headingFour">
+                <div class="accordion-body">
+                    {% trans "Yes, we offer training sessions for your team and ongoing support to ensure smooth operation of the system. You can always reach out for updates and troubleshooting." %}
+                </div>
+            </div>
+        </div>
+    
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow">
+            <h2 class="accordion-header" id="flush-headingFive">
+                <button class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                    {% trans "Can I customize the system based on my business needs?" %}
+                </button>
+            </h2>
+            <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                role="region" aria-labelledby="flush-headingFive">
+                <div class="accordion-body">
+                    {% trans "Absolutely! Our system is modular and can be tailored to match your specific workflow. We also offer API integrations with existing software you may be using." %}
+                </div>
+            </div>
+        </div>
+    
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow">
+            <h2 class="accordion-header" id="flush-headingSix">
+                <button class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                    {% trans "Is my business data secure?" %}
+                </button>
+            </h2>
+            <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                role="region" aria-labelledby="flush-headingSix">
+                <div class="accordion-body">
+                    {% trans "Yes! We prioritize security with encrypted data storage, secure cloud hosting, and regular system updates to ensure the highest level of protection." %}
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    
+
+    {% comment %} <div class="text-center my-4">
+        <a href="" class="">{% trans "Show more questions" %}</a>
+    </div> {% endcomment %}
+</div>
+<!-- End FAQ Section -->
+
+
+
+<!-- Describe System -->
+<div class="container py-5">
+    <h2 class="text-center py-4">{% trans "System Images" %}</h2>
+    <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="6" aria-label="Slide 7"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" aria-label="Slide 8"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="8" aria-label="Slide 9"></button>
+        </div>
+        <div class="carousel-inner rounded border-0">
+
+          <div class="carousel-item active">
+            <img src="{% static 'img/systems/hr/dashboard.webp' %}" class="d-block w-100" alt="main hr dashboard" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Home Page" %}</h3>
+              <p>{% trans "The home page provides you with a comprehensive overview of everything you need. You can track performance and analyze data with flexibility and speed." %}</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="{% static 'img/systems/hr/employee-profile.webp' %}" class="d-block w-100" alt="employee profile" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Employee Management" %}</h3>
+              <p>{% trans "Our Employee Management section offers a flexible and professional solution to manage all aspects of employees. From recruitment and attendance tracking to payroll and evaluations, our system provides complete control over employee data." %}</p>
+            </div>
+          </div>
+
+          <!-- Employment Section -->
+          <div class="carousel-item">
+            <img src="{% static 'img/systems/hr/employment.webp' %}" class="d-block w-100" alt="employment management" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Employment Management" %}</h3>
+              <p>{% trans "Our Employment Management section helps you efficiently manage hiring, onboarding, and tracking of employees. From contract creation to performance evaluations, we make managing employees easy and streamlined." %}</p>
+            </div>
+          </div>
+
+          <!-- Assets Section -->
+          <div class="carousel-item">
+            <img src="{% static 'img/systems/hr/assets.webp' %}" class="d-block w-100" alt="assets management" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Asset Management" %}</h3>
+              <p>{% trans "Our Asset Management system allows you to track and manage the assets assigned to employees, including equipment, tools, and other company-owned items. Ensure accountability and efficient asset allocation across your organization." %}</p>
+            </div>
+          </div>
+
+
+
+          <!-- Additional Sections -->
+          <div class="carousel-item">
+            <img src="{% static 'img/systems/hr/payroll.webp' %}" class="d-block w-100" alt="payroll management" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Payroll & Benefits" %}</h3>
+              <p>{% trans "Our Payroll & Benefits system provides a flexible and professional way to calculate salaries, benefits, bonuses, and employee leave. Generate detailed reports with ease." %}</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="{% static 'img/systems/hr/performance-evaluations.webp' %}" class="d-block w-100" alt="performance evaluations" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Performance Evaluations" %}</h3>
+              <p>{% trans "The Performance Evaluation system helps manage and track employee performance effectively, with regular assessments, manager feedback, and goal setting for team success." %}</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="{% static 'img/systems/hr/attendance-report.webp' %}" class="d-block w-100" alt="attendance report" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Attendance System" %}</h3>
+              <p>{% trans "Our Attendance system is designed to accurately and flexibly track employee attendance. Generate detailed reports and set automated notifications for late arrivals or absences." %}</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="{% static 'img/systems/hr/leave-management.webp' %}" class="d-block w-100" alt="leave management" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Leave Management" %}</h3>
+              <p>{% trans "Leave Management provides you with a flexible tool to handle leave requests and absences for all employees. Monitor leave balances and ensure smooth workflow." %}</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="{% static 'img/systems/hr/permissions.webp' %}" class="d-block w-100" alt="user permissions" loading="lazy">
+            <div class="carousel-caption d-none d-md-block bg-primary bg-opacity-75 rounded-3">
+              <h3 class="fs-5">{% trans "Permissions Management" %}</h3>
+              <p>{% trans "Our Permissions Management system allows you to define user permissions, enhancing security and flexibility in managing access to sensitive information." %}</p>
+            </div>
+          </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">{% trans "Previous" %}</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">{% trans "Next" %}</span>
+        </button>
+      </div>
+</div>
+<!-- End Describe System -->
+
+
+
+<!-- Signup -->
+<div class="container py-5">
+    <h2 class="text-center py-4">{% trans "Join the future of HR management with our advanced system and get the first 30 days of free and unique experience!" %}</h2>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="{% url 'Signup' %}" class="btn btn-primary btn-lg px-4">
+            {% trans "Get started for free" %}
+            <i class="fa-solid fa-caret-right"></i>
+        </a>
+        <a href="https://wa.me/963980606953" target="_blank" class="btn btn-success btn-lg px-4">
+            {% trans "Contact us" %}
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
+<!-- End Signup -->
+{% endblock %}
