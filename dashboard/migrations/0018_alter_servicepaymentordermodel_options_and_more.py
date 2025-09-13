@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='servicepaymentordermodel',
             name='orderID',
-            field=models.CharField(default=dashboard.models.payOrderCodeGen, max_length=250, null=True, verbose_name='Order ID'),
+            field=models.CharField(default='', max_length=250, null=True, verbose_name='Order ID'),
         ),
         migrations.AlterField(
             model_name='servicepaymentordermodel',
