@@ -50,15 +50,16 @@ def run_action(request, deployment_id, action_id):
 
             exec_log = container.exec_run(command)
             output = exec_log.output.decode("utf-8") if exec_log.output else ""
-
+            
             return JsonResponse({
                 "success": True,
                 "message": f"{action.label} executed successfully!",
                 "output": output
             })
+        
         except Exception as e:
             return JsonResponse({"success": False, "message": str(e)})
-
+    
     return render(request, "dashboard/projects/actions/run_action_modal.html", {
         "deployment": deployment,
         "action": action,

@@ -72,7 +72,7 @@ def run_docker(deployment: Deployment, plan: Plan):
     volume_media = f"{container_name}_media"
     volume_db = f"{db_container_name}_data"
     network_name = "deploy_network"
-
+    available_port = get_free_port()
     # ---------------- Traefik ----------------
     try:
         client.containers.get("traefik")
@@ -188,6 +188,7 @@ def run_docker(deployment: Deployment, plan: Plan):
         container = client.containers.run(
             image=image_name,
             name=container_name,
+            # ports={"8000/tcp": available_port},
             labels=labels,
             detach=True,
             mem_limit=mem_limit,
@@ -302,8 +303,18 @@ def get_container_usage(container_name):
     import docker
     client = docker.from_env()
     usage = {}
-    db_container_name=f"{container_name}_db"
-    media_path="/app/media"
+    db_container_name = f"{container_name}_db"
+    media_path = "/app/media"
+
+    def calculate_cpu_percent(stats):
+        cpu_delta = stats["cpu_stats"]["cpu_usage"]["total_usage"] - stats["precpu_stats"]["cpu_usage"]["total_usage"]
+        system_delta = stats["cpu_stats"].get("system_cpu_usage", 0) - stats["precpu_stats"].get("system_cpu_usage", 0)
+        cpu_percent = 0.0
+        if system_delta > 0.0 and cpu_delta > 0.0:
+            percpu_count = len(stats["cpu_stats"]["cpu_usage"].get("percpu_usage", [])) or 1
+            cpu_percent = (cpu_delta / system_delta) * percpu_count * 100.0
+        return cpu_percent
+
     try:
         # الحصول على حاوية المشروع
         container = client.containers.get(container_name)
@@ -315,12 +326,7 @@ def get_container_usage(container_name):
         mem_percent = (mem_usage / mem_limit) * 100 if mem_limit > 0 else 0
 
         # ---------------- CPU ----------------
-        cpu_delta = stats["cpu_stats"]["cpu_usage"]["total_usage"] - stats["precpu_stats"]["cpu_usage"]["total_usage"]
-        system_delta = stats["cpu_stats"]["system_cpu_usage"] - stats["precpu_stats"]["system_cpu_usage"]
-        cpu_percent = 0.0
-        if system_delta > 0 and cpu_delta > 0:
-            percpu_count = len(stats["cpu_stats"]["cpu_usage"].get("percpu_usage", []))
-            cpu_percent = (cpu_delta / system_delta) * percpu_count * 100
+        cpu_percent = calculate_cpu_percent(stats)
 
         # ---------------- Storage (media) ----------------
         try:
@@ -331,13 +337,12 @@ def get_container_usage(container_name):
 
         # ---------------- Storage (Postgres DB) ----------------
         storage_db = 0
-        if db_container_name:
-            try:
-                db_container = client.containers.get(db_container_name)
-                exec_result = db_container.exec_run("du -sb /var/lib/postgresql/data")
-                storage_db = int(exec_result.output.decode().split()[0])
-            except Exception:
-                storage_db = 0
+        try:
+            db_container = client.containers.get(db_container_name)
+            exec_result = db_container.exec_run("du -sb /var/lib/postgresql/data")
+            storage_db = int(exec_result.output.decode().split()[0])
+        except Exception:
+            storage_db = 0
 
         # المجموع النهائي للتخزين
         total_storage = storage_media + storage_db
