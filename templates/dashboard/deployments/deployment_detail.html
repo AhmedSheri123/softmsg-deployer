@@ -4,7 +4,7 @@
 {% block sheri %}
 
 <div class="bg-light p-3 mb-3 rounded d-flex flex-wrap gap-2">
-    <a href="http://{{ deployment.domain }}" target="_blank" class="btn btn-dark my-1">{% trans "Go To Dashboard" %}</a>
+    <a href="http://{{ deployment.domain }}:8000" target="_blank" class="btn btn-dark my-1">{% trans "Go To Dashboard" %}</a>
     <a href="{% url 'env_settings' deployment.id %}" class="btn btn-dark my-1">{% trans "Settings" %}</a>
 
 

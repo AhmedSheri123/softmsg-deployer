@@ -31,7 +31,7 @@
                         <td>{{ user_service.plan }}</td>
                         <td>
                             {% if user_service.domain %}
-                                <a href="http://{{ user_service.domain }}" target="_blank">{{ user_service.domain }}</a>
+                                <a href="http://{{ user_service.domain }}:8000" target="_blank">{{ user_service.domain }}</a>
                             {% else %}
                                 <span class="text-muted">N/A</span>
                             {% endif %}
