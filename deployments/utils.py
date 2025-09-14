@@ -203,6 +203,7 @@ def run_docker(deployment: Deployment, plan: Plan):
             name=container_name,
             labels=labels,
             ports={"8000/tcp": port},
+            
             detach=True,
             mem_limit=mem_limit,
             cpu_quota=cpu_quota,
