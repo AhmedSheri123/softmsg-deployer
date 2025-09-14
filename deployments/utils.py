@@ -63,7 +63,6 @@ def update_deployment(deployment, progress, status, container_name, port=None):
     deployment.save()
 
 
-# ---------- Deployment Functions ----------
 def run_docker(deployment: Deployment, plan: Plan):
     """نشر مشروع باستخدام Docker مع Traefik على Ubuntu"""
     client = docker.from_env()
@@ -79,13 +78,11 @@ def run_docker(deployment: Deployment, plan: Plan):
         client.containers.get("traefik")
         logger.info("Traefik already running")
     except docker.errors.NotFound:
-        # الشبكة
         try:
             client.networks.get(network_name)
         except docker.errors.NotFound:
             client.networks.create(network_name, driver="bridge")
 
-        # ملفات Traefik
         traefik_yml = "/opt/traefik/traefik.yml"
         acme_file = "/opt/traefik/acme.json"
         os.makedirs(os.path.dirname(acme_file), exist_ok=True)
@@ -93,13 +90,12 @@ def run_docker(deployment: Deployment, plan: Plan):
             open(acme_file, 'a').close()
             os.chmod(acme_file, 0o600)
 
-        # تشغيل Traefik
         client.containers.run(
             "traefik:latest",
             name="traefik",
             detach=True,
             network=network_name,
-            ports={"80/tcp": 80, "443/tcp": 443},
+            ports={"8000/tcp": 8000, "8443/tcp": 8443, "8080/tcp": 8080},
             volumes={
                 traefik_yml: {"bind": "/traefik.yml", "mode": "ro"},
                 acme_file: {"bind": "/acme.json", "mode": "rw"},
@@ -115,27 +111,17 @@ def run_docker(deployment: Deployment, plan: Plan):
         logger.info(f"Pulling image {image_name}")
         client.images.pull(image_name)
 
-    # ---------------- Ports ----------------
-    try:
-        port = get_free_port()
-    except RuntimeError as e:
-        update_deployment(deployment, "5", "3", container_name)
-        logger.error(f"No free ports available: {e}")
-        return False
-
     # ---------------- Resources ----------------
     ram_limit = getattr(plan, "ram", 512)
     cpu_limit = getattr(plan, "cpu", 0.5)
     mem_limit = f"{ram_limit}m"
     cpu_quota = int(cpu_limit * 100000)
-    storage_limit = str(getattr(plan, "storage", '1'))
 
     # ---------------- DB ----------------
     db_name = f"db_{deployment.id}"
     db_user = "postgres"
     db_pass = "postgres"
 
-    # حذف الحاويات القديمة
     for cname in [container_name, db_container_name]:
         try:
             c = client.containers.get(cname)
@@ -144,7 +130,6 @@ def run_docker(deployment: Deployment, plan: Plan):
         except docker.errors.NotFound:
             pass
 
-    # إنشاء Volumes
     for vol in [volume_media, volume_db]:
         try:
             client.volumes.get(vol)
@@ -152,7 +137,6 @@ def run_docker(deployment: Deployment, plan: Plan):
             client.volumes.create(name=vol)
             logger.info(f"Volume {vol} created")
 
-    # تشغيل قاعدة البيانات
     try:
         client.containers.run(
             image="postgres:14",
@@ -187,10 +171,10 @@ def run_docker(deployment: Deployment, plan: Plan):
     }
     final_env = {**fixed_env, **env_vars}
 
-    # Traefik labels
+    # ---------------- Traefik labels (اختبار بدون Host) ----------------
     labels = {
         "traefik.enable": "true",
-        f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
+        f"traefik.http.routers.{container_name}.rule": "PathPrefix(`/`)",
         f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
         f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
         f"traefik.http.services.{container_name}.loadbalancer.server.port": "8000"
@@ -202,8 +186,6 @@ def run_docker(deployment: Deployment, plan: Plan):
             image=image_name,
             name=container_name,
             labels=labels,
-            ports={"8000/tcp": port},
-
             detach=True,
             mem_limit=mem_limit,
             cpu_quota=cpu_quota,
@@ -214,10 +196,10 @@ def run_docker(deployment: Deployment, plan: Plan):
         )
 
         deployment.volume_media = volume_media
-        update_deployment(deployment, "4", "2", container_name, port)
+        update_deployment(deployment, "4", "2", container_name)
         deployment.domain = domain
         deployment.save()
-        logger.info(f"Deployment succeeded: {container_name} on port {port}")
+        logger.info(f"Deployment succeeded: {container_name}")
         return True
     except (DockerException, APIError, ContainerError) as e:
         update_deployment(deployment, "5", "3", container_name)
