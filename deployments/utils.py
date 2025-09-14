@@ -174,7 +174,7 @@ def run_docker(deployment: Deployment, plan: Plan):
     # ---------------- Traefik labels (اختبار بدون Host) ----------------
     labels = {
         "traefik.enable": "true",
-        f"traefik.http.routers.{container_name}.rule": "PathPrefix(`/`)",
+        f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
         f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
         f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
         f"traefik.http.services.{container_name}.loadbalancer.server.port": "8000"
