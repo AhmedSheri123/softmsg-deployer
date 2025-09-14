@@ -17,7 +17,7 @@ def rebuild_project(request, deployment_id):
     )
 
     # استدعاء السكربت لإنشاء Docker container
-    success = rebuild_docker(deployment, deployment.plan)
+    success = rebuild_docker(deployment)
     if not success:
         messages.error(request, "Failed to deploy the project.")
     else:messages.success(request, "Project deployed successfully!")

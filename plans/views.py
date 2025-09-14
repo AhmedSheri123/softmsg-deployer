@@ -38,7 +38,7 @@ def ApplySubscription(request, order_id):
         duration=duration,
     )
     # تشغيل الـ Docker container
-    success = run_docker(deployment, plan)
+    success = run_docker(deployment)
 
 
     return redirect('my_deployments')

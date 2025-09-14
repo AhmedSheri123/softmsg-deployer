@@ -242,7 +242,7 @@ def create_project_container(deployment):
     deployment.save()
     return True
 
-def run_docker(deployment: Deployment, plan: Plan):
+def run_docker(deployment: Deployment):
     client = docker.from_env()
     container_name = f"{deployment.user.username}_{deployment.project.name}_{deployment.id}".lower()
     deployment.container_name = container_name
@@ -302,9 +302,9 @@ def delete_docker(deployment: Deployment):
                 logger.error(f"Failed to remove volume {vol}: {e}")
     return True
 
-def rebuild_docker(deployment: Deployment, plan: Plan):
+def rebuild_docker(deployment: Deployment):
     delete_docker(deployment)
-    return run_docker(deployment, plan)
+    return run_docker(deployment)
 
 def restart_docker_db(deployment: Deployment):
     client = docker.from_env()
