@@ -168,6 +168,7 @@ def run_docker(deployment: Deployment, plan: Plan):
         "DOMAIN": domain,
         "DATABASE_URL": f"postgres://{db_user}:{db_pass}@{db_container_name}:5432/{db_name}",
         "ALLOWED_HOSTS": f"localhost,127.0.0.1,{domain}",
+        "CSRF_TRUSTED_ORIGINS":f"https://{domain}:8443,https://{domain}"
     }
     final_env = {**fixed_env, **env_vars}
 
