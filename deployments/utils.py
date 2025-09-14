@@ -202,7 +202,7 @@ def run_docker(deployment: Deployment, plan: Plan):
             image=image_name,
             name=container_name,
             labels=labels,
-            # ports={"8000/tcp": port},
+            ports={"8000/tcp": port},
 
             detach=True,
             mem_limit=mem_limit,
