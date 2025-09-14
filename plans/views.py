@@ -28,7 +28,7 @@ def ApplySubscription(request, order_id):
         project=project,
     )
 
-    deployment.domain = f"{request.user.username}.{deployment.id}.softmsg.com"
+    deployment.domain = f"{request.user.username}-{deployment.id}.softmsg.com"
     deployment.save()
 
     # تشغيل الـ Docker container
