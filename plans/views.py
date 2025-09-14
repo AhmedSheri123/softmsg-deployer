@@ -31,13 +31,14 @@ def ApplySubscription(request, order_id):
     deployment.domain = f"{request.user.username}-{deployment.id}.softmsg.com"
     deployment.save()
 
-    # تشغيل الـ Docker container
-    success = run_docker(deployment, plan)
     # إنشاء Subscription مرتبط بالـ Deployment
     Subscription.objects.create(
         deployment=deployment,
         plan=plan,
         duration=duration,
     )
+    # تشغيل الـ Docker container
+    success = run_docker(deployment, plan)
+
 
     return redirect('my_deployments')

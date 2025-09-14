@@ -63,25 +63,51 @@ def update_deployment(deployment, progress, status, container_name, port=None):
     deployment.save()
 
 
-def run_docker(deployment: Deployment, plan: Plan):
-    """نشر مشروع باستخدام Docker مع Traefik على Ubuntu"""
-    client = docker.from_env()
-    container_name = f"{deployment.user.username}_{deployment.project.name}_{deployment.id}".lower()
-    db_container_name = f"{container_name}_db"
-    image_name = deployment.project.docker_image_name
-    volume_media = f"{container_name}_media"
-    volume_db = f"{db_container_name}_data"
-    network_name = "deploy_network"
-    available_port = get_free_port()
-    # ---------------- Traefik ----------------
+
+
+
+def run_container(client, **kwargs):
+    try:
+        return client.containers.run(**kwargs)
+    except APIError as e:
+        logger.error(f"Failed to run container: {str(e)}")
+        return None
+    
+def ensure_network(client, name="deploy_network"):
+    try:
+        client.networks.get(name)
+    except NotFound:
+        client.networks.create(name, driver="bridge")
+        logger.info(f"Network {name} created")
+
+def ensure_volume(client, name):
+    try:
+        client.volumes.get(name)
+    except NotFound:
+        client.volumes.create(name=name)
+        logger.info(f"Volume {name} created")
+
+def ensure_image(client, image_name):
+    try:
+        client.images.get(image_name)
+    except docker.errors.ImageNotFound:
+        logger.info(f"Pulling image {image_name}")
+        client.images.pull(image_name)
+
+def remove_container_if_exists(client, name):
+    try:
+        container = client.containers.get(name)
+        container.remove(force=True)
+        logger.info(f"Removed old container {name}")
+    except NotFound:
+        pass
+
+def ensure_traefik(client, network_name):
     try:
         client.containers.get("traefik")
         logger.info("Traefik already running")
-    except docker.errors.NotFound:
-        try:
-            client.networks.get(network_name)
-        except docker.errors.NotFound:
-            client.networks.create(network_name, driver="bridge")
+    except NotFound:
+        ensure_network(client, network_name)
 
         traefik_yml = "/opt/traefik/traefik.yml"
         acme_file = "/opt/traefik/acme.json"
@@ -104,41 +130,30 @@ def run_docker(deployment: Deployment, plan: Plan):
         )
         logger.info("Traefik started")
 
-    # ---------------- Images ----------------
-    try:
-        client.images.get(image_name)
-    except docker.errors.ImageNotFound:
-        logger.info(f"Pulling image {image_name}")
-        client.images.pull(image_name)
 
-    # ---------------- Resources ----------------
-    ram_limit = getattr(plan, "ram", 512)
-    cpu_limit = getattr(plan, "cpu", 0.5)
-    mem_limit = f"{ram_limit}m"
-    cpu_quota = int(cpu_limit * 100000)
 
-    # ---------------- DB ----------------
+def create_project_db_container(deployment):
+    client = docker.from_env()
+    if not deployment.container_name:
+        logger.error("No container associated with this deployment")
+        return False
+
+    ensure_network(client)
+
+    db_container_name = f"{deployment.container_name}_db"
+    volume_db = f"{db_container_name}_data"
     db_name = f"db_{deployment.id}"
     db_user = "postgres"
     db_pass = "postgres"
 
-    for cname in [container_name, db_container_name]:
-        try:
-            c = client.containers.get(cname)
-            c.remove(force=True)
-            logger.info(f"Removed old container {cname}")
-        except docker.errors.NotFound:
-            pass
-
-    for vol in [volume_media, volume_db]:
-        try:
-            client.volumes.get(vol)
-        except docker.errors.NotFound:
-            client.volumes.create(name=vol)
-            logger.info(f"Volume {vol} created")
-
     try:
-        client.containers.run(
+        db_container = client.containers.get(db_container_name)
+        db_container.start()
+        logger.info(f"Database container {db_container_name} started successfully")
+    except NotFound:
+        logger.warning(f"Database container {db_container_name} not found, creating a new one...")
+        run_container(
+            client,
             image="postgres:14",
             name=db_container_name,
             detach=True,
@@ -148,68 +163,117 @@ def run_docker(deployment: Deployment, plan: Plan):
                 "POSTGRES_PASSWORD": db_pass,
             },
             volumes={volume_db: {"bind": "/var/lib/postgresql/data", "mode": "rw"}},
-            network=network_name,
+            network="deploy_network",
             restart_policy={"Name": "unless-stopped"}
         )
-    except docker.errors.APIError as e:
-        update_deployment(deployment, "5", "3", container_name)
-        logger.error(f"Failed to start DB container {db_container_name}: {e}")
+
+    return True
+
+def create_project_container(deployment):
+    client = docker.from_env()
+    if not deployment.container_name:
+        logger.error("No container associated with this deployment")
         return False
 
-    update_deployment(deployment, "3", "3", container_name)
+    ensure_network(client)
 
-    # ---------------- Environment ----------------
+    container_name = deployment.container_name
+    db_container_name = f"{container_name}_db"
+    plan = deployment.plan
+    image_name = deployment.project.docker_image_name
+    volume_media = deployment.volume_media
     domain = deployment.domain
-    env_vars = {env.var_name.key: env.value for env in DeploymentEnvVar.objects.filter(deployment=deployment)}
+
+    ram_limit = getattr(plan, "ram", 512)
+    cpu_limit = getattr(plan, "cpu", 0.5)
+    mem_limit = f"{ram_limit}m"
+    cpu_quota = int(cpu_limit * 100000)
+
+    db_name = f"db_{deployment.id}"
+    db_user = "postgres"
+    db_pass = "postgres"
+
+    env_vars = {
+        env.var_name.key: env.value
+        for env in DeploymentEnvVar.objects.filter(deployment=deployment)
+    }
+
     fixed_env = {
         "USERNAME": deployment.user.username,
         "PLAN": plan.name,
         "PROJECT": deployment.project.name,
-        "DOMAIN": domain,
         "DATABASE_URL": f"postgres://{db_user}:{db_pass}@{db_container_name}:5432/{db_name}",
+        "DOMAIN": domain,
         "ALLOWED_HOSTS": f"localhost,127.0.0.1,{domain}",
-        "CSRF_TRUSTED_ORIGINS":f"https://{domain}:8443,https://{domain}"
+        "CSRF_TRUSTED_ORIGINS": f"https://{domain}:8443,https://{domain}"
     }
+
     final_env = {**fixed_env, **env_vars}
 
-    # ---------------- Traefik labels (اختبار بدون Host) ----------------
     labels = {
         "traefik.enable": "true",
-        f"traefik.http.routers.{container_name}-http.rule": f"Host(`{domain}`)",
-        f"traefik.http.routers.{container_name}-http.entrypoints": "web",
-        f"traefik.http.routers.{container_name}-https.rule": f"Host(`{domain}`)",
-        f"traefik.http.routers.{container_name}-https.entrypoints": "websecure",
-        f"traefik.http.routers.{container_name}-https.tls.certresolver": "myresolver",
+        f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
+        f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
+        f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
         f"traefik.http.services.{container_name}.loadbalancer.server.port": "8000"
     }
 
-    # ---------------- Project Container ----------------
     try:
-        container = client.containers.run(
+        container = client.containers.get(container_name)
+        container.start()
+        logger.info(f"Project container {container_name} started successfully")
+    except NotFound:
+        logger.warning(f"Project container {container_name} not found, creating a new one...")
+        run_container(
+            client,
             image=image_name,
             name=container_name,
-            # ports={"8000/tcp": available_port},
             labels=labels,
             detach=True,
             mem_limit=mem_limit,
             cpu_quota=cpu_quota,
             volumes={volume_media: {'bind': '/app/media', 'mode': 'rw'}},
             environment=final_env,
-            network=network_name,
+            network="deploy_network",
             restart_policy={"Name": "unless-stopped"}
         )
 
-        deployment.volume_media = volume_media
-        update_deployment(deployment, "4", "2", container_name)
-        deployment.domain = domain
-        deployment.save()
-        logger.info(f"Deployment succeeded: {container_name}")
-        return True
-    except (DockerException, APIError, ContainerError) as e:
+    deployment.status = 2
+    deployment.save()
+    return True
+
+def run_docker(deployment: Deployment, plan: Plan):
+    client = docker.from_env()
+    container_name = f"{deployment.user.username}_{deployment.project.name}_{deployment.id}".lower()
+    deployment.container_name = container_name
+    deployment.save()
+
+    # إعداد الشبكة و Traefik
+    ensure_traefik(client, network_name="deploy_network")
+
+    # تحميل الصورة إن لم تكن موجودة
+    ensure_image(client, deployment.project.docker_image_name)
+
+    # إزالة الحاويات القديمة
+    remove_container_if_exists(client, container_name)
+    remove_container_if_exists(client, f"{container_name}_db")
+
+    # إنشاء الحاوية الخاصة بقاعدة البيانات
+    db_success = create_project_db_container(deployment)
+    if not db_success:
         update_deployment(deployment, "5", "3", container_name)
-        logger.error(f"Deployment failed for {container_name}: {e}")
         return False
 
+    # إنشاء الحاوية الخاصة بالمشروع
+    app_success = create_project_container(deployment)
+    if not app_success:
+        update_deployment(deployment, "5", "3", container_name)
+        return False
+
+    # تحديث حالة النشر
+    update_deployment(deployment, "4", "2", container_name)
+    logger.info(f"Deployment succeeded: {container_name}")
+    return True
 
 
 def delete_docker(deployment: Deployment):
@@ -242,61 +306,112 @@ def rebuild_docker(deployment: Deployment, plan: Plan):
     delete_docker(deployment)
     return run_docker(deployment, plan)
 
+def restart_docker_db(deployment: Deployment):
+    client = docker.from_env()
+    container_name = deployment.container_name
+    db_container_name = f"{container_name}_db"
+
+    try:
+        db_container = client.containers.get(db_container_name)
+        db_container.restart()
+        logger.info(f"Database container {db_container_name} restarted successfully")
+    except NotFound:
+        create_project_db_container(deployment)
+        logger.warning(f"Database container {db_container_name} not found, creating a new one...")
+
 def restart_docker(deployment: Deployment):
     client = docker.from_env()
     if not deployment.container_name:
         logger.error("No container associated with this deployment")
         return False
+
+    # تأكد من قاعدة البيانات أولاً
+    restart_docker_db(deployment)
+
+    container_name = deployment.container_name
+
     try:
-        container = client.containers.get(deployment.container_name)
+        container = client.containers.get(container_name)
         container.restart()
-        deployment.status = 2
-        deployment.save()
-        logger.info(f"Container {deployment.container_name} restarted successfully")
-        return True
+        logger.info(f"Container {container_name} restarted successfully")
     except NotFound:
-        logger.error(f"Container {deployment.container_name} not found")
-        return False
-    except DockerException as e:
-        logger.error(f"Failed to restart container: {e}")
-        return False
+        create_project_container(deployment)
+        logger.warning(f"Container {container_name} not found, creating a new one...")
+        
+
+    deployment.status = 2
+    deployment.save()
+    return True
+
+
+
+
 
 def stop_docker(deployment: Deployment):
     client = docker.from_env()
     if not deployment.container_name:
         logger.error("No container associated with this deployment")
         return False
+
+    # إيقاف حاوية المشروع
     try:
         container = client.containers.get(deployment.container_name)
         container.stop()
         deployment.status = 1
         deployment.save()
-        logger.info(f"Container {deployment.container_name} restarted successfully")
-        return True
+        logger.info(f"Container {deployment.container_name} stopped successfully")
     except NotFound:
         logger.error(f"Container {deployment.container_name} not found")
         return False
     except DockerException as e:
-        logger.error(f"Failed to restart container: {e}")
+        logger.error(f"Failed to stop container: {e}")
         return False
+
+    # إيقاف قاعدة البيانات (اختياري)
+    db_container_name = f"{deployment.container_name}_db"
+    try:
+        db_container = client.containers.get(db_container_name)
+        db_container.stop()
+        logger.info(f"Database container {db_container_name} stopped successfully")
+    except NotFound:
+        logger.warning(f"Database container {db_container_name} not found")
+    except DockerException as e:
+        logger.error(f"Failed to stop database container: {e}")
+
+    return True
 
 def start_docker(deployment: Deployment):
     client = docker.from_env()
     if not deployment.container_name:
         logger.error("No container associated with this deployment")
         return False
+
+    # تشغيل قاعدة البيانات أولًا
+    db_container_name = f"{deployment.container_name}_db"
+    try:
+        db_container = client.containers.get(db_container_name)
+        db_container.start()
+        logger.info(f"Database container {db_container_name} started successfully")
+    except NotFound:
+        create_project_db_container(deployment)
+        logger.warning(f"Database container {db_container_name} not found")
+    except DockerException as e:
+        logger.error(f"Failed to start database container: {e}")
+
+    # تشغيل المشروع
     try:
         container = client.containers.get(deployment.container_name)
         container.start()
         deployment.status = 2
         deployment.save()
-        logger.info(f"Container {deployment.container_name} restarted successfully")
+        logger.info(f"Container {deployment.container_name} started successfully")
         return True
     except NotFound:
+        create_project_container(deployment)
         logger.error(f"Container {deployment.container_name} not found")
         return False
     except DockerException as e:
-        logger.error(f"Failed to restart container: {e}")
+        logger.error(f"Failed to start container: {e}")
         return False
 
 def get_container_usage(container_name):
