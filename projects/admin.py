@@ -18,6 +18,7 @@ class AvailableProjectAdmin(admin.ModelAdmin):
         }),
         ("Database Env Vars", {
             "fields": (
+                'db_engine_env_var_name',
                 'db_name_env_var_name',
                 'db_user_env_var_name',
                 'db_password_env_var_name',
