@@ -210,7 +210,7 @@ def create_project_container(deployment):
 
     final_env = {**fixed_env, **env_vars}
     # ---------- DATABASE ENV VARS ----------
-    final_env[deployment.project.db_engine_env_var_name] = 'postgres'
+    final_env[deployment.project.db_engine_env_var_name] = 'postgresql'
     final_env[deployment.project.db_name_env_var_name] = db_name
     final_env[deployment.project.db_user_env_var_name] = db_user
     final_env[deployment.project.db_password_env_var_name] = db_pass
