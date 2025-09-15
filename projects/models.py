@@ -70,7 +70,7 @@ class EnvVarModel(models.Model):
     key = models.CharField(max_length=100)
     is_secret = models.BooleanField(default=False, help_text="اخفاء")
     required = models.BooleanField(default=False)
-    default_value = models.CharField(max_length=100, help_text="{self.deployment.id}")
+    default_value = models.CharField(max_length=100, help_text="{self.deployment.id}", blank=True)
     class Meta:
         unique_together = ("project", "key")
         ordering = ["key"]
