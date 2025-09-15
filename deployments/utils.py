@@ -209,6 +209,10 @@ def create_project_container(deployment):
     }
 
     final_env = {**fixed_env, **env_vars}
+    if deployment.project.has_redis:
+        redis_container_name = f"{container_name}_redis"
+        final_env[deployment.project.redis_host_env_var_name] = redis_container_name
+        final_env[deployment.project.redis_port_env_var_name] = "6379"
 
     labels = {
         "traefik.enable": "true",
@@ -242,38 +246,127 @@ def create_project_container(deployment):
     deployment.save()
     return True
 
+
+def create_project_frontend_container(deployment):
+    client = docker.from_env()
+    if not deployment.frontend_container_name:
+        logger.error("No frontend container associated with this deployment")
+        return False
+
+    ensure_network(client)
+
+    container_name = deployment.frontend_container_name
+    image_name = deployment.project.frontend_docker_image_name
+    domain = deployment.frontend_domain
+
+    labels = {
+        "traefik.enable": "true",
+        f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
+        f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
+        f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
+        f"traefik.http.services.{container_name}.loadbalancer.server.port": "80"
+    }
+
+    try:
+        container = client.containers.get(container_name)
+        container.start()
+        logger.info(f"Frontend container {container_name} started successfully")
+    except NotFound:
+        logger.warning(f"Frontend container {container_name} not found, creating a new one...")
+        run_container(
+            client,
+            image=image_name,
+            name=container_name,
+            labels=labels,
+            detach=True,
+            network="deploy_network",
+            restart_policy={"Name": "unless-stopped"}
+        )
+
+    return True
+
+def create_project_redis_container(deployment: Deployment):
+    try:
+        client = docker.from_env()
+        container = client.containers.run(
+            deployment.project.redis_docker_image_name,
+            name=deployment.redis_container_name,
+            detach=True,
+            restart_policy={"Name": "always"},
+            network="deploy_network"
+        )
+        logger.info(f"Redis container created: {container.name}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to create Redis container: {str(e)}")
+        return False
+
+
 def run_docker(deployment: Deployment):
     client = docker.from_env()
     container_name = f"{deployment.user.username}_{deployment.project.name}_{deployment.id}".lower()
     deployment.container_name = container_name
+
+    # إذا المشروع عنده frontend
+    if deployment.project.has_frontend:
+        deployment.frontend_container_name = f"{container_name}_frontend"
+        deployment.frontend_domain = f"frontend.{deployment.domain}"
+
+    # إذا المشروع يحتاج Redis
+    if deployment.project.has_redis:
+        deployment.redis_container_name = f"{container_name}_redis"
+
     deployment.save()
 
     # إعداد الشبكة و Traefik
     ensure_traefik(client, network_name="deploy_network")
 
-    # تحميل الصورة إن لم تكن موجودة
+    # تحميل الصور
     ensure_image(client, deployment.project.docker_image_name)
+    if deployment.project.has_frontend and deployment.project.frontend_docker_image_name:
+        ensure_image(client, deployment.project.frontend_docker_image_name)
+    if deployment.project.has_redis and deployment.project.redis_docker_image_name:
+        ensure_image(client, deployment.project.redis_docker_image_name)
 
     # إزالة الحاويات القديمة
     remove_container_if_exists(client, container_name)
     remove_container_if_exists(client, f"{container_name}_db")
+    if deployment.frontend_container_name:
+        remove_container_if_exists(client, deployment.frontend_container_name)
+    if deployment.redis_container_name:
+        remove_container_if_exists(client, deployment.redis_container_name)
 
-    # إنشاء الحاوية الخاصة بقاعدة البيانات
+    # إنشاء حاوية قاعدة البيانات
     db_success = create_project_db_container(deployment)
     if not db_success:
-        update_deployment(deployment, "5", "3", container_name)
+        update_deployment(deployment, 5, 3, container_name)
         return False
 
-    # إنشاء الحاوية الخاصة بالمشروع
+    # إنشاء حاوية Redis إذا مطلوب
+    if deployment.project.has_redis:
+        redis_success = create_project_redis_container(deployment)
+        if not redis_success:
+            update_deployment(deployment, 5, 3, container_name)
+            return False
+
+    # إنشاء حاوية الـ backend
     app_success = create_project_container(deployment)
     if not app_success:
-        update_deployment(deployment, "5", "3", container_name)
+        update_deployment(deployment, 5, 3, container_name)
         return False
 
+    # إنشاء حاوية الـ frontend إذا مطلوب
+    if deployment.project.has_frontend:
+        frontend_success = create_project_frontend_container(deployment)
+        if not frontend_success:
+            update_deployment(deployment, 5, 3, container_name)
+            return False
+
     # تحديث حالة النشر
-    update_deployment(deployment, "4", "2", container_name)
+    update_deployment(deployment, 4, 2, container_name)
     logger.info(f"Deployment succeeded: {container_name}")
     return True
+
 
 
 def delete_docker(deployment: Deployment):

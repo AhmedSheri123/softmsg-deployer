@@ -4,9 +4,13 @@ from django.db import models
 class AvailableProject(models.Model):
     name = models.CharField(max_length=100)
     docker_image_name = models.CharField(max_length=100, null=True)
-    media_folder_path = models.CharField(max_length=100, default='media', null=True)
+    has_frontend = models.BooleanField(default=False)
+    frontend_docker_image_name = models.CharField(max_length=100, blank=True, null=True)
+    has_redis = models.BooleanField(default=False)
+    redis_docker_image_name = models.CharField(max_length=100, blank=True, null=True, default='redis:7')
+    redis_host_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="REDIS_HOST")
+    redis_port_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="REDIS_PORT")
     description = models.TextField()
-    folder = models.CharField(max_length=255)  # المسار على السيرفر
     image = models.ImageField(upload_to="projects/", blank=True, null=True)
 
     def __str__(self):

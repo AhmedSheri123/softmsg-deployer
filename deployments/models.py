@@ -26,9 +26,14 @@ class Deployment(models.Model):
     project = models.ForeignKey(AvailableProject, on_delete=models.CASCADE)
 
     domain = models.CharField(max_length=255, blank=True, null=True)
+    frontend_domain = models.CharField(max_length=255, blank=True, null=True)   # frontend 
     port = models.CharField(max_length=255, blank=True, null=True)
     ip_address = models.GenericIPAddressField(blank=True, null=True)
+
     container_name = models.CharField(max_length=255, blank=True, null=True)
+    frontend_container_name = models.CharField(max_length=100, blank=True, null=True)
+    redis_container_name = models.CharField(max_length=100, blank=True, null=True)
+
     volume_media = models.CharField(max_length=255, blank=True, null=True)
     version = models.CharField(max_length=50, default="1.0")
     
@@ -48,7 +53,8 @@ class Deployment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return f"{self.user.username} - {self.project.name} ({self.plan.name})"
+        return f"{self.user.username} - {self.project.name} ({self.plan.name if self.plan else 'No Plan'})"
+
     
 
     @property
