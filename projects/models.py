@@ -10,6 +10,15 @@ class AvailableProject(models.Model):
     redis_docker_image_name = models.CharField(max_length=100, blank=True, null=True, default='redis:7')
     redis_host_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="REDIS_HOST")
     redis_port_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="REDIS_PORT")
+    
+    # --------- Database env vars ---------
+    db_engine_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_ENGINE")
+    db_name_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_NAME")
+    db_user_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_USER")
+    db_password_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_PASSWORD")
+    db_host_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_HOST")
+    db_port_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_PORT")
+
     description = models.TextField()
     image = models.ImageField(upload_to="projects/", blank=True, null=True)
 

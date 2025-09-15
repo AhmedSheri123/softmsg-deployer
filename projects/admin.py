@@ -16,12 +16,23 @@ class AvailableProjectAdmin(admin.ModelAdmin):
         ("Basic Info", {
             "fields": ('name', 'docker_image_name', 'description', 'image')
         }),
+        ("Database Env Vars", {
+            "fields": (
+                'db_name_env_var_name',
+                'db_user_env_var_name',
+                'db_password_env_var_name',
+                'db_host_env_var_name',
+                'db_port_env_var_name',
+            ),
+            "classes": ('collapse',),  # يمكن طي القسم لتقليل الفوضى
+        }),
         ("Frontend Settings", {
             "fields": ('has_frontend', 'frontend_docker_image_name'),
-            "classes": ('collapse',),  # يمكن طي القسم لتقليل الفوضى
+            "classes": ('collapse',),
         }),
         ("Redis Settings", {
             "fields": ('has_redis', 'redis_docker_image_name', 'redis_host_env_var_name', 'redis_port_env_var_name'),
             "classes": ('collapse',),
         }),
+
     )
