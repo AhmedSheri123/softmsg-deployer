@@ -83,8 +83,12 @@ class DeploymentEnvVar(models.Model):
     value = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        # إذا لم يتم تحديد قيمة value، استخدم default_value من var_name
+        # إذا لم يتم تحديد value، استخدم default_value من var_name
         if not self.value and self.var_name and self.var_name.default_value:
-            # دعم تعابير format مثل {self.deployment.id}
-            self.value = self.var_name.default_value.format(self=self)
+            try:
+                # دعم تعابير format مثل {self.deployment.domain} أو {self.deployment.id}
+                self.value = self.var_name.default_value.format(self=self)
+            except Exception:
+                # fallback إذا حصل خطأ أثناء format
+                self.value = self.var_name.default_value
         super().save(*args, **kwargs)
