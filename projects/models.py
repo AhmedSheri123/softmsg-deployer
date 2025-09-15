@@ -19,7 +19,7 @@ class AvailableProject(models.Model):
     db_host_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_HOST")
     db_port_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_PORT")
 
-    script_run_after_install = models.TextField(help_text="{deployment.id}")
+    script_run_after_install = models.TextField(help_text="{deployment.id}", blank=True)
     description = models.TextField()
     image = models.ImageField(upload_to="projects/", blank=True, null=True)
 

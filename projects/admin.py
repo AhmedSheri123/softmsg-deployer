@@ -36,4 +36,9 @@ class AvailableProjectAdmin(admin.ModelAdmin):
             "classes": ('collapse',),
         }),
 
+        ("Other", {
+            "fields": ('script_run_after_install',)
+        }),
+
+
     )
