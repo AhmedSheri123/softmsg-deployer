@@ -252,7 +252,7 @@ def create_project_container(deployment):
         )
         if container:
             # جلب السكربتات المراد تشغيلها بعد التثبيت
-            scripts = deployment.project.scripts_after_install.splitlines()  # كل سطر سكربت
+            scripts = deployment.project.script_run_after_install.splitlines()  # كل سطر سكربت
             for script in scripts:
                 script = script.strip()
                 if not script:
