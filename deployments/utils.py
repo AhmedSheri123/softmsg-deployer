@@ -209,6 +209,15 @@ def create_project_container(deployment):
     }
 
     final_env = {**fixed_env, **env_vars}
+    # ---------- DATABASE ENV VARS ----------
+    final_env[deployment.project.db_engine_env_var_name] = 'postgres'
+    final_env[deployment.project.db_name_env_var_name] = db_name
+    final_env[deployment.project.db_user_env_var_name] = db_user
+    final_env[deployment.project.db_password_env_var_name] = db_pass
+    final_env[deployment.project.db_host_env_var_name] = db_container_name
+    final_env[deployment.project.db_port_env_var_name] = "5432"
+
+
     if deployment.project.has_redis:
         redis_container_name = f"{container_name}_redis"
         final_env[deployment.project.redis_host_env_var_name] = redis_container_name
