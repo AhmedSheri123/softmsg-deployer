@@ -81,3 +81,10 @@ class DeploymentEnvVar(models.Model):
     deployment = models.ForeignKey(Deployment, on_delete=models.CASCADE, null=True)
     var_name = models.ForeignKey('projects.EnvVarModel', on_delete=models.CASCADE, null=True)
     value = models.CharField(max_length=255, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        # إذا لم يتم تحديد قيمة value، استخدم default_value من var_name
+        if not self.value and self.var_name and self.var_name.default_value:
+            # دعم تعابير format مثل {self.deployment.id}
+            self.value = self.var_name.default_value.format(self=self)
+        super().save(*args, **kwargs)
