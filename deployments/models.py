@@ -75,20 +75,34 @@ class Deployment(models.Model):
         if sub:
             return sub.has_sub()
         return False
-    
+
+    def get_env_var(self):
+        """
+        ترجع قاموس {key: value} لجميع متغيرات البيئة الخاصة بهذا الـ Deployment
+        """
+        env_vars = {}
+        for env in DeploymentEnvVar.objects.filter(deployment=self):
+            if env.var_name and env.var_name.key:
+                env_vars[env.var_name.key] = env.value
+        return env_vars
+
+
+    def update_default_env_vars(self):
+        """
+        تقوم بتعبئة جميع DeploymentEnvVar الفارغة بالقيم الافتراضية
+        من var_name.default_value مع دعم تعابير format مثل {self.id} أو {self.domain}.
+        """
+        env_vars = DeploymentEnvVar.objects.filter(deployment=self)
+        for env in env_vars:
+            if (not env.value or env.value.strip() == "") and env.var_name and env.var_name.default_value:
+                try:
+                    # استخدام format لدعم {self} داخل default_value
+                    env.value = env.var_name.default_value.format(self=self)
+                except Exception:
+                    env.value = env.var_name.default_value  # fallback لو حصل خطأ
+                env.save()
 
 class DeploymentEnvVar(models.Model):
     deployment = models.ForeignKey(Deployment, on_delete=models.CASCADE, null=True)
     var_name = models.ForeignKey('projects.EnvVarModel', on_delete=models.CASCADE, null=True)
     value = models.CharField(max_length=255, blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        # إذا لم يتم تحديد value، استخدم default_value من var_name
-        if not self.value and self.var_name and self.var_name.default_value:
-            try:
-                # دعم تعابير format مثل {self.deployment.domain} أو {self.deployment.id}
-                self.value = self.var_name.default_value.format(self=self)
-            except Exception:
-                # fallback إذا حصل خطأ أثناء format
-                self.value = self.var_name.default_value
-        super().save(*args, **kwargs)

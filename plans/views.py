@@ -30,7 +30,7 @@ def ApplySubscription(request, order_id):
 
     deployment.domain = f"{request.user.username}-{deployment.id}.softmsg.com"
     deployment.save()
-
+    deployment.update_default_env_vars()
     # إنشاء Subscription مرتبط بالـ Deployment
     Subscription.objects.create(
         deployment=deployment,
