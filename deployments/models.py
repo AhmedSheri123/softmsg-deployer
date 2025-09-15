@@ -97,7 +97,7 @@ class Deployment(models.Model):
             if (not env.value or env.value.strip() == "") and env.var_name and env.var_name.default_value:
                 try:
                     # استخدام format لدعم {self} داخل default_value
-                    env.value = env.var_name.default_value.format(self=self)
+                    env.value = env.var_name.default_value.format(deployment=self)
                 except Exception:
                     env.value = env.var_name.default_value  # fallback لو حصل خطأ
                 env.save()
