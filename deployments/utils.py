@@ -237,7 +237,7 @@ def create_project_container(deployment):
         logger.info(f"Project container {container_name} started successfully")
     except NotFound:
         logger.warning(f"Project container {container_name} not found, creating a new one...")
-        run_container(
+        container = run_container(
             client,
             image=image_name,
             name=container_name,
@@ -250,7 +250,20 @@ def create_project_container(deployment):
             network="deploy_network",
             restart_policy={"Name": "unless-stopped"}
         )
-
+        if container:
+            # جلب السكربتات المراد تشغيلها بعد التثبيت
+            scripts = deployment.project.scripts_after_install.splitlines()  # كل سطر سكربت
+            for script in scripts:
+                script = script.strip()
+                if not script:
+                    continue  # تجاهل السطور الفارغة
+                # استبدال القيم الديناميكية
+                script = script.format(deployment=deployment)
+                try:
+                    exec_result = container.exec_run(script)
+                    print(f"Script executed: {script}\nOutput:\n{exec_result.output.decode()}")
+                except Exception as e:
+                    print(f"Failed to run script {script}: {e}")
     deployment.status = 2
     deployment.save()
     return True

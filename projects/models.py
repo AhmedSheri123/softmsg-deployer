@@ -19,6 +19,7 @@ class AvailableProject(models.Model):
     db_host_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_HOST")
     db_port_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_PORT")
 
+    script_run_after_install = models.TextField(help_text="{deployment.id}")
     description = models.TextField()
     image = models.ImageField(upload_to="projects/", blank=True, null=True)
 
@@ -70,7 +71,7 @@ class EnvVarModel(models.Model):
     key = models.CharField(max_length=100)
     is_secret = models.BooleanField(default=False, help_text="اخفاء")
     required = models.BooleanField(default=False)
-    default_value = models.CharField(max_length=100, help_text="{self.deployment.id}", blank=True)
+    default_value = models.CharField(max_length=100, help_text="{deployment.id}", blank=True)
     class Meta:
         unique_together = ("project", "key")
         ordering = ["key"]
