@@ -189,6 +189,7 @@ def env_settings(request, deployment_id):
     }
     return render(request, 'dashboard/deployments/env_var/env_settings.html', context)
 
+
 def update_all_env_vars(request, deployment_id):
     if request.method == 'POST':
         deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
