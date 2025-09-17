@@ -1,7 +1,8 @@
 # deployments/utils.py
 import docker
 from docker.errors import DockerException, APIError, ContainerError, NotFound
-from .models import Deployment, DeploymentEnvVar
+from .models import Deployment, DeploymentContainerEnvVar, DeploymentContainer
+from projects.models import ProjectContainer
 from plans.models import Plan
 import socket
 import logging
@@ -9,7 +10,8 @@ import os
 
 logger = logging.getLogger(__name__)
 
-# ---------- Helpers ----------
+
+# ---------------- Helpers ----------------
 def get_free_port(start=8000, end=9000):
     """العثور على أول منفذ متاح في النطاق المحدد"""
     for port in range(start, end):
@@ -19,60 +21,14 @@ def get_free_port(start=8000, end=9000):
     raise RuntimeError("No free ports available in range 8000-9000")
 
 
-def ensure_traefik_running(client):
-    """تشغيل Traefik إذا لم يكن موجود"""
-    try:
-        client.containers.get("traefik")
-        logger.info("Traefik already running")
-    except docker.errors.NotFound:
-        # إنشاء شبكة deploy_network إذا لم تكن موجودة
-        try:
-            client.networks.get("deploy_network")
-        except docker.errors.NotFound:
-            client.networks.create("deploy_network", driver="bridge")
-            logger.info("Network 'deploy_network' created")
-
-        traefik_yml = "/opt/traefik/traefik.yml"  # ملف Traefik على Ubuntu
-        acme_file = "/opt/traefik/acme.json"
-        os.makedirs(os.path.dirname(acme_file), exist_ok=True)
-        if not os.path.exists(acme_file):
-            open(acme_file, 'a').close()
-            os.chmod(acme_file, 0o600)
-
-        client.containers.run(
-            "traefik:latest",
-            name="traefik",
-            detach=True,
-            network="deploy_network",
-            ports={"80/tcp": 80, "443/tcp": 443},
-            volumes={
-                traefik_yml: {"bind": "/traefik.yml", "mode": "ro"},
-                acme_file: {"bind": "/acme.json", "mode": "rw"},
-                "/var/run/docker.sock": {"bind": "/var/run/docker.sock", "mode": "ro"}
-            }
-        )
-        logger.info("Traefik started")
-
-
-def update_deployment(deployment, progress, status, container_name, port=None):
-    deployment.progress = progress
-    deployment.status = status
-    if port:
-        deployment.port = port
-    deployment.container_name = container_name
-    deployment.save()
-
-
-
-
-
 def run_container(client, **kwargs):
     try:
         return client.containers.run(**kwargs)
     except APIError as e:
-        logger.error(f"Failed to run container: {str(e)}")
+        logger.error(f"Failed to run container {kwargs.get('name')}: {str(e)}")
         return None
-    
+
+
 def ensure_network(client, name="deploy_network"):
     try:
         client.networks.get(name)
@@ -80,12 +36,6 @@ def ensure_network(client, name="deploy_network"):
         client.networks.create(name, driver="bridge")
         logger.info(f"Network {name} created")
 
-def ensure_volume(client, name):
-    try:
-        client.volumes.get(name)
-    except NotFound:
-        client.volumes.create(name=name)
-        logger.info(f"Volume {name} created")
 
 def ensure_image(client, image_name):
     try:
@@ -93,6 +43,7 @@ def ensure_image(client, image_name):
     except docker.errors.ImageNotFound:
         logger.info(f"Pulling image {image_name}")
         client.images.pull(image_name)
+
 
 def remove_container_if_exists(client, name):
     try:
@@ -102,142 +53,197 @@ def remove_container_if_exists(client, name):
     except NotFound:
         pass
 
-def ensure_traefik(client, network_name):
-    try:
-        client.containers.get("traefik")
-        logger.info("Traefik already running")
-    except NotFound:
-        ensure_network(client, network_name)
 
-        traefik_yml = "/opt/traefik/traefik.yml"
-        acme_file = "/opt/traefik/acme.json"
-        os.makedirs(os.path.dirname(acme_file), exist_ok=True)
-        if not os.path.exists(acme_file):
-            open(acme_file, 'a').close()
-            os.chmod(acme_file, 0o600)
-
-        client.containers.run(
-            "traefik:latest",
-            name="traefik",
-            detach=True,
-            network=network_name,
-            ports={"8000/tcp": 8000, "8443/tcp": 8443, "8080/tcp": 8080},
-            volumes={
-                traefik_yml: {"bind": "/traefik.yml", "mode": "ro"},
-                acme_file: {"bind": "/acme.json", "mode": "rw"},
-                "/var/run/docker.sock": {"bind": "/var/run/docker.sock", "mode": "ro"}
-            }
-        )
-        logger.info("Traefik started")
-
-
-
+# ---------------- Dedicated containers ----------------
 def create_project_db_container(deployment):
     client = docker.from_env()
-    if not deployment.container_name:
-        logger.error("No container associated with this deployment")
-        return False
-
-    ensure_network(client)
-
-    db_container_name = f"{deployment.container_name}_db"
-    volume_db = f"{db_container_name}_data"
+    container_name = f"{deployment.user.username}{deployment.id}_db"
     db_name = f"db_{deployment.id}"
     db_user = "postgres"
     db_pass = "postgres"
 
+    labels = {"traefik.enable": "false"}  # قاعدة البيانات لا تمر عبر Traefik
+
     try:
-        db_container = client.containers.get(db_container_name)
-        db_container.start()
-        logger.info(f"Database container {db_container_name} started successfully")
+        container = client.containers.get(container_name)
+        container.start()
+        logger.info(f"DB container {container_name} started successfully")
     except NotFound:
-        logger.warning(f"Database container {db_container_name} not found, creating a new one...")
-        run_container(
-            client,
+        logger.warning(f"DB container {container_name} not found, creating new one...")
+        container = client.containers.run(
             image="postgres:14",
-            name=db_container_name,
+            name=container_name,
             detach=True,
             environment={
                 "POSTGRES_DB": db_name,
                 "POSTGRES_USER": db_user,
                 "POSTGRES_PASSWORD": db_pass,
             },
-            volumes={volume_db: {"bind": "/var/lib/postgresql/data", "mode": "rw"}},
+            volumes={
+                f"db_data_{deployment.id}": {"bind": "/var/lib/postgresql/data", "mode": "rw"}
+            },
             network="deploy_network",
-            restart_policy={"Name": "unless-stopped"}
+            restart_policy={"Name": "unless-stopped"},
+            labels=labels,
         )
+    return container
 
-    return True
 
-def create_project_container(deployment):
+def create_project_redis_container(deployment):
     client = docker.from_env()
-    if not deployment.container_name:
-        logger.error("No container associated with this deployment")
-        return False
+    container_name = f"{deployment.container_name}_redis"
 
-    ensure_network(client)
-
-    container_name = deployment.container_name
-    db_container_name = f"{container_name}_db"
-    plan = deployment.plan
-    image_name = deployment.project.docker_image_name
-    volume_media = deployment.volume_media
-    domain = deployment.domain
-
-    ram_limit = getattr(plan, "ram", 512)
-    cpu_limit = getattr(plan, "cpu", 0.5)
-    mem_limit = f"{ram_limit}m"
-    cpu_quota = int(cpu_limit * 100000)
-
-    db_name = f"db_{deployment.id}"
-    db_user = "postgres"
-    db_pass = "postgres"
-
-    env_vars = {
-        env.var_name.key: env.value
-        for env in DeploymentEnvVar.objects.filter(deployment=deployment)
-    }
-
-    fixed_env = {
-        "USERNAME": deployment.user.username,
-        "PLAN": plan.name,
-        "PROJECT": deployment.project.name,
-        "DATABASE_URL": f"postgres://{db_user}:{db_pass}@{db_container_name}:5432/{db_name}",
-        "DOMAIN": domain,
-        "ALLOWED_HOSTS": f"localhost,127.0.0.1,{domain}",
-        "CSRF_TRUSTED_ORIGINS": f"https://{domain}:8443,https://{domain}"
-    }
-
-    final_env = {**fixed_env, **env_vars}
-    # ---------- DATABASE ENV VARS ----------
-    final_env[deployment.project.db_engine_env_var_name] = 'postgresql'
-    final_env[deployment.project.db_name_env_var_name] = db_name
-    final_env[deployment.project.db_user_env_var_name] = db_user
-    final_env[deployment.project.db_password_env_var_name] = db_pass
-    final_env[deployment.project.db_host_env_var_name] = db_container_name
-    final_env[deployment.project.db_port_env_var_name] = "5432"
-
-
-    if deployment.project.has_redis:
-        redis_container_name = f"{container_name}_redis"
-        final_env[deployment.project.redis_host_env_var_name] = redis_container_name
-        final_env[deployment.project.redis_port_env_var_name] = "6379"
-
-    labels = {
-        "traefik.enable": "true",
-        f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
-        f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
-        f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
-        f"traefik.http.services.{container_name}.loadbalancer.server.port": "8000"
-    }
+    labels = {"traefik.enable": "false"}  # Redis أيضاً لا يمر عبر Traefik
 
     try:
         container = client.containers.get(container_name)
         container.start()
+        logger.info(f"Redis container {container_name} started successfully")
+    except NotFound:
+        logger.warning(f"Redis container {container_name} not found, creating new one...")
+        container = client.containers.run(
+            image="redis:7",
+            name=container_name,
+            detach=True,
+            network="deploy_network",
+            restart_policy={"Name": "unless-stopped"},
+            labels=labels,
+        )
+    return container
+
+
+# ---------------- حساب تقسيم الموارد ----------------
+def calculate_resource_limits(deployment):
+    plan_ram_mb = float(getattr(deployment.plan, "ram", 512))
+    plan_cpu = float(getattr(deployment.plan, "cpu", 0.5))
+    containers = list(deployment.containers.all())
+    limits = {}
+
+    # تصنيف حسب النوع
+    backends = [c for c in containers if c.project_container.type in ("backend", "backfront")]
+    frontends = [c for c in containers if c.project_container.type == "frontend"]
+    redis_containers = [c for c in containers if c.project_container.type == "redis"]
+
+    total_weight = len(backends)*2 + len(frontends)*1 + len(redis_containers)*0.5
+
+    for c in containers:
+        if c.project_container.type in ("backend", "backfront"):
+            weight = 2
+        elif c.project_container.type == "frontend":
+            weight = 1
+        else:  # redis أو غيره
+            weight = 0.5
+
+        ram_for_container = int(plan_ram_mb * (weight/total_weight))
+        cpu_for_container = plan_cpu * (weight/total_weight)
+        limits[c.container_name] = {
+            "mem": f"{ram_for_container}m",
+            "cpu": int(cpu_for_container * 100000)
+        }
+
+    return limits
+# ---------------- Project containers ----------------
+def create_project_container(deployment, container: DeploymentContainer):
+    client = docker.from_env()
+    pc = container.project_container
+    container_name = container.container_name
+    avalible_port = get_free_port()
+    ensure_network(client)
+
+    db_container_name = f"{deployment.user.username}{deployment.id}_db"
+    plan = deployment.plan
+    image_name = pc.docker_image_name
+    domain = container.domain
+
+
+
+    resource_limits = calculate_resource_limits(deployment)
+    mem_limit = resource_limits.get(container_name, {}).get("mem", f"{getattr(plan, 'ram', 512)}m")
+    cpu_quota = resource_limits.get(container_name, {}).get("cpu", int(getattr(plan, "cpu", 0.5)*100000))
+
+    # ---------------- بيئة الحاوية ----------------
+    db_name = f"db_{deployment.id}"
+    db_user = "postgres"
+    db_pass = "postgres"
+
+    # قيم ثابتة نريد إضافتها
+    env_vars = pc.env_vars or {}
+    fixed_env = {
+        "deployment": deployment,
+        "plan": plan,
+        "container": container,
+
+        "this_container_domain": container.domain,
+        "frontend_domain":deployment.domain,
+        "backfront_domain":deployment.backend_domain,
+
+        "db_name": db_name,
+        "db_user": db_user,
+        "db_pass": db_pass,
+        "db_container_name": db_container_name,
+    }
+
+    final_env = {}
+
+    for key, value in env_vars.items():
+        if isinstance(value, str):
+            try:
+                # eval يسمح بكتابة تعبيرات Python مثل deployment.user.username
+                final_env[key] = str(eval(f'f"""{value}"""', {}, fixed_env))
+            except Exception as e:
+                final_env[key] = value  # إذا فشل، استخدم القيمة كما هي
+        else:
+            final_env[key] = value
+
+    # ---------------- Traefik Labels ----------------
+    labels = {}
+    if pc.type == "frontend":
+        labels = {
+            "traefik.enable": "true",
+            f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
+            f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
+            f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
+            f"traefik.http.services.{container_name}.loadbalancer.server.port": str(pc.default_port or 80),
+        }
+    elif pc.type in ("backend", "backfront"):
+        labels = {
+            "traefik.enable": "true",
+            f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
+            f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
+            f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
+            f"traefik.http.services.{container_name}.loadbalancer.server.port": str(pc.default_port or 8000),
+        }
+        final_env.update({
+            "DOMAIN": domain,
+            "ALLOWED_HOSTS": f"127.0.0.1,localhost,{domain}",
+            "CSRF_TRUSTED_ORIGINS": f"https://{domain}, https://127.0.0.1",
+            "DATABASE_URL": f"postgres://{db_user}:{db_pass}@{db_container_name}:5432/{db_name}"
+        })
+    elif pc.type == "redis":
+        labels = {"traefik.enable": "false"}
+
+    # ---------------- Volumes ----------------
+    volumes = {}
+    for vol in (pc.volume or []):
+        if isinstance(vol, dict):
+            host_path = vol["host"]
+            container_path = vol["container"]
+            if not container_path.startswith("/"):
+                container_path = f"/{container_path}"
+            volumes[host_path] = {"bind": container_path, "mode": "rw"}
+        else:
+            host_path = vol
+            container_path = f"/{vol}"
+            volumes[host_path] = {"bind": container_path, "mode": "rw"}
+
+    # ---------------- تشغيل أو إنشاء الحاوية ----------------
+    try:
+        c = client.containers.get(container_name)
+        c.start()
         logger.info(f"Project container {container_name} started successfully")
     except NotFound:
         logger.warning(f"Project container {container_name} not found, creating a new one...")
-        container = run_container(
+        c = run_container(
             client,
             image=image_name,
             name=container_name,
@@ -245,176 +251,101 @@ def create_project_container(deployment):
             detach=True,
             mem_limit=mem_limit,
             cpu_quota=cpu_quota,
-            volumes={volume_media: {'bind': '/app/media', 'mode': 'rw'}},
+            volumes=volumes,
             environment=final_env,
             network="deploy_network",
-            restart_policy={"Name": "unless-stopped"}
+            restart_policy={"Name": "unless-stopped"},
+            ports={'8000': avalible_port},
         )
-        if container:
-            # جلب السكربتات المراد تشغيلها بعد التثبيت
-            scripts = deployment.project.script_run_after_install.splitlines()  # كل سطر سكربت
-            for script in scripts:
+
+        if c and pc.script_run_after_install:
+            for script in pc.script_run_after_install.splitlines():
                 script = script.strip()
-                if not script:
-                    continue  # تجاهل السطور الفارغة
-                # استبدال القيم الديناميكية
-                script = script.format(deployment=deployment)
-                try:
-                    exec_result = container.exec_run(script)
-                    print(f"Script executed: {script}\nOutput:\n{exec_result.output.decode()}")
-                except Exception as e:
-                    print(f"Failed to run script {script}: {e}")
-    deployment.status = 2
+                if script:
+                    try:
+                        exec_result = c.exec_run(script.format(container=container))
+                        print(f"Executed: {script}\nOutput:\n{exec_result.output.decode()}")
+                    except Exception as e:
+                        print(f"Failed to run script {script}: {e}")
+
+    return True
+
+
+def update_deployment(deployment, progress, status):
+    deployment.progress = progress
+    deployment.status = status
     deployment.save()
-    return True
 
-
-def create_project_frontend_container(deployment):
-    client = docker.from_env()
-    if not deployment.frontend_container_name:
-        logger.error("No frontend container associated with this deployment")
-        return False
-
-    ensure_network(client)
-
-    container_name = deployment.frontend_container_name
-    image_name = deployment.project.frontend_docker_image_name
-    domain = deployment.frontend_domain
-
-    labels = {
-        "traefik.enable": "true",
-        f"traefik.http.routers.{container_name}.rule": f"Host(`{domain}`)",
-        f"traefik.http.routers.{container_name}.entrypoints": "web,websecure",
-        f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
-        f"traefik.http.services.{container_name}.loadbalancer.server.port": "80"
-    }
-
-    try:
-        container = client.containers.get(container_name)
-        container.start()
-        logger.info(f"Frontend container {container_name} started successfully")
-    except NotFound:
-        logger.warning(f"Frontend container {container_name} not found, creating a new one...")
-        run_container(
-            client,
-            image=image_name,
-            name=container_name,
-            labels=labels,
-            detach=True,
-            network="deploy_network",
-            restart_policy={"Name": "unless-stopped"}
-        )
-
-    return True
-
-def create_project_redis_container(deployment: Deployment):
-    try:
-        client = docker.from_env()
-        container = client.containers.run(
-            deployment.project.redis_docker_image_name,
-            name=deployment.redis_container_name,
-            detach=True,
-            restart_policy={"Name": "always"},
-            network="deploy_network"
-        )
-        logger.info(f"Redis container created: {container.name}")
-        return True
-    except Exception as e:
-        logger.error(f"Failed to create Redis container: {str(e)}")
-        return False
-
-
+# ---------------- Runner ----------------
 def run_docker(deployment: Deployment):
     client = docker.from_env()
-    container_name = f"{deployment.user.username}_{deployment.project.name}_{deployment.id}".lower()
-    deployment.container_name = container_name
 
-    # إذا المشروع عنده frontend
-    if deployment.project.has_frontend:
-        deployment.frontend_container_name = f"{container_name}_frontend"
-        deployment.frontend_domain = f"frontend.{deployment.domain}"
-
-    # إذا المشروع يحتاج Redis
-    if deployment.project.has_redis:
-        deployment.redis_container_name = f"{container_name}_redis"
-
-    deployment.save()
-
-    # إعداد الشبكة و Traefik
-    ensure_traefik(client, network_name="deploy_network")
-
-    # تحميل الصور
-    ensure_image(client, deployment.project.docker_image_name)
-    if deployment.project.has_frontend and deployment.project.frontend_docker_image_name:
-        ensure_image(client, deployment.project.frontend_docker_image_name)
-    if deployment.project.has_redis and deployment.project.redis_docker_image_name:
-        ensure_image(client, deployment.project.redis_docker_image_name)
-
-    # إزالة الحاويات القديمة
-    remove_container_if_exists(client, container_name)
-    remove_container_if_exists(client, f"{container_name}_db")
-    if deployment.frontend_container_name:
-        remove_container_if_exists(client, deployment.frontend_container_name)
-    if deployment.redis_container_name:
-        remove_container_if_exists(client, deployment.redis_container_name)
-
-    # إنشاء حاوية قاعدة البيانات
-    db_success = create_project_db_container(deployment)
-    if not db_success:
-        update_deployment(deployment, 5, 3, container_name)
+    # أولاً: DB
+    db_ok = create_project_db_container(deployment)
+    if not db_ok:
+        update_deployment(deployment, 5, 3)
         return False
 
-    # إنشاء حاوية Redis إذا مطلوب
-    if deployment.project.has_redis:
-        redis_success = create_project_redis_container(deployment)
-        if not redis_success:
-            update_deployment(deployment, 5, 3, container_name)
-            return False
+    # ثانياً: باقي الحاويات
+    all_ok = True
+    for container in deployment.containers.all():
+        try:
+            if container.project_container.type == 'redis':
+                ok = create_project_redis_container(deployment)
+            else:
+                ok = create_project_container(deployment, container)
+            if not ok:
+                logger.error(f"Failed to create container {container.container_name}")
+                all_ok = False
+        except Exception as e:
+            logger.error(f"Error deploying container {container.container_name}: {e}")
+            all_ok = False
 
-    # إنشاء حاوية الـ backend
-    app_success = create_project_container(deployment)
-    if not app_success:
-        update_deployment(deployment, 5, 3, container_name)
+    # تحديث حالة Deployment
+    if all_ok:
+        update_deployment(deployment, 4, 2)  # Completed / Running
+        logger.info(f"Deployment succeeded: {deployment}")
+        return True
+    else:
+        update_deployment(deployment, 5, 3)  # Failed
         return False
 
-    # إنشاء حاوية الـ frontend إذا مطلوب
-    if deployment.project.has_frontend:
-        frontend_success = create_project_frontend_container(deployment)
-        if not frontend_success:
-            update_deployment(deployment, 5, 3, container_name)
-            return False
-
-    # تحديث حالة النشر
-    update_deployment(deployment, 4, 2, container_name)
-    logger.info(f"Deployment succeeded: {container_name}")
-    return True
 
 
+def delete_container(client, cname):
+    if cname:
+        try:
+            c = client.containers.get(cname)
+            c.stop()
+            c.remove()
+            logger.info(f"Container {cname} removed")
+            return True
+        except NotFound:
+            logger.warning(f"Container {cname} not found")
+        except DockerException as e:
+            logger.error(f"Failed to remove container {cname}: {e}")
 
 def delete_docker(deployment: Deployment):
+    containers = deployment.containers.all()
     client = docker.from_env()
-    for cname in [deployment.container_name, f"{deployment.container_name}_db"]:
-        if cname:
-            try:
-                c = client.containers.get(cname)
-                c.stop()
-                c.remove()
-                logger.info(f"Container {cname} removed")
-            except NotFound:
-                logger.warning(f"Container {cname} not found")
-            except DockerException as e:
-                logger.error(f"Failed to remove container {cname}: {e}")
-
-    for vol in [deployment.volume_media, f"{deployment.container_name}_db_data"]:
-        if vol:
-            try:
-                v = client.volumes.get(vol)
-                v.remove(force=True)
-                logger.info(f"Volume {vol} removed")
-            except NotFound:
-                logger.warning(f"Volume {vol} not found")
-            except DockerException as e:
-                logger.error(f"Failed to remove volume {vol}: {e}")
+    
+    delete_container(client, f"{deployment.user.username}{deployment.id}_db")
+    for container in containers:
+        cname = container.container_name
+        delete_container(client, cname)
+    
+        volumes = container.project_container.volume
+        volumes.append(f"db_data_{deployment.id}")
+        for vol in volumes:
+            if vol:
+                try:
+                    v = client.volumes.get(vol)
+                    v.remove(force=True)
+                    logger.info(f"Volume {vol} removed")
+                except NotFound:
+                    logger.warning(f"Volume {vol} not found")
+                except DockerException as e:
+                    logger.error(f"Failed to remove volume {vol}: {e}")
     return True
 
 def rebuild_docker(deployment: Deployment):
@@ -423,8 +354,7 @@ def rebuild_docker(deployment: Deployment):
 
 def restart_docker_db(deployment: Deployment):
     client = docker.from_env()
-    container_name = deployment.container_name
-    db_container_name = f"{container_name}_db"
+    db_container_name = f"{deployment.user.username}{deployment.id}_db"
 
     try:
         db_container = client.containers.get(db_container_name)
@@ -433,30 +363,47 @@ def restart_docker_db(deployment: Deployment):
     except NotFound:
         create_project_db_container(deployment)
         logger.warning(f"Database container {db_container_name} not found, creating a new one...")
+    return True
 
 def restart_docker(deployment: Deployment):
     client = docker.from_env()
-    if not deployment.container_name:
-        logger.error("No container associated with this deployment")
-        return False
+    all_ok = True
 
-    # تأكد من قاعدة البيانات أولاً
-    restart_docker_db(deployment)
-
-    container_name = deployment.container_name
-
+    # أولاً: إعادة تشغيل قاعدة البيانات
+    db_container_name = f"{deployment.user.username}{deployment.id}_db"
     try:
-        container = client.containers.get(container_name)
-        container.restart()
-        logger.info(f"Container {container_name} restarted successfully")
+        db_container = client.containers.get(db_container_name)
+        db_container.restart()
+        logger.info(f"Database container {db_container_name} restarted successfully")
     except NotFound:
-        create_project_container(deployment)
-        logger.warning(f"Container {container_name} not found, creating a new one...")
-        
+        create_project_db_container(deployment)
+        logger.warning(f"Database container {db_container_name} not found, creating a new one...")
+    except DockerException as e:
+        logger.error(f"Failed to restart database container: {e}")
+        all_ok = False
 
-    deployment.status = 2
+    # إعادة تشغيل باقي الحاويات
+    for dc in deployment.containers.all():
+        cname = dc.container_name
+        if not cname:
+            logger.error("No container associated with this deployment")
+            all_ok = False
+            continue
+        try:
+            container = client.containers.get(cname)
+            container.restart()
+            logger.info(f"Container {cname} restarted successfully")
+        except NotFound:
+            create_project_container(deployment, dc)
+            logger.warning(f"Container {cname} not found, creating a new one...")
+        except DockerException as e:
+            logger.error(f"Failed to restart container {cname}: {e}")
+            all_ok = False
+
+    deployment.status = 2 if all_ok else 3  # Running أو Failed
     deployment.save()
-    return True
+    return all_ok
+
 
 
 
@@ -464,26 +411,26 @@ def restart_docker(deployment: Deployment):
 
 def stop_docker(deployment: Deployment):
     client = docker.from_env()
-    if not deployment.container_name:
-        logger.error("No container associated with this deployment")
-        return False
+    all_ok = True
 
-    # إيقاف حاوية المشروع
-    try:
-        container = client.containers.get(deployment.container_name)
-        container.stop()
-        deployment.status = 1
-        deployment.save()
-        logger.info(f"Container {deployment.container_name} stopped successfully")
-    except NotFound:
-        logger.error(f"Container {deployment.container_name} not found")
-        return False
-    except DockerException as e:
-        logger.error(f"Failed to stop container: {e}")
-        return False
+    for dc in deployment.containers.all():
+        cname = dc.container_name
+        if not cname:
+            logger.error("No container associated with this deployment")
+            all_ok = False
+            continue
+        try:
+            container = client.containers.get(cname)
+            container.stop()
+            logger.info(f"Container {cname} stopped successfully")
+        except NotFound:
+            logger.warning(f"Container {cname} not found")
+        except DockerException as e:
+            logger.error(f"Failed to stop container {cname}: {e}")
+            all_ok = False
 
-    # إيقاف قاعدة البيانات (اختياري)
-    db_container_name = f"{deployment.container_name}_db"
+    # إيقاف قاعدة البيانات
+    db_container_name = f"{deployment.user.username}{deployment.id}_db"
     try:
         db_container = client.containers.get(db_container_name)
         db_container.stop()
@@ -492,48 +439,54 @@ def stop_docker(deployment: Deployment):
         logger.warning(f"Database container {db_container_name} not found")
     except DockerException as e:
         logger.error(f"Failed to stop database container: {e}")
+        all_ok = False
 
-    return True
+    deployment.status = 1  # Stopped
+    deployment.save()
+    return all_ok
+
 
 def start_docker(deployment: Deployment):
     client = docker.from_env()
-    if not deployment.container_name:
-        logger.error("No container associated with this deployment")
-        return False
 
     # تشغيل قاعدة البيانات أولًا
-    db_container_name = f"{deployment.container_name}_db"
+    db_container_name = f"{deployment.user.username}{deployment.id}_db"
     try:
         db_container = client.containers.get(db_container_name)
         db_container.start()
         logger.info(f"Database container {db_container_name} started successfully")
     except NotFound:
         create_project_db_container(deployment)
-        logger.warning(f"Database container {db_container_name} not found")
+        logger.warning(f"Database container {db_container_name} not found, creating a new one...")
     except DockerException as e:
         logger.error(f"Failed to start database container: {e}")
 
-    # تشغيل المشروع
-    try:
-        container = client.containers.get(deployment.container_name)
-        container.start()
-        deployment.status = 2
-        deployment.save()
-        logger.info(f"Container {deployment.container_name} started successfully")
-        return True
-    except NotFound:
-        create_project_container(deployment)
-        logger.error(f"Container {deployment.container_name} not found")
-        return False
-    except DockerException as e:
-        logger.error(f"Failed to start container: {e}")
-        return False
+    all_ok = True
+    for dc in deployment.containers.all():
+        cname = dc.container_name
+        if not cname:
+            logger.error("No container associated with this deployment")
+            all_ok = False
+            continue
+        try:
+            container = client.containers.get(cname)
+            container.start()
+            logger.info(f"Container {cname} started successfully")
+        except NotFound:
+            create_project_container(deployment, dc)
+            logger.warning(f"Container {cname} not found, creating a new one...")
+        except DockerException as e:
+            logger.error(f"Failed to start container {cname}: {e}")
+            all_ok = False
+
+    deployment.status = 2 if all_ok else 3
+    deployment.save()
+    return all_ok
+
 
 def get_container_usage(container_name):
-    import docker
     client = docker.from_env()
     usage = {}
-    db_container_name = f"{container_name}_db"
     media_path = "/app/media"
 
     def calculate_cpu_percent(stats):
@@ -565,17 +518,8 @@ def get_container_usage(container_name):
         except Exception:
             storage_media = 0
 
-        # ---------------- Storage (Postgres DB) ----------------
-        storage_db = 0
-        try:
-            db_container = client.containers.get(db_container_name)
-            exec_result = db_container.exec_run("du -sb /var/lib/postgresql/data")
-            storage_db = int(exec_result.output.decode().split()[0])
-        except Exception:
-            storage_db = 0
-
         # المجموع النهائي للتخزين
-        total_storage = storage_media + storage_db
+        total_storage = storage_media 
 
         usage = {
             "memory_usage": mem_usage,
@@ -583,7 +527,6 @@ def get_container_usage(container_name):
             "memory_percent": round(mem_percent, 2),
             "cpu_percent": round(cpu_percent, 2),
             "storage_media": storage_media,
-            "storage_db": storage_db,
             "storage_usage": total_storage
         }
 
@@ -593,3 +536,18 @@ def get_container_usage(container_name):
         usage = {"error": str(e)}
 
     return usage
+
+def get_db_container_usage(deployment):
+    client = docker.from_env()
+    db_container_name = f"{deployment.user.username}{deployment.id}_db"
+    # ---------------- Storage (Postgres DB) ----------------
+    storage_db = 0
+    try:
+        db_container = client.containers.get(db_container_name)
+        exec_result = db_container.exec_run("du -sb /var/lib/postgresql/data")
+        storage_db = int(exec_result.output.decode().split()[0])
+    except Exception:
+        storage_db = 0
+    return {
+        "storage_db": storage_db
+    }

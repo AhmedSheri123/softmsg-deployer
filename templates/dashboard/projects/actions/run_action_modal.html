@@ -1,5 +1,5 @@
 {% load i18n %}
-
+{% load projects_filters %}
 <!-- Modal -->
 <div class="modal fade" id="ActionModal{{ action.id }}" tabindex="-1" aria-labelledby="ActionModalLabel{{ action.id }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -10,7 +10,7 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
-                <form id="actionForm{{ action.id }}" method="post" action="{% url 'run_action' deployment.id action.id %}">
+                <form id="actionForm{{ action.id }}" method="post" action="{% url 'run_action' container.id action.id %}">
                     {% csrf_token %}
 
                     {% for param in action.parameters.all %}
@@ -26,7 +26,7 @@
                                     type="{% if param.data_type == 'int' %}number{% else %}text{% endif %}" 
                                     name="{{ param.name }}" 
                                     class="form-control rounded-3"
-                                    value="{{ param.default|default:'' }}" 
+                                    value="{{ param.default|clean_default:container.deployment }}" 
                                     placeholder="{{ param.label }}"
                                     {% if param.required %}required{% endif %}
                                 >

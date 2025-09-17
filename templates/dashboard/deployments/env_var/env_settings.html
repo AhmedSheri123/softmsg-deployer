@@ -10,22 +10,22 @@
         {% csrf_token %}
 
         <div class="row g-3">
-        {% for env_var in deployment.deploymentenvvar_set.all %}
+        {% for env_var in env_vars %}
             <div class="col-md-6">
-                <label class="form-label fw-bold">{{ env_var.var_name.label }}</label>
+                <label class="form-label fw-bold">{{ env_var.var.label }}</label>
                 <input
-                {% if env_var.var_name.is_secret %}type="password"{% else %}type="text"{% endif %}
-                    
+                    {% if env_var.var.is_secret %}type="password"{% else %}type="text"{% endif %}
                     name="env_{{ env_var.id }}" 
                     class="form-control"
-                    value="{{ env_var.value }}"
+                    value="{{ env_var.value|default:env_var.var.default_value }}"
                     data-env-id="{{ env_var.id }}"
-                    placeholder="{{ env_var.var_name.label }}"
-                    {% if env_var.var_name.required %}required{% endif %}
+                    placeholder="{{ env_var.var.label }}"
+                    {% if env_var.var.required %}required{% endif %}
                 >
             </div>
         {% endfor %}
         </div>
+
 
         <div class="mt-4">
             <button type="submit" class="btn btn-success" id="save-env-btn">

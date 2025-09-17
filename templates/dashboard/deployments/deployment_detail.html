@@ -8,12 +8,14 @@
     <a href="{% url 'env_settings' deployment.id %}" class="btn btn-dark my-1">{% trans "Settings" %}</a>
 
 
-    {% for action in deployment.project.actions.all %}
-    <button class="btn btn-dark my-1" data-bs-toggle="modal" data-bs-target="#ActionModal{{ action.id }}">
-        {{ action.label }}
-    </button>
-
-    {% include "dashboard/projects/actions/run_action_modal.html" with deployment=deployment action=action %}
+    {% for container in deployment.containers.all %}
+    
+        {% for action in container.project_container.actions.all %}
+        <button class="btn btn-dark my-1" data-bs-toggle="modal" data-bs-target="#ActionModal{{ action.id }}">
+            {{ action.label }}
+        </button>
+        {% include "dashboard/projects/actions/run_action_modal.html" with container=container action=action %}
+        {% endfor %}
     {% endfor %}
     <a href="/resources/{{ deployment.project.id }}" target="_blank" class="btn btn-dark my-1">{% trans "Documentations" %}</a>
 </div>
@@ -187,14 +189,21 @@ document.getElementById("stopstart-btn").addEventListener("click", () => {
 
 document.getElementById("logs-btn").addEventListener("click", () => {
     fetch("{% url 'deployment_logs' deployment.id %}")
-    .then(res => res.text())
+    .then(res => res.json())
     .then(data => {
-        // عرض logs في نافذة صغيرة
         let logWin = window.open("", "Logs", "width=800,height=600,scrollbars=1");
-        logWin.document.write("<pre>"+data+"</pre>");
+        data.forEach(item => {
+            logWin.document.write("<h3>"+item.container_name+"</h3>");
+            if(item.logs) {
+                logWin.document.write("<pre>"+item.logs+"</pre>");
+            } else {
+                logWin.document.write("<pre style='color:red;'>"+item.error+"</pre>");
+            }
+        });
     })
     .catch(err => console.error(err));
 });
+
 
 </script>
 

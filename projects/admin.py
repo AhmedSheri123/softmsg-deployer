@@ -1,44 +1,70 @@
 from django.contrib import admin
-from .models import AvailableProject, ActionModel, ActionParameterModel, EnvVarModel
-# Register your models here.
-admin.site.register(ActionModel)
-admin.site.register(ActionParameterModel)
-admin.site.register(EnvVarModel)
+from .models import AvailableProject, ProjectContainer, Action, ActionParameter, EnvVar
+from django_json_widget.widgets import JSONEditorWidget
+from django.db import models
+
+# -------------------------
+# Action & EnvVar
+# -------------------------
+@admin.register(Action)
+class ActionAdmin(admin.ModelAdmin):
+    list_display = ('label',)
+    search_fields = ('label', 'command')
+
+@admin.register(ActionParameter)
+class ActionParameterAdmin(admin.ModelAdmin):
+    list_display = ('action', 'display_label', 'name', 'data_type', 'required', 'default')
+    search_fields = ('name', 'label')
+
+@admin.register(EnvVar)
+class EnvVarAdmin(admin.ModelAdmin):
+    list_display = ('project_container', 'key', 'label', 'is_secret', 'required', 'default_value')
+    search_fields = ('key', 'label')
 
 
+# -------------------------
+# ProjectContainer
+# -------------------------
+@admin.register(ProjectContainer)
+class ProjectContainerAdmin(admin.ModelAdmin):
+    list_display = ('project', 'type', 'docker_image_name', 'default_port')
+    search_fields = ('docker_image_name',)
+    
+    # استخدام محرر JSON للحقل env_vars و volume
+    formfield_overrides = {
+        models.JSONField: {'widget': JSONEditorWidget},
+    }
 
+
+# -------------------------
+# AvailableProject
+# -------------------------
 @admin.register(AvailableProject)
 class AvailableProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'docker_image_name', 'has_frontend', 'has_redis')
-    search_fields = ('name', 'docker_image_name')
-    
+    list_display = ('name', 'docker_images', 'has_frontend', 'has_redis')
+    search_fields = ('name',)
+
+    # -------------------------
+    # حقول محسوبة
+    # -------------------------
+    def docker_images(self, obj):
+        # كل docker_image_name لكل الحاويات المرتبطة بالمشروع
+        return ", ".join([c.docker_image_name for c in obj.containers.all()])
+    docker_images.short_description = "Docker Images"
+
+    def has_frontend(self, obj):
+        return obj.containers.filter(type='frontend').exists()
+    has_frontend.boolean = True
+
+    def has_redis(self, obj):
+        return obj.containers.filter(type='redis').exists()
+    has_redis.boolean = True
+
+    # -------------------------
+    # (اختياري) تقسيم الحقول عند إضافة/تعديل المشروع
+    # -------------------------
     fieldsets = (
         ("Basic Info", {
-            "fields": ('name', 'docker_image_name', 'description', 'image')
+            "fields": ('name', 'description', 'image')
         }),
-        ("Database Env Vars", {
-            "fields": (
-                'db_engine_env_var_name',
-                'db_name_env_var_name',
-                'db_user_env_var_name',
-                'db_password_env_var_name',
-                'db_host_env_var_name',
-                'db_port_env_var_name',
-            ),
-            "classes": ('collapse',),  # يمكن طي القسم لتقليل الفوضى
-        }),
-        ("Frontend Settings", {
-            "fields": ('has_frontend', 'frontend_docker_image_name'),
-            "classes": ('collapse',),
-        }),
-        ("Redis Settings", {
-            "fields": ('has_redis', 'redis_docker_image_name', 'redis_host_env_var_name', 'redis_port_env_var_name'),
-            "classes": ('collapse',),
-        }),
-
-        ("Other", {
-            "fields": ('script_run_after_install',)
-        }),
-
-
     )

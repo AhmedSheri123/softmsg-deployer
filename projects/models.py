@@ -1,80 +1,87 @@
-# projects/models.py
 from django.db import models
 
 class AvailableProject(models.Model):
     name = models.CharField(max_length=100)
-    docker_image_name = models.CharField(max_length=100, null=True)
-    has_frontend = models.BooleanField(default=False)
-    frontend_docker_image_name = models.CharField(max_length=100, blank=True, null=True)
-    has_redis = models.BooleanField(default=False)
-    redis_docker_image_name = models.CharField(max_length=100, blank=True, null=True, default='redis:7')
-    redis_host_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="REDIS_HOST")
-    redis_port_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="REDIS_PORT")
-    
-    # --------- Database env vars ---------
-    db_engine_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_ENGINE")
-    db_name_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_NAME")
-    db_user_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_USER")
-    db_password_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_PASSWORD")
-    db_host_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_HOST")
-    db_port_env_var_name = models.CharField(max_length=100, blank=True, null=True, default="DB_PORT")
-
-    script_run_after_install = models.TextField(help_text="{deployment.id}", blank=True)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     image = models.ImageField(upload_to="projects/", blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 
-class ActionModel(models.Model):
+class ProjectContainer(models.Model):
+    CONTAINER_TYPES = [
+        ('backfront', 'Backend&Frontend'),
+        ('backend', 'Backend'),
+        ('frontend', 'Frontend'),
+        ('redis', 'Redis'),
+    ]
+    
+    TECHNOLOGY_CHOICES = [
+        ('django', 'Django'),
+        ('node', 'Node.js'),
+        ('laravel', 'Laravel'),
+        ('php', 'PHP'),
+        ('react', 'React'),
+        ('vue', 'Vue.js'),
+    ]
+
+    
+
+    project = models.ForeignKey(AvailableProject, on_delete=models.CASCADE, related_name="containers")
+    type = models.CharField(max_length=20, choices=CONTAINER_TYPES)
+    technology = models.CharField(max_length=50, choices=TECHNOLOGY_CHOICES, blank=True, null=True)
+    docker_image_name = models.CharField(max_length=200)
+    env_vars = models.JSONField(default=dict, blank=True, help_text="{deployment}, {this_container_domain}, {frontend_domain}, {backfront_domain}, {db_name}, {db_user}, {db_pass}, {db_container_name}")
+    default_port = models.PositiveIntegerField(blank=True, null=True)
+    volume = models.JSONField(default=list, blank=True, help_text="List of volume paths")
+    script_run_after_install = models.TextField(help_text="{container.id}", blank=True)
+
+    def __str__(self):
+        return f"{self.project.name} - {self.type}"
+
+
+class Action(models.Model):
     label = models.CharField(max_length=100)
-    project = models.ManyToManyField(AvailableProject, related_name="actions")
-
-    # الأمر الفعلي لتنفيذه (مثل اسم الدالة أو سكربت shell)
-    command = models.TextField(
-        help_text="اسم الدالة أو الأمر لتنفيذه عبر Docker (مثلاً: change_admin_password)"
-    )
-
+    container = models.ManyToManyField(ProjectContainer, related_name="actions")
+    command = models.TextField(help_text="اسم الدالة أو الأمر لتنفيذه عبر Docker")
 
     class Meta:
         ordering = ["label"]
-        
+
     def __str__(self):
-        projects = ', '.join([p.name for p in self.project.all()])  # استخدم حقل نصي مثل name
-        return f'{projects}|{self.label}'
+        projects = ', '.join([str(p) for p in self.container.all()])
+        return f"{projects} | {self.label}"
 
 
-class ActionParameterModel(models.Model):
-    action = models.ForeignKey(ActionModel, on_delete=models.CASCADE, related_name="parameters")
-    label = models.CharField(max_length=100, blank=True, null=True, help_text="الاسم المعروض للمستخدم")
-    name = models.CharField(max_length=50, help_text="الاسم الداخلي (للاستخدام في الكود/الـcommand)")
-    data_type = models.CharField(
-        max_length=20,
-        choices=[("string", "string"), ("boolean", "boolean"), ("int", "integer")]
-    )
+class ActionParameter(models.Model):
+    DATA_TYPES = [("string", "String"), ("boolean", "Boolean"), ("int", "Integer")]
+
+    action = models.ForeignKey(Action, on_delete=models.CASCADE, related_name="parameters")
+    label = models.CharField(max_length=100, blank=True, null=True)
+    name = models.CharField(max_length=50, help_text="الاسم الداخلي للاستخدام بالكود")
+    data_type = models.CharField(max_length=20, choices=DATA_TYPES)
     required = models.BooleanField(default=True)
-    default = models.CharField(max_length=100, blank=True, null=True)
+    default = models.CharField(max_length=100, blank=True, null=True, help_text="{deployment.id}")
 
     def display_label(self):
-        return self.label or self.name  # fallback لو ما تعبت label
-    
+        return self.label or self.name
+
     def __str__(self):
-        return f'action={self.action}|{self.display_label()}|'
+        return f"{self.action} | {self.display_label()}"
 
 
-
-
-class EnvVarModel(models.Model):
-    project = models.ForeignKey(AvailableProject, on_delete=models.CASCADE, null=True)
+class EnvVar(models.Model):
+    project_container = models.ForeignKey(ProjectContainer, on_delete=models.CASCADE, null=True, related_name='project_envs')
     label = models.CharField(max_length=100)
     key = models.CharField(max_length=100)
-    is_secret = models.BooleanField(default=False, help_text="اخفاء")
+    is_secret = models.BooleanField(default=False)
     required = models.BooleanField(default=False)
-    default_value = models.CharField(max_length=100, help_text="{deployment.id}", blank=True)
+    default_value = models.CharField(max_length=100, help_text="{container.deployment.id}", blank=True)
+
     class Meta:
-        unique_together = ("project", "key")
+        unique_together = ("project_container", "key")
         ordering = ["key"]
 
     def __str__(self):
-        return f"|{self.label}|{self.key}|"
+        return f"{self.project_container} | {self.key}"

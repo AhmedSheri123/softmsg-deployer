@@ -1,12 +1,11 @@
 from django.shortcuts import redirect, get_object_or_404, render
-from deployments.models import Deployment
 from django.contrib.auth.decorators import login_required
-from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker
+from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, get_db_container_usage
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 import docker, json
-from .models import DeploymentEnvVar
+from .models import DeploymentContainerEnvVar, Deployment
 client = docker.from_env()
 
 @login_required
@@ -88,32 +87,45 @@ def deployment_detail(request, deployment_id):
 def deployment_usage_api(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
 
-    resources_now = get_container_usage(deployment.container_name)
-    if "error" in resources_now:
-        return JsonResponse({"error": resources_now["error"]}, status=400)
+    total_mem_used = 0
+    total_mem_limit = 0
+    total_cpu_percent = 0
+    total_storage_used = 0
 
-    # نفس الحسابات اللي عملناها في detail
-    mem_usage_bytes = resources_now.get("memory_usage", 0) or 0
-    mem_limit_bytes = resources_now.get("memory_limit") or 1
-    cpu_percent_now = resources_now.get("cpu_percent", 0) or 0
-    storage_bytes = resources_now.get("storage_usage", 0) or 0
+    containers = deployment.containers.all()
+    if not containers.exists():
+        return JsonResponse({"error": "No containers found"}, status=400)
 
-    mem_used_mb = round(mem_usage_bytes / (1024 * 1024), 2)
-    mem_limit_mb = round(mem_limit_bytes / (1024 * 1024), 2)
-    storage_used_mb = round(storage_bytes / (1024 * 1024), 2)
+    for dc in containers:
+        usage = get_container_usage(dc.container_name)
+        if "error" in usage:
+            continue  # ممكن تسجيل الخطأ بدل تجاهله
 
-    # هنا بس نرجع JSON جاهز
+        total_mem_used += usage.get("memory_usage", 0) or 0
+        total_mem_limit += usage.get("memory_limit") or 0
+        total_cpu_percent += usage.get("cpu_percent", 0) or 0
+        total_storage_used += usage.get("storage_usage", 0) or 0
+
+    db_storage_used_mb = get_db_container_usage(deployment)
+
+    # تحويل Bytes إلى MB
+    mem_used_mb = round(total_mem_used / (1024 * 1024), 2)
+    mem_limit_mb = round(total_mem_limit / (1024 * 1024), 2)
+    storage_used_mb = round(total_storage_used / (1024 * 1024), 2) + round(db_storage_used_mb.get('storage_db') / (1024 * 1024), 2)
+    
+
     data = {
         "RAM": {"used": mem_used_mb, "limit": mem_limit_mb, "unit": "MB"},
-        "CPU": {"used": round(cpu_percent_now, 1), "limit": 100, "unit": "%"},
-        "Storage": {"used": storage_used_mb, "limit": deployment.plan.storage*1000, "unit": "MB"}  # مثال: حد 1GB
+        "CPU": {"used": round(total_cpu_percent, 1), "limit": len(containers)*100, "unit": "%"},
+        "Storage": {"used": storage_used_mb, "limit": deployment.plan.storage*1000, "unit": "MB"}
     }
     return JsonResponse(data)
 
 
+
 def delete_deployment(request, deployment_id):
     deployment = Deployment.objects.get(id=deployment_id)
-    if deployment.container_name:
+    if deployment:
         delete_docker(deployment)
     deployment.delete()
     return redirect('my_deployments')
@@ -133,7 +145,6 @@ def restart_deployment(request, deployment_id):
 def stopstart_deployment(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
     try:
-        container = client.containers.get(deployment.container_name)
         if deployment.status == 2:
             stop_docker(deployment)
         else:
@@ -144,31 +155,62 @@ def stopstart_deployment(request, deployment_id):
 
 def deployment_logs(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
-    try:
-        container = client.containers.get(deployment.container_name)
-        logs = container.logs(tail=100).decode()
-        return HttpResponse(logs, content_type="text/plain")
-    except Exception as e:
-        return HttpResponse(str(e), content_type="text/plain")
+    logs_data = []
+
+    containers = deployment.containers.all()
+    for dc in containers:
+        try:
+            container = client.containers.get(dc.container_name)
+            logs_data.append({
+                "container_name": dc.container_name,
+                "logs": container.logs(tail=100).decode(errors="ignore")
+            })
+        except Exception as e:
+            logs_data.append({
+                "container_name": dc.container_name,
+                "error": str(e)
+            })
+
+    return JsonResponse(logs_data, safe=False)
 
 
 
 def env_settings(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
-    return render(request, 'dashboard/deployments/env_var/env_settings.html', {'deployment':deployment})
+
+    # جلب جميع env vars المرتبطة بالـ Deployment
+    env_vars = DeploymentContainerEnvVar.objects.filter(
+        container__deployment=deployment
+    ).select_related('var', 'container').order_by('var__key')
+
+    context = {
+        'deployment': deployment,
+        'env_vars': env_vars,
+    }
+    return render(request, 'dashboard/deployments/env_var/env_settings.html', context)
 
 def update_all_env_vars(request, deployment_id):
     if request.method == 'POST':
+        deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
         try:
-            deployment = Deployment.objects.get(id=deployment_id)
             data = json.loads(request.body)
-            
+
+            # جلب جميع الـ env vars التابعة للـ deployment مرة واحدة
+            env_vars = DeploymentContainerEnvVar.objects.filter(
+                container__deployment=deployment
+            )
+
+            env_dict = {str(ev.id): ev for ev in env_vars}
+
             for env_id, value in data.items():
-                env_var = DeploymentEnvVar.objects.get(id=int(env_id), deployment=deployment)
-                env_var.value = value
-                env_var.save()
-            
+                env_var = env_dict.get(str(env_id))
+                if env_var:
+                    env_var.value = value
+                    env_var.save()
+
             return JsonResponse({'success': True})
+
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
+
     return JsonResponse({'success': False, 'error': 'Invalid request'})

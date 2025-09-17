@@ -1,8 +1,8 @@
 # actions/views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from .models import ActionModel, ActionParameterModel
-from deployments.models import Deployment
+from .models import Action
+from deployments.models import DeploymentContainer
 from projects.models import AvailableProject
 import docker
 
@@ -16,9 +16,9 @@ def project_list(request):
 
 
 
-def run_action(request, deployment_id, action_id):
-    deployment = get_object_or_404(Deployment, id=deployment_id)
-    action = get_object_or_404(ActionModel, id=action_id)
+def run_action(request, container_id, action_id):
+    container = get_object_or_404(DeploymentContainer, id=container_id)
+    action = get_object_or_404(Action, id=action_id)
 
     if request.method == "POST":
         params = {}
@@ -46,11 +46,11 @@ def run_action(request, deployment_id, action_id):
         # تشغيل الأمر داخل الحاوية
         try:
             client = docker.from_env()
-            container = client.containers.get(deployment.container_name)
+            container = client.containers.get(container.container_name)
 
             exec_log = container.exec_run(command)
             output = exec_log.output.decode("utf-8") if exec_log.output else ""
-            
+            print(command, output)
             return JsonResponse({
                 "success": True,
                 "message": f"{action.label} executed successfully!",
@@ -61,6 +61,6 @@ def run_action(request, deployment_id, action_id):
             return JsonResponse({"success": False, "message": str(e)})
     
     return render(request, "dashboard/projects/actions/run_action_modal.html", {
-        "deployment": deployment,
+        "container": container,
         "action": action,
     })
