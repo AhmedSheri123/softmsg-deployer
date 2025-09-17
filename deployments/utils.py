@@ -142,6 +142,21 @@ def calculate_resource_limits(deployment):
         }
 
     return limits
+
+def expand_env(value, fixed_env):
+    """توسيع المتغيرات داخل string أو list أو dict بشكل recursive"""
+    if isinstance(value, str):
+        try:
+            return str(eval(f'f"""{value}"""', {}, fixed_env))
+        except Exception:
+            return value
+    elif isinstance(value, list):
+        return [expand_env(v, fixed_env) for v in value]
+    elif isinstance(value, dict):
+        return {k: expand_env(v, fixed_env) for k, v in value.items()}
+    else:
+        return value
+
 # ---------------- Project containers ----------------
 def create_project_container(deployment, container: DeploymentContainer):
     client = docker.from_env()
@@ -183,18 +198,8 @@ def create_project_container(deployment, container: DeploymentContainer):
         "db_container_name": db_container_name,
     }
 
-    final_env = {}
-
-    for key, value in env_vars.items():
-        if isinstance(value, str):
-            try:
-                # eval يسمح بكتابة تعبيرات Python مثل deployment.user.username
-                final_env[key] = str(eval(f'f"""{value}"""', {}, fixed_env))
-            except Exception as e:
-                final_env[key] = value  # إذا فشل، استخدم القيمة كما هي
-        else:
-            final_env[key] = value
-
+    final_env = {k: expand_env(v, fixed_env) for k, v in env_vars.items()}
+    print(final_env)
     # ---------------- Traefik Labels ----------------
     labels = {}
     if pc.type == "frontend":
@@ -220,7 +225,7 @@ def create_project_container(deployment, container: DeploymentContainer):
         })
     elif pc.type == "redis":
         labels = {"traefik.enable": "false"}
-
+    
     # ---------------- Volumes ----------------
     volumes = {}
     for vol in (pc.volume or []):
