@@ -51,7 +51,7 @@ def ApplySubscription(request, order_id):
             status=1,  # Pending
         )
 
-        container_name = f"{request.user.username}_{dc.id}".lower()
+        container_name = f"{request.user.username}-{dc.id}".lower()
         dc.container_name = container_name
 
         # تحديد الدومين الخاص بالباك اند
