@@ -199,7 +199,6 @@ def create_project_container(deployment, container: DeploymentContainer):
     }
 
     final_env = {k: expand_env(v, fixed_env) for k, v in env_vars.items()}
-    print(final_env)
     # ---------------- Traefik Labels ----------------
     labels = {}
     if pc.type == "frontend":
