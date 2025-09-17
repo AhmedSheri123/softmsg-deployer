@@ -216,7 +216,6 @@ def create_project_container(deployment, container: DeploymentContainer):
         final_env.update({
             "DOMAIN": domain,
             "ALLOWED_HOSTS": f"127.0.0.1,localhost,{domain}",
-            "CSRF_TRUSTED_ORIGINS": f"https://{domain}, https://127.0.0.1",
             "DATABASE_URL": f"postgres://{db_user}:{db_pass}@{db_container_name}:5432/{db_name}"
         })
     elif pc.type == "redis":
