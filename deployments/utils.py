@@ -231,13 +231,14 @@ def create_project_container(deployment, container: DeploymentContainer):
         if isinstance(vol, dict):
             host_path = vol["host"]
             container_path = vol["container"]
-            if not container_path.startswith("/"):
-                container_path = f"/{container_path}"
-            volumes[host_path] = {"bind": container_path, "mode": "rw"}
-        else:
+        elif isinstance(vol, str) and ":" in vol:
+            host_path, container_path = vol.split(":", 1)
+        else:  # string عادي
             host_path = vol
-            container_path = f"/{vol}"
-            volumes[host_path] = {"bind": container_path, "mode": "rw"}
+            container_path = f"/{vol}" if not vol.startswith("/") else vol
+
+        volumes[host_path] = {"bind": container_path, "mode": "rw"}
+
 
     # ---------------- تشغيل أو إنشاء الحاوية ----------------
     try:
