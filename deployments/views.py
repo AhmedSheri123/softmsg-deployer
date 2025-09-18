@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
-from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, get_db_container_usage
+from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, get_db_container_usage, hard_restart
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
@@ -138,6 +138,15 @@ def restart_deployment(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
     try:
         restart_docker(deployment)
+        return JsonResponse({"success": True, "message": "Device restarted"})
+    except Exception as e:
+        return JsonResponse({"success": False, "message": str(e)})
+
+@csrf_exempt
+def hard_restart_deployment(request, deployment_id):
+    deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
+    try:
+        hard_restart(deployment)
         return JsonResponse({"success": True, "message": "Device restarted"})
     except Exception as e:
         return JsonResponse({"success": False, "message": str(e)})

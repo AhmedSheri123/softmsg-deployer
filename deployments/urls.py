@@ -9,6 +9,7 @@ urlpatterns = [
     path('deployments/<int:deployment_id>/usage/', views.deployment_usage_api, name='deployment_usage_api'),
 
 
+    path("deployment/<int:deployment_id>/hard-restart/", views.hard_restart_deployment, name="hard_restart_deployment"),
     path("deployment/<int:deployment_id>/restart/", views.restart_deployment, name="restart_deployment"),
     path("deployment/<int:deployment_id>/stopstart/", views.stopstart_deployment, name="stopstart_deployment"),
     path("deployment/<int:deployment_id>/logs/", views.deployment_logs, name="deployment_logs"),

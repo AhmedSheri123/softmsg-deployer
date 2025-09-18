@@ -418,9 +418,15 @@ def restart_docker(deployment: Deployment):
     return all_ok
 
 
+def hard_restart(deployment: Deployment):
+    client = docker.from_env()
+    containers = deployment.containers.all()
+    delete_container(client, f"{deployment.user.username}{deployment.id}_db")
+    for container in containers:
+        cname = container.container_name
+        delete_container(client, cname)
 
-
-
+    restart_docker(deployment)
 
 def stop_docker(deployment: Deployment):
     client = docker.from_env()

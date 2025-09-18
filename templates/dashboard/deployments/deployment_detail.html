@@ -54,9 +54,19 @@
     {% endfor %}
   </div>
     <div class="badge  mb-3 d-block mx-auto">
-        <button id="restart-btn" class="btn btn-sm btn-primary my-1">{% trans "Restart" %}</button>
-        <button id="stopstart-btn" class="btn btn-sm btn-dark my-1">
-            {% if deployment.status == 2 %}{% trans "Stop" %}{% else %}{% trans "Start" %}{% endif %}
+        <button id="hard-restart-btn" class="btn btn-sm btn-warning my-1 process-btn">
+            <span class="btn-text">{% trans "Hard Restart" %}</span>
+            <span class="spinner-border spinner-border-sm ms-2" role="status" style="display: none;"></span>
+        </button>
+
+        <button id="restart-btn" class="btn btn-sm btn-primary my-1 process-btn">
+            <span class="btn-text">{% trans "Restart" %}</span>
+            <span class="spinner-border spinner-border-sm ms-2" role="status" style="display: none;"></span>
+        </button>
+
+        <button id="stopstart-btn" class="btn btn-sm btn-dark my-1 process-btn">
+            <span class="btn-text">{% if deployment.status == 2 %}{% trans "Stop" %}{% else %}{% trans "Start" %}{% endif %}</span>
+            <span class="spinner-border spinner-border-sm ms-2" role="status" style="display: none;"></span>
         </button>
         <button id="logs-btn" class="btn btn-sm btn-info my-1">{% trans "Logs" %}</button>
         <a class="btn btn-danger btn-sm my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">{% trans "Delete" %}</a>
@@ -233,23 +243,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+let hardRestartBtn = document.getElementById("hard-restart-btn")
+let restartBtn = document.getElementById("restart-btn")
+let StopStartBtn = document.getElementById("stopstart-btn")
 
 
-document.getElementById("restart-btn").addEventListener("click", () => {
+const processBtn = document.querySelectorAll(".process-btn");
+
+function startSpiner(btn) {
+    btn.querySelector(".spinner-border").style.display = "inline-block";
+    processBtn.forEach(e => {
+        e.disabled = true;  
+    })
+}
+function stopSpiner(btn) {
+    btn.querySelector(".spinner-border").style.display = "none";
+    processBtn.forEach(e => {
+        e.disabled = false;  
+    })
+}
+
+hardRestartBtn.addEventListener("click", () => {
+    startSpiner(hardRestartBtn)
     fetch("{% url 'restart_deployment' deployment.id %}", {method: "POST", headers: {'X-CSRFToken': '{{ csrf_token }}'}})
     .then(res => res.json())
     .then(data => alert(data.message))
-    .catch(err => console.error(err));
+    .catch(err => console.error(err)).finally(() => {
+        stopSpiner(hardRestartBtn)
+    });
 });
 
-document.getElementById("stopstart-btn").addEventListener("click", () => {
+restartBtn.addEventListener("click", () => {
+    startSpiner(restartBtn)
+    fetch("{% url 'hard_restart_deployment' deployment.id %}", {method: "POST", headers: {'X-CSRFToken': '{{ csrf_token }}'}})
+    .then(res => res.json())
+    .then(data => alert(data.message))
+    .catch(err => console.error(err)).finally(() => {
+        stopSpiner(restartBtn)
+    });
+});
+
+StopStartBtn.addEventListener("click", () => {
+    startSpiner(StopStartBtn)
     fetch("{% url 'stopstart_deployment' deployment.id %}", {method: "POST", headers: {'X-CSRFToken': '{{ csrf_token }}'}})
     .then(res => res.json())
     .then(data => {
         alert(data.message);
-        location.reload(); // لتحديث زر Stop/Start
+        location.reload(StopStartBtn); // لتحديث زر Stop/Start
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error(err)).finally(() => {
+        stopSpiner()
+    });
 });
 
 document.getElementById("logs-btn").addEventListener("click", () => {
