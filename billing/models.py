@@ -21,16 +21,24 @@ order_progress_choices = [
     ('4', _('Cancelled'))
 ]
 
+order_type_choices = [
+    ('1', _('Buy')),
+    ('2', _('Renew')),
+    ('3', _('Upgrade')),
+]
+
 class ServicePaymentOrderModel(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
     plan = models.ForeignKey('plans.Plan', on_delete=models.CASCADE)
-    project = models.ForeignKey('projects.AvailableProject', on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey('projects.AvailableProject', on_delete=models.CASCADE, blank=True, null=True)
+    deployment = models.ForeignKey('deployments.Deployment', on_delete=models.CASCADE, related_name="orders", blank=True, null=True)
     duration = models.CharField(max_length=10, choices=[('monthly','Monthly'),('yearly','Yearly')], null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     orderID = models.CharField(max_length=250, default=payOrderCodeGen, unique=True, verbose_name=_("Order ID"))
     order_secret = models.CharField(max_length=254, default=payOrderSecretCodeGen, unique=True, verbose_name=_("Order Secret Code"))
     transactionNo = models.CharField(max_length=250, null=True, blank=True, verbose_name=_("Transaction Number"))
     progress = models.CharField(max_length=254, default='1', choices=order_progress_choices, verbose_name=_("Order Progress"))
+    order_type = models.CharField(max_length=254, default='1', choices=order_type_choices, verbose_name=_("Order Type"))
     creation_date = models.DateTimeField(auto_now_add=True, verbose_name=_("Creation Date"), null=True)
 
     class Meta:

@@ -4,19 +4,26 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from projects.models import AvailableProject
 from plans.models import Plan
-from plans.views import ApplySubscription
+from plans.views import ApplySubscription, ApplyUpgradePlan
 from django.urls import reverse
 from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
 from .payment import addInvoice
+from deployments.models import Deployment
 # Create your views here.
 
 def ServicePayment(request, orderID):
     order = ServicePaymentOrderModel.objects.get(orderID=orderID)
-
-
     plan = order.plan
     price = order.price
+
+    if price <= 0:
+        if order.order_type == '1':
+            return ApplySubscription(request, order.id)
+        elif order.order_type == '2':
+            return ApplyUpgradePlan(request, order.id)
+        elif order.order_type == '3':
+            return ApplyUpgradePlan(request, order.id)
 
     user = request.user
     userprofile = user.userprofile
@@ -73,14 +80,20 @@ def PaypalCheckPaymentProcess(request, secret):
     orders = ServicePaymentOrderModel.objects.filter(order_secret=secret)
     if orders.exists():
         order = orders.first()
-        return ApplySubscription(request, order.id)
+        if order.order_type == '1':
+            return ApplySubscription(request, order.id)
+        elif order.order_type == '2' or order.order_type == '3':
+            return ApplyUpgradePlan(request, order.id)
     return redirect('index')
 
 @login_required
 def create_order(request, project_id):
     if request.method == "POST":
+        order_type = request.POST.get("type")
         plan_id = request.POST.get("plan_id")
-        duration = request.POST.get("subscription_type")  # monthly / yearly
+        duration = request.POST.get("duration_type")  # monthly / yearly
+        deployment_id = request.POST.get("deployment_id")
+
         project = get_object_or_404(AvailableProject, id=project_id)
         plan = get_object_or_404(Plan, id=plan_id)
 
@@ -98,12 +111,15 @@ def create_order(request, project_id):
             price=price,
             project=project,
             progress='1',  # Pending
-            creation_date=timezone.now()
+            creation_date=timezone.now(),
+            order_type=order_type
         )
-
+        #Upgrade Plan
+        if order_type == '3' or order_type == '2':
+            deployment = get_object_or_404(Deployment, id=deployment_id)
+            order.deployment = deployment
         order.save()
-        if price <= 0:
-            return ApplySubscription(request, order.id)
+
     return redirect('ServicePayment', order.orderID)
 
 

@@ -12,10 +12,10 @@
     <!-- Toggle Monthly/Yearly -->
     <div class="text-center mb-4">
         <div class="btn-group" role="group">
-            <input type="radio" class="btn-check" onclick="togglePrice('monthly')" name="subscription_type" id="monthly" autocomplete="off" checked>
+            <input type="radio" class="btn-check" onclick="togglePrice('monthly')" name="duration_type" id="monthly" autocomplete="off" checked>
             <label class="btn btn-outline-dark" for="monthly">{% trans "Monthly" %}</label>
 
-            <input type="radio" class="btn-check" onclick="togglePrice('yearly')" name="subscription_type" id="yearly" autocomplete="off">
+            <input type="radio" class="btn-check" onclick="togglePrice('yearly')" name="duration_type" id="yearly" autocomplete="off">
             <label class="btn btn-outline-dark" for="yearly">{% trans "Yearly" %}</label>
         </div>
     </div>
@@ -65,8 +65,13 @@
 
                     <form method="post" action="{% url 'create_order' project.id %}">
                         {% csrf_token %}
+                        
+                        <input type="hidden" name="type" value="{{type}}">
+                        {% if type == '3' %}
+                        <input type="hidden" name="deployment_id" value="{{deployment.id}}">
+                        {% endif %}
                         <input type="hidden" name="plan_id" value="{{ plan.id }}">
-                        <input type="hidden" name="subscription_type" class="subscription_type_input" value="monthly">
+                        <input type="hidden" name="duration_type" class="duration_type_input" value="monthly">
                         <button type="submit" class="w-100 btn btn-lg {% if plan.Theem %} btn-{{ plan.Theem }} {% else %} btn-outline-dark {% endif %}">
                             {% trans "Select Plan" %}
                         </button>
@@ -84,7 +89,7 @@
 function togglePrice(type) {
     const monthly = document.querySelectorAll('.monthlyPrice');
     const yearly = document.querySelectorAll('.yearlyPrice');
-    const input = document.querySelectorAll('.subscription_type_input');
+    const input = document.querySelectorAll('.duration_type_input');
     input.forEach(e => e.value = type);
     
 

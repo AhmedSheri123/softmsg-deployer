@@ -3,29 +3,58 @@
 
 {% block sheri %}
 
-<div class="container py-3">
+<div class="container py-4">
     <h4 class="mb-4">{% trans "Settings" %}</h4>
 
     <form id="env-vars-form">
         {% csrf_token %}
-
-        <div class="row g-3">
+        {% for vars_title in  vars_titles %}
+        <h4 class="mb-4">{{vars_title.title}}</h4>
+        <div class="row g-3 border p-3 rounded mb-3">
         {% for env_var in env_vars %}
+        {% if env_var.var.title == vars_title %}
             <div class="col-md-6">
                 <label class="form-label fw-bold">{{ env_var.var.label }}</label>
-                <input
-                    {% if env_var.var.is_secret %}type="password"{% else %}type="text"{% endif %}
-                    name="env_{{ env_var.id }}" 
-                    class="form-control"
-                    value="{{ env_var.value|default:env_var.var.default_value }}"
-                    data-env-id="{{ env_var.id }}"
-                    placeholder="{{ env_var.var.label }}"
-                    {% if env_var.var.required %}required{% endif %}
-                >
+
+                {% if env_var.var.data_type == "boolean" %}
+                    <div class="form-check">
+                        <input
+                            type="checkbox"
+                            name="env_{{ env_var.id }}"
+                            class="form-check-input"
+                            data-env-id="{{ env_var.id }}"
+                            {% if env_var.get_value %}checked{% endif %}
+                            {% if env_var.var.required %}required{% endif %}
+                        >
+                    </div>
+
+                {% elif env_var.var.data_type == "int" %}
+                    <input
+                        type="number"
+                        name="env_{{ env_var.id }}"
+                        class="form-control"
+                        value="{{ env_var.get_value|default:env_var.var.default_value }}"
+                        data-env-id="{{ env_var.id }}"
+                        placeholder="{{ env_var.var.label }}"
+                        {% if env_var.var.required %}required{% endif %}
+                    >
+
+                {% else %}
+                    <input
+                        {% if env_var.var.is_secret %}type="password"{% else %}type="text"{% endif %}
+                        name="env_{{ env_var.id }}"
+                        class="form-control"
+                        value="{{ env_var.get_value|default:env_var.var.default_value }}"
+                        data-env-id="{{ env_var.id }}"
+                        placeholder="{{ env_var.var.label }}"
+                        {% if env_var.var.required %}required{% endif %}
+                    >
+                {% endif %}
             </div>
+            {% endif %}
         {% endfor %}
         </div>
-
+        {% endfor %}
 
         <div class="mt-4">
             <button type="submit" class="btn btn-success" id="save-env-btn">
@@ -49,7 +78,14 @@ document.addEventListener('DOMContentLoaded', function(){
         const data = {};
         form.querySelectorAll('input[name^="env_"]').forEach(input => {
             const envId = input.dataset.envId;
-            data[envId] = input.value;
+
+            if(input.type === "checkbox") {
+                data[envId] = input.checked;
+            } else if(input.type === "number") {
+                data[envId] = parseInt(input.value) || 0;
+            } else {
+                data[envId] = input.value;
+            }
         });
 
         fetch("{% url 'update_all_env_vars' deployment.id %}", {

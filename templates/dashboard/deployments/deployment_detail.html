@@ -122,6 +122,71 @@
 <!-- End Deployment Info -->
 
 
+<!-- Subscription -->
+<div class="container p-4">
+    <h5>{% trans "Subscription Info" %}</h5>
+    <div class="bg-body-tertiary p-4 rounded">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "title" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{ deployment.subscription.plan }}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Plan scope" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{ deployment.subscription.get_duration_display }}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Subscription status" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{% if deployment.subscription_status %}Active{% else %}Expired{% endif %}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Subscription date" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{deployment.subscription.start_date|date:"Y-m-d"}}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Subscription end date" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{deployment.subscription.end_date|date:"Y-m-d"}}">
+            </div>
+            <div class="mb-3 col">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <i class="bi bi-person-up"></i>
+                    {% trans "Actions" %}
+                </label>
+                <div>
+                    <form class="d-inline-block" action="{% url 'create_order' deployment.project.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="type" value="2">
+                        <input type="hidden" name="deployment_id" value="{{deployment.id}}">
+                        <input type="hidden" name="plan_id" value="{{ deployment.subscription.plan.id }}">
+                        <input type="hidden" name="duration_type" class="duration_type_input" value="{{deployment.subscription.duration}}">
+                        <button type="submit" class="btn bg-light-orange">{% trans "Renew plan" %}</button>
+                    </form>
+
+                    <a href="{% url 'UpgradePlan' deployment.id %}" class="btn btn-success">{% trans "Upgrade plan" %}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Subscription -->
+
+
 <!-- Delete Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

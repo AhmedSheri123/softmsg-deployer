@@ -92,14 +92,14 @@ class DeploymentContainer(models.Model):
     def __str__(self):
         return f"{self.deployment} | {self.container_name}"
 
-    def get_env_var(self):
+    def get_env_vars(self):
         """
         ترجع قاموس {key: value} لجميع متغيرات البيئة الخاصة بهذا الـ Deployment
         """
         env_vars = {}
         for env in DeploymentContainerEnvVar.objects.filter(container=self):
             if env.var and env.var.key:
-                env_vars[env.var.key] = env.value
+                env_vars[env.var.key] = env.get_value
         return env_vars
 
 
@@ -133,5 +133,40 @@ class DeploymentContainerEnvVar(models.Model):
     var = models.ForeignKey('projects.EnvVar', on_delete=models.CASCADE, null=True)
     value = models.CharField(max_length=255, blank=True, null=True)
 
+    class Meta:
+        unique_together = ("container", "var")
+        ordering = ["var__sort_index"]
     def __str__(self):
-        return f"{self.deployment} | {self.var.key} | {self.value}"
+        var_key = self.var.key if self.var else "None"
+        container_name = str(self.container) if self.container else "None"
+        return f"{container_name} | {var_key} | {self.value}"
+    
+    @property
+    def get_value(self):
+        """
+        يرجع القيمة محولة حسب نوع EnvVar.data_type
+        """
+        val = self.value
+
+        # إذا لم توجد قيمة، استخدم default_value من EnvVar
+        if not val:
+            val = self.var.default_value if self.var else None
+
+        if not val:
+            return None
+
+        # تحويل حسب نوع البيانات
+        data_type = self.var.data_type if self.var else "string"
+
+        if data_type == "boolean":
+            # يقبل True/False أو "1"/"0" أو "true"/"false" كقيم نصية
+            if isinstance(val, str):
+                return val.lower() in ["true", "1", "yes"]
+            return bool(val)
+        elif data_type == "int":
+            try:
+                return int(val)
+            except ValueError:
+                return 0
+        else:  # string
+            return str(val)

@@ -70,18 +70,28 @@ class ActionParameter(models.Model):
     def __str__(self):
         return f"{self.action} | {self.display_label()}"
 
+class EnvVarsTitle(models.Model):
+    title = models.CharField(max_length=100)
+    project_container = models.ForeignKey(ProjectContainer, on_delete=models.CASCADE, null=True, related_name='project_title_envs')
 
+    def __str__(self):
+        return f"{self.title}-{self.project_container}"
+    
 class EnvVar(models.Model):
-    project_container = models.ForeignKey(ProjectContainer, on_delete=models.CASCADE, null=True, related_name='project_envs')
+    DATA_TYPES = [("string", "String"), ("boolean", "Boolean"), ("int", "Integer")]
+    
+    title = models.ForeignKey(EnvVarsTitle, on_delete=models.SET_NULL, null=True, blank=True, related_name='project_envs')
     label = models.CharField(max_length=100)
     key = models.CharField(max_length=100)
+    data_type = models.CharField(max_length=20, choices=DATA_TYPES, null=True)
     is_secret = models.BooleanField(default=False)
     required = models.BooleanField(default=False)
     default_value = models.CharField(max_length=100, help_text="{container.deployment.id}", blank=True)
+    sort_index = models.IntegerField(default=0)
 
     class Meta:
-        unique_together = ("project_container", "key")
-        ordering = ["key"]
+        unique_together = ("title", "key")
+        ordering = ["-sort_index"]
 
     def __str__(self):
-        return f"{self.project_container} | {self.key}"
+        return f"{self.title} | {self.key}"

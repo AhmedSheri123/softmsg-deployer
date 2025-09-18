@@ -1,11 +1,13 @@
 from django.contrib import admin
-from .models import AvailableProject, ProjectContainer, Action, ActionParameter, EnvVar
+from .models import AvailableProject, ProjectContainer, Action, ActionParameter, EnvVar, EnvVarsTitle
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
 
 # -------------------------
 # Action & EnvVar
 # -------------------------
+admin.site.register(EnvVarsTitle)
+
 @admin.register(Action)
 class ActionAdmin(admin.ModelAdmin):
     list_display = ('label',)
@@ -18,7 +20,7 @@ class ActionParameterAdmin(admin.ModelAdmin):
 
 @admin.register(EnvVar)
 class EnvVarAdmin(admin.ModelAdmin):
-    list_display = ('project_container', 'key', 'label', 'is_secret', 'required', 'default_value')
+    list_display = ('title', 'key', 'label', 'is_secret', 'required', 'default_value')
     search_fields = ('key', 'label')
 
 

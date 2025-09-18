@@ -31,13 +31,13 @@ class Plan(models.Model):
     Theem = models.CharField(max_length=255, choices=SubscriptionsTheemChoices, null=True, verbose_name='الثيم')
     plan_type = models.CharField(max_length=255, choices=plan_type_choices, null=True, verbose_name='نو الاشتراك')
     ram = models.IntegerField(help_text="RAM بالـ MB")
-    storage = models.IntegerField(help_text="Storage بالـ GB")
+    storage = models.IntegerField(help_text="Storage بالـ mb")
     cpu = models.DecimalField(max_digits=3, decimal_places=1, help_text="عدد الأنوية أو النسبة")
     database = models.CharField(max_length=255, choices=database_type_choices, null=True, verbose_name='قاعدة البيانات')
     monthly_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     yearly_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     def __str__(self):
-        return f"{self.name} - {self.ram}MB / {self.storage}GB / {self.cpu} CPU"
+        return f"{self.name} - {self.ram}MB / {self.storage}mb / {self.cpu} CPU"
 
 
 class Subscription(models.Model):

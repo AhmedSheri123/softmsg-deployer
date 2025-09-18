@@ -11,7 +11,7 @@ def add_env_var_to_deployments(sender, instance, created, **kwargs):
     يتم إنشاؤه (أو ربطه) في جميع Deployments الخاصة بهذا المشروع.
     """
     if created:  # فقط عند الإضافة لأول مرة
-        project_container = instance.project_container
+        project_container = instance.title.project_container
         for dc in DeploymentContainer.objects.filter(project_container=project_container):
             DeploymentContainerEnvVar.objects.get_or_create(
                 container=dc,

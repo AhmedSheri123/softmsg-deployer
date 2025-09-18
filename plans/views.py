@@ -5,13 +5,14 @@ from deployments.models import Deployment, DeploymentContainer, DeploymentContai
 from deployments.views import run_docker
 from django.contrib.auth.decorators import login_required
 from billing.models import ServicePaymentOrderModel
+from django.contrib import messages
 # Create your views here.
 @login_required
 def plans_list(request, project_id):
     project = AvailableProject.objects.get(id=project_id)
     plans = Plan.objects.filter(project=project)
 
-    return render(request, 'dashboard/plans/ServicePlans.html', {'plans':plans, "project":project})
+    return render(request, 'dashboard/plans/ServicePlans.html', {'plans':plans, "project":project, "type":"1"})
 
 
 @login_required
@@ -73,4 +74,33 @@ def ApplySubscription(request, order_id):
         containers = deployment.containers.all()
         for container in containers:
             container.update_default_env_vars()
+        messages.success(request, 'تم شراء الخدمة بنجاح')
     return redirect('my_deployments')
+
+def ApplyUpgradePlan(request, order_id):
+    order = get_object_or_404(ServicePaymentOrderModel, id=order_id)
+    deployment = order.deployment
+    plan = order.plan
+    duration = order.duration
+    print(duration)
+    old_sub = Subscription.objects.get(deployment=deployment)
+    old_sub.delete()
+    new_sub = Subscription.objects.create(
+        deployment=deployment,
+        plan=plan,
+        duration=duration,
+    )
+
+    # تحديث حالة الطلب
+    order.progress = '3'
+    order.save()
+
+    messages.success(request, 'تم تجديد الخطة بنجاح')
+    return redirect('my_deployments')
+    
+
+def UpgradePlan(request, deployment_id):
+    deployment = get_object_or_404(Deployment, id=deployment_id)
+    project = deployment.project
+    plans = Plan.objects.filter(project=project)
+    return render(request, 'dashboard/plans/ServicePlans.html', {'plans':plans, "project":project, "type":'3', "deployment":deployment})

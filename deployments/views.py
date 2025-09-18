@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 import docker, json
 from .models import DeploymentContainerEnvVar, Deployment
+from projects.models import EnvVarsTitle
 client = docker.from_env()
 
 @login_required
@@ -117,7 +118,7 @@ def deployment_usage_api(request, deployment_id):
     data = {
         "RAM": {"used": mem_used_mb, "limit": mem_limit_mb, "unit": "MB"},
         "CPU": {"used": round(total_cpu_percent, 1), "limit": len(containers)*100, "unit": "%"},
-        "Storage": {"used": storage_used_mb, "limit": deployment.plan.storage*1000, "unit": "MB"}
+        "Storage": {"used": storage_used_mb, "limit": deployment.plan.storage, "unit": "MB"}
     }
     return JsonResponse(data)
 
@@ -177,15 +178,16 @@ def deployment_logs(request, deployment_id):
 
 def env_settings(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
-
+    vars_titles = EnvVarsTitle.objects.filter()
     # جلب جميع env vars المرتبطة بالـ Deployment
     env_vars = DeploymentContainerEnvVar.objects.filter(
         container__deployment=deployment
-    ).select_related('var', 'container').order_by('var__key')
+    ).select_related('var', 'container')
 
     context = {
         'deployment': deployment,
         'env_vars': env_vars,
+        'vars_titles': vars_titles,
     }
     return render(request, 'dashboard/deployments/env_var/env_settings.html', context)
 
@@ -206,7 +208,17 @@ def update_all_env_vars(request, deployment_id):
             for env_id, value in data.items():
                 env_var = env_dict.get(str(env_id))
                 if env_var:
-                    env_var.value = value
+                    # التعامل مع نوع البيانات
+                    if env_var.var.data_type == "boolean":
+                        env_var.value = bool(value)
+                    elif env_var.var.data_type == "int":
+                        try:
+                            env_var.value = int(value)
+                        except ValueError:
+                            env_var.value = 0  # قيمة افتراضية عند خطأ
+                    else:
+                        env_var.value = str(value)
+
                     env_var.save()
 
             return JsonResponse({'success': True})

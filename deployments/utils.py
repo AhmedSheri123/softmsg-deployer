@@ -159,39 +159,43 @@ def expand_env(value, fixed_env):
 
 # ---------------- Project containers ----------------
 def create_project_container(deployment, container: DeploymentContainer):
+    """
+    ينشئ أو يشغل حاوية Docker لمشروع معين مع إدارة الموارد، التخزين، والبيئة.
+    """
+
     client = docker.from_env()
     pc = container.project_container
     container_name = container.container_name
-    avalible_port = get_free_port()
+    available_port = get_free_port()
     ensure_network(client)
 
+    # ----------- إعداد قاعدة البيانات وبيئة الحاوية -----------
     db_container_name = f"{deployment.user.username}{deployment.id}_db"
-    plan = deployment.plan
-    image_name = pc.docker_image_name
-    domain = container.domain
-
-
-
-    resource_limits = calculate_resource_limits(deployment)
-    mem_limit = resource_limits.get(container_name, {}).get("mem", f"{getattr(plan, 'ram', 512)}m")
-    cpu_quota = resource_limits.get(container_name, {}).get("cpu", int(getattr(plan, "cpu", 0.5)*100000))
-
-    # ---------------- بيئة الحاوية ----------------
     db_name = f"db_{deployment.id}"
     db_user = "postgres"
     db_pass = "postgres"
 
-    # قيم ثابتة نريد إضافتها
+    plan = deployment.plan
+    image_name = pc.docker_image_name
+    domain = container.domain
+    storage = getattr(plan, "storage", 100)  # بالميجابايت
+
+    # ----------- حساب موارد الحاوية -----------
+    resource_limits = calculate_resource_limits(deployment)
+    mem_limit = resource_limits.get(container_name, {}).get("mem", f"{getattr(plan, 'ram', 512)}m")
+    cpu_quota = resource_limits.get(container_name, {}).get("cpu", int(getattr(plan, "cpu", 0.5) * 100000))
+
+    # ----------- إعداد environment variables -----------
     env_vars = pc.env_vars or {}
+    env_vars = {**env_vars, **container.get_env_vars()}
+
     fixed_env = {
         "deployment": deployment,
         "plan": plan,
         "container": container,
-
         "this_container_domain": container.domain,
-        "frontend_domain":deployment.domain,
-        "backfront_domain":deployment.backend_domain,
-
+        "frontend_domain": deployment.domain,
+        "backfront_domain": deployment.backend_domain,
         "db_name": db_name,
         "db_user": db_user,
         "db_pass": db_pass,
@@ -199,8 +203,16 @@ def create_project_container(deployment, container: DeploymentContainer):
     }
 
     final_env = {k: expand_env(v, fixed_env) for k, v in env_vars.items()}
-    # ---------------- Traefik Labels ----------------
-    labels = {}
+
+    if pc.type in ("backend", "backfront"):
+        final_env.update({
+            "DOMAIN": domain,
+            "ALLOWED_HOSTS": f"127.0.0.1,localhost,{domain}",
+            "DATABASE_URL": f"postgres://{db_user}:{db_pass}@{db_container_name}:5432/{db_name}"
+        })
+
+    # ----------- إعداد Traefik labels -----------
+    labels = {"traefik.enable": "false"}  # الافتراضي
     if pc.type == "frontend":
         labels = {
             "traefik.enable": "true",
@@ -217,15 +229,8 @@ def create_project_container(deployment, container: DeploymentContainer):
             f"traefik.http.routers.{container_name}.tls.certresolver": "myresolver",
             f"traefik.http.services.{container_name}.loadbalancer.server.port": str(pc.default_port or 8000),
         }
-        final_env.update({
-            "DOMAIN": domain,
-            "ALLOWED_HOSTS": f"127.0.0.1,localhost,{domain}",
-            "DATABASE_URL": f"postgres://{db_user}:{db_pass}@{db_container_name}:5432/{db_name}"
-        })
-    elif pc.type == "redis":
-        labels = {"traefik.enable": "false"}
-    
-    # ---------------- Volumes ----------------
+
+    # ----------- إعداد Volumes -----------
     volumes = {}
     for vol in (pc.volume or []):
         if isinstance(vol, dict):
@@ -233,44 +238,48 @@ def create_project_container(deployment, container: DeploymentContainer):
             container_path = vol["container"]
         elif isinstance(vol, str) and ":" in vol:
             host_path, container_path = vol.split(":", 1)
-        else:  # string عادي
+        else:
             host_path = vol
             container_path = f"/{vol}" if not vol.startswith("/") else vol
-
         volumes[host_path] = {"bind": container_path, "mode": "rw"}
 
-
-    # ---------------- تشغيل أو إنشاء الحاوية ----------------
+    # ----------- تشغيل أو إنشاء الحاوية -----------
     try:
         c = client.containers.get(container_name)
         c.start()
         logger.info(f"Project container {container_name} started successfully")
     except NotFound:
-        logger.warning(f"Project container {container_name} not found, creating a new one...")
-        c = run_container(
-            client,
-            image=image_name,
-            name=container_name,
-            labels=labels,
-            detach=True,
-            mem_limit=mem_limit,
-            cpu_quota=cpu_quota,
-            volumes=volumes,
-            environment=final_env,
-            network="deploy_network",
-            restart_policy={"Name": "unless-stopped"},
-            ports={'8000': avalible_port},
-        )
+        logger.info(f"Project container {container_name} not found, creating a new one...")
+        try:
+            c = client.containers.run(
+                image=image_name,
+                name=container_name,
+                labels=labels,
+                detach=True,
+                mem_limit=mem_limit,
+                cpu_quota=cpu_quota,
+                environment=final_env,
+                volumes=volumes,
+                network="deploy_network",
+                restart_policy={"Name": "unless-stopped"},
+                ports={'8000': available_port},
+                storage_opt={"size": f"{storage}m"}  # <-- الحد الأقصى للتخزين
+            )
+        except APIError as e:
+            logger.error(f"Failed to create container {container_name}: {e}")
+            return False
 
-        if c and pc.script_run_after_install:
+        # ----------- تشغيل سكربتات بعد الإنشاء -----------
+        if pc.script_run_after_install:
             for script in pc.script_run_after_install.splitlines():
                 script = script.strip()
-                if script:
-                    try:
-                        exec_result = c.exec_run(script.format(container=container))
-                        print(f"Executed: {script}\nOutput:\n{exec_result.output.decode()}")
-                    except Exception as e:
-                        print(f"Failed to run script {script}: {e}")
+                if not script:
+                    continue
+                try:
+                    exec_result = c.exec_run(script.format(container=container))
+                    logger.info(f"Executed script: {script}\nOutput: {exec_result.output.decode()}")
+                except Exception as e:
+                    logger.warning(f"Failed to execute script {script}: {e}")
 
     return True
 
