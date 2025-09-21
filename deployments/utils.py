@@ -346,8 +346,9 @@ def get_container_usage(container_name, deployment=None):
             img_path = storage_data["img_path"]
             if os.path.exists(img_path):
                 try:
+                    # استخدام du --apparent-size لتجنب الحجم المزدوج
                     result = subprocess.run(
-                        ["du", "-sb", img_path],
+                        ["du", "-sb", "--apparent-size", img_path],
                         capture_output=True,
                         text=True,
                         check=True
