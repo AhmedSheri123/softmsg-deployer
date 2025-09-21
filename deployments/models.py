@@ -431,10 +431,10 @@ class DeploymentContainer(models.Model):
 
         return config
 
-
     def resolve_placeholders(self, value):
         """
-        استبدال placeholders داخل string أو dict أو list بشكل آمن بدون eval.
+        استبدال placeholders داخل string أو dict أو list بشكل آمن،
+        يدعم container.<type|name>.field و container.<type|name>.env.KEY
         """
         if isinstance(value, dict):
             return {k: self.resolve_placeholders(v) for k, v in value.items()}
@@ -443,61 +443,40 @@ class DeploymentContainer(models.Model):
         elif not isinstance(value, str):
             return value
 
-        fixed_env = {
-            "deployment": self.deployment,
-            "plan": getattr(self.deployment, "plan", None),
-            "container": self,
-            "this_container_domain": self.domain or "",
-            "frontend_domain": getattr(self.deployment, "domain", ""),
-            "backfront_domain": getattr(self.deployment, "backend_domain", ""),
-        }
-
         pattern = re.compile(r"\{([^}]+)\}")
 
         def replacer(match):
             expr = match.group(1).strip()
             parts = expr.split(".")
-
             try:
-                # ----------------- container الحالي -----------------
+                # --------- container placeholders ----------
                 if parts[0] == "container":
-                    # فقط container
-                    if len(parts) == 1:
+                    if len(parts) < 2:
                         return str(self)
-                    # container.current.field
-                    elif len(parts) == 2:
-                        field = parts[1]
-                        if field == "container_name":
-                            return self.container_name
-                        elif field == "domain":
-                            return self.domain or ""
-                        elif field == "env":
-                            return str(self.get_resolved_env_vars())
-                        else:
-                            return match.group(0)
-                    # container.<other>.field
-                    elif len(parts) >= 3:
-                        target_type_or_name = parts[1]
+                    target_name_or_type = parts[1]
+
+                    # البحث عن الكونتينر حسب النوع أو الاسم
+                    target = self.deployment.containers.filter(
+                        project_container__type=target_name_or_type
+                    ).first()
+                    if not target:
+                        target = self.deployment.containers.filter(
+                            container_name=target_name_or_type
+                        ).first()
+                    if not target:
+                        return match.group(0)
+
+                    # باقي المسار بعد النوع/الاسم
+                    if len(parts) >= 3:
                         field = parts[2]
                         rest = parts[3:] if len(parts) > 3 else []
 
-                        # البحث عن الكونتينر الهدف حسب النوع أو الاسم
-                        target = self.deployment.containers.filter(
-                            project_container__type=target_type_or_name
-                        ).first()
-                        if not target:
-                            target = self.deployment.containers.filter(
-                                container_name=target_type_or_name
-                            ).first()
-                        if not target:
-                            return match.group(0)
-
                         if field == "env" and rest:
                             key = rest[0]
-                            # 1️⃣ جرب الحصول من DeploymentContainerEnvVar
+                            # الحصول على قيمة env
                             val = target.get_env_vars().get(key)
-                            # 2️⃣ إذا لم توجد، استخدم القيمة الافتراضية من ProjectContainer
-                            if val is None and target.project_container:
+                            if val is None:
+                                # استخدم القيمة الافتراضية من ProjectContainer
                                 val = target.project_container.env_vars.get(key, "")
                             return str(val)
                         elif field == "container_name":
@@ -506,33 +485,39 @@ class DeploymentContainer(models.Model):
                             return target.domain or ""
                         else:
                             return match.group(0)
+                    else:
+                        return target.container_name
 
-                # ----------------- fixed_env -----------------
-                elif parts[0] in fixed_env:
+                # --------- fixed_env placeholders ----------
+                fixed_env = {
+                    "deployment": self.deployment,
+                    "plan": getattr(self.deployment, "plan", None),
+                    "container": self,
+                    "this_container_domain": self.domain or "",
+                    "frontend_domain": getattr(self.deployment, "domain", ""),
+                    "backfront_domain": getattr(self.deployment, "backend_domain", ""),
+                }
+                if parts[0] in fixed_env:
                     val = fixed_env[parts[0]]
                     for attr in parts[1:]:
                         val = getattr(val, attr, None)
                         if val is None:
                             return match.group(0)
                     return str(val)
-                else:
-                    return match.group(0)
+
+                return match.group(0)
             except Exception:
                 return match.group(0)
 
         return pattern.sub(replacer, value)
 
 
-
     def get_resolved_env_vars(self):
         """
-        إرجاع env_vars بعد حل جميع placeholders بشكل متكرر
-        لدعم التعابير المتداخلة بين الكونتينرات.
+        إعادة env_vars بعد حل جميع placeholders،
+        يدعم التعابير المتداخلة بين الكونتينرات.
         """
-        # أخذ env_vars من المشروع كقيمة افتراضية
         env_vars = self.project_container.env_vars or {}
-        
-        # حل placeholders بشكل متكرر
         resolved = env_vars
         max_iter = 5  # لتجنب حلقة لا نهائية
         for _ in range(max_iter):
@@ -540,7 +525,6 @@ class DeploymentContainer(models.Model):
             if new_resolved == resolved:
                 break
             resolved = new_resolved
-
         return resolved
 
 
