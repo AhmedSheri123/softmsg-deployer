@@ -315,9 +315,7 @@ def start_docker(deployment: Deployment):
     return all_ok
 
 
-import docker
 import subprocess
-import os
 
 def get_container_usage(deployment, container_name):
     """

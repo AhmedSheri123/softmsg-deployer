@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
-from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, get_db_container_usage, hard_restart
+from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, hard_restart
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
@@ -108,12 +108,11 @@ def deployment_usage_api(request, deployment_id):
         total_cpu_percent += usage.get("cpu_percent", 0) or 0
         total_storage_used += usage.get("storage_usage", 0) or 0
 
-    db_storage_used_mb = get_db_container_usage(deployment)
 
     # تحويل Bytes إلى MB
     mem_used_mb = round(total_mem_used / (1024 * 1024), 2)
     mem_limit_mb = round(total_mem_limit / (1024 * 1024), 2)
-    storage_used_mb = round(total_storage_used / (1024 * 1024), 2) + round(db_storage_used_mb.get('storage_db') / (1024 * 1024), 2)
+    storage_used_mb = round(total_storage_used / (1024 * 1024), 2)
     
 
     data = {
