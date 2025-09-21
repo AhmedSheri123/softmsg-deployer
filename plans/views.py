@@ -6,6 +6,10 @@ from deployments.views import run_docker
 from django.contrib.auth.decorators import login_required
 from billing.models import ServicePaymentOrderModel
 from django.contrib import messages
+from django.db import transaction
+import logging
+from django.utils.text import slugify
+
 # Create your views here.
 @login_required
 def plans_list(request, project_id):
@@ -15,62 +19,86 @@ def plans_list(request, project_id):
     return render(request, 'dashboard/plans/ServicePlans.html', {'plans':plans, "project":project, "type":"1"})
 
 
+
+
+logger = logging.getLogger(__name__)
+
 @login_required
 def ApplySubscription(request, order_id):
     order = get_object_or_404(ServicePaymentOrderModel, id=order_id)
     plan = order.plan
     duration = order.duration
     project = order.project
-
-    # تحديث حالة الطلب
-    order.progress = '3'
-    order.save()
-
-    # إنشاء Deployment
-    deployment = Deployment.objects.create(
-        user=request.user,
-        project=project,
-        progress=3,  # Deploying
-        status=1,   # Stopped كبداية
-    )
-    
-
-    # إنشاء Subscription مرتبط بالـ Deployment
-    Subscription.objects.create(
-        deployment=deployment,
-        plan=plan,
-        duration=duration,
-    )
     main_domain = ".softmsg.com"
-    # إنشاء DeploymentContainers من ProjectContainers
-    for pc in project.get_sorted_containers():
-        dc = DeploymentContainer.objects.create(
-            deployment=deployment,
-            project_container=pc,
-            status=1,  # Pending
-        )
 
-        # تعيين اسم الكونتينر
-        container_name = f"{request.user.username}-{dc.id}".lower()
-        dc.container_name = container_name
+    try:
+        with transaction.atomic():
+            # تحديث حالة الطلب
+            order.progress = '3'  # Deploying
+            order.save()
+            logger.info(f"Order {order.id} set to Deploying")
 
-        # تعيين الدومين
-        if pc.type in ("backend",):
-            dc.domain = f"api.{container_name}{main_domain}"
-        else :
-            dc.domain = f"{container_name}{main_domain}"
-        dc.save()
+            # إنشاء Deployment
+            deployment = Deployment.objects.create(
+                user=request.user,
+                project=project,
+                progress=3,  # Deploying
+                status=1,   # Stopped كبداية
+            )
+            logger.info(f"Deployment {deployment.id} created for project {project.name}")
 
-    containers = deployment.containers.all()
-    for container in containers:
-        container.update_default_env_vars()
-    # تشغيل الـ Docker containers
-    success = run_docker(deployment)
-    if success:
-        deployment.project.installs +=1
-        deployment.project.save()
-        messages.success(request, 'تم شراء الخدمة بنجاح')
+            # إنشاء Subscription مرتبط بالـ Deployment
+            Subscription.objects.create(
+                deployment=deployment,
+                plan=plan,
+                duration=duration,
+            )
+            logger.info(f"Subscription created for deployment {deployment.id}")
+
+            # إنشاء DeploymentContainers من ProjectContainers
+            for pc in project.get_sorted_containers():
+                dc = DeploymentContainer.objects.create(
+                    deployment=deployment,
+                    project_container=pc,
+                    status=1,  # Pending
+                )
+
+                # تعيين اسم الكونتينر
+                container_name = slugify(f"{request.user.username}-{dc.id}")[:63]  # Docker name limit
+                dc.container_name = container_name
+
+                # تعيين الدومين
+                if pc.type in ("backend",):
+                    dc.domain = f"api.{container_name}{main_domain}"
+                else:
+                    dc.domain = f"{container_name}{main_domain}"
+                dc.save()
+                logger.info(f"DeploymentContainer {dc.container_name} created with domain {dc.domain}")
+
+            # تحديث env vars الافتراضية لكل container
+            for container in deployment.containers.all():
+                container.update_default_env_vars()
+            logger.info(f"Default env vars updated for deployment {deployment.id}")
+
+            # تشغيل الـ Docker containers
+            success = run_docker(deployment)
+            if success:
+                deployment.project.installs += 1
+                deployment.project.save()
+                messages.success(request, 'تم شراء الخدمة وتشغيل الحاويات بنجاح')
+                logger.info(f"Docker containers for deployment {deployment.id} started successfully")
+            else:
+                deployment.progress = 5  # Failed
+                deployment.save()
+                messages.error(request, 'فشل تشغيل الحاويات')
+                logger.error(f"Docker containers for deployment {deployment.id} failed to start")
+
+    except Exception as e:
+        logger.exception(f"Error applying subscription for order {order_id}: {e}")
+        messages.error(request, 'حدث خطأ أثناء تفعيل الخدمة. يرجى المحاولة لاحقاً.')
+
     return redirect('my_deployments')
+
 
 def ApplyUpgradePlan(request, order_id):
     order = get_object_or_404(ServicePaymentOrderModel, id=order_id)

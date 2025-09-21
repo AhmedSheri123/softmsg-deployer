@@ -97,28 +97,40 @@ def expand_env(value, fixed_env):
         return {k: expand_env(v, fixed_env) for k, v in value.items()}
     else:
         return value
+import docker
+from docker.errors import NotFound, APIError
+import logging
+
+logger = logging.getLogger(__name__)
 
 # ---------------- Project containers ----------------
-def create_project_container(deployment, container: DeploymentContainer):
+def create_project_container(deployment, container):
     """
     ينشئ أو يشغل حاوية Docker لمشروع معين مع إدارة الموارد، التخزين، والبيئة.
     """
-
     client = docker.from_env()
     pc = container.project_container
     container_name = container.container_name
-    # ----------- الحصول على إعدادات Docker ----------- 
-    config = container.to_docker_run_config()
 
-    # إضافة الشبكة الافتراضية إذا لم تكن موجودة
+    # ----------- الحصول على إعدادات Docker ----------- 
+    try:
+        config = container.to_docker_run_config()
+    except Exception as e:
+        logger.error(f"Failed to get Docker config for container {container_name}: {e}")
+        return False
+
+    # ----------- إضافة الشبكة الافتراضية ----------- 
     network_name = config.get("network") or "deploy_network"
     try:
         client.networks.get(network_name)
     except NotFound:
-        client.networks.create(network_name, driver="bridge")
-    # التأكد من أن config يحتوي على الشبكة الصحيحة
+        try:
+            client.networks.create(network_name, driver="bridge")
+            logger.info(f"Network '{network_name}' created")
+        except APIError as e:
+            logger.error(f"Failed to create network '{network_name}': {e}")
+            return False
     config["network"] = network_name
-
 
     # ----------- تشغيل أو إنشاء الحاوية ----------- 
     try:
@@ -129,6 +141,7 @@ def create_project_container(deployment, container: DeploymentContainer):
         logger.info(f"Project container {container_name} not found, creating a new one...")
         try:
             c = client.containers.run(**config)
+            logger.info(f"Project container {container_name} created successfully")
         except APIError as e:
             logger.error(f"Failed to create container {container_name}: {e}")
             return False
@@ -141,42 +154,48 @@ def create_project_container(deployment, container: DeploymentContainer):
                     continue
                 try:
                     exec_result = c.exec_run(script.format(container=container))
-                    logger.info(f"Executed script: {script}\nOutput: {exec_result.output.decode()}")
+                    output = exec_result.output.decode() if exec_result.output else ""
+                    logger.info(f"Executed script for {container_name}: {script}\nOutput: {output}")
                 except Exception as e:
-                    logger.warning(f"Failed to execute script {script}: {e}")
+                    logger.warning(f"Failed to execute script '{script}' for {container_name}: {e}")
 
     return True
 
 
-
+# ---------------- Deployment updater ----------------
 def update_deployment(deployment, progress, status):
     deployment.progress = progress
     deployment.status = status
     deployment.save()
+    logger.info(f"Deployment {deployment.id} updated: progress={progress}, status={status}")
+
 
 # ---------------- Runner ----------------
-def run_docker(deployment: Deployment):
-    client = docker.from_env()
-    # ثانياً باقي الحاويات
+def run_docker(deployment):
+    """
+    تشغيل جميع حاويات الـ Deployment
+    """
     all_ok = True
     for container in deployment.containers.all():
         try:
             ok = create_project_container(deployment, container)
             if not ok:
-                logger.error(f"Failed to create container {container.container_name}")
+                logger.error(f"Failed to create/start container {container.container_name}")
                 all_ok = False
         except Exception as e:
-            logger.error(f"Error deploying container {container.container_name}: {e}")
+            logger.exception(f"Error deploying container {container.container_name}: {e}")
             all_ok = False
 
-    # تحديث حالة Deployment
+    # تحديث حالة Deployment بعد التشغيل
     if all_ok:
-        update_deployment(deployment, 4, 2)  # Completed / Running
-        logger.info(f"Deployment succeeded: {deployment}")
+        update_deployment(deployment, progress=4, status=2)  # Completed / Running
+        logger.info(f"Deployment {deployment.id} succeeded")
         return True
     else:
-        update_deployment(deployment, 5, 3)  # Failed
+        update_deployment(deployment, progress=5, status=3)  # Failed / Undefined
+        logger.warning(f"Deployment {deployment.id} failed")
         return False
+
 
 
 
