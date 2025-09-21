@@ -432,7 +432,6 @@ class DeploymentContainer(models.Model):
         return config
 
 
-
     def resolve_placeholders(self, value):
         """
         استبدال placeholders داخل string أو dict أو list بشكل آمن بدون eval.
@@ -473,7 +472,7 @@ class DeploymentContainer(models.Model):
                         elif field == "domain":
                             return self.domain or ""
                         elif field == "env":
-                            return str(self.get_env_vars())
+                            return str(self.get_resolved_env_vars())
                         else:
                             return match.group(0)
                     # container.<other>.field
@@ -495,13 +494,19 @@ class DeploymentContainer(models.Model):
 
                         if field == "env" and rest:
                             key = rest[0]
-                            return str(target.get_env_vars().get(key, ""))
+                            # 1️⃣ جرب الحصول من DeploymentContainerEnvVar
+                            val = target.get_env_vars().get(key)
+                            # 2️⃣ إذا لم توجد، استخدم القيمة الافتراضية من ProjectContainer
+                            if val is None and target.project_container:
+                                val = target.project_container.env_vars.get(key, "")
+                            return str(val)
                         elif field == "container_name":
                             return target.container_name
                         elif field == "domain":
                             return target.domain or ""
                         else:
                             return match.group(0)
+
                 # ----------------- fixed_env -----------------
                 elif parts[0] in fixed_env:
                     val = fixed_env[parts[0]]
@@ -516,6 +521,7 @@ class DeploymentContainer(models.Model):
                 return match.group(0)
 
         return pattern.sub(replacer, value)
+
 
 
     def get_resolved_env_vars(self):

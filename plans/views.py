@@ -61,16 +61,14 @@ def ApplySubscription(request, order_id):
             dc.domain = f"{container_name}{main_domain}"
         dc.save()
 
-
+    containers = deployment.containers.all()
+    for container in containers:
+        container.update_default_env_vars()
     # تشغيل الـ Docker containers
     success = run_docker(deployment)
     if success:
         deployment.project.installs +=1
         deployment.project.save()
-        
-        containers = deployment.containers.all()
-        for container in containers:
-            container.update_default_env_vars()
         messages.success(request, 'تم شراء الخدمة بنجاح')
     return redirect('my_deployments')
 
