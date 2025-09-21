@@ -334,7 +334,7 @@ class DeploymentContainer(models.Model):
 
         # حل جميع المتغيرات، بما فيها الرجوع للكونتينرات الأخرى
         final_env = {k: self.resolve_placeholders(v) for k, v in env_vars.items()}
-        logger.error(f"env_vars:--> {final_env}")
+        
         config["environment"] = final_env
 
         # -------------------------------
@@ -421,8 +421,8 @@ class DeploymentContainer(models.Model):
         # نخزن حجم التخزين كـ label فقط
         labels["plan.storage"] = str(storage)
         if labels:
-            config["labels"] = labels
-
+            config["labels"] = self.resolve_labels(labels)
+        logger.error(f"labels:--> {self.resolve_labels(labels)}")
         # -------------------------------
         # privileged
         # -------------------------------
@@ -549,6 +549,16 @@ class DeploymentContainer(models.Model):
         return resolved
 
 
+    def resolve_labels(self, labels: dict):
+        """
+        حل جميع placeholders داخل Traefik labels (keys و values) باستخدام نفس منطق env_vars.
+        """
+        resolved = {}
+        for k, v in labels.items():
+            new_key = self.resolve_placeholders(k) if isinstance(k, str) else k
+            new_value = self.resolve_placeholders(v) if isinstance(v, str) else v
+            resolved[new_key] = new_value
+        return resolved
 
 
 
