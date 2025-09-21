@@ -43,7 +43,7 @@ def ApplySubscription(request, order_id):
     )
     main_domain = ".softmsg.com"
     # إنشاء DeploymentContainers من ProjectContainers
-    for pc in project.containers.all():
+    for pc in project.get_sorted_containers():
         dc = DeploymentContainer.objects.create(
             deployment=deployment,
             project_container=pc,

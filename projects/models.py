@@ -91,7 +91,19 @@ class AvailableProject(models.Model):
 
         return stars
 
-
+    def get_sorted_containers(self):
+        CONTAINER_PRIORITY = {
+            'db': 1,
+            'backend': 2,
+            'backfront': 2,
+            'frontend': 3,
+            'redis': 4,
+            'worker': 5,
+            'proxy': 6,
+        }
+        containers = list(self.containers.all())
+        containers.sort(key=lambda c: CONTAINER_PRIORITY.get(c.project_container.type, 99))
+        return containers
 
 
 class ProjectContainer(models.Model):
