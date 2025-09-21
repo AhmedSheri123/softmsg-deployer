@@ -8,7 +8,8 @@ import platform
 import subprocess
 import docker
 import re
-
+import logging
+logger = logging.getLogger(__name__)
 
 SERVICE_PROGRESS = [
     (1, 'Create Project'),
@@ -334,7 +335,7 @@ class DeploymentContainer(models.Model):
 
         # حل جميع المتغيرات، بما فيها الرجوع للكونتينرات الأخرى
         final_env = {k: self.resolve_placeholders(v) for k, v in env_vars.items()}
-
+        logger.error(f"env_vars:--> {env_vars}")
         config["environment"] = final_env
 
         # -------------------------------
