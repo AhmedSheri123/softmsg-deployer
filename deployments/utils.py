@@ -346,14 +346,13 @@ def get_container_usage(container_name, deployment=None):
             mount_dir = storage_data["mount_dir"]
             if os.path.ismount(mount_dir):
                 try:
+                    # -s: summary، -B1: byte
                     result = subprocess.run(
-                        ["du", "-sh", mount_dir],  # -B1 لإرجاع Bytes
+                        ["du", "-sb", mount_dir],
                         capture_output=True, text=True, check=True
                     )
-                    lines = result.stdout.splitlines()
-                    if len(lines) >= 2:
-                        # العمود المستخدم (Used) في df
-                        used_storage = int(lines[1].split()[2])
+                    # عادة du -sb يعطي سطر واحد: "1234567   /mnt/vol_xxx"
+                    used_storage = int(result.stdout.split()[0])
                 except subprocess.CalledProcessError:
                     used_storage = 0
 
