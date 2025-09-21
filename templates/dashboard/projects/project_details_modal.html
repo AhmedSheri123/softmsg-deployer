@@ -1,0 +1,269 @@
+{% load i18n %}
+{% load projects_filters %}
+
+<!-- Body -->
+<div class="modal-body">
+    <div class="row g-4">
+        
+        <!-- Left: صورة + وصف + روابط -->
+        <div class="col-md-5">
+            {% if project.image %}
+            <img src="{{ project.image.url }}" class="img-fluid rounded mb-3 shadow-sm" alt="{{ project.name }}">
+            {% else %}
+            <div class="bg-light d-flex align-items-center justify-content-center rounded mb-3" style="height:200px;">
+                <span class="text-muted">{% trans "لا توجد صورة" %}</span>
+            </div>
+            {% endif %}
+
+            <p class="text-muted">{{ project.description }}</p>
+
+            <!-- روابط -->
+            <div class="mb-3">
+                {% if project.demo_url %}
+                <a href="{{ project.demo_url }}" target="_blank" class="btn btn-outline-info btn-sm me-2">
+                    <i class="fa-solid fa-display"></i> {% trans "عرض تجريبي" %}
+                </a>
+                {% endif %}
+                {% if project.documentation_url %}
+                <a href="{{ project.documentation_url }}" target="_blank" class="btn btn-outline-secondary btn-sm">
+                    <i class="fa-solid fa-book"></i> {% trans "توثيق" %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Right: التفاصيل -->
+        <div class="col-md-7">
+            {% active_deployments project as active_deployments %}
+            {% deployments project as deployments %}
+            {% get_list_project_language_tech_tree project as list_language_tech %}
+            {% get_project_language_tech_tree project as language_tech_tree %}
+            <ul class="list-unstyled d-flex flex-wrap gap-2">
+                {% for item in list_language_tech %}
+                    <li>
+                        <span class="badge bg-dark">{{ item }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <!-- تفاصيل إضافية -->
+            <div class="mb-4 p-3 bg-white shadow-sm rounded">
+                <h6 class="fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-circle-info text-primary"></i> {% trans "تفاصيل المشروع:" %}
+                </h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><i class="fa-solid fa-chart-column text-info"></i> {% trans "مستوى الصعوبة:" %}</span>
+                        <span class="badge bg-info text-dark rounded-pill">{{ project.get_difficulty_level_display }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><i class="fa-solid fa-clock text-secondary"></i> {% trans "زمن التثبيت المتوقع:" %}</span>
+                        <span class="badge bg-secondary rounded-pill">{{ project.install_time_minutes }} {% trans "دقيقة" %}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><i class="fa-solid fa-hdd text-dark"></i> {% trans "الحجم المطلوب:" %}</span>
+                        <span class="badge bg-dark rounded-pill">{{ project.disk_size_mb }} MB</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- التفاعل -->
+            <div class="mb-4 p-3 bg-white shadow-sm rounded">
+                <h6 class="fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-users text-success"></i> {% trans "التفاعل:" %}
+                </h6>
+                <ul class="list-group list-group-flush">
+                <li dir="ltr" class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                    {% for star in project.rating_stars %}
+                        {% if star == "full" %}
+                            <i class="fa-solid fa-star text-warning"></i>
+                        {% elif star == "half" %}
+                            <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                        {% else %}
+                            <i class="fa-regular fa-star text-warning"></i>
+                        {% endif %}
+                    {% endfor %}
+                        
+                        
+                    </div>
+                    <span class="badge bg-warning text-dark rounded-pill">{% trans "التقييم:" %} {{ project.average_rating_float|default:"0 / 5" }}</span>
+                </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fa-solid fa-download text-primary"></i> {% trans "عدد التثبيتات:" %}
+                        </div>
+                        <span class="badge bg-primary rounded-pill">{{ project.installs }}</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                        <i class="fa-solid fa-users text-success"></i> {% trans "المستخدمون النشطون:" %}
+                        </div>
+                        <span class="badge bg-success rounded-pill">{{ active_deployments.count }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- التقنيات بالتفصيل -->
+            <div class="mb-4 p-3 bg-white shadow-sm rounded">
+                <h6 class="fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-microchip text-dark"></i> {% trans "اللغات والتقنيات المستخدمة:" %}
+                </h6>
+                <ul class="list-group list-group-flush">
+                    
+                    {% if language_tech_tree %}
+                    <pre dir="ltr" class="bg-light p-3 rounded">{{ language_tech_tree|safe }}</pre>
+                    {% else %}
+                    <li class="list-group-item text-muted">{% trans "لا توجد تقنيات محددة" %}</li>
+                    {% endif %}                                
+                    
+                </ul>
+            </div>
+
+            <!-- متطلبات التشغيل -->
+            <div class="mb-4 p-3 bg-white shadow-sm rounded">
+                <h6 class="fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-gear text-secondary"></i> {% trans "ادنى متطلبات التشغيل:" %}
+                </h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fa-solid fa-memory text-info"></i> RAM: {{ project.minimum_operating_requirements.ram }} MB</li>
+                    <li class="list-group-item"><i class="fa-solid fa-microchip text-danger"></i> CPU: {{ project.minimum_operating_requirements.cpu }} Core</li>
+                    <li class="list-group-item"><i class="fa-solid fa-hard-drive text-primary"></i> Storage: {{ project.minimum_operating_requirements.storage }} MB</li>
+                </ul>
+            </div>
+
+            <!-- إضافات اختيارية -->
+            <div class="mb-4 p-3 bg-white shadow-sm rounded">
+                <h6 class="fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-circle-plus text-success"></i> {% trans "امكانيات اضافية بعد التثبيت:" %}
+                </h6>
+                <ul class="list-group list-group-flush">
+                    {% for container in project.containers.all %}
+                    {% for action in container.actions.all %}
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-circle-plus"></i> {{ action.label }} - <span class="text-muted">{{ container.type }}</span>
+                    </li>
+                    {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- خطوات التثبيت -->
+            <div class="mb-4 p-3 bg-white shadow-sm rounded">
+                <h6 class="fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-list-ol text-primary"></i> {% trans "خطوات التثبيت المختصرة:" %}
+                </h6>
+                <div>{% if project.install_steps %}{{project.install_steps|safe}}{% else %}
+                    <li class="list-group-item text-muted">{% trans "لم تتم إضافة خطوات بعد" %}</li>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- الخطط -->
+            {% if project.plans.exists %}
+            <div class="mb-4 p-3 bg-white shadow-sm rounded">
+                <h6 class="fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-box text-warning"></i> {% trans "الخطط المتاحة:" %}
+                </h6>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for plan in project.plans.all %}
+                    <div class="col">
+                        <div class="card border-{{ plan.Theem }} shadow-sm h-100">
+                            <div class="card-header bg-{{ plan.Theem }} text-white text-center fw-bold">
+                                <i class="fa-solid fa-box"></i> {{ plan.get_plan_type_display }}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{ plan.name }}</h5>
+                                <ul class="list-unstyled mb-3">
+                                    <li><i class="fa-solid fa-memory"></i> RAM: {{ plan.ram }} MB</li>
+                                    <li><i class="fa-solid fa-hard-drive"></i> Storage: {{ plan.storage }} MB</li>
+                                    <li><i class="fa-solid fa-microchip"></i> CPU: {{ plan.cpu }}</li>
+                                    <li><i class="fa-solid fa-database"></i> DB: {{ plan.get_database_display }}</li>
+                                </ul>
+                                <div class="text-center">
+                                    <span class="badge bg-success">{{ plan.monthly_price }}$ / {% trans "شهري" %}</span>
+                                    <span class="badge bg-primary">{{ plan.yearly_price }}$ / {% trans "سنوي" %}</span>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="" class="btn btn-outline-{{ plan.Theem }} w-100">
+                                    <i class="fa-solid fa-cart-plus"></i> {% trans "اشترك الآن" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- مراجعات المستخدمين -->
+            <div class="mb-4 p-4 bg-white shadow-sm rounded-4">
+                <h6 class="fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-comments text-info"></i> مراجعات المستخدمين
+                </h6>
+
+                <ul class="list-group list-group-flush mb-4" id="reviewsList">
+                    {% for review in project.reviews.all %}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong class="text-primary">{{ review.user.username }}</strong>
+                                <p class="mb-1 text-muted small">{{ review.comment }}</p>
+                            </div>
+                            <div class="text-warning">
+                                {% for star in "12345" %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <i class="fa-solid fa-star"></i>
+                                    {% else %}
+                                        <i class="fa-regular fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-muted text-center">
+                        لا توجد مراجعات بعد
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <!-- نموذج إضافة تقييم -->
+                <h5 class="fw-bold mb-3">إضافة تقييمك</h5>
+                <form id="reviewForm" method="post" action="{% url 'add_review' project.id %}" class="p-3 bg-light rounded-3 shadow-sm">
+                    <input type="hidden" name="rating" id="ratingValue" value="0">
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">التقييم:</label>
+                        <div id="starRating" class="fs-3 text-warning" style="cursor: pointer;">
+                            <i class="fa-regular fa-star" data-value="1"></i>
+                            <i class="fa-regular fa-star" data-value="2"></i>
+                            <i class="fa-regular fa-star" data-value="3"></i>
+                            <i class="fa-regular fa-star" data-value="4"></i>
+                            <i class="fa-regular fa-star" data-value="5"></i>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">تعليقك:</label>
+                        <textarea name="comment" class="form-control" rows="3" placeholder="أضف تعليقك هنا..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fa-solid fa-paper-plane"></i> أرسل التقييم
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="modal-footer">
+        <a href="{% url 'plans_list' project.id %}" class="btn btn-success">
+            <i class="fa-solid fa-cloud-arrow-down me-1"></i> {% trans "تثبيت المشروع" %}
+        </a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "إغلاق" %}</button>
+    </div>

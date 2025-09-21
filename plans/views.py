@@ -71,6 +71,9 @@ def ApplySubscription(request, order_id):
     # تشغيل الـ Docker containers
     success = run_docker(deployment)
     if success:
+        deployment.project.installs +=1
+        deployment.project.save()
+        
         containers = deployment.containers.all()
         for container in containers:
             container.update_default_env_vars()

@@ -10,6 +10,7 @@ from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
 from .payment import addInvoice
 from deployments.models import Deployment
+from django.contrib import messages
 # Create your views here.
 
 def ServicePayment(request, orderID):
@@ -136,4 +137,5 @@ def CancellingOrder(request, orderID):
     order = ServicePaymentOrderModel.objects.get(orderID=orderID)
     order.progress = '4'
     order.save()
-    return redirect('ServicePlans', order.user_service.id)
+    messages.success(request, 'تم الغاء الطلب')
+    return redirect('my_deployments')

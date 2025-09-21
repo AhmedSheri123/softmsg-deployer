@@ -84,27 +84,37 @@
         <div class="row row-cols-1 row-cols-md-2 g-3">
 
             <div class="col">
-                <label class="form-label"><i class="bi bi-person-up"></i> {% trans "Username" %}</label>
+                <label class="form-label">
+                    <i class="fa-solid fa-user"></i> {% trans "Username" %}
+                </label>
                 <input type="text" class="form-control" disabled value="{{ deployment.user.username }}">
             </div>
 
             <div class="col">
-                <label class="form-label"><i class="bi bi-box-seam"></i> {% trans "Project Name" %}</label>
+                <label class="form-label">
+                    <i class="fa-solid fa-box"></i> {% trans "Project Name" %}
+                </label>
                 <input type="text" class="form-control" disabled value="{{ deployment.project.name }}">
             </div>
 
             <div class="col">
-                <label class="form-label"><i class="bi bi-hdd"></i> {% trans "Plan" %}</label>
+                <label class="form-label">
+                    <i class="fa-solid fa-server"></i> {% trans "Plan" %}
+                </label>
                 <input type="text" class="form-control" disabled value="{{ deployment.plan.name }}">
             </div>
 
             <div class="col">
-                <label class="form-label"><i class="bi bi-server"></i> {% trans "Domain" %}</label>
+                <label class="form-label">
+                    <i class="fa-solid fa-globe"></i> {% trans "Domain" %}
+                </label>
                 <input type="text" class="form-control" disabled value="{{ deployment.domain|default:"N/A" }}">
             </div>
 
             <div class="col">
-                <label class="form-label"><i class="bi bi-activity"></i> {% trans "Status" %}</label>
+                <label class="form-label">
+                    <i class="fa-solid fa-signal"></i> {% trans "Status" %}
+                </label>
                 <span class="badge 
                     {% if deployment.status == 'Running' %}bg-success
                     {% elif deployment.status == 'Stopped' %}bg-danger
@@ -114,7 +124,9 @@
             </div>
 
             <div class="col">
-                <label class="form-label"><i class="bi bi-progress-bar"></i> {% trans "Progress" %}</label>
+                <label class="form-label">
+                    <i class="fa-solid fa-bars-progress"></i> {% trans "Progress" %}
+                </label>
                 <span class="badge 
                     {% if deployment.progress == '1' %}bg-primary
                     {% elif deployment.progress == '2' %}bg-warning text-dark
@@ -137,44 +149,50 @@
     <h5>{% trans "Subscription Info" %}</h5>
     <div class="bg-body-tertiary p-4 rounded">
         <div class="row row-cols-1 row-cols-md-2">
+
             <div class="mb-3 col">
-                <label for="exampleFormControlInput1" class="form-label">
-                    <i class="bi bi-person-up"></i>
-                    {% trans "title" %}
+                <label class="form-label">
+                    <i class="fa-solid fa-file-signature"></i>
+                    {% trans "Title" %}
                 </label>
                 <input type="text" class="form-control" disabled value="{{ deployment.subscription.plan }}">
             </div>
+
             <div class="mb-3 col">
-                <label for="exampleFormControlInput1" class="form-label">
-                    <i class="bi bi-person-up"></i>
+                <label class="form-label">
+                    <i class="fa-solid fa-layer-group"></i>
                     {% trans "Plan scope" %}
                 </label>
                 <input type="text" class="form-control" disabled value="{{ deployment.subscription.get_duration_display }}">
             </div>
+
             <div class="mb-3 col">
-                <label for="exampleFormControlInput1" class="form-label">
-                    <i class="bi bi-person-up"></i>
+                <label class="form-label">
+                    <i class="fa-solid fa-toggle-on"></i>
                     {% trans "Subscription status" %}
                 </label>
                 <input type="text" class="form-control" disabled value="{% if deployment.subscription_status %}Active{% else %}Expired{% endif %}">
             </div>
+
             <div class="mb-3 col">
-                <label for="exampleFormControlInput1" class="form-label">
-                    <i class="bi bi-person-up"></i>
+                <label class="form-label">
+                    <i class="fa-solid fa-calendar-plus"></i>
                     {% trans "Subscription date" %}
                 </label>
                 <input type="text" class="form-control" disabled value="{{deployment.subscription.start_date|date:"Y-m-d"}}">
             </div>
+
             <div class="mb-3 col">
-                <label for="exampleFormControlInput1" class="form-label">
-                    <i class="bi bi-person-up"></i>
+                <label class="form-label">
+                    <i class="fa-solid fa-calendar-xmark"></i>
                     {% trans "Subscription end date" %}
                 </label>
                 <input type="text" class="form-control" disabled value="{{deployment.subscription.end_date|date:"Y-m-d"}}">
             </div>
+
             <div class="mb-3 col">
-                <label for="exampleFormControlInput1" class="form-label">
-                    <i class="bi bi-person-up"></i>
+                <label class="form-label">
+                    <i class="fa-solid fa-gears"></i>
                     {% trans "Actions" %}
                 </label>
                 <div>
@@ -184,17 +202,22 @@
                         <input type="hidden" name="deployment_id" value="{{deployment.id}}">
                         <input type="hidden" name="plan_id" value="{{ deployment.subscription.plan.id }}">
                         <input type="hidden" name="duration_type" class="duration_type_input" value="{{deployment.subscription.duration}}">
-                        <button type="submit" class="btn bg-light-orange">{% trans "Renew plan" %}</button>
+                        <button type="submit" class="btn bg-light-orange">
+                            <i class="fa-solid fa-rotate-right"></i> {% trans "Renew plan" %}
+                        </button>
                     </form>
 
-                    <a href="{% url 'UpgradePlan' deployment.id %}" class="btn btn-success">{% trans "Upgrade plan" %}</a>
+                    <a href="{% url 'UpgradePlan' deployment.id %}" class="btn btn-success">
+                        <i class="fa-solid fa-arrow-up"></i> {% trans "Upgrade plan" %}
+                    </a>
                 </div>
-
             </div>
+
         </div>
     </div>
 </div>
 <!-- End Subscription -->
+
 
 
 <!-- Delete Modal -->

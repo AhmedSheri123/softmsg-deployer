@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block sheri %}
 
-
+<div class="py-4"></div>
  <!-- Contact -->
  <div class="px-3 my-5">
     <div class="container py-3 border rounded shadow-lg" style="max-width: 568px;">
@@ -60,10 +60,14 @@
             </div>
 
 
-            <button class="btn btn-dark mx-auto d-block">
-                <i class="fa-solid fa-user"></i>
-                {% trans "Create" %}
-            </button>
+        <button type="submit" class="btn btn-dark w-100 mt-3">
+            <i class="fa-solid fa-user me-1"></i> {% trans "Create" %}
+        </button>
+            <div class="text-center mt-3">
+                <a href="{% url 'Login' %}" class="text-decoration-none">
+                    {% trans "Already have an account? Log in" %}
+                </a>
+            </div>
         </form>
     </div>
 </div>

@@ -38,39 +38,57 @@
                         </td>
                         <td>
                             {% if user_service.status == "Runing" %}
-                                <span class="badge bg-success">{{ user_service.get_status_display }}</span>
+                                <span class="badge bg-success">
+                                    <i class="fa-solid fa-circle-play me-1"></i> {{ user_service.get_status_display }}
+                                </span>
                             {% elif user_service.status == "Stoped" %}
-                                <span class="badge bg-danger">{{ user_service.get_status_display }}</span>
+                                <span class="badge bg-danger">
+                                    <i class="fa-solid fa-circle-stop me-1"></i> {{ user_service.get_status_display }}
+                                </span>
                             {% else %}
-                                <span class="badge bg-secondary">{{ user_service.get_status_display }}</span>
+                                <span class="badge bg-secondary">
+                                    <i class="fa-solid fa-circle-question me-1"></i> {{ user_service.get_status_display }}
+                                </span>
                             {% endif %}
                         </td>
                         <td>
                             {% if user_service.get_progress_display == "Create Project" %}
-                                <span class="badge bg-primary">{{ user_service.get_progress_display }}</span>
+                                <span class="badge bg-primary">
+                                    <i class="fa-solid fa-plus me-1"></i> {{ user_service.get_progress_display }}
+                                </span>
                             {% elif user_service.get_progress_display == "Billing" %}
-                                <span class="badge bg-warning text-dark">{{ user_service.get_progress_display }}</span>
+                                <span class="badge bg-warning text-dark">
+                                    <i class="fa-solid fa-file-invoice-dollar me-1"></i> {{ user_service.get_progress_display }}
+                                </span>
                             {% elif user_service.get_progress_display == "Deploying" %}
-                                <span class="badge bg-info text-dark">{{ user_service.get_progress_display }}</span>
+                                <span class="badge bg-info text-dark">
+                                    <i class="fa-solid fa-spinner fa-spin me-1"></i> {{ user_service.get_progress_display }}
+                                </span>
                             {% elif user_service.get_progress_display == "Complited" %}
-                                <span class="badge bg-success">{{ user_service.get_progress_display }}</span>
+                                <span class="badge bg-success">
+                                    <i class="fa-solid fa-circle-check me-1"></i> {{ user_service.get_progress_display }}
+                                </span>
                             {% elif user_service.get_progress_display == "Failed" %}
-                                <span class="badge bg-danger">{{ user_service.get_progress_display }}</span>
+                                <span class="badge bg-danger">
+                                    <i class="fa-solid fa-circle-xmark me-1"></i> {{ user_service.get_progress_display }}
+                                </span>
                             {% else %}
-                                <span class="badge bg-secondary">{{ user_service.get_progress_display }}</span>
+                                <span class="badge bg-secondary">
+                                    <i class="fa-solid fa-question me-1"></i> {{ user_service.get_progress_display }}
+                                </span>
                             {% endif %}
                         </td>
                         <td class="d-flex flex-column flex-md-row gap-1">
                             <a href="{% url 'deployment_detail' user_service.id %}" 
                                class="btn btn-outline-primary btn-sm w-100 w-md-auto" 
                                data-bs-toggle="tooltip" title="{% trans 'View Deployment Details' %}">
-                               {% trans "View" %}
+                               <i class="fa-solid fa-eye me-1"></i> {% trans "View" %}
                             </a>
                             {% if user_service.progress != 4 %}
                             <a href="{% url 'rebuild_project' user_service.id %}" 
                                class="btn btn-outline-primary btn-sm w-100 w-md-auto" 
                                data-bs-toggle="tooltip" title="{% trans 'Restart Device' %}">
-                               {% trans "Rebuild" %}
+                               <i class="fa-solid fa-rotate me-1"></i> {% trans "Rebuild" %}
                             </a>
                             {% endif %}
                             <a class="btn btn-outline-danger btn-sm w-100 w-md-auto" 
@@ -78,7 +96,7 @@
                                onclick="deleteItem('{% url 'delete_deployment' user_service.id %}', '{{ user_service.project }}')" 
                                data-bs-target="#exampleModal" 
                                data-bs-toggle="tooltip" title="{% trans 'Delete this Deployment' %}">
-                               {% trans "Delete" %}
+                               <i class="fa-solid fa-trash me-1"></i> {% trans "Delete" %}
                             </a>
                         </td>
                     </tr>

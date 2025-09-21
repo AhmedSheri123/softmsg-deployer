@@ -7,7 +7,7 @@ from django.http import JsonResponse, HttpResponse
 import docker, json
 from .models import DeploymentContainerEnvVar, Deployment
 from projects.models import EnvVarsTitle
-client = docker.from_env()
+
 
 @login_required
 def rebuild_project(request, deployment_id):
@@ -53,7 +53,7 @@ def deployment_detail(request, deployment_id):
             "unit": "MB",
             "percent": 0,
             "color": color_for(0),
-            "icon": '<i class="bi bi-memory"></i>'
+            "icon": '<i class="fa-solid fa-memory"></i>'
         },
         {
             "name": "CPU",
@@ -62,7 +62,7 @@ def deployment_detail(request, deployment_id):
             "unit": "%",
             "percent": 0,
             "color": color_for(0),
-            "icon": '<i class="bi bi-cpu"></i>'
+            "icon": '<i class="fa-solid fa-microchip"></i>'
         },
         {
             "name": "Storage",
@@ -71,9 +71,10 @@ def deployment_detail(request, deployment_id):
             "unit": "MB",
             "percent": 0,
             "color": color_for(0),
-            "icon": '<i class="bi bi-device-hdd"></i>'
+            "icon": '<i class="fa-solid fa-hard-drive"></i>'
         },
     ]
+
 
     context = {
         "deployment": deployment,
@@ -164,6 +165,7 @@ def stopstart_deployment(request, deployment_id):
         return JsonResponse({"success": False, "message": str(e)})
 
 def deployment_logs(request, deployment_id):
+    client = docker.from_env()
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
     logs_data = []
 

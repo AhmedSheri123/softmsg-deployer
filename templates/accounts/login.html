@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% block sheri %}
-
+<div class="py-4"></div>
 
  <!-- Contact -->
  <div class="px-3 my-5">
@@ -30,10 +30,15 @@
             </div>
 
 
-            <button class="btn btn-dark mx-auto d-block">
-                {% trans "Log in" %}
-                <i class="fa-solid fa-right-to-bracket"></i>
-            </button>
+        <button type="submit" class="btn btn-dark w-100 mt-3">
+            <i class="fa-solid fa-right-to-bracket me-1"></i> {% trans "Log in" %}
+        </button>
+
+            <div class="text-center mt-3">
+                <a href="{% url 'Signup' %}" class="text-decoration-none">
+                    {% trans "Dont have account? Create Account" %}
+                </a>
+            </div>
         </form>
     </div>
 </div>

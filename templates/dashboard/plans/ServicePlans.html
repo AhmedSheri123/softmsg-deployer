@@ -1,79 +1,90 @@
 {% extends "dashboard_base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block sheri %}
 
-<div class="container py-4">
-    <div class="text-center mb-4">
-        <h1 class="display-4 fw-normal text-body-emphasis">{% trans "Plans" %}</h1>
-        <p class="fs-5 text-body-secondary">{{ project.name }}</p>
+<div class="container py-5">
+
+    <!-- عنوان المشروع -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary">{{ project.name }}</h2>
+        <p class="text-muted">{% trans "اختر الخطة المناسبة لك" %}</p>
     </div>
 
-    <!-- Toggle Monthly/Yearly -->
-    <div class="text-center mb-4">
-        <div class="btn-group" role="group">
+    <!-- التبديل بين شهري / سنوي -->
+    <div class="text-center mb-5">
+        <div class="btn-group btn-group-lg shadow-sm" role="group">
             <input type="radio" class="btn-check" onclick="togglePrice('monthly')" name="duration_type" id="monthly" autocomplete="off" checked>
-            <label class="btn btn-outline-dark" for="monthly">{% trans "Monthly" %}</label>
+            <label class="btn btn-outline-primary" for="monthly">
+                <i class="bi bi-calendar3"></i> {% trans "شهري" %}
+            </label>
 
             <input type="radio" class="btn-check" onclick="togglePrice('yearly')" name="duration_type" id="yearly" autocomplete="off">
-            <label class="btn btn-outline-dark" for="yearly">{% trans "Yearly" %}</label>
+            <label class="btn btn-outline-primary" for="yearly">
+                <i class="bi bi-calendar3-event"></i> {% trans "سنوي" %}
+            </label>
         </div>
     </div>
 
-    <!-- Plans Grid -->
-    <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+    <!-- شبكة الخطط -->
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="plans">
         {% for plan in plans %}
         <div class="col">
-            <div class="card shadow-sm rounded-3 {% if plan.Theem %} border-{{ plan.Theem }} {% endif %}">
-                <div class="card-header py-3 {% if plan.Theem %} text-bg-{{ plan.Theem }} {% endif %}">
-                    <h4 class="my-0 fw-normal">{{ plan.name }}</h4>
-                </div>
-                <div class="card-body">
+            <div class="card h-100 shadow-lg border-0 rounded-4 overflow-hidden plan-card">
 
-                    <!-- Monthly Price -->
+                <!-- رأس البطاقة -->
+                <div class="card-header text-center py-4 {% if plan.Theem %} bg-{{ plan.Theem }} text-white {% else %} bg-light {% endif %}">
+                    <h4 class="fw-bold mb-0">{{ plan.name }}</h4>
+                </div>
+
+                <!-- جسم البطاقة -->
+                <div class="card-body text-center p-4">
+
+                    <!-- السعر الشهري -->
                     <div class="price monthlyPrice">
-                        <h2 class="card-title pricing-card-title">
+                        <h2 class="fw-bold text-primary">
                             {% if plan.monthly_price == 0 %}
-                                {% trans "Free" %}
+                                {% trans "مجاني" %}
                             {% else %}
                                 ${{ plan.monthly_price }}
                             {% endif %}
-                            <small class="text-body-secondary fw-light">/{% trans "mo" %}</small>
+                            <small class="text-muted fs-6">/{% trans "شهر" %}</small>
                         </h2>
                     </div>
 
-                    <!-- Yearly Price -->
+                    <!-- السعر السنوي -->
                     <div class="price yearlyPrice d-none">
-                        <h2 class="card-title pricing-card-title">
+                        <h2 class="fw-bold text-success">
                             {% if plan.yearly_price == 0 %}
-                                {% trans "Free" %}
+                                {% trans "مجاني" %}
                             {% else %}
                                 ${{ plan.yearly_price }}
                             {% endif %}
-                            <small class="text-body-secondary fw-light">/{% trans "yr" %}</small>
+                            <small class="text-muted fs-6">/{% trans "سنة" %}</small>
                         </h2>
                     </div>
 
-                    <!-- Plan Features -->
-                    <ul class="list-unstyled mt-3 mb-4 text-start">
-                        <li>RAM: {{ plan.ram }} MB</li>
-                        <li>Storage: {{ plan.storage }} mb</li>
-                        <li>CPU: {{ plan.cpu }} cores</li>
-                        <li>Database: {{ plan.database }}</li>
-                        <li>Type: {{ plan.plan_type }}</li>
+                    <!-- المميزات -->
+                    <ul class="list-group list-group-flush text-start my-4">
+                        <li class="list-group-item"><i class="bi bi-memory text-info"></i> RAM: {{ plan.ram }} MB</li>
+                        <li class="list-group-item"><i class="bi bi-hdd-network text-primary"></i> Storage: {{ plan.storage }} MB</li>
+                        <li class="list-group-item"><i class="bi bi-cpu text-danger"></i> CPU: {{ plan.cpu }} Cores</li>
+                        <li class="list-group-item"><i class="bi bi-database text-warning"></i> Database: {{ plan.database }}</li>
+                        <li class="list-group-item"><i class="bi bi-box text-secondary"></i> Type: {{ plan.plan_type }}</li>
                     </ul>
 
+                    <!-- زر الاشتراك -->
                     <form method="post" action="{% url 'create_order' project.id %}">
                         {% csrf_token %}
-                        
                         <input type="hidden" name="type" value="{{type}}">
                         {% if type == '3' %}
                         <input type="hidden" name="deployment_id" value="{{deployment.id}}">
                         {% endif %}
                         <input type="hidden" name="plan_id" value="{{ plan.id }}">
                         <input type="hidden" name="duration_type" class="duration_type_input" value="monthly">
-                        <button type="submit" class="w-100 btn btn-lg {% if plan.Theem %} btn-{{ plan.Theem }} {% else %} btn-outline-dark {% endif %}">
-                            {% trans "Select Plan" %}
+                        <button type="submit" class="btn btn-lg w-100 {% if plan.Theem %} btn-{{ plan.Theem }} {% else %} btn-outline-dark {% endif %}">
+                            <i class="bi bi-cart-plus"></i> {% trans "اشترك الآن" %}
                         </button>
                     </form>
 
@@ -83,15 +94,292 @@
         {% endfor %}
     </div>
 
+
+
+
+<!-- قسم مقارنة الخطط -->
+<div class="container my-5">
+    <h4 class="fw-bold mb-4 text-primary">
+        <i class="bi bi-columns-gap"></i> {% trans "مقارنة الخطط" %}
+    </h4>
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>{% trans "الميزة" %}</th>
+                    {% for plan in plans %}
+                        <th>{{ plan.name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RAM</td>
+                    {% for plan in plans %}
+                        <td>{{ plan.ram }} MB</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>{% trans "التخزين" %}</td>
+                    {% for plan in plans %}
+                        <td>{{ plan.storage }} MB</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>CPU</td>
+                    {% for plan in plans %}
+                        <td>{{ plan.cpu }} Cores</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>{% trans "قاعدة البيانات" %}</td>
+                    {% for plan in plans %}
+                        <td>{{ plan.database }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
+<!-- قسم الأسئلة الشائعة -->
+<div class="container my-5">
+    <h4 class="fw-bold mb-4 text-success">
+        <i class="bi bi-question-circle"></i> {% trans "الأسئلة الشائعة" %}
+    </h4>
+    <div class="accordion" id="faqAccordion">
+
+        <!-- السؤال 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1">
+                    {% trans "هل يمكن ترقية الخطة لاحقاً؟" %}
+                </button>
+            </h2>
+            <div id="faqCollapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "نعم، يمكنك ترقية خطتك في أي وقت من لوحة التحكم." %}
+                </div>
+            </div>
+        </div>
+
+        <!-- السؤال 2 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2">
+                    {% trans "هل يوجد استرداد للمبلغ؟" %}
+                </button>
+            </h2>
+            <div id="faqCollapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "نعم، لدينا سياسة استرداد خلال 14 يوم من الاشتراك." %}
+                </div>
+            </div>
+        </div>
+
+        <!-- السؤال 3 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3">
+                    {% trans "هل يمكنني إلغاء الاشتراك في أي وقت؟" %}
+                </button>
+            </h2>
+            <div id="faqCollapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "نعم، يمكنك إلغاء الاشتراك في أي وقت، وسيظل حسابك نشطاً حتى نهاية الفترة المدفوعة." %}
+                </div>
+            </div>
+        </div>
+
+        <!-- السؤال 4 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4">
+                    {% trans "هل الأسعار تشمل الضرائب؟" %}
+                </button>
+            </h2>
+            <div id="faqCollapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "الأسعار لا تشمل الضرائب، وقد يتم إضافة ضريبة القيمة المضافة حسب بلدك." %}
+                </div>
+            </div>
+        </div>
+
+        <!-- السؤال 5 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5">
+                    {% trans "هل توفرون دعم فني على مدار الساعة؟" %}
+                </button>
+            </h2>
+            <div id="faqCollapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "نعم، فريق الدعم متاح 24/7 عبر الدردشة المباشرة والبريد الإلكتروني." %}
+                </div>
+            </div>
+        </div>
+
+        <!-- السؤال 6 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq6">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6">
+                    {% trans "هل يمكنني تجربة الخدمة قبل الدفع؟" %}
+                </button>
+            </h2>
+            <div id="faqCollapse6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "نعم، نوفر فترة تجريبية مجانية لبعض الخطط لتجربة الخدمة قبل الاشتراك." %}
+                </div>
+            </div>
+        </div>
+
+        <!-- السؤال 7 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq7">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse7">
+                    {% trans "ما هي طرق الدفع المتاحة؟" %}
+                </button>
+            </h2>
+            <div id="faqCollapse7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "نقبل الدفع عبر البطاقات الائتمانية، PayPal، والتحويل البنكي." %}
+                </div>
+            </div>
+        </div>
+
+        <!-- السؤال 8 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq8">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse8">
+                    {% trans "هل يمكنني تغيير الخطة إلى أقل تكلفة؟" %}
+                </button>
+            </h2>
+            <div id="faqCollapse8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "نعم، يمكنك تخفيض خطتك في أي وقت، وسيتم تعديل الفاتورة بناءً على الاستخدام." %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- قسم آراء العملاء -->
+<div class="container my-5">
+    <h4 class="fw-bold mb-4 text-warning text-center">
+        <i class="bi bi-chat-quote"></i> {% trans "آراء العملاء" %}
+    </h4>
+    <div class="row g-4">
+
+        <!-- بطاقة رأي -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 testimonial-card p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="{% static 'img/reviews/review-2.webp' %}" class="rounded-circle me-3" alt="Ahmed">
+                    <div>
+                        <h6 class="mb-0 fw-bold">أحمد</h6>
+                        <small class="text-muted">{% trans "رائد أعمال" %}</small>
+                    </div>
+                </div>
+                <p class="mb-3 fst-italic">"خدمة رائعة وسهلة الاستخدام!"</p>
+                <div class="text-warning">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-half"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة رأي -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 testimonial-card p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="{% static 'img/reviews/review-0.webp' %}" class="rounded-circle me-3" alt="Sara">
+                    <div>
+                        <h6 class="mb-0 fw-bold">سارة</h6>
+                        <small class="text-muted">{% trans "مديرة مشاريع" %}</small>
+                    </div>
+                </div>
+                <p class="mb-3 fst-italic">"أفضل استضافة جربتها حتى الآن."</p>
+                <div class="text-warning">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة رأي -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 testimonial-card p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="{% static 'img/reviews/review-3.webp' %}" class="rounded-circle me-3" alt="Mohammed">
+                    <div>
+                        <h6 class="mb-0 fw-bold">محمد</h6>
+                        <small class="text-muted">{% trans "مطور ويب" %}</small>
+                    </div>
+                </div>
+                <p class="mb-3 fst-italic">"دعم فني ممتاز وسريع الاستجابة."</p>
+                <div class="text-warning">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- تحسينات CSS -->
+<style>
+.testimonial-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+</style>
+
+<!-- قسم الدعوة لاتخاذ إجراء -->
+<div class="bg-primary text-white text-center py-5 mt-5 rounded shadow">
+    <h3 class="fw-bold mb-3">{% trans "ابدأ الآن" %}</h3>
+    <p class="mb-4">{% trans "اشترك اليوم واستفد من خصم 20% على الخطة السنوية" %}</p>
+    <a href="#plans" class="btn btn-light btn-lg">
+        <i class="bi bi-cart-plus"></i> {% trans "اشترك الآن" %}
+    </a>
+</div>
+
+
+
+
+</div>
+
+<!-- تحسينات CSS -->
+<style>
+.plan-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+</style>
+
+<!-- تبديل الأسعار -->
 <script>
 function togglePrice(type) {
     const monthly = document.querySelectorAll('.monthlyPrice');
     const yearly = document.querySelectorAll('.yearlyPrice');
     const input = document.querySelectorAll('.duration_type_input');
     input.forEach(e => e.value = type);
-    
 
     if (type === 'monthly') {
         monthly.forEach(e => e.classList.remove('d-none'));

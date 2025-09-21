@@ -1,12 +1,14 @@
 from django.contrib import admin
-from .models import AvailableProject, ProjectContainer, Action, ActionParameter, EnvVar, EnvVarsTitle
+from .models import AvailableProject, ProjectContainer, Action, ActionParameter, EnvVar, EnvVarsTitle, ProjectReview, Category
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
 
 # -------------------------
 # Action & EnvVar
 # -------------------------
+admin.site.register(Category)
 admin.site.register(EnvVarsTitle)
+admin.site.register(ProjectReview)
 
 @admin.register(Action)
 class ActionAdmin(admin.ModelAdmin):
@@ -67,6 +69,6 @@ class AvailableProjectAdmin(admin.ModelAdmin):
     # -------------------------
     fieldsets = (
         ("Basic Info", {
-            "fields": ('name', 'description', 'image')
+            "fields": ('name', 'description', 'image', 'install_steps', 'difficulty_level', 'install_time_minutes', 'disk_size_mb', 'minimum_operating_requirements')
         }),
     )

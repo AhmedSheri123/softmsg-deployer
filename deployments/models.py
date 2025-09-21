@@ -3,6 +3,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from projects.models import AvailableProject, EnvVar
+import os
+import platform
+import subprocess
+import docker
+import re
+
 
 SERVICE_PROGRESS = [
     (1, 'Create Project'),
@@ -26,7 +32,6 @@ class Deployment(models.Model):
     
     ip_address = models.GenericIPAddressField(blank=True, null=True)
     version = models.CharField(max_length=50, default="1.0")
-
     progress = models.IntegerField(choices=SERVICE_PROGRESS, null=True)
     status = models.IntegerField(choices=SERVICE_STATUS, null=True)
     is_active = models.BooleanField(default=True)
@@ -78,6 +83,95 @@ class Deployment(models.Model):
             return self.containers.get(project_container__type='backend').domain
         else:return 'N/A'
 
+    @property
+    def get_volume_storage_data(self):
+        """
+        تُرجع بيانات التخزين: اسم volume، ملف img (Linux)، ومجلد mount
+        """
+        volume_name = f"vol_{self.id}"
+        system = platform.system()
+
+        if system == "Windows":
+            # على Windows استخدم مجلد عادي
+            img_path = f"C:\\containers\\data\\{volume_name}"
+            mount_dir = f"C:\\containers\\mnt\\{volume_name}"
+        else:
+            # على Linux استخدم XFS + ملف img
+            img_path = f"/var/lib/containers/data/{volume_name}.img"
+            mount_dir = f"/mnt/{volume_name}"
+
+        return {
+            "volume_name": volume_name,
+            "img_path": img_path,
+            "mount_dir": mount_dir,
+            "system": system
+        }
+
+    def create_xfs_volume(self, size_mb=1024):
+        """
+        ينشئ Docker volume حسب النظام:
+        - Linux: XFS + loop + Docker volume
+        - Windows: مجلد عادي + Docker volume عادي
+        """
+        storage_data = self.get_volume_storage_data
+        volume_name = storage_data["volume_name"]
+        img_path = storage_data["img_path"]
+        system = storage_data["system"]
+
+        os.makedirs(os.path.dirname(img_path), exist_ok=True)
+
+        client = docker.from_env()
+        existing_volumes = [v.name for v in client.volumes.list()]
+
+        if system == "Linux":
+            # 1️⃣ إنشاء ملف img إذا لم يكن موجود
+            if not os.path.exists(img_path) or os.path.getsize(img_path) == 0:
+                with open(img_path, "wb") as f:
+                    f.truncate(size_mb * 1024 * 1024)
+
+                # 2️⃣ تهيئة XFS
+                try:
+                    subprocess.run(["mkfs.xfs", "-f", img_path], check=True)
+                except subprocess.CalledProcessError as e:
+                    raise RuntimeError(f"فشل تهيئة XFS للملف {img_path}: {e}")
+
+            # 3️⃣ إنشاء Docker volume
+            if volume_name in existing_volumes:
+                volume = client.volumes.get(volume_name)
+            else:
+                volume = client.volumes.create(
+                    name=volume_name,
+                    driver="local",
+                    driver_opts={
+                        "type": "xfs",
+                        "device": img_path,
+                        "o": "loop"
+                    }
+                )
+
+        elif system == "Windows":
+            # على Windows نستخدم مجلد عادي
+            if not os.path.exists(img_path):
+                os.makedirs(img_path, exist_ok=True)
+
+            if volume_name in existing_volumes:
+                volume = client.volumes.get(volume_name)
+            else:
+                volume = client.volumes.create(
+                    name=volume_name,
+                    driver="local"
+                )
+
+        else:
+            raise RuntimeError(f"نظام التشغيل غير مدعوم: {system}")
+
+        return volume
+
+
+
+
+
+
 class DeploymentContainer(models.Model):
     STATUS_CHOICES = [(1,'Pending'),(2,'Running'),(3,'Error')]
 
@@ -117,6 +211,313 @@ class DeploymentContainer(models.Model):
                 except Exception:
                     env.value = env.var.default_value  # fallback لو حصل خطأ
                 env.save()
+
+    def get_static_env_vars_list(self):
+        return self.project_container.get_env_vars_list()
+    
+    def get_static_env_var(self, key, default=None):
+        return self.project_container.get_env_var(key, default)
+
+
+    # ---------------- حساب تقسيم الموارد ----------------
+    def calculate_resource_limits(self):
+        deployment = self.deployment
+        plan_ram_mb = float(getattr(deployment.plan, "ram", 512))
+        plan_cpu = float(getattr(deployment.plan, "cpu", 0.5))
+        containers = list(deployment.containers.all())
+        limits = {}
+
+        # تصنيف حسب النوع
+        backends = [c for c in containers if c.project_container.type in ("backend", "backfront")]
+        frontends = [c for c in containers if c.project_container.type == "frontend"]
+        redis_containers = [c for c in containers if c.project_container.type == "redis"]
+
+        total_weight = len(backends)*2 + len(frontends)*1 + len(redis_containers)*0.5
+
+        for c in containers:
+            if c.project_container.type in ("backend", "backfront"):
+                weight = 2
+            elif c.project_container.type == "frontend":
+                weight = 1
+            else:  # redis أو غيره
+                weight = 0.5
+
+            ram_for_container = int(plan_ram_mb * (weight/total_weight))
+            cpu_for_container = plan_cpu * (weight/total_weight)
+            limits[c.container_name] = {
+                "mem": f"{ram_for_container}m",
+                "cpu": int(cpu_for_container)
+            }
+
+        return limits
+
+    def filter_labels(self):
+        """
+        يُرجع نسخة من labels بعد استبدال المتغيرات من الـ container الحالي.
+        """
+        pc = self.project_container
+        labels = {}
+
+        if not pc or not pc.labels:
+            return labels
+
+        # لو labels dict
+        if isinstance(pc.labels, dict):
+            items = pc.labels.items()
+        else:
+            # لو جاية كـ list of tuples
+            items = pc.labels
+
+        for k, v in items:
+            try:
+                new_k = str(k).format(container=self)
+                new_v = str(v).format(container=self)
+            except Exception:
+                # fallback لو format فشل
+                new_k, new_v = k, v
+            labels[new_k] = new_v
+
+        return labels
+
+    def expand_env(self, value, fixed_env):
+        """توسيع المتغيرات داخل string أو list أو dict بشكل recursive"""
+        if isinstance(value, str):
+            try:
+                return str(eval(f'f"""{value}"""', {}, fixed_env))
+            except Exception:
+                return value
+        elif isinstance(value, list):
+            return [self.expand_env(v, fixed_env) for v in value]
+        elif isinstance(value, dict):
+            return {k: self.expand_env(v, fixed_env) for k, v in value.items()}
+        else:
+            return value
+
+    def to_docker_run_config(self):
+        """
+        تُرجع dict جاهز للاستخدام مع docker-py:
+        
+        docker.from_env().containers.run(**config)
+        """
+        if not self.project_container:
+            raise ValueError("لا يوجد ProjectContainer مرتبط بهذا الـ DeploymentContainer")
+
+        pc = self.project_container
+        container_name = self.container_name
+        deployment = self.deployment
+        plan = deployment.plan
+        
+        # ----------- حساب موارد الحاوية -----------
+        resource_limits = self.calculate_resource_limits()
+        mem_limit = resource_limits.get(container_name, {}).get("mem", f"{getattr(plan, 'ram', 512)}m")
+        cpu_cores = resource_limits.get(container_name, {}).get("cpu", getattr(plan, "cpu", 0.5))
+        nano_cpus = int(cpu_cores * 1_000_000_000)
+        storage = getattr(plan, "storage", 100)  # بالميجابايت (معلومة فقط)
+
+        # -------------------------------
+        # الأساسيات
+        # -------------------------------
+        config = {
+            "image": pc.docker_image_name,
+            "name": container_name or f"{deployment.id}_{pc.type}",
+            "detach": True,
+            "environment": {**pc.get_env_vars(), **self.get_env_vars()},
+            "restart_policy": {"Name": pc.restart_policy},
+            "mem_limit": mem_limit,            # ✅ تحديد الذاكرة
+            "nano_cpus":nano_cpus
+        }
+
+        # -------------------------------
+        # بيئة موسّعة
+        # -------------------------------
+        env_vars = pc.env_vars or {}
+        env_vars = {**env_vars, **self.get_env_vars()}
+
+        # حل جميع المتغيرات، بما فيها الرجوع للكونتينرات الأخرى
+        final_env = {k: self.resolve_placeholders(v) for k, v in env_vars.items()}
+
+        config["environment"] = final_env
+
+        # -------------------------------
+        # المنافذ
+        # -------------------------------
+        if self.port or pc.ports:
+            port_bindings = {}
+            if pc.ports:
+                for mapping in pc.ports:
+                    for host, container in mapping.items():
+                        port_bindings[f"{container}/tcp"] = int(host)
+            if self.port:
+                container_port = pc.default_port or self.port
+                port_bindings[f"{container_port}/tcp"] = int(self.port)
+            config["ports"] = port_bindings
+
+        # -------------------------------
+        # المجلدات (volumes)
+        # -------------------------------
+        volumes = {}
+        storage_data = self.deployment.get_volume_storage_data
+        img_path = storage_data["img_path"]
+        mount_dir = storage_data["mount_dir"]
+
+        # 1️⃣ التأكد من وجود ملف XFS
+        if not os.path.exists(img_path) or os.path.getsize(img_path) == 0:
+            self.deployment.create_xfs_volume()
+
+        # 2️⃣ التأكد من وجود mount_dir
+        os.makedirs(mount_dir, exist_ok=True)
+
+        # 3️⃣ التحقق من صلاحيات الكتابة
+        if not os.access(mount_dir, os.W_OK):
+            raise PermissionError(f"لا يمكن الكتابة في {mount_dir}")
+
+        # 4️⃣ إنشاء subfolders وربط كل container_path بنفس img
+        for idx, vol in enumerate(pc.volume or []):
+            if isinstance(vol, dict) and "container" in vol:
+                container_path = vol["container"]
+            elif isinstance(vol, str) and ":" in vol:
+                _, container_path = vol.split(":", 1)
+            else:
+                container_path = f"/{vol}" if isinstance(vol, str) else f"/vol{idx}"
+
+            host_path = os.path.join(mount_dir, f"vol{idx}")
+            os.makedirs(host_path, exist_ok=True)
+
+            # ربط subfolder بالكونتينر
+            volumes[host_path] = {"bind": container_path, "mode": "rw"}
+
+        config["volumes"] = volumes
+
+
+
+
+        # -------------------------------
+        # الشبكات
+        # -------------------------------
+        if pc.networks:
+            config["network"] = pc.networks[0]
+
+        # -------------------------------
+        # working dir
+        # -------------------------------
+        if pc.working_dir:
+            config["working_dir"] = pc.working_dir
+
+        # -------------------------------
+        # entrypoint
+        # -------------------------------
+        if pc.entrypoint:
+            config["entrypoint"] = pc.entrypoint
+
+        # -------------------------------
+        # command
+        # -------------------------------
+        if pc.command:
+            config["command"] = pc.command
+
+        # -------------------------------
+        # labels + domain + storage info
+        # -------------------------------
+        labels = self.filter_labels() or {}
+        if self.domain:
+            labels["custom.domain"] = self.domain
+        # نخزن حجم التخزين كـ label فقط
+        labels["plan.storage"] = str(storage)
+        if labels:
+            config["labels"] = labels
+
+        # -------------------------------
+        # privileged
+        # -------------------------------
+        if pc.privileged:
+            config["privileged"] = True
+
+        return config
+
+
+
+    def resolve_placeholders(self, value: str) -> str:
+        """
+        يستبدل المتغيرات داخل string أو JSON-like string.
+        يدعم:
+        - container (current)
+        - container.<type_or_name> (other container)
+        - env vars: container.env.KEY أو container.<type>.env.KEY
+        - deployment, plan, frontend_domain, backfront_domain
+        """
+        if not isinstance(value, str):
+            return value
+
+        # fixed_env جاهز لكل التعابير
+        deployment = self.deployment
+        plan = deployment.plan
+        fixed_env = {
+            "deployment": deployment,
+            "plan": plan,
+            "container": self,
+            "this_container_domain": self.domain,
+            "frontend_domain": getattr(deployment, "domain", ""),
+            "backfront_domain": getattr(deployment, "backend_domain", ""),
+        }
+
+        def replacer(match):
+            expr = match.group(1)  # مثال: container.db.env.POSTGRES_USER
+            parts = expr.split(".")
+
+            # 1️⃣ container الحالي فقط
+            if parts[0] == "container" and len(parts) == 1:
+                return str(self)
+
+            if parts[0] == "container" and len(parts) == 2:
+                field = parts[1]
+                if field == "container_name":
+                    return self.container_name
+                elif field == "domain":
+                    return self.domain or ""
+                elif field == "env":
+                    return str(self.get_env_vars())
+                else:
+                    return match.group(0)
+
+            # 2️⃣ container آخر
+            if parts[0] == "container" and len(parts) >= 3:
+                target_type_or_name = parts[1]
+                field = parts[2]
+                rest = parts[3:] if len(parts) > 3 else []
+
+                # البحث عن الكونتينر الهدف حسب النوع أو الاسم
+                target = self.deployment.containers.filter(project_container__type=target_type_or_name).first()
+                if not target:
+                    target = self.deployment.containers.filter(container_name=target_type_or_name).first()
+                if not target:
+                    return match.group(0)
+
+                if field == "env" and rest:
+                    key = rest[0]
+                    return str(target.get_env_vars().get(key, ""))
+                elif field == "container_name":
+                    return target.container_name
+                elif field == "domain":
+                    return target.domain or ""
+                else:
+                    return match.group(0)
+
+            # 3️⃣ أي متغير من fixed_env (deployment, plan, container, frontend_domain, backfront_domain)
+            try:
+                return str(eval(f'f"""{match.group(0)}"""', {}, fixed_env))
+            except Exception:
+                return match.group(0)
+
+        return re.sub(r"\{([^}]+)\}", replacer, value)
+
+    def get_resolved_env_vars(self):
+        """
+        إرجاع env_vars بعد استبدال جميع التعابير placeholders.
+        يدعم JSON dict كاملة مع قيم ديناميكية من الكونتينرات الأخرى.
+        """
+        env_vars = self.env_vars or {}
+        return {k: self.resolve_placeholders(v) for k, v in env_vars.items()}
+
 
 
 class DeploymentContainerVolume(models.Model):

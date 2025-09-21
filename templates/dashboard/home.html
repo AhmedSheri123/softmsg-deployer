@@ -2,7 +2,6 @@
 {% load i18n %}
 
 {% block sheri %}
-
 <div class="container p-4">
     <h5>Overall</h5>
     <div class="py-3 row row-cols-2 justify-content-center justify-content-md-between">
@@ -11,28 +10,29 @@
             <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-body-secondary">{% trans "Active Service" %}</h6>
                 <h2 class="mt-4">
-                    <i class="bi bi-hdd-stack-fill text-body-secondary"></i>
+                    <i class="fa-solid fa-server text-body-secondary"></i>
                     {{active_user_services}} {% trans "Services" %}
                 </h2>
                 {% trans "last update" %} <strong>{% trans "just now" %}</strong>
             </div>
         </div>
+
         <div class="col card rounded-4 bg-body-tertiary me-2 p-2 mt-2" style="width: 15rem;">
             <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-body-secondary">{% trans "Copmlited Orders" %}</h6>
                 <h2 class="mt-4">
-                    <i class="bi bi-cart-check-fill text-body-secondary"></i>
+                    <i class="fa-solid fa-cart-shopping text-body-secondary"></i>
                     {{copmlited_orders}} {% trans "Orders" %}
                 </h2>
                 {% trans "last update" %} <strong>{% trans "just now" %}</strong>
-                {% comment %} last order <strong>3 days ago</strong> {% endcomment %}
             </div>
         </div>
+
         <div class="col card rounded-4 bg-danger-subtle me-2 p-2 mt-2" style="width: 15rem;">
             <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-body-secondary">{% trans "Uncopmlited Orders" %}</h6>
                 <h2 class="mt-4">
-                    <i class="bi bi-stop-fill text-body-secondary"></i>
+                    <i class="fa-solid fa-circle-stop text-body-secondary"></i>
                     {{uncopmlited_orders}} {% trans "Orders" %}
                 </h2>
                 {% trans "last update" %} <strong>{% trans "just now" %}</strong>
@@ -41,6 +41,7 @@
 
     </div>
 </div>
+
 
 
 

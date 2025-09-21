@@ -26,7 +26,7 @@ database_type_choices = [
 ]
 
 class Plan(models.Model):
-    project = models.ForeignKey('projects.AvailableProject', on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey('projects.AvailableProject', on_delete=models.CASCADE, null=True, related_name="plans")
     name = models.CharField(max_length=100)  # Basic, Pro, Enterprise
     Theem = models.CharField(max_length=255, choices=SubscriptionsTheemChoices, null=True, verbose_name='الثيم')
     plan_type = models.CharField(max_length=255, choices=plan_type_choices, null=True, verbose_name='نو الاشتراك')

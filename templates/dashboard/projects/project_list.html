@@ -1,30 +1,388 @@
-{% extends "dashboard_base.html" %}
+{% extends base_template %}
 {% load i18n %}
+{% load projects_filters %}
 
 {% block sheri %}
+{% if base_template == 'base.html' %}
 
-<div class="container py-4">
-    <h5 class="mb-4">{% trans "Projects" %}</h5>
-    
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {% for project in projects %}
+
+<!-- header -->
+<div class="px-4 py-5 text-center bg-warning">
+    <div class="py-4"></div>
+
+    <div class="py-2"></div>
+    <div class="py-4 text-body-emphasis">
+      <h1 class="display-5 fw-bold container mb-4 text-white">
+        {% trans "متجر المشاريع الجاهزة" %}</span>
+      </h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4 text-white">
+            {% trans "Access popular rady projects, control panels, and apps. Get up and running in minutes with smooth one-click installation." %}
+        </p>
+            <a href="{% url 'Signup' %}" class="btn btn-light btn-lg">
+        <i class="bi bi-cart-plus"></i> {% trans "اشترك الآن" %}
+    </a>
+      </div>
+    </div>
+  </div>
+<!-- end header -->
+{% endif %}
+
+<div class="py-5 px-4">
+  <div class="row">
+    <!-- العمود الأيسر: شريط الأدوات -->
+    <div class="col-md-3">
+      <div class="bg-white p-3 shadow-sm mb-5">
+        <form method="get" class="d-flex flex-column gap-3">
+          <!-- البحث -->
+          <div class="position-relative">
+            <div class="input-group">
+              <span class="input-group-text bg-primary text-white">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </span>
+              <input type="text" name="search" id="projectSearch" class="form-control" placeholder="{% trans 'ابحث عن مشروع...' %}" autocomplete="off">
+              <div id="projectResults" class="list-group position-absolute w-100" style="z-index: 1000; display: none; top: 35px;"></div>
+            </div>
+          </div>
+            {{ form.media }}
+
+          <!-- التصنيفات -->
+          <div class="input-group">
+            <span class="input-group-text bg-dark text-white">
+              <i class="fa-solid fa-tags"></i>
+            </span>
+            <div class="form-control">
+              {{ form.categories }}
+            </div>
+          </div>
+          <!-- التصنيفات -->
+          <div class="input-group">
+            <span class="input-group-text bg-dark text-white">
+              <i class="fa-solid fa-tags"></i>
+            </span>
+            <div class="form-control">
+              {{ form.technologys }}
+            </div>
+          </div>
+
+
+
+          <!-- الترتيب -->
+          <div class="input-group">
+            <span class="input-group-text bg-success text-white">
+              <i class="fa-solid fa-arrow-down-wide-short"></i>
+            </span>
+            <select class="form-select" name="order">
+              <option selected>{% trans "ترتيب حسب" %}</option>
+              <option>{% trans "الأكثر تثبيتاً" %}</option>
+              <option>{% trans "الأعلى تقييماً" %}</option>
+              <option>{% trans "الأحدث" %}</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-2">بحث</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- العمود الأيمن: المحتوى -->
+    <div class="col-md-9 container">
+        <!-- هنا قائمة المشاريع أو أي محتوى آخر -->
+
+
+    {% comment %} <!-- العنوان الرئيسي -->
+    <h3 class="mb-5 fw-bold text-center text-gradient">
+        <i class="bi bi-shop me-2"></i> {% trans "متجر المشاريع الجاهزة" %}
+    </h3> {% endcomment %}
+
+    <!-- المشاريع المميزة -->
+    <h5 class="fw-bold mb-4 text-warning">
+        <i class="fa-solid fa-star me-1"></i> {% trans "المشاريع المميزة" %}
+    </h5>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+        {% for project in featured_projects %}
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                {% if project.image %}
-                <img src="{{ project.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;" alt="{{ project.name }}">
-                {% endif %}
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ project.name }}</h5>
-                    <p class="card-text">{{ project.description|truncatewords:25 }}</p>
-                    
-
-                    <a href="{% url 'plans_list' project.id %}" class="btn btn-primary w-100">{% trans "تثبيت المشروع" %}</a>
-                    
+            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden project-card">
+                <img src="{{ project.image.url }}" class="card-img-top" style="height:180px; object-fit:cover;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ project.name }}</h5>
+                    <p class="card-text text-muted small">{{ project.description|truncatewords:15 }}</p>
+                    <span class="badge bg-warning text-dark">⭐ {% trans "موصى به" %}</span>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+
+    <!-- جميع المشاريع -->
+    <h5 class="fw-bold mb-4 text-primary">
+        <i class="fa-solid fa-grip-vertical"></i> {% trans "جميع المشاريع" %}
+    </h5>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for project in projects %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden project-card position-relative">
+
+                <!-- صورة -->
+                {% if project.image %}
+                <img src="{{ project.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+                {% else %}
+                <div class="bg-light d-flex align-items-center justify-content-center" style="height:200px;">
+                    <span class="text-muted">{% trans "No Image" %}</span>
+                </div>
+                {% endif %}
+
+                <!-- شارات -->
+                <div class="position-absolute top-0 start-0 m-2">
+                    {% if project.is_popular %}
+                        <span class="badge bg-danger shadow-sm">🔥 {% trans "الأكثر شعبية" %}</span>
+                    {% endif %}
+                    {% if project.is_new %}
+                        <span class="badge bg-success shadow-sm">🆕 {% trans "جديد" %}</span>
+                    {% endif %}
+                </div>
+
+                <!-- المحتوى -->
+                <div class="card-body d-flex flex-column p-4">
+                    <h5 class="card-title fw-bold">{{ project.name }}</h5>
+                    <p class="card-text text-muted small">{{ project.description|truncatewords:20 }}</p>
+
+                    <!-- تقنيات -->
+                    <div class="mb-3">
+                        {% for container in project.containers.all %}
+                        <span class="badge bg-primary me-1">{{ container.get_technology_display }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <!-- أزرار -->
+                    <div class="mt-auto d-flex flex-column gap-2">
+                        <a href="{% url 'plans_list' project.id %}" class="btn btn-success w-100">
+                            <i class="fa-solid fa-cloud-arrow-down me-1"></i> {% trans "تثبيت المشروع" %}
+                        </a>
+                        <button class="btn btn-outline-secondary w-100" data-bs-toggle="modal" data-bs-target="#projectModal{{ project.id }}">
+                            <i class="fa-solid fa-file-lines me-1"></i> {% trans "التفاصيل" %}
+                        </button>
+                        <a href="/resources/{{ project.id }}" class="btn btn-outline-primary w-100 compare-btn">
+                            <i class="fa-solid fa-arrows-left-right me-1"></i> {% trans "تعليمات" %}
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+<div class="modal fade" id="projectModal{{ project.id }}" tabindex="-1" aria-labelledby="projectModalLabel{{ project.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content rounded-3 shadow-lg">
+            <!-- Header -->
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="projectModalLabel{{ project.id }}">
+                    <i class="fa-solid fa-box me-2"></i> {{ project.name }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{% trans 'Close' %}"></button>
+            </div>
+            <div class="modal-body" id="projectModalBody{{ project.id }}">
+                <div class="text-center text-muted py-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-3">{% trans "جاري تحميل التفاصيل..." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+      </div>
+    </div>
+
+
+
+
+<!-- تحسينات CSS -->
+<style>
+.text-gradient {
+    background: linear-gradient(90deg, #007bff, #6610f2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.select2-selection {
+    border:none !important;
+}
+</style>
+<!--JavaScript لجلب التفاصيل عبر AJAX -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('[data-bs-target^="#projectModal"]').forEach(button => {
+        button.addEventListener("click", function() {
+            const projectId = this.getAttribute("data-bs-target").replace("#projectModal", "");
+            const modalBody = document.getElementById("projectModalBody" + projectId);
+
+            // عرض تحميل مؤقت
+            modalBody.innerHTML = `
+                <div class="text-center text-muted py-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-3">جاري تحميل التفاصيل...</p>
+                </div>
+            `;
+
+            // طلب AJAX
+            fetch(`/projects/${projectId}/details/api/`)
+                .then(response => {
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    return response.text();
+                })
+                .then(html => {
+                    modalBody.innerHTML = html;
+                    activateReviewForm();
+                })
+                .catch(error => {
+                    modalBody.innerHTML = `
+                        <div class="alert alert-danger text-center">
+                            حدث خطأ أثناء تحميل التفاصيل.
+                        </div>
+                    `;
+                    console.error("Fetch error:", error);
+                });
+        });
+    });
+});
+</script>
+
+
+<!-- JavaScript لإرسال AJAX وتحديث الواجهة -->
+<script>
+function activateReviewForm() {
+    const stars = document.querySelectorAll("#starRating i");
+    const ratingValue = document.getElementById("ratingValue");
+    const form = document.getElementById("reviewForm");
+    const reviewsList = document.getElementById("reviewsList");
+
+    if (!form || !stars.length || !ratingValue || !reviewsList) return;
+
+    // اختيار النجوم
+    stars.forEach(star => {
+        star.addEventListener("click", function() {
+            const value = parseInt(this.dataset.value);
+            ratingValue.value = value;
+
+            stars.forEach(s => {
+                if (parseInt(s.dataset.value) <= value) {
+                    s.classList.remove("fa-regular", "fa-star");
+                    s.classList.add("fa-solid", "fa-star");
+                } else {
+                    s.classList.remove("fa-solid", "fa-star");
+                    s.classList.add("fa-regular", "fa-star");
+                }
+
+            });
+        });
+    });
+
+    // إرسال النموذج عبر AJAX
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success){
+                const r = data.review;
+                const li = document.createElement("li");
+                li.className = "list-group-item";
+                li.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <strong class="text-primary">${r.user}</strong>
+                            <p class="mb-1 text-muted small">${r.comment}</p>
+                        </div>
+                        <div class="text-warning">
+                            ${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}
+                        </div>
+                    </div>
+                `;
+                reviewsList.prepend(li);
+                form.reset();
+                ratingValue.value = 0;
+                stars.forEach(s => {
+                    s.classList.remove("fa-solid", "fa-star");
+                    s.classList.add("fa-regular", "fa-star");
+
+                });
+            } else {
+                showToast(randomGen(), 'نظام', `${data.error}`, '');
+            }
+        })
+        .catch(err => console.error(err));
+    });
+}
+
+</script>
+
+
+
+
+
+<!-- search bar auto complite -->
+<script>
+$(document).ready(function(){
+    const $input = $("#projectSearch");
+    const $results = $("#projectResults");
+
+    $input.on("input", function() {
+        const query = $(this).val();
+        if(query.length < 1){
+            $results.hide();
+            return;
+        }
+
+        $.ajax({
+            url: "{% url 'project-autocomplete' %}",
+            data: { q: query },
+            success: function(data){
+                $results.empty();
+                if(data.length === 0){
+                    $results.hide();
+                    return;
+                }
+
+                data.forEach(function(project){
+                    $results.append(`
+                        <a href="${project.url}" class="list-group-item list-group-item-action project-item">
+                            <img src="${project.image}" width="70">
+                            ${project.name}
+                        </a>
+                    `);
+                });
+                $results.show();
+            }
+        });
+    });
+
+
+
+    // إخفاء القائمة إذا ضغط المستخدم خارجها
+    $(document).click(function(e) {
+        if(!$(e.target).closest("#projectSearch, #projectResults").length){
+            $results.hide();
+        }
+    });
+});
+</script>
 
 {% endblock sheri %}

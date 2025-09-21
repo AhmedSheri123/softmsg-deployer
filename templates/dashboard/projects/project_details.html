@@ -1,0 +1,85 @@
+{% extends base_template %}
+{% load i18n %}
+{% load projects_filters %}
+
+
+{% block sheri %}
+<div class="py-5"></div>
+<div class="py-5 px-4">
+{% include "dashboard/projects/project_details_modal.html" %}
+</div>
+
+
+<!-- JavaScript لإرسال AJAX وتحديث الواجهة -->
+<script>
+function activateReviewForm() {
+    const stars = document.querySelectorAll("#starRating i");
+    const ratingValue = document.getElementById("ratingValue");
+    const form = document.getElementById("reviewForm");
+    const reviewsList = document.getElementById("reviewsList");
+
+    if (!form || !stars.length || !ratingValue || !reviewsList) return;
+
+    // اختيار النجوم
+    stars.forEach(star => {
+        star.addEventListener("click", function() {
+            const value = parseInt(this.dataset.value);
+            ratingValue.value = value;
+
+            stars.forEach(s => {
+                if (parseInt(s.dataset.value) <= value) {
+                    s.classList.remove("fa-regular", "fa-star");
+                    s.classList.add("fa-solid", "fa-star");
+                } else {
+                    s.classList.remove("fa-solid", "fa-star");
+                    s.classList.add("fa-regular", "fa-star");
+                }
+
+            });
+        });
+    });
+
+    // إرسال النموذج عبر AJAX
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success){
+                const r = data.review;
+                const li = document.createElement("li");
+                li.className = "list-group-item";
+                li.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <strong class="text-primary">${r.user}</strong>
+                            <p class="mb-1 text-muted small">${r.comment}</p>
+                        </div>
+                        <div class="text-warning">
+                            ${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}
+                        </div>
+                    </div>
+                `;
+                reviewsList.prepend(li);
+                form.reset();
+                ratingValue.value = 0;
+                stars.forEach(s => {
+                    s.classList.remove("fa-solid", "fa-star");
+                    s.classList.add("fa-regular", "fa-star");
+
+                });
+            } else {
+                showToast(randomGen(), 'نظام', `${data.error}`, '');
+            }
+        })
+        .catch(err => console.error(err));
+    });
+}
+activateReviewForm()
+</script>
+{% endblock %}

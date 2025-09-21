@@ -2,15 +2,24 @@
 {% load i18n %}
 
 <!doctype html>
-<html lang="en">
+<html lang="{{LANGUAGE_CODE}}" {% if LANGUAGE_CODE == 'ar' or LANGUAGE_CODE == 'he' %}dir="rtl"{% endif %}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% trans "Dashboard" %}</title>
+
+    {% if LANGUAGE_CODE == 'ar' or LANGUAGE_CODE == 'he' %}
+    <link href="{% static 'bootstrap/css/bootstrap.rtl.min.css' %}" rel="stylesheet">
+    {% else %}
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    {% endif %}
     <link href="{% static 'css/dashboard/base.css' %}" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/fontawesome.min.css" integrity="sha512-lauN4D/0AgFUGvmMR+knQnbOADyD/XuQ8VF18I8Ll0+TLvsujshyxvU+uzogmQbSq6qJd5jnUdYtK8ShxXMlSg==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.onload=null;this.media='all';" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/brands.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/solid.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/regular.min.css" rel="stylesheet">
+    
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/softmsg-short-logo.webp' %}">
     {% block links %}
     {% endblock links %}
