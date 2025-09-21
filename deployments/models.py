@@ -389,6 +389,7 @@ class DeploymentContainer(models.Model):
         # 1️⃣ التأكد من وجود ملف XFS
         if not os.path.exists(img_path) or os.path.getsize(img_path) == 0:
             self.deployment.create_xfs_volume(storage)
+            # logger.error(f"labels:--> {self.resolve_labels(labels)}")
 
         # 2️⃣ التأكد من وجود mount_dir
         os.makedirs(mount_dir, exist_ok=True)
@@ -451,7 +452,7 @@ class DeploymentContainer(models.Model):
         labels["plan.storage"] = str(storage)
         if labels:
             config["labels"] = self.resolve_labels(labels)
-        logger.error(f"labels:--> {self.resolve_labels(labels)}")
+        
         # -------------------------------
         # privileged
         # -------------------------------

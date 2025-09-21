@@ -317,8 +317,16 @@ def start_docker(deployment: Deployment):
 
 import subprocess
 
+import docker
+import subprocess
 
 def get_container_usage(container_name, deployment=None):
+    """
+    ترجع استخدام الموارد الفعلي للحاوية:
+    - RAM
+    - CPU
+    - Storage (حقيقي من XFS mount)
+    """
     client = docker.from_env()
 
     def calculate_cpu_percent(stats):
@@ -331,6 +339,7 @@ def get_container_usage(container_name, deployment=None):
         return cpu_percent
 
     try:
+        # جلب الحاوية
         container = client.containers.get(container_name)
         stats = container.stats(stream=False)
 
@@ -345,17 +354,18 @@ def get_container_usage(container_name, deployment=None):
         used_storage = 0
         if deployment:
             storage_data = deployment.get_volume_storage_data
-            img_path = storage_data["img_path"]
+            mount_dir = storage_data["mount_dir"]  # مجلد mount وليس ملف img
+
             try:
-                # نستخدم du -sb لحساب الحجم
+                # استخدام du لقياس المساحة الفعلية للملفات
                 result = subprocess.run(
-                    ["du", "-sb", img_path],
+                    ["du", "-sb", mount_dir],
                     capture_output=True,
                     text=True,
                     check=True
                 )
                 used_storage = int(result.stdout.split()[0]) if result.stdout else 0
-            except subprocess.CalledProcessError as e:
+            except subprocess.CalledProcessError:
                 used_storage = 0
 
         return {
