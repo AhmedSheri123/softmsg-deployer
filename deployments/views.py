@@ -99,14 +99,14 @@ def deployment_usage_api(request, deployment_id):
         return JsonResponse({"error": "No containers found"}, status=400)
 
     for dc in containers:
-        usage = get_container_usage(dc.container_name, deployment)
+        usage = get_container_usage(dc.container_name, deployment=deployment)
         if "error" in usage:
-            continue  # ممكن تسجيل الخطأ بدل تجاهله
+            continue
 
-        total_mem_used += usage.get("used_cpu", 0) or 0
-        total_mem_limit += usage.get("memory_limit") or 0
+        total_mem_used += usage.get("used_ram", 0) or 0
+        total_mem_limit += usage.get("memory_limit", 0) or 0
         total_cpu_percent += usage.get("cpu_percent", 0) or 0
-        total_storage_used += usage.get("storage_usage", 0) or 0
+        total_storage_used += usage.get("used_storage", 0) or 0
 
 
     # تحويل Bytes إلى MB
