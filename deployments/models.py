@@ -521,11 +521,25 @@ class DeploymentContainer(models.Model):
 
     def get_resolved_env_vars(self):
         """
-        إرجاع env_vars بعد استبدال جميع التعابير placeholders.
-        يدعم JSON dict كاملة مع قيم ديناميكية من الكونتينرات الأخرى.
+        إرجاع env_vars بعد حل جميع placeholders بشكل متكرر
+        لدعم التعابير المتداخلة بين الكونتينرات.
         """
         env_vars = self.env_vars or {}
-        return {k: self.resolve_placeholders(v) for k, v in env_vars.items()}
+        resolved = self.resolve_placeholders(env_vars)
+
+        # حل placeholders بشكل متكرر حتى لا يبقى أي شيء
+        changed = True
+        while changed:
+            changed = False
+            new_resolved = {}
+            for k, v in resolved.items():
+                new_v = self.resolve_placeholders(v)
+                if new_v != v:
+                    changed = True
+                new_resolved[k] = new_v
+            resolved = new_resolved
+
+        return resolved
 
 
 
