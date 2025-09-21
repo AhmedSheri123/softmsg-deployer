@@ -343,17 +343,17 @@ def get_container_usage(container_name, deployment=None):
         used_storage = 0
         if deployment:
             storage_data = deployment.get_volume_storage_data
-            img_path = storage_data["img_path"]
-            if os.path.exists(img_path):
+            mount_dir = storage_data["mount_dir"]
+            if os.path.ismount(mount_dir):
                 try:
-                    # استخدام du --apparent-size لتجنب الحجم المزدوج
                     result = subprocess.run(
-                        ["du", "-sb", "--apparent-size", img_path],
-                        capture_output=True,
-                        text=True,
-                        check=True
+                        ["df", "-B1", mount_dir],  # -B1 لإرجاع Bytes
+                        capture_output=True, text=True, check=True
                     )
-                    used_storage = int(result.stdout.split()[0]) if result.stdout else 0
+                    lines = result.stdout.splitlines()
+                    if len(lines) >= 2:
+                        # العمود المستخدم (Used) في df
+                        used_storage = int(lines[1].split()[2])
                 except subprocess.CalledProcessError:
                     used_storage = 0
 
