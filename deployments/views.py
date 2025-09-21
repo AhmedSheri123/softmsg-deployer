@@ -84,48 +84,50 @@ def deployment_detail(request, deployment_id):
     return render(request, "dashboard/deployments/deployment_detail.html", context)
 
 
+
 @login_required
 def deployment_usage_api(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
+    plan = getattr(deployment, "plan", None)
 
     total_mem_used = 0
     total_mem_limit = 0
     total_cpu_percent = 0
-    total_storage_used = 0
     total_cpu_limit_percent = 0
+    total_storage_used = 0
 
     containers = deployment.containers.all()
     if not containers.exists():
         return JsonResponse({"error": "No containers found"}, status=400)
-
-    plan = getattr(deployment, "plan", None)
 
     for dc in containers:
         usage = get_container_usage(dc.container_name, deployment=deployment)
         if "error" in usage:
             continue
 
-        total_mem_used += usage.get("used_ram", 0) or 0
-        total_mem_limit += usage.get("memory_limit", 0) or 0
-        total_storage_used += usage.get("used_storage", 0) or 0
+        total_mem_used += usage.get("used_ram", 0)
+        total_mem_limit += usage.get("memory_limit", 0)
+        total_storage_used += usage.get("used_storage", 0)
 
-        # ---------------- CPU ----------------
-        cpu_percent = usage.get("cpu_percent", 0)
-        cpu_limit_cores = getattr(plan, "cpu", 1)  # عدد الأنوية المسموح
+        # -------- CPU --------
+        cpu_limit_cores = float(getattr(plan, "cpu", 1))  # تحويل Decimal إلى float
         cpu_limit_percent = cpu_limit_cores * 100
-        total_cpu_percent += (cpu_percent / 100) * cpu_limit_percent
+        total_cpu_percent += (usage.get("cpu_percent", 0) / 100) * cpu_limit_percent
         total_cpu_limit_percent += cpu_limit_percent
 
     # تحويل Bytes إلى MB
     mem_used_mb = round(total_mem_used / (1024 * 1024), 2)
     mem_limit_mb = round(total_mem_limit / (1024 * 1024), 2)
     storage_used_mb = round(total_storage_used / (1024 * 1024), 2)
-    
+
+    cpu_percent_final = round((total_cpu_percent / total_cpu_limit_percent) * 100, 1) if total_cpu_limit_percent else 0
+
     data = {
         "RAM": {"used": mem_used_mb, "limit": mem_limit_mb, "unit": "MB"},
-        "CPU": {"used": round(total_cpu_percent, 1), "limit": total_cpu_limit_percent, "unit": "%"},
+        "CPU": {"used": cpu_percent_final, "limit": 100, "unit": "%"},
         "Storage": {"used": storage_used_mb, "limit": getattr(plan, "storage", 0), "unit": "MB"}
     }
+
     return JsonResponse(data)
 
 

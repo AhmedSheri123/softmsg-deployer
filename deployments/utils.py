@@ -316,9 +316,7 @@ def start_docker(deployment: Deployment):
 
 
 import subprocess
-
 def get_container_usage(container_name, deployment=None):
-
     client = docker.from_env()
 
     def calculate_cpu_percent(stats):
@@ -334,29 +332,29 @@ def get_container_usage(container_name, deployment=None):
         container = client.containers.get(container_name)
         stats = container.stats(stream=False)
 
-        # ---------------- RAM ----------------
+        # -------- RAM --------
         mem_usage = stats["memory_stats"].get("usage", 0)
         mem_limit = stats["memory_stats"].get("limit", 1)
 
-        # ---------------- CPU ----------------
+        # -------- CPU --------
         cpu_percent = calculate_cpu_percent(stats)
 
-        # ---------------- Storage ----------------
+        # -------- Storage --------
         used_storage = 0
         if deployment:
             storage_data = deployment.get_volume_storage_data
             img_path = storage_data["img_path"]
-            try:
-                # استخدام du -sb لحساب الحجم الفعلي
-                result = subprocess.run(
-                    ["du", "-sb", img_path],
-                    capture_output=True,
-                    text=True,
-                    check=True
-                )
-                used_storage = int(result.stdout.split()[0]) if result.stdout else 0
-            except subprocess.CalledProcessError:
-                used_storage = 0
+            if os.path.exists(img_path):
+                try:
+                    result = subprocess.run(
+                        ["du", "-sb", img_path],
+                        capture_output=True,
+                        text=True,
+                        check=True
+                    )
+                    used_storage = int(result.stdout.split()[0]) if result.stdout else 0
+                except subprocess.CalledProcessError:
+                    used_storage = 0
 
         return {
             "used_ram": mem_usage,         # Bytes
