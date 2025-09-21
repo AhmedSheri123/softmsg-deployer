@@ -315,10 +315,18 @@ def start_docker(deployment: Deployment):
     return all_ok
 
 
-def get_container_usage(container_name):
+import docker
+import subprocess
+import os
+
+def get_container_usage(deployment, container_name):
+    """
+    إرجاع استخدام الموارد (RAM, CPU, Storage) لحاوية مرتبطة بـ Deployment
+    - used_ram بالـ MB
+    - used_cpu = عدد الكورز المستهلكة (float)
+    - used_storage بالـ GB (من XFS volume)
+    """
     client = docker.from_env()
-    usage = {}
-    media_path = "/app/media"
 
     def calculate_cpu_percent(stats):
         cpu_delta = stats["cpu_stats"]["cpu_usage"]["total_usage"] - stats["precpu_stats"]["cpu_usage"]["total_usage"]
@@ -330,35 +338,36 @@ def get_container_usage(container_name):
         return cpu_percent
 
     try:
-        # الحصول على حاوية المشروع
+        # الحاوية
         container = client.containers.get(container_name)
         stats = container.stats(stream=False)
 
         # ---------------- RAM ----------------
-        mem_usage = stats["memory_stats"].get("usage", 0)
-        mem_limit = stats["memory_stats"].get("limit", 1)
-        mem_percent = (mem_usage / mem_limit) * 100 if mem_limit > 0 else 0
+        mem_usage = stats["memory_stats"].get("usage", 0)  # بالبايت
+        mem_usage_mb = int(mem_usage / (1024 * 1024))  # بالـ MB
 
         # ---------------- CPU ----------------
         cpu_percent = calculate_cpu_percent(stats)
+        cpu_cores_used = round(cpu_percent / 100, 1)  # عدد الكورز المستعملة
 
-        # ---------------- Storage (media) ----------------
+        # ---------------- Storage (XFS Volume) ----------------
+        storage_gb = 0
         try:
-            exec_result = container.exec_run(f"du -sb {media_path}")
-            storage_media = int(exec_result.output.decode().split()[0])
-        except Exception:
-            storage_media = 0
+            storage_data = deployment.get_volume_storage_data
+            img_path = storage_data["img_path"]
 
-        # المجموع النهائي للتخزين
-        total_storage = storage_media 
+            if os.path.exists(img_path):
+                # جلب الاستهلاك عبر du -sb (لملف img كامل)
+                result = subprocess.run(["du", "-sb", img_path], stdout=subprocess.PIPE, check=True, text=True)
+                storage_bytes = int(result.stdout.split()[0])
+                storage_gb = int(storage_bytes / (1024 * 1024 * 1024))
+        except Exception:
+            storage_gb = 0
 
         usage = {
-            "memory_usage": mem_usage,
-            "memory_limit": mem_limit,
-            "memory_percent": round(mem_percent, 2),
-            "cpu_percent": round(cpu_percent, 2),
-            "storage_media": storage_media,
-            "storage_usage": total_storage
+            "used_ram": mem_usage_mb,
+            "used_cpu": cpu_cores_used,
+            "used_storage": storage_gb,
         }
 
     except docker.errors.NotFound:
@@ -368,17 +377,3 @@ def get_container_usage(container_name):
 
     return usage
 
-def get_db_container_usage(deployment):
-    client = docker.from_env()
-    db_container_name = f"{deployment.user.username}{deployment.id}_db"
-    # ---------------- Storage (Postgres DB) ----------------
-    storage_db = 0
-    try:
-        db_container = client.containers.get(db_container_name)
-        exec_result = db_container.exec_run("du -sb /var/lib/postgresql/data")
-        storage_db = int(exec_result.output.decode().split()[0])
-    except Exception:
-        storage_db = 0
-    return {
-        "storage_db": storage_db
-    }
