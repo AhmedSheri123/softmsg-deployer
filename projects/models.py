@@ -102,7 +102,7 @@ class AvailableProject(models.Model):
             'proxy': 6,
         }
         containers = list(self.containers.all())
-        containers.sort(key=lambda c: CONTAINER_PRIORITY.get(c.project_container.type, 99))
+        containers.sort(key=lambda c: CONTAINER_PRIORITY.get(c.type, 99))
         return containers
 
 
