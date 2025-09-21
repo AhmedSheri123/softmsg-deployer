@@ -99,7 +99,7 @@ def deployment_usage_api(request, deployment_id):
         return JsonResponse({"error": "No containers found"}, status=400)
 
     for dc in containers:
-        usage = get_container_usage(dc.container_name)
+        usage = get_container_usage(dc.container_name, deployment)
         if "error" in usage:
             continue  # ممكن تسجيل الخطأ بدل تجاهله
 
