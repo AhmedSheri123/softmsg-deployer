@@ -180,7 +180,6 @@ class DeploymentContainer(models.Model):
     project_container = models.ForeignKey('projects.ProjectContainer', on_delete=models.CASCADE, null=True)
     container_name = models.CharField(max_length=255)
     domain = models.CharField(max_length=255, blank=True, null=True)
-    env_vars = models.JSONField(default=dict, blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     def __str__(self):
@@ -335,7 +334,7 @@ class DeploymentContainer(models.Model):
 
         # حل جميع المتغيرات، بما فيها الرجوع للكونتينرات الأخرى
         final_env = {k: self.resolve_placeholders(v) for k, v in env_vars.items()}
-        logger.error(f"env_vars:--> {env_vars}")
+        logger.error(f"env_vars:--> {final_env}")
         config["environment"] = final_env
 
         # -------------------------------
@@ -524,7 +523,7 @@ class DeploymentContainer(models.Model):
         إرجاع env_vars بعد حل جميع placeholders بشكل متكرر
         لدعم التعابير المتداخلة بين الكونتينرات.
         """
-        env_vars = self.env_vars or {}
+        env_vars = self.project_container.env_vars or {}
         resolved = self.resolve_placeholders(env_vars)
 
         # حل placeholders بشكل متكرر حتى لا يبقى أي شيء

@@ -47,25 +47,20 @@ def ApplySubscription(request, order_id):
         dc = DeploymentContainer.objects.create(
             deployment=deployment,
             project_container=pc,
-            env_vars=pc.env_vars,
             status=1,  # Pending
         )
 
+        # تعيين اسم الكونتينر
         container_name = f"{request.user.username}-{dc.id}".lower()
         dc.container_name = container_name
 
-        # تحديد الدومين الخاص بالباك اند
-        if pc.type == "backend":
-            container_domain = f"api.{container_name}{main_domain}"
-        elif pc.type == "frontend":
-            container_domain = f'{container_name}{main_domain}'
-        elif pc.type == "backfront":
-            container_domain = f'{container_name}{main_domain}'
-        else:
-            container_domain = None  # redis أو غيره ما يحتاج دومين
-
-        dc.domain = container_domain
+        # تعيين الدومين
+        if pc.type in ("backend",):
+            dc.domain = f"api.{container_name}{main_domain}"
+        else :
+            dc.domain = f"{container_name}{main_domain}"
         dc.save()
+
 
     # تشغيل الـ Docker containers
     success = run_docker(deployment)
