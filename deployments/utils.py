@@ -317,13 +317,8 @@ def start_docker(deployment: Deployment):
 
 import subprocess
 
-def get_container_usage(deployment, container_name):
-    """
-    إرجاع استخدام الموارد (RAM, CPU, Storage) لحاوية مرتبطة بـ Deployment
-    - used_ram بالـ MB
-    - used_cpu = عدد الكورز المستهلكة (float)
-    - used_storage بالـ GB (من XFS volume)
-    """
+
+def get_container_usage(container_name, deployment=None):
     client = docker.from_env()
 
     def calculate_cpu_percent(stats):
@@ -336,42 +331,41 @@ def get_container_usage(deployment, container_name):
         return cpu_percent
 
     try:
-        # الحاوية
         container = client.containers.get(container_name)
         stats = container.stats(stream=False)
 
         # ---------------- RAM ----------------
-        mem_usage = stats["memory_stats"].get("usage", 0)  # بالبايت
-        mem_usage_mb = int(mem_usage / (1024 * 1024))  # بالـ MB
+        mem_usage = stats["memory_stats"].get("usage", 0)
+        mem_limit = stats["memory_stats"].get("limit", 1)
 
         # ---------------- CPU ----------------
         cpu_percent = calculate_cpu_percent(stats)
-        cpu_cores_used = round(cpu_percent / 100, 1)  # عدد الكورز المستعملة
 
-        # ---------------- Storage (XFS Volume) ----------------
-        storage_gb = 0
-        try:
+        # ---------------- Storage ----------------
+        used_storage = 0
+        if deployment:
             storage_data = deployment.get_volume_storage_data
             img_path = storage_data["img_path"]
+            try:
+                # نستخدم du -sb لحساب الحجم
+                result = subprocess.run(
+                    ["du", "-sb", img_path],
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
+                used_storage = int(result.stdout.split()[0]) if result.stdout else 0
+            except subprocess.CalledProcessError as e:
+                used_storage = 0
 
-            if os.path.exists(img_path):
-                # جلب الاستهلاك عبر du -sb (لملف img كامل)
-                result = subprocess.run(["du", "-sb", img_path], stdout=subprocess.PIPE, check=True, text=True)
-                storage_bytes = int(result.stdout.split()[0])
-                storage_gb = int(storage_bytes / (1024 * 1024 * 1024))
-        except Exception:
-            storage_gb = 0
-
-        usage = {
-            "used_ram": mem_usage_mb,
-            "used_cpu": cpu_cores_used,
-            "used_storage": storage_gb,
+        return {
+            "used_ram": mem_usage,         # Bytes
+            "memory_limit": mem_limit,     # Bytes
+            "cpu_percent": round(cpu_percent, 1),
+            "used_storage": used_storage,  # Bytes
         }
 
     except docker.errors.NotFound:
-        usage = {"error": f"Container {container_name} not found"}
+        return {"error": f"Container {container_name} not found"}
     except Exception as e:
-        usage = {"error": str(e)}
-
-    return usage
-
+        return {"error": str(e)}
