@@ -347,7 +347,7 @@ def get_container_usage(container_name, deployment=None):
             if os.path.ismount(mount_dir):
                 try:
                     result = subprocess.run(
-                        ["df", "-B1", mount_dir],  # -B1 لإرجاع Bytes
+                        ["du", "-sh", mount_dir],  # -B1 لإرجاع Bytes
                         capture_output=True, text=True, check=True
                     )
                     lines = result.stdout.splitlines()

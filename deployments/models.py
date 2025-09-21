@@ -191,6 +191,21 @@ class Deployment(models.Model):
         except docker.errors.APIError as e:
             print(f"Failed to remove volume {volume_name}: {e}")
 
+        mount_dir = storage_data["mount_dir"]
+        if system != "Windows" and os.path.exists(mount_dir):
+            try:
+                os.rmdir(mount_dir)  # يحذف فقط إذا كان فارغ
+                print(f"Mount directory {mount_dir} removed successfully")
+            except OSError:
+                # إذا لم يكن فارغًا، يمكن استخدام shutil.rmtree
+                import shutil
+                try:
+                    shutil.rmtree(mount_dir)
+                    print(f"Mount directory {mount_dir} removed recursively")
+                except Exception as e:
+                    print(f"Failed to remove mount directory {mount_dir}: {e}")
+
+
         # حذف ملف img على Linux
         if system != "Windows" and os.path.exists(img_path):
             try:
