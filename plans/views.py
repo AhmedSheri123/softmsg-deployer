@@ -48,7 +48,6 @@ def ApplySubscription(request, order_id):
             deployment=deployment,
             project_container=pc,
             env_vars=pc.env_vars,
-            port=pc.default_port,
             status=1,  # Pending
         )
 

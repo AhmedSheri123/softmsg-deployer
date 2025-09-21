@@ -180,7 +180,6 @@ class DeploymentContainer(models.Model):
     container_name = models.CharField(max_length=255)
     domain = models.CharField(max_length=255, blank=True, null=True)
     env_vars = models.JSONField(default=dict, blank=True)
-    port = models.PositiveIntegerField(blank=True, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     def __str__(self):
@@ -341,15 +340,13 @@ class DeploymentContainer(models.Model):
         # -------------------------------
         # المنافذ
         # -------------------------------
-        if self.port or pc.ports:
+        if pc.ports:
             port_bindings = {}
             if pc.ports:
                 for mapping in pc.ports:
                     for host, container in mapping.items():
                         port_bindings[f"{container}/tcp"] = int(host)
-            if self.port:
-                container_port = pc.default_port or self.port
-                port_bindings[f"{container_port}/tcp"] = int(self.port)
+
             config["ports"] = port_bindings
 
         # -------------------------------
