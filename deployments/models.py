@@ -434,79 +434,90 @@ class DeploymentContainer(models.Model):
 
 
 
-    def resolve_placeholders(self, value: str) -> str:
+    def resolve_placeholders(self, value):
         """
-        يستبدل المتغيرات داخل string أو JSON-like string.
-        يدعم:
-        - container (current)
-        - container.<type_or_name> (other container)
-        - env vars: container.env.KEY أو container.<type>.env.KEY
-        - deployment, plan, frontend_domain, backfront_domain
+        استبدال placeholders داخل string أو dict أو list بشكل آمن بدون eval.
         """
-        if not isinstance(value, str):
+        if isinstance(value, dict):
+            return {k: self.resolve_placeholders(v) for k, v in value.items()}
+        elif isinstance(value, list):
+            return [self.resolve_placeholders(v) for v in value]
+        elif not isinstance(value, str):
             return value
 
-        # fixed_env جاهز لكل التعابير
-        deployment = self.deployment
-        plan = deployment.plan
         fixed_env = {
-            "deployment": deployment,
-            "plan": plan,
+            "deployment": self.deployment,
+            "plan": getattr(self.deployment, "plan", None),
             "container": self,
-            "this_container_domain": self.domain,
-            "frontend_domain": getattr(deployment, "domain", ""),
-            "backfront_domain": getattr(deployment, "backend_domain", ""),
+            "this_container_domain": self.domain or "",
+            "frontend_domain": getattr(self.deployment, "domain", ""),
+            "backfront_domain": getattr(self.deployment, "backend_domain", ""),
         }
 
+        pattern = re.compile(r"\{([^}]+)\}")
+
         def replacer(match):
-            expr = match.group(1)  # مثال: container.db.env.POSTGRES_USER
+            expr = match.group(1).strip()
             parts = expr.split(".")
 
-            # 1️⃣ container الحالي فقط
-            if parts[0] == "container" and len(parts) == 1:
-                return str(self)
-
-            if parts[0] == "container" and len(parts) == 2:
-                field = parts[1]
-                if field == "container_name":
-                    return self.container_name
-                elif field == "domain":
-                    return self.domain or ""
-                elif field == "env":
-                    return str(self.get_env_vars())
-                else:
-                    return match.group(0)
-
-            # 2️⃣ container آخر
-            if parts[0] == "container" and len(parts) >= 3:
-                target_type_or_name = parts[1]
-                field = parts[2]
-                rest = parts[3:] if len(parts) > 3 else []
-
-                # البحث عن الكونتينر الهدف حسب النوع أو الاسم
-                target = self.deployment.containers.filter(project_container__type=target_type_or_name).first()
-                if not target:
-                    target = self.deployment.containers.filter(container_name=target_type_or_name).first()
-                if not target:
-                    return match.group(0)
-
-                if field == "env" and rest:
-                    key = rest[0]
-                    return str(target.get_env_vars().get(key, ""))
-                elif field == "container_name":
-                    return target.container_name
-                elif field == "domain":
-                    return target.domain or ""
-                else:
-                    return match.group(0)
-
-            # 3️⃣ أي متغير من fixed_env (deployment, plan, container, frontend_domain, backfront_domain)
             try:
-                return str(eval(f'f"""{match.group(0)}"""', {}, fixed_env))
+                # ----------------- container الحالي -----------------
+                if parts[0] == "container":
+                    # فقط container
+                    if len(parts) == 1:
+                        return str(self)
+                    # container.current.field
+                    elif len(parts) == 2:
+                        field = parts[1]
+                        if field == "container_name":
+                            return self.container_name
+                        elif field == "domain":
+                            return self.domain or ""
+                        elif field == "env":
+                            return str(self.get_env_vars())
+                        else:
+                            return match.group(0)
+                    # container.<other>.field
+                    elif len(parts) >= 3:
+                        target_type_or_name = parts[1]
+                        field = parts[2]
+                        rest = parts[3:] if len(parts) > 3 else []
+
+                        # البحث عن الكونتينر الهدف حسب النوع أو الاسم
+                        target = self.deployment.containers.filter(
+                            project_container__type=target_type_or_name
+                        ).first()
+                        if not target:
+                            target = self.deployment.containers.filter(
+                                container_name=target_type_or_name
+                            ).first()
+                        if not target:
+                            return match.group(0)
+
+                        if field == "env" and rest:
+                            key = rest[0]
+                            return str(target.get_env_vars().get(key, ""))
+                        elif field == "container_name":
+                            return target.container_name
+                        elif field == "domain":
+                            return target.domain or ""
+                        else:
+                            return match.group(0)
+                # ----------------- fixed_env -----------------
+                elif parts[0] in fixed_env:
+                    val = fixed_env[parts[0]]
+                    for attr in parts[1:]:
+                        val = getattr(val, attr, None)
+                        if val is None:
+                            return match.group(0)
+                    return str(val)
+                else:
+                    return match.group(0)
             except Exception:
                 return match.group(0)
 
-        return re.sub(r"\{([^}]+)\}", replacer, value)
+        return pattern.sub(replacer, value)
+
 
     def get_resolved_env_vars(self):
         """
