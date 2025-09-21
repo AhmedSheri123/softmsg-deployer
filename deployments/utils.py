@@ -212,28 +212,15 @@ def delete_container(client, cname):
         except DockerException as e:
             logger.error(f"Failed to remove container {cname}: {e}")
 
-def delete_volume(client, vol):
-    if vol:
-        try:
-            v = client.volumes.get(vol)
-            v.remove(force=True)
-            logger.info(f"Volume {vol} removed")
-        except NotFound:
-            logger.warning(f"Volume {vol} not found")
-        except DockerException as e:
-            logger.error(f"Failed to remove volume {vol}: {e}")
+
 
 def delete_docker(deployment: Deployment):
     containers = deployment.containers.all()
     client = docker.from_env()
-    vol = deployment.get_volume_storage_data.get('volume_name')
-    delete_volume(client, vol)
     for container in containers:
         cname = container.container_name
         delete_container(client, cname)
-        volumes = container.project_container.volume
-        for vol in volumes:
-            delete_volume(client, vol)
+    deployment.remove_xfs_volume()
     return True
 
 def rebuild_docker(deployment: Deployment):

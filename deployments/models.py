@@ -169,6 +169,35 @@ class Deployment(models.Model):
         return volume
 
 
+    def remove_xfs_volume(self):
+        """
+        حذف Docker volume المرتبط بالـ Deployment.
+        على Linux يحذف أيضاً ملف img.
+        """
+        storage_data = self.get_volume_storage_data
+        volume_name = storage_data["volume_name"]
+        img_path = storage_data["img_path"]
+        system = storage_data["system"]
+
+        client = docker.from_env()
+        
+        # حذف Docker volume إذا كان موجود
+        try:
+            volume = client.volumes.get(volume_name)
+            volume.remove(force=True)
+            print(f"Volume {volume_name} removed successfully")
+        except docker.errors.NotFound:
+            print(f"Volume {volume_name} not found, skipping removal")
+        except docker.errors.APIError as e:
+            print(f"Failed to remove volume {volume_name}: {e}")
+
+        # حذف ملف img على Linux
+        if system != "Windows" and os.path.exists(img_path):
+            try:
+                os.remove(img_path)
+                print(f"Image file {img_path} removed successfully")
+            except Exception as e:
+                print(f"Failed to remove image file {img_path}: {e}")
 
 
 
