@@ -344,6 +344,7 @@ def get_container_usage(container_name, deployment=None):
         if deployment:
             storage_data = deployment.get_volume_storage_data
             mount_dir = storage_data["mount_dir"]
+
             if os.path.exists(mount_dir):
                 try:
                     result = subprocess.run(
@@ -355,8 +356,12 @@ def get_container_usage(container_name, deployment=None):
                     output = result.stdout.strip()
                     if output:
                         used_storage = int(output.split()[0])
-                except subprocess.CalledProcessError:
-                    used_storage = 0
+                except subprocess.CalledProcessError as e:
+                    logger.error(f"Failed to get storage usage for {mount_dir}: {e}")
+                except Exception as e:
+                    logger.exception(f"Unexpected error while calculating storage for {mount_dir}: {e}")
+            else:
+                logger.warning(f"Mount directory does not exist: {mount_dir}")
 
 
         return {
