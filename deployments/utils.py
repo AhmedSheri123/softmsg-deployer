@@ -348,15 +348,15 @@ def get_container_usage(container_name, deployment=None):
             if os.path.exists(mount_dir):
                 try:
                     result = subprocess.run(
-                        ["du", "-sbx", mount_dir],
+                        ["df", "--output=used", "-B1", mount_dir],
                         capture_output=True,
                         text=True,
                         check=True
                     )
+                    lines = result.stdout.strip().splitlines()
+                    if len(lines) >= 2:
+                        used_storage = int(lines[1])
 
-                    output = result.stdout.strip()
-                    if output:
-                        used_storage = int(output.split()[0])
                 except subprocess.CalledProcessError as e:
                     logger.error(f"Failed to get storage usage for {mount_dir}: {e}")
                 except Exception as e:
