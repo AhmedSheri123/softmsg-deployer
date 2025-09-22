@@ -23,9 +23,11 @@ from django.views.generic.base import TemplateView
 from pages import views
 from django.contrib.sitemaps.views import sitemap
 from resources.sitemaps import MultiLangContentSitemap
-
+from projects.sitemaps import StaticViewSitemap, ProjectSitemap
 sitemaps = {
     "contents": MultiLangContentSitemap,
+    'projects': ProjectSitemap,
+    'static': StaticViewSitemap,
 }
 
 
