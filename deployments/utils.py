@@ -344,17 +344,20 @@ def get_container_usage(container_name, deployment=None):
         if deployment:
             storage_data = deployment.get_volume_storage_data
             mount_dir = storage_data["mount_dir"]
-            if os.path.ismount(mount_dir):
+            if os.path.exists(mount_dir):
                 try:
-                    # -s: summary، -B1: byte
                     result = subprocess.run(
                         ["du", "-sb", mount_dir],
-                        capture_output=True, text=True, check=True
+                        capture_output=True,
+                        text=True,
+                        check=True
                     )
-                    # عادة du -sb يعطي سطر واحد: "1234567   /mnt/vol_xxx"
-                    used_storage = int(result.stdout.split()[0])
+                    output = result.stdout.strip()
+                    if output:
+                        used_storage = int(output.split()[0])
                 except subprocess.CalledProcessError:
                     used_storage = 0
+
 
         return {
             "used_ram": mem_usage,         # Bytes
