@@ -180,5 +180,7 @@ def project_autocomplete(request):
     projects = AvailableProject.objects.filter(Q(name__icontains=q)|Q(description__icontains=q))[:10]
 
     # اجعل safe=False لإرسال قائمة JSON مباشرة
-    data = [{"id": p.id, "name": p.name, "image":p.image.url, "url":reverse('project_details', kwargs={"project_id":p.id})} for p in projects]
+    data = [{"id": p.id, "name": p.name, 
+            "image":(p.image.url if p.image else "https://placehold.co/600x400?text=not+image"),
+            "url":reverse('project_details', kwargs={"project_id":p.id})} for p in projects]
     return JsonResponse(data, safe=False)
