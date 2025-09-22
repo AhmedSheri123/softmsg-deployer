@@ -2,6 +2,13 @@
 {% load i18n %}
 {% load projects_filters %}
 
+{% block meta %}
+<meta name="description" content="{{ project.description|truncatewords:30 }}">
+<meta property="og:title" content="{{ project.name }}">
+<meta property="og:description" content="{{ project.description|truncatewords:30 }}">
+<meta property="og:image" content="{{ project.image.url }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+{% endblock meta %}
 
 {% block sheri %}
 <div class="py-5"></div>

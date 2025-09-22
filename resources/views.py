@@ -1,14 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import DocsServicesModel, DocsServiceSectionsModel, SectionContentsModel
-# Create your views here.
 
-def view_service_resources(request, service_id):
+def view_service_resources(request, project_id):
+    # الحصول على content_id من GET
     content_id = request.GET.get('content_id')
 
-    service = DocsServicesModel.objects.get(id=service_id)
-    sections = DocsServiceSectionsModel.objects.filter(service=service).order_by('ordering')
-    contents = SectionContentsModel.objects.filter(section__service=service)
+    # جلب الخدمة المرتبطة بالمشروع
+    service = get_object_or_404(DocsServicesModel, project__id=project_id)
+
+    # جلب الأقسام المرتبطة بالخدمة
+    sections = service.sections.all()  # استخدم related_name إذا عينته
+    sections = sections.order_by('ordering')
+
+    # جلب المحتويات المرتبطة بالخدمة
+    contents = SectionContentsModel.objects.filter(section__service=service).order_by('ordering')
+
+    # اختيار المحتوى الافتراضي إذا لم يتم تحديد content_id
     if not content_id:
-        content_id =  contents.filter(is_default_selected=True).first().id if contents.filter(is_default_selected=True).exists() else contents.first().id
-    content = SectionContentsModel.objects.get(id=content_id)
-    return render(request, 'resources/viwer.html', {'content':content, 'sections':sections, 'service':service})
+        default_content = contents.filter(is_default_selected=True).first()
+        if default_content:
+            content = default_content
+        else:
+            content = contents.first()
+    else:
+        # التأكد من أن المحتوى موجود وينتمي للخدمة
+        content = contents.filter(id=content_id).first()
+        if not content:
+            # fallback للمحتوى الأول إذا كان content_id غير صالح
+            content = contents.first()
+
+    return render(
+        request,
+        'resources/viwer.html',
+        {
+            'content': content,
+            'sections': sections,
+            'service': service
+        }
+    )

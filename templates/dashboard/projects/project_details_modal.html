@@ -5,34 +5,35 @@
 <div class="modal-body">
     <div class="row g-4">
         
-        <!-- Left: صورة + وصف + روابط -->
+        <!-- Left: Image + Description + Links -->
         <div class="col-md-5">
+            <h1 class="fs-5">{{ project.name }}</h1>
             {% if project.image %}
-            <img src="{{ project.image.url }}" class="img-fluid rounded mb-3 shadow-sm" alt="{{ project.name }}">
+            <img src="{{ project.image.url }}" class="img-fluid rounded mb-3 shadow-sm" alt="{{ project.name }}" loading="lazy">
             {% else %}
             <div class="bg-light d-flex align-items-center justify-content-center rounded mb-3" style="height:200px;">
-                <span class="text-muted">{% trans "لا توجد صورة" %}</span>
+                <span class="text-muted">{% trans "No image available" %}</span>
             </div>
             {% endif %}
 
-            <p class="text-muted">{{ project.description }}</p>
+            <h2 class="text-muted fs-6">{{ project.description }}</h2>
 
-            <!-- روابط -->
+            <!-- Links -->
             <div class="mb-3">
                 {% if project.demo_url %}
                 <a href="{{ project.demo_url }}" target="_blank" class="btn btn-outline-info btn-sm me-2">
-                    <i class="fa-solid fa-display"></i> {% trans "عرض تجريبي" %}
+                    <i class="fa-solid fa-display"></i> {% trans "Live Demo" %}
                 </a>
                 {% endif %}
-                {% if project.documentation_url %}
-                <a href="{{ project.documentation_url }}" target="_blank" class="btn btn-outline-secondary btn-sm">
-                    <i class="fa-solid fa-book"></i> {% trans "توثيق" %}
+                {% if project.docs %}
+                <a href="{% url 'view_service_resources' project.id %}" aria-label="{{ project.name }} {% trans "Documentation" %}" target="_blank" class="btn btn-outline-secondary btn-sm">
+                    <i class="fa-solid fa-book"></i> {% trans "Documentation" %}
                 </a>
                 {% endif %}
             </div>
         </div>
 
-        <!-- Right: التفاصيل -->
+        <!-- Right: Details -->
         <div class="col-md-7">
             {% active_deployments project as active_deployments %}
             {% deployments project as deployments %}
@@ -46,87 +47,83 @@
                 {% endfor %}
             </ul>
 
-            <!-- تفاصيل إضافية -->
+            <!-- Additional Details -->
             <div class="mb-4 p-3 bg-white shadow-sm rounded">
-                <h6 class="fw-bold mb-3 border-bottom pb-2">
-                    <i class="fa-solid fa-circle-info text-primary"></i> {% trans "تفاصيل المشروع:" %}
-                </h6>
+                <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-circle-info text-primary"></i> {% trans "Project Details:" %}
+                </h2>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span><i class="fa-solid fa-chart-column text-info"></i> {% trans "مستوى الصعوبة:" %}</span>
+                        <span><i class="fa-solid fa-chart-column text-info"></i> {% trans "Difficulty Level:" %}</span>
                         <span class="badge bg-info text-dark rounded-pill">{{ project.get_difficulty_level_display }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span><i class="fa-solid fa-clock text-secondary"></i> {% trans "زمن التثبيت المتوقع:" %}</span>
-                        <span class="badge bg-secondary rounded-pill">{{ project.install_time_minutes }} {% trans "دقيقة" %}</span>
+                        <span><i class="fa-solid fa-clock text-secondary"></i> {% trans "Estimated Install Time:" %}</span>
+                        <span class="badge bg-secondary rounded-pill">{{ project.install_time_minutes }} {% trans "minutes" %}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span><i class="fa-solid fa-hdd text-dark"></i> {% trans "الحجم المطلوب:" %}</span>
+                        <span><i class="fa-solid fa-hdd text-dark"></i> {% trans "Required Disk Space:" %}</span>
                         <span class="badge bg-dark rounded-pill">{{ project.disk_size_mb }} MB</span>
                     </li>
                 </ul>
             </div>
 
-            <!-- التفاعل -->
+            <!-- Engagement -->
             <div class="mb-4 p-3 bg-white shadow-sm rounded">
-                <h6 class="fw-bold mb-3 border-bottom pb-2">
-                    <i class="fa-solid fa-users text-success"></i> {% trans "التفاعل:" %}
-                </h6>
+                <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-users text-success"></i> {% trans "Engagement:" %}
+                </h2>
                 <ul class="list-group list-group-flush">
-                <li dir="ltr" class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                    {% for star in project.rating_stars %}
-                        {% if star == "full" %}
-                            <i class="fa-solid fa-star text-warning"></i>
-                        {% elif star == "half" %}
-                            <i class="fa-solid fa-star-half-stroke text-warning"></i>
-                        {% else %}
-                            <i class="fa-regular fa-star text-warning"></i>
-                        {% endif %}
-                    {% endfor %}
-                        
-                        
-                    </div>
-                    <span class="badge bg-warning text-dark rounded-pill">{% trans "التقييم:" %} {{ project.average_rating_float|default:"0 / 5" }}</span>
-                </li>
+                    <li dir="ltr" class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                        {% for star in project.rating_stars %}
+                            {% if star == "full" %}
+                                <i class="fa-solid fa-star text-warning"></i>
+                            {% elif star == "half" %}
+                                <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                            {% else %}
+                                <i class="fa-regular fa-star text-warning"></i>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                        <span class="badge bg-warning text-dark rounded-pill">{% trans "Rating:" %} {{ project.average_rating_float|default:"0 / 5" }}</span>
+                    </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                            <i class="fa-solid fa-download text-primary"></i> {% trans "عدد التثبيتات:" %}
+                            <i class="fa-solid fa-download text-primary"></i> {% trans "Installations:" %}
                         </div>
                         <span class="badge bg-primary rounded-pill">{{ project.installs }}</span>
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                        <i class="fa-solid fa-users text-success"></i> {% trans "المستخدمون النشطون:" %}
+                        <i class="fa-solid fa-users text-success"></i> {% trans "Active Users:" %}
                         </div>
                         <span class="badge bg-success rounded-pill">{{ active_deployments.count }}</span>
                     </li>
                 </ul>
             </div>
 
-            <!-- التقنيات بالتفصيل -->
+            <!-- Technologies -->
             <div class="mb-4 p-3 bg-white shadow-sm rounded">
-                <h6 class="fw-bold mb-3 border-bottom pb-2">
-                    <i class="fa-solid fa-microchip text-dark"></i> {% trans "اللغات والتقنيات المستخدمة:" %}
-                </h6>
+                <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-microchip text-dark"></i> {% trans "Languages & Technologies Used:" %}
+                </h2>
                 <ul class="list-group list-group-flush">
-                    
                     {% if language_tech_tree %}
                     <pre dir="ltr" class="bg-light p-3 rounded">{{ language_tech_tree|safe }}</pre>
                     {% else %}
-                    <li class="list-group-item text-muted">{% trans "لا توجد تقنيات محددة" %}</li>
-                    {% endif %}                                
-                    
+                    <li class="list-group-item text-muted">{% trans "No specific technologies" %}</li>
+                    {% endif %}
                 </ul>
             </div>
 
-            <!-- متطلبات التشغيل -->
+            <!-- Minimum Requirements -->
             <div class="mb-4 p-3 bg-white shadow-sm rounded">
-                <h6 class="fw-bold mb-3 border-bottom pb-2">
-                    <i class="fa-solid fa-gear text-secondary"></i> {% trans "ادنى متطلبات التشغيل:" %}
-                </h6>
+                <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-gear text-secondary"></i> {% trans "Minimum Operating Requirements:" %}
+                </h2>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><i class="fa-solid fa-memory text-info"></i> RAM: {{ project.minimum_operating_requirements.ram }} MB</li>
                     <li class="list-group-item"><i class="fa-solid fa-microchip text-danger"></i> CPU: {{ project.minimum_operating_requirements.cpu }} Core</li>
@@ -134,11 +131,11 @@
                 </ul>
             </div>
 
-            <!-- إضافات اختيارية -->
+            <!-- Optional Add-ons -->
             <div class="mb-4 p-3 bg-white shadow-sm rounded">
-                <h6 class="fw-bold mb-3 border-bottom pb-2">
-                    <i class="fa-solid fa-circle-plus text-success"></i> {% trans "امكانيات اضافية بعد التثبيت:" %}
-                </h6>
+                <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-circle-plus text-success"></i> {% trans "Optional Features After Install:" %}
+                </h2>
                 <ul class="list-group list-group-flush">
                     {% for container in project.containers.all %}
                     {% for action in container.actions.all %}
@@ -150,23 +147,33 @@
                 </ul>
             </div>
 
-            <!-- خطوات التثبيت -->
+            <!-- Install Steps -->
             <div class="mb-4 p-3 bg-white shadow-sm rounded">
-                <h6 class="fw-bold mb-3 border-bottom pb-2">
-                    <i class="fa-solid fa-list-ol text-primary"></i> {% trans "خطوات التثبيت المختصرة:" %}
-                </h6>
+                <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-list-ol text-primary"></i> {% trans "Short Install Steps:" %}
+                </h2>
                 <div>{% if project.install_steps %}{{project.install_steps|safe}}{% else %}
-                    <li class="list-group-item text-muted">{% trans "لم تتم إضافة خطوات بعد" %}</li>
+                    <li class="list-group-item text-muted">{% trans "No steps added yet" %}</li>
                     {% endif %}
                 </div>
             </div>
 
-            <!-- الخطط -->
+           {% if project.about %}
+            <!-- About Project -->
+            <div class="mb-4 p-3 bg-white shadow-sm rounded">
+                <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-list-ol text-primary"></i> {% trans "About Project:" %}
+                </h2>
+                <div>{{project.about|safe}}</div>
+            </div>
+            {% endif %}
+
+            <!-- Plans -->
             {% if project.plans.exists %}
             <div class="mb-4 p-3 bg-white shadow-sm rounded">
-                <h6 class="fw-bold mb-3 border-bottom pb-2">
-                    <i class="fa-solid fa-box text-warning"></i> {% trans "الخطط المتاحة:" %}
-                </h6>
+                <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-box text-warning"></i> {% trans "Available Plans:" %}
+                </h2>
                 <div class="row row-cols-1 row-cols-md-2 g-4">
                     {% for plan in project.plans.all %}
                     <div class="col">
@@ -183,13 +190,13 @@
                                     <li><i class="fa-solid fa-database"></i> DB: {{ plan.get_database_display }}</li>
                                 </ul>
                                 <div class="text-center">
-                                    <span class="badge bg-success">{{ plan.monthly_price }}$ / {% trans "شهري" %}</span>
-                                    <span class="badge bg-primary">{{ plan.yearly_price }}$ / {% trans "سنوي" %}</span>
+                                    <span class="badge bg-success">{{ plan.monthly_price }}$ / {% trans "Monthly" %}</span>
+                                    <span class="badge bg-primary">{{ plan.yearly_price }}$ / {% trans "Yearly" %}</span>
                                 </div>
                             </div>
                             <div class="card-footer text-center">
-                                <a href="" class="btn btn-outline-{{ plan.Theem }} w-100">
-                                    <i class="fa-solid fa-cart-plus"></i> {% trans "اشترك الآن" %}
+                                <a href="" class="btn btn-outline-{{ plan.Theem }} w-100" aria-label="{% trans "Subscribe to" %} {{ project.name }}">
+                                    <i class="fa-solid fa-cart-plus"></i> {% trans "Subscribe Now" %}
                                 </a>
                             </div>
                         </div>
@@ -199,11 +206,11 @@
             </div>
             {% endif %}
 
-            <!-- مراجعات المستخدمين -->
+            <!-- User Reviews -->
             <div class="mb-4 p-4 bg-white shadow-sm rounded-4">
-                <h6 class="fw-bold mb-3 border-bottom pb-2">
-                    <i class="fa-solid fa-comments text-info"></i> مراجعات المستخدمين
-                </h6>
+                <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">
+                    <i class="fa-solid fa-comments text-info"></i> {% trans "User Reviews" %}
+                </h2>
 
                 <ul class="list-group list-group-flush mb-4" id="reviewsList">
                     {% for review in project.reviews.all %}
@@ -226,18 +233,18 @@
                     </li>
                     {% empty %}
                     <li class="list-group-item text-muted text-center">
-                        لا توجد مراجعات بعد
+                        {% trans "No reviews yet" %}
                     </li>
                     {% endfor %}
                 </ul>
 
-                <!-- نموذج إضافة تقييم -->
-                <h5 class="fw-bold mb-3">إضافة تقييمك</h5>
+                <!-- Add Review Form -->
+                <h5 class="fw-bold mb-3">{% trans "Add Your Review" %}</h5>
                 <form id="reviewForm" method="post" action="{% url 'add_review' project.id %}" class="p-3 bg-light rounded-3 shadow-sm">
                     <input type="hidden" name="rating" id="ratingValue" value="0">
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">التقييم:</label>
+                        <label class="form-label fw-bold">{% trans "Rating" %}:</label>
                         <div id="starRating" class="fs-3 text-warning" style="cursor: pointer;">
                             <i class="fa-regular fa-star" data-value="1"></i>
                             <i class="fa-regular fa-star" data-value="2"></i>
@@ -248,12 +255,12 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">تعليقك:</label>
-                        <textarea name="comment" class="form-control" rows="3" placeholder="أضف تعليقك هنا..."></textarea>
+                        <label class="form-label fw-bold">{% trans "Your Comment" %}:</label>
+                        <textarea name="comment" class="form-control" rows="3" placeholder='{% trans "Add your comment here" %}...'></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">
-                        <i class="fa-solid fa-paper-plane"></i> أرسل التقييم
+                        <i class="fa-solid fa-paper-plane"></i> {% trans "Submit Review" %}
                     </button>
                 </form>
             </div>
@@ -262,8 +269,8 @@
     </div>
     <!-- Footer -->
     <div class="modal-footer">
-        <a href="{% url 'plans_list' project.id %}" class="btn btn-success">
-            <i class="fa-solid fa-cloud-arrow-down me-1"></i> {% trans "تثبيت المشروع" %}
+        <a href="{% url 'plans_list' project.id %}" aria-label="{% trans "Install" %} {{ project.name }}" class="btn btn-success">
+            <i class="fa-solid fa-cloud-arrow-down me-1"></i> {% trans "Install Project" %}
         </a>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "إغلاق" %}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
     </div>

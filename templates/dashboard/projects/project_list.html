@@ -2,203 +2,252 @@
 {% load i18n %}
 {% load projects_filters %}
 
+
+{% block meta %}
+<meta name="description" content="Access popular ready projects, control panels, and apps. One-click installation, ready in minutes.">
+<meta name="keywords" content="ready projects, install apps, control panels, projects store, one click install">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph for social sharing -->
+<meta property="og:title" content="Ready Projects Store">
+<meta property="og:description" content="Access popular ready projects, control panels, and apps. One-click installation, ready in minutes.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+{% endblock meta %}
+
+
 {% block sheri %}
 {% if base_template == 'base.html' %}
 
-
 <!-- header -->
-<div class="px-4 py-5 text-center bg-warning">
-    <div class="py-4"></div>
-
-    <div class="py-2"></div>
-    <div class="py-4 text-body-emphasis">
-      <h1 class="display-5 fw-bold container mb-4 text-white">
-        {% trans "متجر المشاريع الجاهزة" %}</span>
-      </h1>
-      <div class="col-lg-6 mx-auto">
-        <p class="fs-5 mb-4 text-white">
-            {% trans "Access popular rady projects, control panels, and apps. Get up and running in minutes with smooth one-click installation." %}
-        </p>
-            <a href="{% url 'Signup' %}" class="btn btn-light btn-lg">
-        <i class="bi bi-cart-plus"></i> {% trans "اشترك الآن" %}
-    </a>
-      </div>
+<div class="px-4 py-5 text-center bg-warning bg-gradient text-white">
+    <div class="py-5"></div>
+    <h1 class="display-5 fw-bold mb-4">{% trans "Ready Projects Store" %}</h1>
+    <div class="col-lg-7 mx-auto">
+        <p class="fs-5 mb-4">{% trans "Access popular ready projects, control panels, and apps. Get up and running in minutes with smooth one-click installation." %}</p>
+        <a href="{% url 'Signup' %}" class="btn btn-light btn-lg shadow">
+            <i class="bi bi-cart-plus"></i> {% trans "Subscribe Now" %}
+        </a>
     </div>
-  </div>
+</div>
 <!-- end header -->
 {% endif %}
-
 <div class="py-5 px-4">
-  <div class="row">
-    <!-- العمود الأيسر: شريط الأدوات -->
+    <div class="row">
+    <!-- LEFT: FILTERS -->
     <div class="col-md-3">
-      <div class="bg-white p-3 shadow-sm mb-5">
+      <div class="bg-white p-3 shadow-sm rounded-3 mb-5">
         <form method="get" class="d-flex flex-column gap-3">
-          <!-- البحث -->
+          <!-- Search -->
           <div class="position-relative">
             <div class="input-group">
               <span class="input-group-text bg-primary text-white">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </span>
-              <input type="text" name="search" id="projectSearch" class="form-control" placeholder="{% trans 'ابحث عن مشروع...' %}" autocomplete="off">
-              <div id="projectResults" class="list-group position-absolute w-100" style="z-index: 1000; display: none; top: 35px;"></div>
+              <input type="text" name="search" id="projectSearch" class="form-control"
+                     placeholder="{% trans 'Search projects...' %}" autocomplete="off" aria-expanded="false" role="combobox">
+              <div id="projectResults" class="list-group position-absolute w-100"
+                   style="z-index:1000;display:none;top:35px;"></div>
             </div>
           </div>
-            {{ form.media }}
+          {{ form.media }}
 
-          <!-- التصنيفات -->
+          <!-- Categories -->
           <div class="input-group">
             <span class="input-group-text bg-dark text-white">
-              <i class="fa-solid fa-tags"></i>
+              <i class="fa-solid fa-layer-group"></i>
             </span>
-            <div class="form-control">
-              {{ form.categories }}
-            </div>
+            <div class="form-control">{{ form.categories }}</div>
           </div>
-          <!-- التصنيفات -->
+
+          <!-- Technologies -->
           <div class="input-group">
-            <span class="input-group-text bg-dark text-white">
-              <i class="fa-solid fa-tags"></i>
+            <span class="input-group-text bg-secondary text-white">
+              <i class="fa-solid fa-code"></i>
             </span>
-            <div class="form-control">
-              {{ form.technologys }}
-            </div>
+            <div class="form-control">{{ form.technologys }}</div>
           </div>
 
+          <!-- Difficulty -->
+          <div class="input-group">
+            <span class="input-group-text bg-info text-white">
+              <i class="fa-solid fa-signal"></i>
+            </span>
+            <select class="form-select" name="difficulty">
+              <option value="">{% trans "Any difficulty" %}</option>
+              <option value="beginner">{% trans "Beginner" %}</option>
+              <option value="intermediate">{% trans "Intermediate" %}</option>
+              <option value="advanced">{% trans "Advanced" %}</option>
+            </select>
+          </div>
 
-
-          <!-- الترتيب -->
+          <!-- Order -->
           <div class="input-group">
             <span class="input-group-text bg-success text-white">
               <i class="fa-solid fa-arrow-down-wide-short"></i>
             </span>
             <select class="form-select" name="order">
-              <option selected>{% trans "ترتيب حسب" %}</option>
-              <option>{% trans "الأكثر تثبيتاً" %}</option>
-              <option>{% trans "الأعلى تقييماً" %}</option>
-              <option>{% trans "الأحدث" %}</option>
+              <option value="">{% trans "Sort by" %}</option>
+              <option value="installs">{% trans "Most Installed" %}</option>
+              <option value="rating">{% trans "Highest Rated" %}</option>
+              <option value="latest">{% trans "Latest" %}</option>
             </select>
           </div>
 
-          <button type="submit" class="btn btn-primary mt-2">بحث</button>
+          <button type="submit" class="btn btn-primary mt-2 w-100">
+            <i class="fa-solid fa-search me-1"></i> {% trans "Search" %}
+          </button>
         </form>
       </div>
     </div>
-
-    <!-- العمود الأيمن: المحتوى -->
+    
+    <!-- RIGHT: PROJECTS LIST -->
     <div class="col-md-9 container">
-        <!-- هنا قائمة المشاريع أو أي محتوى آخر -->
-
-
-    {% comment %} <!-- العنوان الرئيسي -->
-    <h3 class="mb-5 fw-bold text-center text-gradient">
-        <i class="bi bi-shop me-2"></i> {% trans "متجر المشاريع الجاهزة" %}
-    </h3> {% endcomment %}
-
-    <!-- المشاريع المميزة -->
-    <h5 class="fw-bold mb-4 text-warning">
-        <i class="fa-solid fa-star me-1"></i> {% trans "المشاريع المميزة" %}
-    </h5>
-    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-        {% for project in featured_projects %}
-        <div class="col">
-            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden project-card">
-                <img src="{{ project.image.url }}" class="card-img-top" style="height:180px; object-fit:cover;">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">{{ project.name }}</h5>
-                    <p class="card-text text-muted small">{{ project.description|truncatewords:15 }}</p>
-                    <span class="badge bg-warning text-dark">⭐ {% trans "موصى به" %}</span>
-                </div>
+      <!-- Featured Projects -->
+      <h2 class="fw-bold mb-4 text-warning fs-5">
+        <i class="fa-solid fa-star me-1"></i> {% trans "Featured Projects" %}
+      </h2>
+      <div id="featuredCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          {% for project in featured_projects %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="card shadow border-0 rounded-4 overflow-hidden text-center">
+              <img src="{{ project.image.url }}" class="d-block w-100"
+                   style="height:300px;object-fit:cover;" loading="lazy" alt="{{ project.name }}">
+              <div class="card-body">
+                <h5 class="fw-bold">{{ project.name }}</h5>
+                <p class="text-muted small">{{ project.description|truncatewords:20 }}</p>
+                <span class="badge bg-warning text-dark">⭐ {% trans "Recommended" %}</span>
+              </div>
             </div>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-    </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
 
-    <!-- جميع المشاريع -->
-    <h5 class="fw-bold mb-4 text-primary">
-        <i class="fa-solid fa-grip-vertical"></i> {% trans "جميع المشاريع" %}
-    </h5>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <!-- All Projects -->
+      <h2 class="fw-bold mb-4 text-primary fs-5">
+        <i class="fa-solid fa-grip-vertical"></i> {% trans "All Projects" %}
+      </h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for project in projects %}
         <div class="col">
-            <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden project-card position-relative">
+          <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden project-card position-relative">
+            <!-- IMAGE -->
+            {% if project.image %}
+            <img src="{{ project.image.url }}" class="card-img-top"
+                 style="height:200px;object-fit:cover;" loading="lazy" alt="{{ project.name }}">
+            {% else %}
+            <div class="bg-light d-flex align-items-center justify-content-center rounded" style="height:200px;">
+              <span class="text-muted">{% trans "No Image" %}</span>
+            </div>
+            {% endif %}
 
-                <!-- صورة -->
-                {% if project.image %}
-                <img src="{{ project.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
-                {% else %}
-                <div class="bg-light d-flex align-items-center justify-content-center" style="height:200px;">
-                    <span class="text-muted">{% trans "No Image" %}</span>
-                </div>
+            <!-- BADGES -->
+            <div class="position-absolute top-0 start-0 m-2">
+              {% if project.is_popular %}
+              <span class="badge bg-danger shadow-sm">
+                <i class="fa-solid fa-fire me-1"></i> {% trans "Most Popular" %}
+              </span>
+              {% endif %}
+              {% if project.is_new %}
+              <span class="badge bg-primary shadow-sm">
+                <i class="fa-solid fa-star me-1"></i> {% trans "New" %}
+              </span>
+              {% endif %}
+              {% if project.install_time_minutes <= 5 %}
+              <span class="badge bg-success shadow-sm">
+                <i class="fa-solid fa-bolt me-1"></i> {% trans "Fast Install" %}
+              </span>
+              {% endif %}
+            </div>
+
+            <!-- CONTENT -->
+            <div class="card-body d-flex flex-column p-4">
+              <h5 class="card-title fw-bold d-flex justify-content-between align-items-center">
+                <span>{{ project.name }}</span>
+                <small class="text-muted" title="{% trans 'Total Installs' %}">
+                  <i class="fa-solid fa-download me-1"></i> {{ project.installs }}
+                </small>
+              </h5>
+
+              <!-- STAR RATING -->
+              <div class="mb-2">
+                {% for star in project.rating_stars %}
+                  {% if star == "full" %}
+                    <i class="fa-solid fa-star text-warning"></i>
+                  {% elif star == "half" %}
+                    <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                  {% else %}
+                    <i class="fa-regular fa-star text-warning"></i>
+                  {% endif %}
+                {% endfor %}
+                <small class="text-muted" title="{% trans 'Average Rating' %}">({{ project.average_rating_float|default:"0 / 5" }})</small>
+              </div>
+
+              <p class="card-text text-muted small">{{ project.description|truncatewords:20 }}</p>
+
+              <!-- TECHNOLOGIES -->
+              <div class="mb-3">
+                {% for container in project.containers.all %}
+                
+                <span class="badge bg-primary me-1">{{ container.get_language_display }}</span>
+                {% endfor %}
+              </div>
+
+              <!-- BUTTONS -->
+            <div class="mt-auto d-flex flex-column gap-2">
+                <a href="{% url 'plans_list' project.id %}" class="btn btn-success w-100">
+                <i class="fa-solid fa-cloud-arrow-down me-1"></i> {% trans "Install Project" %}
+                </a>
+                <button class="btn btn-outline-secondary w-100" data-bs-toggle="modal"
+                data-bs-target="#projectModal{{ project.id }}">
+                <i class="fa-solid fa-file-lines me-1"></i> {% trans "Details" %}
+                </button>
+                {% if project.docs %}
+                <a href="{% url 'view_service_resources' project.id %}" class="btn btn-outline-primary w-100 compare-btn">
+                <i class="fa-solid fa-book me-1"></i> {% trans "Documentations" %}
+                </a>
                 {% endif %}
-
-                <!-- شارات -->
-                <div class="position-absolute top-0 start-0 m-2">
-                    {% if project.is_popular %}
-                        <span class="badge bg-danger shadow-sm">🔥 {% trans "الأكثر شعبية" %}</span>
-                    {% endif %}
-                    {% if project.is_new %}
-                        <span class="badge bg-success shadow-sm">🆕 {% trans "جديد" %}</span>
-                    {% endif %}
-                </div>
-
-                <!-- المحتوى -->
-                <div class="card-body d-flex flex-column p-4">
-                    <h5 class="card-title fw-bold">{{ project.name }}</h5>
-                    <p class="card-text text-muted small">{{ project.description|truncatewords:20 }}</p>
-
-                    <!-- تقنيات -->
-                    <div class="mb-3">
-                        {% for container in project.containers.all %}
-                        <span class="badge bg-primary me-1">{{ container.get_technology_display }}</span>
-                        {% endfor %}
-                    </div>
-
-                    <!-- أزرار -->
-                    <div class="mt-auto d-flex flex-column gap-2">
-                        <a href="{% url 'plans_list' project.id %}" class="btn btn-success w-100">
-                            <i class="fa-solid fa-cloud-arrow-down me-1"></i> {% trans "تثبيت المشروع" %}
-                        </a>
-                        <button class="btn btn-outline-secondary w-100" data-bs-toggle="modal" data-bs-target="#projectModal{{ project.id }}">
-                            <i class="fa-solid fa-file-lines me-1"></i> {% trans "التفاصيل" %}
-                        </button>
-                        <a href="/resources/{{ project.id }}" class="btn btn-outline-primary w-100 compare-btn">
-                            <i class="fa-solid fa-arrows-left-right me-1"></i> {% trans "تعليمات" %}
-                        </a>
-                    </div>
-
-                </div>
             </div>
+            </div>
+          </div>
         </div>
 
-
-<div class="modal fade" id="projectModal{{ project.id }}" tabindex="-1" aria-labelledby="projectModalLabel{{ project.id }}" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content rounded-3 shadow-lg">
-            <!-- Header -->
-            <div class="modal-header bg-primary text-white">
+        <!-- Modal -->
+        <div class="modal fade" id="projectModal{{ project.id }}" tabindex="-1"
+          aria-labelledby="projectModalLabel{{ project.id }}" aria-hidden="true">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content rounded-3 shadow-lg">
+              <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="projectModalLabel{{ project.id }}">
-                    <i class="fa-solid fa-box me-2"></i> {{ project.name }}
+                  <i class="fa-solid fa-box me-2"></i> {{ project.name }}
                 </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{% trans 'Close' %}"></button>
-            </div>
-            <div class="modal-body" id="projectModalBody{{ project.id }}">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="{% trans 'Close' %}"></button>
+              </div>
+              <div class="modal-body" id="projectModalBody{{ project.id }}">
                 <div class="text-center text-muted py-5">
-                    <div class="spinner-border text-primary" role="status"></div>
-                    <p class="mt-3">{% trans "جاري تحميل التفاصيل..." %}</p>
+                  <div class="spinner-border text-primary" role="status"></div>
+                  <p class="mt-3">{% trans "Loading details..." %}</p>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</div>
         {% endfor %}
-    </div>
-</div>
-
-
-
       </div>
     </div>
+  </div>
+</div>
+
+
 
 
 

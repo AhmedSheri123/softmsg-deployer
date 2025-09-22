@@ -3,13 +3,21 @@ from .models import DocsServiceSectionsModel, DocsServicesModel, SectionContents
 
 @register(DocsServiceSectionsModel)
 class ServiceSectionsTranslationOptions(TranslationOptions):
-    fields = ('name',)  # الحقول التي تحتاج إلى ترجمة
+    """
+    Translation options for service sections.
+    """
+    fields = ('name',)  # Fields that need translation
 
 @register(DocsServicesModel)
-class DocsTranslationOptions(TranslationOptions):
-    fields = ('name',)  # الحقول التي تحتاج إلى ترجمة
-
+class DocsServicesTranslationOptions(TranslationOptions):
+    """
+    Translation options for services.
+    """
+    fields = ('name',)  # Fields that need translation
 
 @register(SectionContentsModel)
-class ContentsTranslationOptions(TranslationOptions):
-    fields = ('name', 'desc', 'content')  # الحقول التي تحتاج إلى ترجمة
+class SectionContentsTranslationOptions(TranslationOptions):
+    """
+    Translation options for section contents.
+    """
+    fields = ('name', 'desc', 'content')  # Fields that need translation

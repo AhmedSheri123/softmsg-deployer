@@ -17,7 +17,7 @@
         {% include "dashboard/projects/actions/run_action_modal.html" with container=container action=action %}
         {% endfor %}
     {% endfor %}
-    <a href="/resources/{{ deployment.project.id }}" target="_blank" class="btn btn-dark my-1">{% trans "Documentations" %}</a>
+    <a href="{% url 'view_service_resources' deployment.project.id %}" target="_blank" class="btn btn-dark my-1">{% trans "Documentations" %}</a>
 </div>
 
 

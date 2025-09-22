@@ -10,15 +10,19 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 from .models import DocsServiceSectionsModel, DocsServicesModel, SectionContentsModel
-
-@admin.register(DocsServiceSectionsModel)
-class SectionsAdmin(TranslationAdmin):
-    pass
+from modeltranslation.admin import TabbedTranslationAdmin
 
 @admin.register(DocsServicesModel)
-class DocsAdmin(TranslationAdmin):
-    pass
+class DocsServicesAdmin(TabbedTranslationAdmin):
+    list_display = ('name', 'project', 'is_enabled')
+    search_fields = ('name',)
+
+@admin.register(DocsServiceSectionsModel)
+class ServiceSectionsAdmin(TabbedTranslationAdmin):
+    list_display = ('name', 'service', 'is_enabled')
+    search_fields = ('name',)
 
 @admin.register(SectionContentsModel)
-class ContentsAdmin(TranslationAdmin):
-    pass
+class SectionContentsAdmin(TabbedTranslationAdmin):
+    list_display = ('name', 'section', 'is_enabled')
+    search_fields = ('name',)

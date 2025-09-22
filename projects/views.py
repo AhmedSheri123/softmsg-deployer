@@ -27,6 +27,10 @@ def project_list(request):
         if categories:
             projects = projects.filter(categories__in=categories).distinct()
 
+    difficulty = request.GET.get("difficulty")
+    if difficulty:
+        projects = projects.filter(difficulty_level=difficulty)
+
     # فلترة حسب التصنيف (التقنية مثلاً)
     category = request.GET.get("category")
     if category:

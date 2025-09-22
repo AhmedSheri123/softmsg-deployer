@@ -2,11 +2,14 @@ asgiref==3.8.1
 certifi==2024.8.30
 chardet==3.0.4
 charset-normalizer==3.3.2
-Django==4.2.16
+Django==5.2.6
+django-appconf==1.1.0
 django-filebrowser==4.0.3
 django-grappelli==3.0.9
-django-modeltranslation==0.19.12
+django-json-widget==2.0.3
+django-modeltranslation==0.19.17
 django-paypal==2.1
+django-select2==8.4.1
 django-tinymce==4.1.0
 docker==7.1.0
 googletrans==3.1.0a0

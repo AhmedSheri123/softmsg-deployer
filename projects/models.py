@@ -1,61 +1,72 @@
 from django.db import models
 from tinymce.models import HTMLField
 from django.db.models import Avg
-import docker
+from django.utils import timezone
+from datetime import timedelta
+from django.utils.translation import gettext_lazy as _
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(unique=True, blank=True, null=True)
+    name = models.CharField(max_length=100, unique=True, verbose_name=_("Name"))
+    slug = models.SlugField(unique=True, blank=True, null=True, verbose_name=_("Slug"))
 
     class Meta:
-        verbose_name = "تصنيف"
-        verbose_name_plural = "التصنيفات"
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
 
     def __str__(self):
         return self.name
 
 class AvailableProject(models.Model):
     DIFFICULTY_CHOICES = [
-        ("beginner", "مبتدئ"),
-        ("intermediate", "متوسط"),
-        ("advanced", "متقدم"),
+        ("beginner", _("Beginner")),
+        ("intermediate", _("Intermediate")),
+        ("advanced", _("Advanced")),
     ]
 
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    image = models.ImageField(upload_to="projects/", blank=True, null=True)
-    categories = models.ManyToManyField(Category, related_name="projects", blank=True)
+    name = models.CharField(max_length=100, verbose_name=_("Project Name"))
+    description = models.TextField(blank=True, verbose_name=_("Description"))
+    image = models.ImageField(upload_to="projects/", blank=True, null=True, verbose_name=_("Image"))
+    categories = models.ManyToManyField("Category", related_name="projects", blank=True, verbose_name=_("Categories"))
 
-
-    # الحقول الجديدة
+    # New fields
     difficulty_level = models.CharField(
         max_length=20,
         choices=DIFFICULTY_CHOICES,
         default="beginner",
-        verbose_name="مستوى الصعوبة"
+        verbose_name=_("Difficulty Level")
     )
     install_time_minutes = models.PositiveIntegerField(
         default=5,
-        verbose_name="زمن التثبيت المتوقع (بالدقائق)"
+        verbose_name=_("Estimated Install Time (minutes)")
     )
     disk_size_mb = models.PositiveIntegerField(
         default=500,
-        verbose_name="الحجم المطلوب (MB)"
+        verbose_name=_("Required Disk Size (MB)")
     )
 
-    minimum_operating_requirements = models.ForeignKey("plans.Plan", verbose_name=("ادنى متطلبات التشغيل"), on_delete=models.SET_NULL, null=True, blank=True)
-    install_steps = HTMLField(blank=True)
+    minimum_operating_requirements = models.ForeignKey(
+        "plans.Plan",
+        verbose_name=_("Minimum Operating Requirements"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+    install_steps = HTMLField(blank=True, verbose_name=_("Installation Steps"))
     installs = models.PositiveIntegerField(
         default=0,
-        verbose_name="زمن التثبيت المتوقع (بالدقائق)"
+        verbose_name=_("Number of Installs")
     )
+    
+    about = HTMLField(blank=True, verbose_name=_("About Project"))
+
+    pub_date = models.DateTimeField(auto_now_add=True, null=True, verbose_name=_("Publication Date"))
+
     def __str__(self):
         return self.name
 
     # -------------------------
     # دالة لحساب متوسط التقييم
     # -------------------------
-
     @property
     def average_rating_float(self):
         """إرجاع متوسط التقييم كعدد عشري بدقة منزل عشرية واحدة"""
@@ -104,7 +115,14 @@ class AvailableProject(models.Model):
         containers = list(self.containers.all())
         containers.sort(key=lambda c: CONTAINER_PRIORITY.get(c.type, 99))
         return containers
-
+    
+    @property
+    def is_new(self):
+        """إرجاع True إذا لم يمر على تاريخ النشر أكثر من 7 أيام"""
+        if not self.pub_date:
+            return False
+        return timezone.now() - self.pub_date <= timedelta(days=7)
+        
 
 class ProjectContainer(models.Model):
     # -------------------------
@@ -265,9 +283,9 @@ class ProjectContainer(models.Model):
 
 
 class Action(models.Model):
-    label = models.CharField(max_length=100)
-    container = models.ManyToManyField(ProjectContainer, related_name="actions")
-    command = models.TextField(help_text="اسم الدالة أو الأمر لتنفيذه عبر Docker")
+    label = models.CharField(_("Label"), max_length=100)
+    container = models.ManyToManyField("ProjectContainer", related_name="actions")
+    command = models.TextField(_("Command"), help_text=_("The function name or command to execute via Docker"))
 
     class Meta:
         ordering = ["label"]
@@ -278,14 +296,18 @@ class Action(models.Model):
 
 
 class ActionParameter(models.Model):
-    DATA_TYPES = [("string", "String"), ("boolean", "Boolean"), ("int", "Integer")]
+    DATA_TYPES = [
+        ("string", _("String")),
+        ("boolean", _("Boolean")),
+        ("int", _("Integer"))
+    ]
 
     action = models.ForeignKey(Action, on_delete=models.CASCADE, related_name="parameters")
-    label = models.CharField(max_length=100, blank=True, null=True)
-    name = models.CharField(max_length=50, help_text="الاسم الداخلي للاستخدام بالكود")
-    data_type = models.CharField(max_length=20, choices=DATA_TYPES)
-    required = models.BooleanField(default=True)
-    default = models.CharField(max_length=100, blank=True, null=True, help_text="{deployment.id}")
+    label = models.CharField(_("Label"), max_length=100, blank=True, null=True)
+    name = models.CharField(_("Internal Name"), max_length=50, help_text=_("Internal name for code usage"))
+    data_type = models.CharField(_("Data Type"), max_length=20, choices=DATA_TYPES)
+    required = models.BooleanField(_("Required"), default=True)
+    default = models.CharField(_("Default Value"), max_length=100, blank=True, null=True, help_text=_("{deployment.id}"))
 
     def display_label(self):
         return self.label or self.name
@@ -294,23 +316,39 @@ class ActionParameter(models.Model):
         return f"{self.action} | {self.display_label()}"
 
 class EnvVarsTitle(models.Model):
-    title = models.CharField(max_length=100)
-    project_container = models.ForeignKey(ProjectContainer, on_delete=models.CASCADE, null=True, related_name='project_title_envs')
+    title = models.CharField(_("Title"), max_length=100)
+    project_container = models.ForeignKey(
+        "ProjectContainer", 
+        on_delete=models.CASCADE, 
+        null=True, 
+        related_name='project_title_envs'
+    )
 
     def __str__(self):
-        return f"{self.title}-{self.project_container}"
-    
+        return f"{self.title} - {self.project_container}"
+
+
 class EnvVar(models.Model):
-    DATA_TYPES = [("string", "String"), ("boolean", "Boolean"), ("int", "Integer")]
+    DATA_TYPES = [
+        ("string", _("String")), 
+        ("boolean", _("Boolean")), 
+        ("int", _("Integer"))
+    ]
     
-    title = models.ForeignKey(EnvVarsTitle, on_delete=models.SET_NULL, null=True, blank=True, related_name='project_envs')
-    label = models.CharField(max_length=100)
-    key = models.CharField(max_length=100)
-    data_type = models.CharField(max_length=20, choices=DATA_TYPES, null=True)
-    is_secret = models.BooleanField(default=False)
-    required = models.BooleanField(default=False)
-    default_value = models.CharField(max_length=100, help_text="{container.deployment.id}", blank=True)
-    sort_index = models.IntegerField(default=0)
+    title = models.ForeignKey(
+        EnvVarsTitle, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        related_name='project_envs'
+    )
+    label = models.CharField(_("Label"), max_length=100)
+    key = models.CharField(_("Key"), max_length=100)
+    data_type = models.CharField(_("Data Type"), max_length=20, choices=DATA_TYPES, null=True)
+    is_secret = models.BooleanField(_("Is Secret"), default=False)
+    required = models.BooleanField(_("Required"), default=False)
+    default_value = models.CharField(_("Default Value"), max_length=100, help_text=_("{container.deployment.id}"), blank=True)
+    sort_index = models.IntegerField(_("Sort Index"), default=0)
 
     class Meta:
         unique_together = ("title", "key")

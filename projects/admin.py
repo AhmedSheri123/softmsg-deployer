@@ -2,14 +2,20 @@ from django.contrib import admin
 from .models import AvailableProject, ProjectContainer, Action, ActionParameter, EnvVar, EnvVarsTitle, ProjectReview, Category
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
+from modeltranslation.admin import TabbedTranslationAdmin
 
 # -------------------------
 # Action & EnvVar
 # -------------------------
 admin.site.register(Category)
-admin.site.register(EnvVarsTitle)
 admin.site.register(ProjectReview)
 
+# فقط المودل المترجم نستخدم TabbedTranslationAdmin
+@admin.register(EnvVarsTitle)
+class EnvVarsTitleAdmin(TabbedTranslationAdmin):
+    pass
+
+# هذه المودلز غير مترجمة، نستخدم ModelAdmin عادي
 @admin.register(Action)
 class ActionAdmin(admin.ModelAdmin):
     list_display = ('label',)
@@ -24,6 +30,7 @@ class ActionParameterAdmin(admin.ModelAdmin):
 class EnvVarAdmin(admin.ModelAdmin):
     list_display = ('title', 'key', 'label', 'is_secret', 'required', 'default_value')
     search_fields = ('key', 'label')
+
 
 
 # -------------------------
@@ -44,7 +51,7 @@ class ProjectContainerAdmin(admin.ModelAdmin):
 # AvailableProject
 # -------------------------
 @admin.register(AvailableProject)
-class AvailableProjectAdmin(admin.ModelAdmin):
+class AvailableProjectAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'docker_images', 'has_frontend', 'has_redis')
     search_fields = ('name',)
 
@@ -69,6 +76,6 @@ class AvailableProjectAdmin(admin.ModelAdmin):
     # -------------------------
     fieldsets = (
         ("Basic Info", {
-            "fields": ('name', 'description', 'image', 'install_steps', 'difficulty_level', 'install_time_minutes', 'disk_size_mb', 'minimum_operating_requirements')
+            "fields": ('name', 'description', 'image', 'install_steps', 'difficulty_level', 'install_time_minutes', 'disk_size_mb', 'minimum_operating_requirements', 'about')
         }),
     )
