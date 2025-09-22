@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
-from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, hard_restart
+from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, hard_restart, get_storage_usage
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
@@ -99,7 +99,7 @@ def deployment_usage_api(request, deployment_id):
     containers = deployment.containers.all()
     if not containers.exists():
         return JsonResponse({"error": "No containers found"}, status=400)
-
+    total_storage_used = get_storage_usage().get("used_storage", 0)
     for dc in containers:
         usage = get_container_usage(dc.container_name, deployment=deployment)
         if "error" in usage:
@@ -107,7 +107,7 @@ def deployment_usage_api(request, deployment_id):
 
         total_mem_used += usage.get("used_ram", 0)
         total_mem_limit += usage.get("memory_limit", 0)
-        total_storage_used += usage.get("used_storage", 0)
+        
 
         # -------- CPU --------
         cpu_limit_cores = float(getattr(plan, "cpu", 1))  # تحويل Decimal إلى float

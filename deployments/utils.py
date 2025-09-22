@@ -340,38 +340,43 @@ def get_container_usage(container_name, deployment=None):
         cpu_percent = calculate_cpu_percent(stats)
 
         # -------- Storage --------
-        used_storage = 0
-        if deployment:
-            storage_data = deployment.get_volume_storage_data
-            mount_dir = storage_data["mount_dir"]
-
-            if os.path.exists(mount_dir):
-                try:
-                    result = subprocess.run(
-                        ["du", "-sb", mount_dir],  # <--- هنا mount_dir وليس path
-                        capture_output=True,
-                        text=True,
-                        check=True
-                    )
-                    size_bytes = int(result.stdout.split()[0])
-                    used_storage = size_bytes
-
-                except subprocess.CalledProcessError as e:
-                    logger.error(f"Failed to get storage usage for {mount_dir}: {e}")
-                except Exception as e:
-                    logger.exception(f"Unexpected error while calculating storage for {mount_dir}: {e}")
-            else:
-                logger.warning(f"Mount directory does not exist: {mount_dir}")
 
 
         return {
             "used_ram": mem_usage,         # Bytes
             "memory_limit": mem_limit,     # Bytes
             "cpu_percent": round(cpu_percent, 1),  # النسبة الفعلية
-            "used_storage": used_storage,  # Bytes
+            
         }
 
     except docker.errors.NotFound:
         return {"error": f"Container {container_name} not found"}
     except Exception as e:
         return {"error": str(e)}
+    
+def get_storage_usage(deployment=None):
+    used_storage = 0
+    if deployment:
+        storage_data = deployment.get_volume_storage_data
+        mount_dir = storage_data["mount_dir"]
+
+        if os.path.exists(mount_dir):
+            try:
+                result = subprocess.run(
+                    ["du", "-sb", mount_dir],  # <--- هنا mount_dir وليس path
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
+                size_bytes = int(result.stdout.split()[0])
+                used_storage = size_bytes
+
+            except subprocess.CalledProcessError as e:
+                logger.error(f"Failed to get storage usage for {mount_dir}: {e}")
+            except Exception as e:
+                logger.exception(f"Unexpected error while calculating storage for {mount_dir}: {e}")
+        else:
+            logger.warning(f"Mount directory does not exist: {mount_dir}")
+    return {
+        "used_storage": used_storage,  # Bytes
+        }
