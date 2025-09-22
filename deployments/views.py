@@ -99,7 +99,7 @@ def deployment_usage_api(request, deployment_id):
     containers = deployment.containers.all()
     if not containers.exists():
         return JsonResponse({"error": "No containers found"}, status=400)
-    total_storage_used = get_storage_usage().get("used_storage", 0)
+    total_storage_used = get_storage_usage(deployment).get("used_storage", 0)
     for dc in containers:
         usage = get_container_usage(dc.container_name, deployment=deployment)
         if "error" in usage:
