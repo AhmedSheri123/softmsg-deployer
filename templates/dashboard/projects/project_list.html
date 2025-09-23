@@ -13,26 +13,67 @@
 <meta property="og:description" content="Access popular ready projects, control panels, and apps. One-click installation, ready in minutes.">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta property="og:type" content="website">
+<!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/sal.js/dist/sal.css">
 {% endblock meta %}
 
 
 {% block sheri %}
 {% if base_template == 'base.html' %}
+<style>
+/* خلفية متدرجة تتحرك يمين/يسار */
+.header-animated {
+    position: relative;
+    background: linear-gradient(43deg, #fecd3a 30%, #ffffff 31%, #000000 30%, #000000 50%, #ffffff 51%, #0d6efd 50%);
+    background-size: 200% 200%;
+    animation: gradientMove 10s ease-in-out infinite alternate;
+    overflow: hidden;
+}
 
+/* حركة التدرج */
+@keyframes gradientMove {
+    0% {
+        background-position: left top;
+    }
+    100% {
+        background-position: right bottom;
+    }
+}
+
+/* طبقة تغبيش خفيف */
+.header-animated::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(6px); /* تغبيش */
+    background-color: rgba(0, 0, 0, 0.2); /* طبقة شفافة */
+    z-index: 0;
+}
+
+.header-animated > * {
+    position: relative;
+    z-index: 1; /* عشان النص فوق الطبقة */
+}
+
+</style>
 <!-- header -->
-<div class="px-4 py-5 text-center bg-warning bg-gradient text-white">
+<div class="px-4 py-5 text-center text-white header-animated" data-sal="fade" data-sal-delay="100" data-sal-duration="800">
     <div class="py-5"></div>
     <h1 class="display-5 fw-bold mb-4">{% trans "Ready Projects Store" %}</h1>
     <div class="col-lg-7 mx-auto">
-        <p class="fs-5 mb-4">{% trans "Access popular ready projects, control panels, and apps. Get up and running in minutes with smooth one-click installation." %}</p>
+        <p class="fs-5 mb-4" data-sal="fade" data-sal-delay="300" data-sal-duration="800">
+            {% trans "Access popular ready projects, control panels, and apps. Get up and running in minutes with smooth one-click installation." %}
+        </p>
         <a href="{% url 'Signup' %}" class="btn btn-light btn-lg shadow">
-            <i class="bi bi-cart-plus"></i> {% trans "Subscribe Now" %}
+            <i class="bi bi-cart-plus"></i> 
+            <span data-sal="fade" data-sal-delay="400" data-sal-duration="800">{% trans "Subscribe Now" %}</span>
         </a>
     </div>
 </div>
 <!-- end header -->
+
 {% endif %}
-<div class="py-5 px-4">
+<div class="py-5 px-4" data-sal="fade" data-sal-delay="300" data-sal-duration="800">
     <div class="row">
     <!-- LEFT: FILTERS -->
     <div class="col-md-3">
@@ -138,7 +179,7 @@
       <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for project in projects %}
         <div class="col">
-          <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden project-card position-relative">
+          <div class="card h-100 shadow-sm border-1 rounded-4 overflow-hidden project-card position-relative">
             <!-- IMAGE -->
             {% if project.image %}
             <img src="{{ project.image.url }}" class="card-img-top"
@@ -249,7 +290,7 @@
 
 
 
-
+<script src="https://unpkg.com/sal.js/dist/sal.js"></script>
 
 
 <!-- تحسينات CSS -->
@@ -432,6 +473,14 @@ $(document).ready(function(){
         }
     });
 });
+
+  document.addEventListener('DOMContentLoaded', function() {
+      sal({
+          threshold: 0.2,   // يبدأ الحركة لما يظهر 20% من العنصر
+          once: true        // الحركة مرة وحدة فقط (إذا خليتها false يكرر مع كل scroll)
+      });
+  });
 </script>
+
 
 {% endblock sheri %}

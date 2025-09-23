@@ -34,6 +34,7 @@ def Signup(request):
 
 def Login(request):
     form = LoginForm()
+    next = request.GET.get('next')
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
@@ -47,6 +48,8 @@ def Login(request):
                 if user is not None:
                     login(request, user)
                     messages.success(request, 'Login Success')
+                    if next:
+                        return redirect(next)
                     return redirect('DashboardHome')
                 else:messages.error(request, 'wrong email or password')
             else:messages.error(request, 'user dos not exists')

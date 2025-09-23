@@ -7,8 +7,6 @@
 <!-- CSS -->
 <link rel="stylesheet" href="https://unpkg.com/sal.js/dist/sal.css">
 
-
-
 {% endblock meta %}
 
 {% block sheri %}
@@ -16,12 +14,13 @@
 <div class="py-4"></div>
 <div class="px-4 py-5 text-center" data-sal="fade" data-sal-delay="100" data-sal-duration="800">
     <div class="py-4 text-body-emphasis">
-    <h1 class="display-5 fw-bold container mb-4" style="max-width:600px;"
-        data-sal="slide-up" 
-        data-sal-delay="200" 
-        data-sal-duration="800">
-        <span id="typed-text" class="text-primary"></span>
-    </h1>
+        <h1 class="display-5 fw-bold container mb-4 " style="max-width:600px;"
+            data-sal="slide-up" 
+            data-sal-delay="200" 
+            data-sal-duration="800">
+            {% trans "SOFTmsg For" %}
+            <span id="typed-text" class="text-primary"></span>
+        </h1>
         <div class="col-lg-6 mx-auto" data-sal="fade" data-sal-delay="300" data-sal-duration="800">
             <p class="fs-5 mb-4">
                 {% trans "A versatile software suite transforming businesses of all sizes by simplifying complex systems into efficient work environments." %}
@@ -101,9 +100,12 @@
 <div class="container py-5">
     
     <div class="bg-black p-4 p-md-5 rounded-4 text-center">
+            
         <h2 class="text-white" data-sal="slide-up" data-sal-duration="800">
-            {% trans "Solutions that actually <span class='text-success'>solve <br> your problems</span>" %}
+            {% trans "Solutions that actually <span class='text-success'>solve <br> your problems</span>" %} ->
+            <span id="typed-solutions"></span>
         </h2>
+
 
         <ul class="p-0 py-4 row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-2 g-lg-3 text-white" style="list-style: none;">
             {% comment %} لكل عنصر أضفنا SAL مع تأخير متدرج {% endcomment %}
@@ -709,7 +711,7 @@
 
 <!-- JS -->
 <script src="https://unpkg.com/sal.js/dist/sal.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
 
 <script>
@@ -743,7 +745,6 @@
 
 
 <!-- إضافة مكتبة Typed.js -->
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var options = {
@@ -761,6 +762,29 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     var typed = new Typed('#typed-text', options);
+
+
+    var options = {
+        strings: [
+            "{% trans 'IT tickets' %}",
+            "{% trans 'Tasks' %}",
+            "{% trans 'Sales pipeline' %}",
+            "{% trans 'Contacts' %}",
+            "{% trans 'Appointments' %}",
+            "{% trans 'Roadmap planning' %}",
+            "{% trans 'Recruitment' %}",
+            "{% trans 'Resource management' %}",
+            "{% trans 'Reporting' %}",
+            "{% trans 'Exporting' %}"
+        ],
+        typeSpeed: 60,
+        backSpeed: 40,
+        backDelay: 1500,
+        loop: true,
+        smartBackspace: true
+    };
+
+    var typed = new Typed("#typed-solutions", options);
 });
 </script>
 {% endblock sheri %}
