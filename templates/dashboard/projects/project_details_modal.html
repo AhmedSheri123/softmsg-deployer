@@ -31,7 +31,7 @@
                 </a>
                 {% endif %}
                 {% if project.source_code_url %}
-                <a href="{{project.source_code_url}}" aria-label="{{ project.name }} {% trans "Documentation" %}" target="_blank" class="btn btn-outline-secondary btn-sm">
+                <a href="{% url 'get_project_source_code' project.id %}" aria-label="{{ project.name }} {% trans "Documentation" %}" target="_blank" class="btn btn-outline-secondary btn-sm">
                     <i class="fa-solid fa-book"></i> {% trans "Source Code" %}
                 </a>
                 {% endif %}
@@ -98,7 +98,7 @@
                         <div>
                             <i class="fa-solid fa-download text-primary"></i> {% trans "Downloads:" %}
                         </div>
-                        <span class="badge bg-primary rounded-pill">{{ project.downloads }}</span>
+                        <span class="badge bg-primary rounded-pill">{{ project.get_installs_and_downloads }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
@@ -135,7 +135,7 @@
 
                 <!-- زر الكود المصدري -->
                 {% if project.source_code_url %}
-                    <a href="{{ project.source_code_url }}" 
+                    <a href="{% url 'get_project_source_code' project.id %}" 
                     aria-label="{{ project.name }} {% trans "Source Code" %}" 
                     target="_blank" 
                     class="btn btn-success btn-lg d-block mb-3"

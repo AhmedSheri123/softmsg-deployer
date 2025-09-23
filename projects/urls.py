@@ -13,5 +13,6 @@ urlpatterns = [
         name="run_action"
     ),
     path("project/<int:project_id>/review/", views.add_review, name="add_review"),
+    path("get-project-source-code/<int:project_id>/url/", views.get_project_source_code, name="get_project_source_code"),
     path('project-autocomplete/', views.project_autocomplete, name='project-autocomplete'),
 ]

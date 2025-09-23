@@ -68,6 +68,10 @@ class AvailableProject(models.Model):
 
     pub_date = models.DateTimeField(auto_now_add=True, null=True, verbose_name=_("Publication Date"))
 
+    @property
+    def get_installs_and_downloads(self):
+        return self.installs + self.downloads
+    
     def __str__(self):
         return self.name
 

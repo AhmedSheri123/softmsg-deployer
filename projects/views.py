@@ -188,3 +188,10 @@ def project_autocomplete(request):
             "image":(p.image.url if p.image else "https://placehold.co/600x400?text=not+image"),
             "url":reverse('project_details', kwargs={"project_id":p.id})} for p in projects]
     return JsonResponse(data, safe=False)
+
+
+def get_project_source_code(request, project_id):
+    project = get_object_or_404(AvailableProject, id=project_id)
+    project.downloads += 1
+    project.save()
+    return redirect(project.source_code_url)
