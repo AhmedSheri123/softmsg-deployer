@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-23 13:56+0300\n"
+"POT-Creation-Date: 2025-09-23 16:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,12 +133,12 @@ msgid "HR Management"
 msgstr "Managementul resurselor umane"
 
 #: .\dashboard\models.py:20 .\templates\dashboard\plans\ServicePlans.html:20
-#: .\templates\dashboard\projects\project_details_modal.html:193
+#: .\templates\dashboard\projects\project_details_modal.html:238
 msgid "Monthly"
 msgstr "Lunar"
 
 #: .\dashboard\models.py:21 .\templates\dashboard\plans\ServicePlans.html:25
-#: .\templates\dashboard\projects\project_details_modal.html:194
+#: .\templates\dashboard\projects\project_details_modal.html:239
 msgid "Yearly"
 msgstr "Anual"
 
@@ -274,7 +274,7 @@ msgstr "Cum te poate ajuta echipa noastră?"
 msgid "https://example.com"
 msgstr "https://example.com"
 
-#: .\pages\models.py:7 .\templates\pages\index.html:646
+#: .\pages\models.py:7 .\templates\pages\index.html:715
 msgid "Full Name"
 msgstr "Numele complet"
 
@@ -356,96 +356,100 @@ msgstr ""
 msgid "Minimum Operating Requirements"
 msgstr ""
 
-#: .\projects\models.py:54
+#: .\projects\models.py:56
 msgid "Installation Steps"
 msgstr ""
 
-#: .\projects\models.py:57
+#: .\projects\models.py:59
 msgid "Number of Installs"
 msgstr ""
 
-#: .\projects\models.py:60
+#: .\projects\models.py:63
+msgid "Number of source code downloads"
+msgstr ""
+
+#: .\projects\models.py:66
 #, fuzzy
 #| msgid "Project"
 msgid "About Project"
 msgstr "Proiect"
 
-#: .\projects\models.py:62
+#: .\projects\models.py:68
 #, fuzzy
 #| msgid "Creation Date"
 msgid "Publication Date"
 msgstr "Data creației"
 
-#: .\projects\models.py:286 .\projects\models.py:306 .\projects\models.py:345
+#: .\projects\models.py:292 .\projects\models.py:312 .\projects\models.py:351
 msgid "Label"
 msgstr ""
 
-#: .\projects\models.py:288
+#: .\projects\models.py:294
 msgid "Command"
 msgstr ""
 
-#: .\projects\models.py:288
+#: .\projects\models.py:294
 msgid "The function name or command to execute via Docker"
 msgstr ""
 
-#: .\projects\models.py:300 .\projects\models.py:333
+#: .\projects\models.py:306 .\projects\models.py:339
 msgid "String"
 msgstr ""
 
-#: .\projects\models.py:301 .\projects\models.py:334
+#: .\projects\models.py:307 .\projects\models.py:340
 msgid "Boolean"
 msgstr ""
 
-#: .\projects\models.py:302 .\projects\models.py:335
+#: .\projects\models.py:308 .\projects\models.py:341
 msgid "Integer"
 msgstr ""
 
-#: .\projects\models.py:307
+#: .\projects\models.py:313
 msgid "Internal Name"
 msgstr ""
 
-#: .\projects\models.py:307
+#: .\projects\models.py:313
 msgid "Internal name for code usage"
 msgstr ""
 
-#: .\projects\models.py:308 .\projects\models.py:347
+#: .\projects\models.py:314 .\projects\models.py:353
 msgid "Data Type"
 msgstr ""
 
-#: .\projects\models.py:309 .\projects\models.py:349
+#: .\projects\models.py:315 .\projects\models.py:355
 msgid "Required"
 msgstr ""
 
-#: .\projects\models.py:310 .\projects\models.py:350
+#: .\projects\models.py:316 .\projects\models.py:356
 msgid "Default Value"
 msgstr ""
 
-#: .\projects\models.py:310
+#: .\projects\models.py:316
 #, python-brace-format
 msgid "{deployment.id}"
 msgstr ""
 
-#: .\projects\models.py:319
+#: .\projects\models.py:325
 #: .\templates\dashboard\deployments\deployment_detail.html:156
 #, fuzzy
 #| msgid "title"
 msgid "Title"
 msgstr "titlu"
 
-#: .\projects\models.py:346
+#: .\projects\models.py:352
 msgid "Key"
 msgstr ""
 
-#: .\projects\models.py:348
+#: .\projects\models.py:354
 msgid "Is Secret"
 msgstr ""
 
-#: .\projects\models.py:350
+#: .\projects\models.py:356
 #, python-brace-format
 msgid "{container.deployment.id}"
 msgstr ""
 
-#: .\projects\models.py:351
+#: .\projects\models.py:357
 msgid "Sort Index"
 msgstr ""
 
@@ -570,8 +574,8 @@ msgid "Change"
 msgstr "Schimba"
 
 #: .\templates\accounts\profile\EditProfile.html:152
-#: .\templates\dashboard\projects\project_details_modal.html:275
-#: .\templates\dashboard\projects\project_list.html:274
+#: .\templates\dashboard\projects\project_details_modal.html:320
+#: .\templates\dashboard\projects\project_list.html:279
 msgid "Close"
 msgstr "Aproape"
 
@@ -623,7 +627,7 @@ msgid "Settings"
 msgstr "Setări școlare"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:20
-#: .\templates\dashboard\projects\project_list.html:256
+#: .\templates\dashboard\projects\project_list.html:261
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:7
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:40
 #: .\templates\parts\navbar.html:54
@@ -988,7 +992,7 @@ msgstr "Anual"
 
 #: .\templates\dashboard\plans\ServicePlans.html:87
 #: .\templates\dashboard\plans\ServicePlans.html:354
-#: .\templates\dashboard\projects\project_details_modal.html:199
+#: .\templates\dashboard\projects\project_details_modal.html:244
 #: .\templates\dashboard\projects\project_list.html:69
 #, fuzzy
 #| msgid "Subscribe"
@@ -1014,7 +1018,7 @@ msgid "Database"
 msgstr ""
 
 #: .\templates\dashboard\plans\ServicePlans.html:146
-#: .\templates\pages\index.html:514
+#: .\templates\pages\index.html:577
 #: .\templates\pages\services\HRManagement.html:597
 #: .\templates\pages\services\PatientManagement.html:490
 msgid "Frequently Asked Questions"
@@ -1074,7 +1078,6 @@ msgid ""
 msgstr ""
 
 #: .\templates\dashboard\plans\ServicePlans.html:238
-#: .\templates\pages\index.html:550
 msgid "What payment methods are available?"
 msgstr ""
 
@@ -1106,7 +1109,7 @@ msgid "Great service, easy to use!"
 msgstr ""
 
 #: .\templates\dashboard\plans\ServicePlans.html:300
-#: .\templates\pages\index.html:482
+#: .\templates\pages\index.html:545
 msgid "Project Manager"
 msgstr "Manager de proiect"
 
@@ -1151,141 +1154,176 @@ msgstr ""
 
 #: .\templates\dashboard\projects\project_details_modal.html:29
 #: .\templates\dashboard\projects\project_details_modal.html:30
+#: .\templates\dashboard\projects\project_details_modal.html:34
 msgid "Documentation"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:53
+#: .\templates\dashboard\projects\project_details_modal.html:35
+#: .\templates\dashboard\projects\project_details_modal.html:139
+msgid "Source Code"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:58
 #, fuzzy
 #| msgid "Project Settings"
 msgid "Project Details:"
 msgstr "Setări de proiect"
 
-#: .\templates\dashboard\projects\project_details_modal.html:57
+#: .\templates\dashboard\projects\project_details_modal.html:62
 msgid "Difficulty Level:"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:61
+#: .\templates\dashboard\projects\project_details_modal.html:66
 msgid "Estimated Install Time:"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:62
+#: .\templates\dashboard\projects\project_details_modal.html:67
 msgid "minutes"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:65
+#: .\templates\dashboard\projects\project_details_modal.html:70
 msgid "Required Disk Space:"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:74
+#: .\templates\dashboard\projects\project_details_modal.html:79
 #, fuzzy
 #| msgid "Employee Engagement"
 msgid "Engagement:"
 msgstr "Angajarea angajaților"
 
-#: .\templates\dashboard\projects\project_details_modal.html:89
+#: .\templates\dashboard\projects\project_details_modal.html:94
 #, fuzzy
 #| msgid "Reporting"
 msgid "Rating:"
 msgstr "Raportare"
 
-#: .\templates\dashboard\projects\project_details_modal.html:94
+#: .\templates\dashboard\projects\project_details_modal.html:99
+msgid "Downloads:"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:105
 msgid "Installations:"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:101
+#: .\templates\dashboard\projects\project_details_modal.html:112
 #, fuzzy
 #| msgid "Active Service"
 msgid "Active Users:"
 msgstr "Serviciu activ"
 
-#: .\templates\dashboard\projects\project_details_modal.html:111
-msgid "Languages & Technologies Used:"
-msgstr ""
-
-#: .\templates\dashboard\projects\project_details_modal.html:117
-msgid "No specific technologies"
+#: .\templates\dashboard\projects\project_details_modal.html:121
+#: .\templates\dashboard\projects\project_details_modal.html:317
+msgid "Install"
 msgstr ""
 
 #: .\templates\dashboard\projects\project_details_modal.html:125
-msgid "Minimum Operating Requirements:"
+#, fuzzy
+#| msgid "Project"
+msgid "install project cloud"
+msgstr "Proiect"
+
+#: .\templates\dashboard\projects\project_details_modal.html:126
+msgid "Click to install this project automatically"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:137
-msgid "Optional Features After Install:"
+#: .\templates\dashboard\projects\project_details_modal.html:128
+#: .\templates\dashboard\projects\project_details_modal.html:318
+#: .\templates\dashboard\projects\project_list.html:253
+#, fuzzy
+#| msgid "Project"
+msgid "Install Project"
+msgstr "Proiect"
+
+#: .\templates\dashboard\projects\project_details_modal.html:133
+msgid "We will install the project for you, no need for a programmer."
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:153
-msgid "Short Install Steps:"
+#: .\templates\dashboard\projects\project_details_modal.html:144
+#: .\templates\dashboard\projects\project_details_modal.html:145
+msgid "Download and view the source code"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:147
+msgid "Download Source Code"
 msgstr ""
 
 #: .\templates\dashboard\projects\project_details_modal.html:156
+msgid "Languages & Technologies Used:"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:162
+msgid "No specific technologies"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:170
+msgid "Minimum Operating Requirements:"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:182
+msgid "Optional Features After Install:"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:198
+msgid "Short Install Steps:"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:201
 msgid "No steps added yet"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:165
+#: .\templates\dashboard\projects\project_details_modal.html:210
 #, fuzzy
 #| msgid "Project"
 msgid "About Project:"
 msgstr "Proiect"
 
-#: .\templates\dashboard\projects\project_details_modal.html:175
+#: .\templates\dashboard\projects\project_details_modal.html:220
 msgid "Available Plans:"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:198
+#: .\templates\dashboard\projects\project_details_modal.html:243
 #, fuzzy
 #| msgid "Subscribe"
 msgid "Subscribe to"
 msgstr "Abonați -vă"
 
-#: .\templates\dashboard\projects\project_details_modal.html:212
+#: .\templates\dashboard\projects\project_details_modal.html:257
 #, fuzzy
 #| msgid "User Service"
 msgid "User Reviews"
 msgstr "Serviciu de utilizator"
 
-#: .\templates\dashboard\projects\project_details_modal.html:236
+#: .\templates\dashboard\projects\project_details_modal.html:281
 #, fuzzy
 #| msgid "Customer reviews"
 msgid "No reviews yet"
 msgstr "Recenzii ale clienților"
 
-#: .\templates\dashboard\projects\project_details_modal.html:242
+#: .\templates\dashboard\projects\project_details_modal.html:287
 #, fuzzy
 #| msgid "Add Service"
 msgid "Add Your Review"
 msgstr "Adăugați serviciu"
 
-#: .\templates\dashboard\projects\project_details_modal.html:247
+#: .\templates\dashboard\projects\project_details_modal.html:292
 #, fuzzy
 #| msgid "Reporting"
 msgid "Rating"
 msgstr "Raportare"
 
-#: .\templates\dashboard\projects\project_details_modal.html:258
+#: .\templates\dashboard\projects\project_details_modal.html:303
 msgid "Your Comment"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:259
+#: .\templates\dashboard\projects\project_details_modal.html:304
 msgid "Add your comment here"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_details_modal.html:263
+#: .\templates\dashboard\projects\project_details_modal.html:308
 #, fuzzy
 #| msgid "Submit"
 msgid "Submit Review"
 msgstr "Depune"
-
-#: .\templates\dashboard\projects\project_details_modal.html:272
-msgid "Install"
-msgstr ""
-
-#: .\templates\dashboard\projects\project_details_modal.html:273
-#: .\templates\dashboard\projects\project_list.html:248
-#, fuzzy
-#| msgid "Project"
-msgid "Install Project"
-msgstr "Proiect"
 
 #: .\templates\dashboard\projects\project_list.html:62
 #, fuzzy
@@ -1363,21 +1401,27 @@ msgstr ""
 msgid "Fast Install"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:216
+#: .\templates\dashboard\projects\project_list.html:212
+#, fuzzy
+#| msgid "Resources"
+msgid "Open Source"
+msgstr "Resurse"
+
+#: .\templates\dashboard\projects\project_list.html:221
 #, fuzzy
 #| msgid "Total visits"
 msgid "Total Installs"
 msgstr "Vizite totale"
 
-#: .\templates\dashboard\projects\project_list.html:232
+#: .\templates\dashboard\projects\project_list.html:237
 msgid "Average Rating"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:252
+#: .\templates\dashboard\projects\project_list.html:257
 msgid "Details"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:279
+#: .\templates\dashboard\projects\project_list.html:284
 msgid "Loading details..."
 msgstr ""
 
@@ -1714,7 +1758,7 @@ msgstr "Salariu total"
 msgid "Total Income"
 msgstr "Venit total"
 
-#: .\templates\dashboard_base.html:9 .\templates\pages\index.html:209
+#: .\templates\dashboard_base.html:9 .\templates\pages\index.html:272
 #: .\templates\pages\services\HRManagement.html:279
 #: .\templates\pages\services\PatientManagement.html:221
 #: .\templates\pages\services\SchoolManagement.html:252
@@ -1743,7 +1787,7 @@ msgstr ""
 "Răspunsuri clare la cele mai frecvente întrebări despre serviciile noastre "
 "pentru a vă ajuta să obțineți informații rapid și ușor."
 
-#: .\templates\pages\index.html:6 .\templates\pages\index.html:26
+#: .\templates\pages\index.html:6
 msgid ""
 "A versatile software suite transforming businesses of all sizes by "
 "simplifying complex systems into efficient work environments."
@@ -1756,7 +1800,14 @@ msgstr ""
 msgid "SOFTmsg For"
 msgstr ""
 
-#: .\templates\pages\index.html:34
+#: .\templates\pages\index.html:26
+msgid ""
+"SOFTmsg is a marketplace that lets you launch ready-to-use web projects "
+"instantly — no coding required, just one click to deploy and manage your "
+"apps."
+msgstr ""
+
+#: .\templates\pages\index.html:35
 #: .\templates\pages\services\HRManagement.html:22
 #: .\templates\pages\services\HRManagement.html:816
 #: .\templates\pages\services\PatientManagement.html:21
@@ -1766,88 +1817,90 @@ msgstr ""
 msgid "Get started for free"
 msgstr "Începeți gratuit"
 
-#: .\templates\pages\index.html:43 .\templates\pages\index.html:636
-#: .\templates\pages\services\HRManagement.html:26
-#: .\templates\pages\services\HRManagement.html:820
-#: .\templates\pages\services\PatientManagement.html:25
-#: .\templates\pages\services\PatientManagement.html:588
-#: .\templates\pages\services\SchoolManagement.html:25
-#: .\templates\pages\services\SchoolManagement.html:433
-#: .\templates\parts\footer.html:10 .\templates\parts\navbar.html:66
-msgid "Contact us"
-msgstr "Contactaţi-ne"
+#: .\templates\pages\index.html:45 .\templates\parts\dashboard\sidebar.html:28
+#: .\templates\parts\navbar.html:29
+msgid "Marketplace"
+msgstr ""
 
-#: .\templates\pages\index.html:68
+#: .\templates\pages\index.html:71
 #: .\templates\pages\services\HRManagement.html:38
 #: .\templates\pages\services\PatientManagement.html:37
 #: .\templates\pages\services\SchoolManagement.html:37
 msgid "Trusted by industry leaders"
 msgstr "Încredere de liderii industriei"
 
-#: .\templates\pages\index.html:105
+#: .\templates\pages\index.html:148
+#, fuzzy
+#| msgid ""
+#| "Solutions that actually <span class='text-success'>solve <br> your "
+#| "problems</span>"
 msgid ""
-"Solutions that actually <span class='text-success'>solve <br> your problems</"
-"span>"
+"Powerful solutions that <span class='text-success'>launch your projects "
+"instantly</span>"
 msgstr ""
 "Soluții care de fapt <span class = 'text-succes'> rezolvați <br> Problemele "
 "dvs. </span>"
 
-#: .\templates\pages\index.html:116 .\templates\pages\index.html:774
-msgid "IT tickets"
-msgstr "Bilete"
+#: .\templates\pages\index.html:158
+msgid "One-Click Install"
+msgstr ""
 
-#: .\templates\pages\index.html:122 .\templates\pages\index.html:775
-msgid "Tasks"
-msgstr "Sarcini"
+#: .\templates\pages\index.html:166
+msgid "Open-Source Marketplace"
+msgstr ""
 
-#: .\templates\pages\index.html:128 .\templates\pages\index.html:776
-msgid "Sales pipeline"
-msgstr "Conductă de vânzări"
+#: .\templates\pages\index.html:174
+#, fuzzy
+#| msgid "HR Management"
+msgid "Easy Management"
+msgstr "Managementul resurselor umane"
 
-#: .\templates\pages\index.html:134 .\templates\pages\index.html:777
-msgid "Contacts"
-msgstr "Contacte"
+#: .\templates\pages\index.html:182
+msgid "Secure by Default"
+msgstr ""
 
-#: .\templates\pages\index.html:140 .\templates\pages\index.html:778
-#: .\templates\pages\services\PatientManagement.html:130
-msgid "Appointments"
-msgstr "Numiri"
+#: .\templates\pages\index.html:190
+msgid "Optimized for Servers"
+msgstr ""
 
-#: .\templates\pages\index.html:146 .\templates\pages\index.html:779
-msgid "Roadmap planning"
-msgstr "Planificarea foii de parcurs"
+#: .\templates\pages\index.html:198
+msgid "Import & Export Projects"
+msgstr ""
 
-#: .\templates\pages\index.html:152 .\templates\pages\index.html:780
-msgid "Recruitment"
-msgstr "Recrutare"
+#: .\templates\pages\index.html:206
+msgid "Team Collaboration"
+msgstr ""
 
-#: .\templates\pages\index.html:158 .\templates\pages\index.html:781
-msgid "Resource management"
-msgstr "Gestionarea resurselor"
+#: .\templates\pages\index.html:214
+#, fuzzy
+#| msgid "Multi Languages"
+msgid "Multi-Language Support"
+msgstr "Limbi multiple"
 
-#: .\templates\pages\index.html:164 .\templates\pages\index.html:782
-msgid "Reporting"
-msgstr "Raportare"
+#: .\templates\pages\index.html:222 .\templates\pages\index.html:857
+#, fuzzy
+#| msgid "Support"
+msgid "24/7 Support"
+msgstr "Sprijin"
 
-#: .\templates\pages\index.html:170 .\templates\pages\index.html:783
-#: .\templates\pages\services\HRManagement.html:224
-#: .\templates\pages\services\PatientManagement.html:161
-#: .\templates\pages\services\SchoolManagement.html:197
-msgid "Exporting"
-msgstr "Exportator"
+#: .\templates\pages\index.html:230
+#, fuzzy
+#| msgid "Continue"
+msgid "Continuous Updates"
+msgstr "Continua"
 
-#: .\templates\pages\index.html:200
+#: .\templates\pages\index.html:263
 msgid "Services Features"
 msgstr "Caracteristici de servicii"
 
-#: .\templates\pages\index.html:210
+#: .\templates\pages\index.html:273
 #: .\templates\pages\services\HRManagement.html:280
 #: .\templates\pages\services\PatientManagement.html:222
 #: .\templates\pages\services\SchoolManagement.html:253
 msgid "User-friendly dashboard"
 msgstr "Tabloul de bord ușor de utilizat"
 
-#: .\templates\pages\index.html:211
+#: .\templates\pages\index.html:274
 #: .\templates\pages\services\HRManagement.html:281
 #: .\templates\pages\services\PatientManagement.html:223
 #: .\templates\pages\services\SchoolManagement.html:254
@@ -1858,21 +1911,21 @@ msgstr ""
 "O interfață simplă și intuitivă care vă permite să vă gestionați cu ușurință "
 "toate operațiunile, chiar și pentru utilizatorii non-tehnici."
 
-#: .\templates\pages\index.html:219
+#: .\templates\pages\index.html:282
 #: .\templates\pages\services\HRManagement.html:289
 #: .\templates\pages\services\PatientManagement.html:231
 #: .\templates\pages\services\SchoolManagement.html:262
 msgid "Security"
 msgstr "Securitate"
 
-#: .\templates\pages\index.html:220
+#: .\templates\pages\index.html:283
 #: .\templates\pages\services\HRManagement.html:290
 #: .\templates\pages\services\PatientManagement.html:232
 #: .\templates\pages\services\SchoolManagement.html:263
 msgid "Protected from security vulnerabilities"
 msgstr "Protejat de vulnerabilitățile de securitate"
 
-#: .\templates\pages\index.html:221
+#: .\templates\pages\index.html:284
 #: .\templates\pages\services\HRManagement.html:291
 #: .\templates\pages\services\PatientManagement.html:233
 #: .\templates\pages\services\SchoolManagement.html:264
@@ -1883,21 +1936,21 @@ msgstr ""
 "Un sistem echipat cu tehnologii avansate de protecție pentru a vă proteja "
 "datele de amenințări și atacuri cibernetice."
 
-#: .\templates\pages\index.html:229
+#: .\templates\pages\index.html:292
 #: .\templates\pages\services\HRManagement.html:299
 #: .\templates\pages\services\PatientManagement.html:241
 #: .\templates\pages\services\SchoolManagement.html:272
 msgid "Customize"
 msgstr "Personalizați"
 
-#: .\templates\pages\index.html:230
+#: .\templates\pages\index.html:293
 #: .\templates\pages\services\HRManagement.html:300
 #: .\templates\pages\services\PatientManagement.html:242
 #: .\templates\pages\services\SchoolManagement.html:273
 msgid "Customizable"
 msgstr "Personalizabil"
 
-#: .\templates\pages\index.html:231
+#: .\templates\pages\index.html:294
 #: .\templates\pages\services\HRManagement.html:301
 #: .\templates\pages\services\PatientManagement.html:243
 #: .\templates\pages\services\SchoolManagement.html:274
@@ -1908,21 +1961,21 @@ msgstr ""
 "Un design flexibil care vă permite să modificați sistemul pentru a se "
 "potrivi nevoilor dvs. specifice de afaceri."
 
-#: .\templates\pages\index.html:239
+#: .\templates\pages\index.html:302
 #: .\templates\pages\services\HRManagement.html:309
 #: .\templates\pages\services\PatientManagement.html:251
 #: .\templates\pages\services\SchoolManagement.html:282
 msgid "Responsive"
 msgstr "Receptiv"
 
-#: .\templates\pages\index.html:240
+#: .\templates\pages\index.html:303
 #: .\templates\pages\services\HRManagement.html:310
 #: .\templates\pages\services\PatientManagement.html:252
 #: .\templates\pages\services\SchoolManagement.html:283
 msgid "Multi-device support"
 msgstr "Suport cu mai multe dispozitive"
 
-#: .\templates\pages\index.html:241
+#: .\templates\pages\index.html:304
 #: .\templates\pages\services\HRManagement.html:311
 #: .\templates\pages\services\PatientManagement.html:253
 #: .\templates\pages\services\SchoolManagement.html:284
@@ -1933,7 +1986,7 @@ msgstr ""
 "Accesați sistemul pe diferite dispozitive, cum ar fi computere, smartphone -"
 "uri sau tablete."
 
-#: .\templates\pages\index.html:249
+#: .\templates\pages\index.html:312
 #: .\templates\pages\services\HRManagement.html:218
 #: .\templates\pages\services\HRManagement.html:319
 #: .\templates\pages\services\PatientManagement.html:155
@@ -1946,14 +1999,14 @@ msgstr ""
 msgid "Permissions"
 msgstr "Permisiuni"
 
-#: .\templates\pages\index.html:250
+#: .\templates\pages\index.html:313
 #: .\templates\pages\services\HRManagement.html:320
 #: .\templates\pages\services\PatientManagement.html:262
 #: .\templates\pages\services\SchoolManagement.html:293
 msgid "User management and permissions"
 msgstr "Gestionarea utilizatorilor și permisiunile"
 
-#: .\templates\pages\index.html:251
+#: .\templates\pages\index.html:314
 #: .\templates\pages\services\HRManagement.html:321
 #: .\templates\pages\services\PatientManagement.html:263
 #: .\templates\pages\services\SchoolManagement.html:294
@@ -1964,21 +2017,21 @@ msgstr ""
 "Un sistem de control avansat care vă permite să atribuiți diferite roluri și "
 "permisiuni utilizatorilor din sistem."
 
-#: .\templates\pages\index.html:259
+#: .\templates\pages\index.html:322
 #: .\templates\pages\services\HRManagement.html:329
 #: .\templates\pages\services\PatientManagement.html:271
 #: .\templates\pages\services\SchoolManagement.html:302
 msgid "Support"
 msgstr "Sprijin"
 
-#: .\templates\pages\index.html:260
+#: .\templates\pages\index.html:323
 #: .\templates\pages\services\HRManagement.html:330
 #: .\templates\pages\services\PatientManagement.html:272
 #: .\templates\pages\services\SchoolManagement.html:303
 msgid "24/7 technical support"
 msgstr "Sprijin tehnic 24/7"
 
-#: .\templates\pages\index.html:261
+#: .\templates\pages\index.html:324
 #: .\templates\pages\services\HRManagement.html:331
 #: .\templates\pages\services\PatientManagement.html:273
 #: .\templates\pages\services\SchoolManagement.html:304
@@ -1989,13 +2042,13 @@ msgstr ""
 "O echipă de asistență dedicată disponibilă în timpul ceasului pentru a vă "
 "ajuta cu probleme sau întrebări."
 
-#: .\templates\pages\index.html:294
+#: .\templates\pages\index.html:357
 #: .\templates\pages\services\HRManagement.html:356
 #: .\templates\pages\services\PatientManagement.html:287
 msgid "Customer reviews"
 msgstr "Recenzii ale clienților"
 
-#: .\templates\pages\index.html:304
+#: .\templates\pages\index.html:367
 #: .\templates\pages\services\HRManagement.html:364
 #: .\templates\pages\services\PatientManagement.html:295
 msgid ""
@@ -2005,7 +2058,7 @@ msgstr ""
 "O soluție de management all-in-one care ne-a îmbunătățit semnificativ fluxul "
 "de lucru. Este rapid, precis și incredibil de eficient."
 
-#: .\templates\pages\index.html:314 .\templates\pages\index.html:380
+#: .\templates\pages\index.html:377 .\templates\pages\index.html:443
 #: .\templates\pages\services\HRManagement.html:374
 #: .\templates\pages\services\HRManagement.html:439
 #: .\templates\pages\services\PatientManagement.html:305
@@ -2013,7 +2066,7 @@ msgstr ""
 msgid "Romania"
 msgstr "Romania"
 
-#: .\templates\pages\index.html:337
+#: .\templates\pages\index.html:400
 #: .\templates\pages\services\HRManagement.html:397
 #: .\templates\pages\services\PatientManagement.html:328
 msgid ""
@@ -2024,13 +2077,13 @@ msgstr ""
 "de utilizare a software -ului ne -au îmbunătățit productivitatea ca "
 "niciodată."
 
-#: .\templates\pages\index.html:347
+#: .\templates\pages\index.html:410
 #: .\templates\pages\services\HRManagement.html:407
 #: .\templates\pages\services\PatientManagement.html:338
 msgid "German"
 msgstr "german"
 
-#: .\templates\pages\index.html:370
+#: .\templates\pages\index.html:433
 #: .\templates\pages\services\HRManagement.html:429
 #: .\templates\pages\services\PatientManagement.html:360
 msgid ""
@@ -2040,15 +2093,15 @@ msgstr ""
 "Am mai încercat mai multe soluții de management, dar acesta se remarcă "
 "pentru eficiența și ușurința de utilizare a acestuia."
 
-#: .\templates\pages\index.html:423
+#: .\templates\pages\index.html:486
 msgid "Our Team"
 msgstr "Echipa noastră"
 
-#: .\templates\pages\index.html:434
+#: .\templates\pages\index.html:497
 msgid "Backend Dev"
 msgstr "Backend dev"
 
-#: .\templates\pages\index.html:437
+#: .\templates\pages\index.html:500
 msgid ""
 "A highly skilled and trusted Backend Developer with deep expertise in "
 "building secure, integrated systems tailored to your business needs. "
@@ -2065,11 +2118,11 @@ msgstr ""
 "sistem flexibil și durabil, care să -și îndeplinească obiectivele cu "
 "încredere."
 
-#: .\templates\pages\index.html:450
+#: .\templates\pages\index.html:513
 msgid "UI/UX Designer"
 msgstr "UI/UX Designer"
 
-#: .\templates\pages\index.html:453
+#: .\templates\pages\index.html:516
 msgid ""
 "A highly skilled UI/UX Designer with expertise in creating innovative user "
 "interfaces and seamless user experiences. Focused on achieving a balance "
@@ -2086,11 +2139,11 @@ msgstr ""
 "ideile în modele excepționale care contribuie la succesul proiectului și să "
 "ofere o experiență de utilizator inegalabilă."
 
-#: .\templates\pages\index.html:466
+#: .\templates\pages\index.html:529
 msgid "Frontend Designer"
 msgstr "Frontend Designer"
 
-#: .\templates\pages\index.html:469
+#: .\templates\pages\index.html:532
 msgid ""
 "An exceptional Frontend Developer with expertise in transforming designs "
 "into interactive, user-friendly websites and applications. Focused on "
@@ -2105,7 +2158,7 @@ msgstr ""
 "de încredere în a -ți aduce viziunea la viață cu interfețe digitale "
 "uimitoare și complet integrate."
 
-#: .\templates\pages\index.html:485
+#: .\templates\pages\index.html:548
 msgid ""
 "A professional female Project Manager with extensive experience in "
 "successfully planning and executing projects. She is responsible for "
@@ -2123,66 +2176,70 @@ msgstr ""
 "problemelor, ceea ce o face un partener cheie în obținerea succesului "
 "proiectului și ghidarea acestuia către rezultatele dorite."
 
-#: .\templates\pages\index.html:522
-msgid "What is SoftMsg?"
+#: .\templates\pages\index.html:586
+msgid "What is SOFTmsg?"
 msgstr ""
 
-#: .\templates\pages\index.html:527
+#: .\templates\pages\index.html:591
 msgid ""
-"SoftMsg is a platform that provides ready-to-use projects you can deploy "
-"with a single click, allowing you to launch your website or application "
-"easily without deep technical knowledge."
+"SOFTmsg is a marketplace for ready-to-use web projects. You can install and "
+"run applications instantly with one click, without needing programming "
+"skills."
 msgstr ""
 
-#: .\templates\pages\index.html:536
-msgid "Do I need programming skills to use the platform?"
+#: .\templates\pages\index.html:601
+msgid "Do I need programming skills to use SOFTmsg?"
 msgstr ""
 
-#: .\templates\pages\index.html:541
+#: .\templates\pages\index.html:606
 msgid ""
-"No, the platform is designed to be user-friendly even for non-developers. "
-"All you need to do is choose a project and deploy it with one click."
+"No. The platform is designed to be simple and user-friendly. Just choose a "
+"project, click install, and it will be deployed automatically on your server."
 msgstr ""
 
-#: .\templates\pages\index.html:555
+#: .\templates\pages\index.html:616
+msgid "What payment options are available?"
+msgstr ""
+
+#: .\templates\pages\index.html:621
 msgid ""
-"We support payments via credit cards and PayPal, and in some countries local "
-"payment methods are available."
+"SOFTmsg offers both free and paid plans. Paid plans can be purchased using "
+"credit cards, PayPal, and in some regions local payment methods."
 msgstr ""
 
-#: .\templates\pages\index.html:564
+#: .\templates\pages\index.html:631
 msgid "Can I customize the projects?"
 msgstr ""
 
-#: .\templates\pages\index.html:569
+#: .\templates\pages\index.html:636
 msgid ""
-"Yes, you can easily customize the design and settings. You can also access "
-"the source code if you want to make deeper modifications."
+"Yes. You can adjust settings directly from the dashboard, and if the project "
+"is open-source you can also download and modify the source code."
 msgstr ""
 
-#: .\templates\pages\index.html:578
-msgid "Is there a trial period?"
+#: .\templates\pages\index.html:646
+msgid "Is there a free trial?"
 msgstr ""
 
-#: .\templates\pages\index.html:583
+#: .\templates\pages\index.html:651
 msgid ""
-"Yes, some projects offer a free trial version so you can test the service "
-"before subscribing to a paid plan."
+"Yes. Many projects include a free plan or trial version so you can test them "
+"before upgrading to a paid subscription."
 msgstr ""
 
-#: .\templates\pages\index.html:592
+#: .\templates\pages\index.html:661
 #, fuzzy
 #| msgid "24/7 technical support"
-msgid "How can I get technical support?"
+msgid "How can I get support?"
 msgstr "Sprijin tehnic 24/7"
 
-#: .\templates\pages\index.html:597
+#: .\templates\pages\index.html:666
 msgid ""
-"We provide technical support through tickets and email, along with a "
-"knowledge base that contains detailed guides and tutorials."
+"You can reach support through live chat and email. We also provide a "
+"knowledge base with guides, tutorials, and troubleshooting steps."
 msgstr ""
 
-#: .\templates\pages\index.html:627
+#: .\templates\pages\index.html:696
 msgid ""
 "Do you want to develop a custom program that <span class='text-"
 "primary'>meets your specific needs?"
@@ -2190,11 +2247,22 @@ msgstr ""
 "Doriți să dezvoltați un program personalizat care <span class = 'text-"
 "Primary'> satisface nevoile dvs. specifice?"
 
-#: .\templates\pages\index.html:632
+#: .\templates\pages\index.html:701
 msgid "Contact Form"
 msgstr "Formular de contact"
 
-#: .\templates\pages\index.html:640
+#: .\templates\pages\index.html:705
+#: .\templates\pages\services\HRManagement.html:26
+#: .\templates\pages\services\HRManagement.html:820
+#: .\templates\pages\services\PatientManagement.html:25
+#: .\templates\pages\services\PatientManagement.html:588
+#: .\templates\pages\services\SchoolManagement.html:25
+#: .\templates\pages\services\SchoolManagement.html:433
+#: .\templates\parts\footer.html:10 .\templates\parts\navbar.html:66
+msgid "Contact us"
+msgstr "Contactaţi-ne"
+
+#: .\templates\pages\index.html:709
 msgid ""
 "Fill out the contact form now, and our dedicated team is ready to provide "
 "you with the support you need and turn your dreams into reality. Take the "
@@ -2204,67 +2272,123 @@ msgstr ""
 "să vă ofere sprijinul de care aveți nevoie și să vă transformați visele în "
 "realitate. Faceți primul pas către succes!"
 
-#: .\templates\pages\index.html:653 .\templates\parts\footer.html:19
+#: .\templates\pages\index.html:722 .\templates\parts\footer.html:19
 #: .\templates\parts\footer.html:20
 msgid "Email address"
 msgstr "Adresa de e-mail"
 
-#: .\templates\pages\index.html:660
+#: .\templates\pages\index.html:729
 msgid "Phone Number"
 msgstr "Număr de telefon"
 
-#: .\templates\pages\index.html:677
+#: .\templates\pages\index.html:746
 msgid "Project Description"
 msgstr "Descrierea proiectului"
 
-#: .\templates\pages\index.html:681
+#: .\templates\pages\index.html:750
 msgid "Enter a detailed description of your project."
 msgstr "Introduceți o descriere detaliată a proiectului dvs."
 
-#: .\templates\pages\index.html:686
+#: .\templates\pages\index.html:755
 msgid "Examples of similar websites"
 msgstr "Exemple de site -uri web similare"
 
-#: .\templates\pages\index.html:690
+#: .\templates\pages\index.html:759
 msgid "Provide examples or links to designs and websites you like."
 msgstr ""
 "Oferiți exemple sau link -uri către modele și site -uri web care vă place."
 
-#: .\templates\pages\index.html:703
+#: .\templates\pages\index.html:772
 msgid ""
 "By sending this form I confirm that I have read and accept the Privacy Policy"
 msgstr ""
 "Prin trimiterea acestui formular, confirm că am citit și accept Politica de "
 "confidențialitate"
 
-#: .\templates\pages\index.html:705
+#: .\templates\pages\index.html:774
 msgid "You must agree before submitting."
 msgstr "Trebuie să fiți de acord înainte de a trimite."
 
-#: .\templates\pages\index.html:709
+#: .\templates\pages\index.html:778
 msgid "Submit"
 msgstr "Depune"
 
-#: .\templates\pages\index.html:757
+#: .\templates\pages\index.html:826
+msgid "Install ready-to-use projects with just one click"
+msgstr ""
+
+#: .\templates\pages\index.html:827
+msgid "No programming needed – we handle setup and hosting"
+msgstr ""
+
+#: .\templates\pages\index.html:828
+msgid "Manage all your deployed projects in one place"
+msgstr ""
+
+#: .\templates\pages\index.html:829
+msgid "A marketplace of open-source projects, ready to launch"
+msgstr ""
+
+#: .\templates\pages\index.html:830
+msgid "Your marketplace for ready-to-use web projects"
+msgstr ""
+
+#: .\templates\pages\index.html:831
+msgid "Deploy projects with just one click in one dashboard"
+msgstr ""
+
+#: .\templates\pages\index.html:832
+msgid "No programming needed – we set it up for you"
+msgstr ""
+
+#: .\templates\pages\index.html:833
+msgid "Manage all your apps, domains, and hosting in one dashboard"
+msgstr ""
+
+#: .\templates\pages\index.html:834
+msgid "Open-source projects, install and run instantly"
+msgstr ""
+
+#: .\templates\pages\index.html:849
+msgid "One-Click Deploy"
+msgstr ""
+
+#: .\templates\pages\index.html:850
+msgid "Ready-to-Use Code"
+msgstr ""
+
+#: .\templates\pages\index.html:851
+msgid "Easy Configuration"
+msgstr ""
+
+#: .\templates\pages\index.html:852
 #, fuzzy
-#| msgid ""
-#| "Management systems in one place for <br><span class='text-primary'> "
-#| "faster, precise results"
-msgid "Management systems in one place for faster, precise results"
-msgstr ""
-"Sisteme de management într-un singur loc pentru <br> <span class = 'text-"
-"primar'> rezultate mai rapide și precise"
+#| msgid "Security"
+msgid "Secure Setup"
+msgstr "Securitate"
 
-#: .\templates\pages\index.html:758
-msgid "All your projects ready to deploy with one click"
-msgstr ""
+#: .\templates\pages\index.html:853
+#, fuzzy
+#| msgid "Server error"
+msgid "Server Ready"
+msgstr "Eroare de server"
 
-#: .\templates\pages\index.html:759
-msgid "Simplify your workflow and increase efficiency"
+#: .\templates\pages\index.html:854
+msgid "Import/Export Projects"
 msgstr ""
 
-#: .\templates\pages\index.html:760
-msgid "A versatile software suite for businesses of all sizes"
+#: .\templates\pages\index.html:855
+msgid "Collaborate Easily"
+msgstr ""
+
+#: .\templates\pages\index.html:856
+#, fuzzy
+#| msgid "Responsive"
+msgid "Responsive Design"
+msgstr "Receptiv"
+
+#: .\templates\pages\index.html:858
+msgid "Guaranteed Updates"
 msgstr ""
 
 #: .\templates\pages\services\HRManagement.html:6
@@ -2381,6 +2505,12 @@ msgstr "Rapoarte"
 #: .\templates\pages\services\SchoolManagement.html:185
 msgid "Multi Manager"
 msgstr "Multi Manager"
+
+#: .\templates\pages\services\HRManagement.html:224
+#: .\templates\pages\services\PatientManagement.html:161
+#: .\templates\pages\services\SchoolManagement.html:197
+msgid "Exporting"
+msgstr "Exportator"
 
 #: .\templates\pages\services\HRManagement.html:230
 #: .\templates\pages\services\PatientManagement.html:173
@@ -2788,6 +2918,10 @@ msgstr "Manager de fișiere pentru pacient"
 #: .\templates\pages\services\PatientManagement.html:124
 msgid "Medical Reports"
 msgstr "Rapoarte medicale"
+
+#: .\templates\pages\services\PatientManagement.html:130
+msgid "Appointments"
+msgstr "Numiri"
 
 #: .\templates\pages\services\PatientManagement.html:136
 msgid "Report Customizing"
@@ -3234,10 +3368,6 @@ msgstr "Acasă"
 msgid "My Projects"
 msgstr "Proiectele mele"
 
-#: .\templates\parts\dashboard\sidebar.html:28 .\templates\parts\navbar.html:29
-msgid "Marketplace"
-msgstr ""
-
 #: .\templates\parts\dashboard\sidebar.html:94
 msgid "Admin"
 msgstr "Administrator"
@@ -3285,6 +3415,39 @@ msgstr "Deconectați -vă"
 #: .\templates\parts\navbar.html:99
 msgid "Sign Up"
 msgstr "Înscrieți -vă"
+
+#~ msgid "IT tickets"
+#~ msgstr "Bilete"
+
+#~ msgid "Tasks"
+#~ msgstr "Sarcini"
+
+#~ msgid "Sales pipeline"
+#~ msgstr "Conductă de vânzări"
+
+#~ msgid "Contacts"
+#~ msgstr "Contacte"
+
+#~ msgid "Roadmap planning"
+#~ msgstr "Planificarea foii de parcurs"
+
+#~ msgid "Recruitment"
+#~ msgstr "Recrutare"
+
+#~ msgid "Resource management"
+#~ msgstr "Gestionarea resurselor"
+
+#~ msgid "Reporting"
+#~ msgstr "Raportare"
+
+#, fuzzy
+#~| msgid ""
+#~| "Management systems in one place for <br><span class='text-primary'> "
+#~| "faster, precise results"
+#~ msgid "Management systems in one place for faster, precise results"
+#~ msgstr ""
+#~ "Sisteme de management într-un singur loc pentru <br> <span class = 'text-"
+#~ "primar'> rezultate mai rapide și precise"
 
 #~ msgid "Subscription ID"
 #~ msgstr "ID de abonament"
@@ -3410,9 +3573,6 @@ msgstr "Înscrieți -vă"
 #~ msgid "Administration"
 #~ msgstr "Administrare"
 
-#~ msgid "Server error"
-#~ msgstr "Eroare de server"
-
 #~ msgid "Clear selection"
 #~ msgstr "Selecție clară"
 
@@ -3505,9 +3665,6 @@ msgstr "Înscrieți -vă"
 
 #~ msgid "Card Security Code"
 #~ msgstr "Cod de securitate a cardului"
-
-#~ msgid "Resources"
-#~ msgstr "Resurse"
 
 #~ msgid ""
 #~ "You turned my digital vision into reality! The website you designed for "

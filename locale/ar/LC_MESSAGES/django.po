@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-23 13:56+0300\n"
+"POT-Creation-Date: 2025-09-23 16:58+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,12 +121,12 @@ msgid "HR Management"
 msgstr "إدارة الموارد البشرية"
 
 #: .\dashboard\models.py:20 .\templates\dashboard\plans\ServicePlans.html:20
-#: .\templates\dashboard\projects\project_details_modal.html:193
+#: .\templates\dashboard\projects\project_details_modal.html:238
 msgid "Monthly"
 msgstr "شهريا"
 
 #: .\dashboard\models.py:21 .\templates\dashboard\plans\ServicePlans.html:25
-#: .\templates\dashboard\projects\project_details_modal.html:194
+#: .\templates\dashboard\projects\project_details_modal.html:239
 msgid "Yearly"
 msgstr "سنوي"
 
@@ -260,7 +260,7 @@ msgstr "كيف يمكن لفريقنا مساعدتك؟"
 msgid "https://example.com"
 msgstr "https://example.com"
 
-#: .\pages\models.py:7 .\templates\pages\index.html:646
+#: .\pages\models.py:7 .\templates\pages\index.html:715
 msgid "Full Name"
 msgstr "الاسم الكامل"
 
@@ -342,96 +342,100 @@ msgstr "مساحة القرص المطلوبة (ميغابايت)"
 msgid "Minimum Operating Requirements"
 msgstr "المتطلبات التشغيلية الدنيا"
 
-#: .\projects\models.py:54
+#: .\projects\models.py:56
 msgid "Installation Steps"
 msgstr "خطوات التثبيت"
 
-#: .\projects\models.py:57
+#: .\projects\models.py:59
 msgid "Number of Installs"
 msgstr "عدد مرات التثبيت"
 
-#: .\projects\models.py:60
+#: .\projects\models.py:63
+msgid "Number of source code downloads"
+msgstr ""
+
+#: .\projects\models.py:66
 #, fuzzy
 #| msgid "About Project:"
 msgid "About Project"
 msgstr "حول المشروع:"
 
-#: .\projects\models.py:62
+#: .\projects\models.py:68
 #, fuzzy
 #| msgid "Creation Date"
 msgid "Publication Date"
 msgstr "تاريخ الإنشاء"
 
-#: .\projects\models.py:286 .\projects\models.py:306 .\projects\models.py:345
+#: .\projects\models.py:292 .\projects\models.py:312 .\projects\models.py:351
 msgid "Label"
 msgstr "التسمية"
 
-#: .\projects\models.py:288
+#: .\projects\models.py:294
 msgid "Command"
 msgstr "الأمر"
 
-#: .\projects\models.py:288
+#: .\projects\models.py:294
 msgid "The function name or command to execute via Docker"
 msgstr "اسم الدالة أو الأمر للتنفيذ عبر دوكر"
 
-#: .\projects\models.py:300 .\projects\models.py:333
+#: .\projects\models.py:306 .\projects\models.py:339
 msgid "String"
 msgstr "نص"
 
-#: .\projects\models.py:301 .\projects\models.py:334
+#: .\projects\models.py:307 .\projects\models.py:340
 msgid "Boolean"
 msgstr "قيمة منطقية"
 
-#: .\projects\models.py:302 .\projects\models.py:335
+#: .\projects\models.py:308 .\projects\models.py:341
 msgid "Integer"
 msgstr "عدد صحيح"
 
-#: .\projects\models.py:307
+#: .\projects\models.py:313
 msgid "Internal Name"
 msgstr "الاسم الداخلي"
 
-#: .\projects\models.py:307
+#: .\projects\models.py:313
 msgid "Internal name for code usage"
 msgstr "الاسم الداخلي لاستخدامه في الكود"
 
-#: .\projects\models.py:308 .\projects\models.py:347
+#: .\projects\models.py:314 .\projects\models.py:353
 msgid "Data Type"
 msgstr "نوع البيانات"
 
-#: .\projects\models.py:309 .\projects\models.py:349
+#: .\projects\models.py:315 .\projects\models.py:355
 msgid "Required"
 msgstr "مطلوب"
 
-#: .\projects\models.py:310 .\projects\models.py:350
+#: .\projects\models.py:316 .\projects\models.py:356
 msgid "Default Value"
 msgstr "القيمة الافتراضية"
 
-#: .\projects\models.py:310
+#: .\projects\models.py:316
 #, python-brace-format
 msgid "{deployment.id}"
 msgstr "{deployment.id}"
 
-#: .\projects\models.py:319
+#: .\projects\models.py:325
 #: .\templates\dashboard\deployments\deployment_detail.html:156
 #, fuzzy
 #| msgid "title"
 msgid "Title"
 msgstr "عنوان"
 
-#: .\projects\models.py:346
+#: .\projects\models.py:352
 msgid "Key"
 msgstr "المفتاح"
 
-#: .\projects\models.py:348
+#: .\projects\models.py:354
 msgid "Is Secret"
 msgstr "هل هو سري"
 
-#: .\projects\models.py:350
+#: .\projects\models.py:356
 #, python-brace-format
 msgid "{container.deployment.id}"
 msgstr "{container.deployment.id}"
 
-#: .\projects\models.py:351
+#: .\projects\models.py:357
 msgid "Sort Index"
 msgstr "ترتيب الفهرس"
 
@@ -556,8 +560,8 @@ msgid "Change"
 msgstr "تغير"
 
 #: .\templates\accounts\profile\EditProfile.html:152
-#: .\templates\dashboard\projects\project_details_modal.html:275
-#: .\templates\dashboard\projects\project_list.html:274
+#: .\templates\dashboard\projects\project_details_modal.html:320
+#: .\templates\dashboard\projects\project_list.html:279
 msgid "Close"
 msgstr "اغلاق"
 
@@ -605,7 +609,7 @@ msgid "Settings"
 msgstr "الإعدادات"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:20
-#: .\templates\dashboard\projects\project_list.html:256
+#: .\templates\dashboard\projects\project_list.html:261
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:7
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:40
 #: .\templates\parts\navbar.html:54
@@ -952,7 +956,7 @@ msgstr "سنوي"
 
 #: .\templates\dashboard\plans\ServicePlans.html:87
 #: .\templates\dashboard\plans\ServicePlans.html:354
-#: .\templates\dashboard\projects\project_details_modal.html:199
+#: .\templates\dashboard\projects\project_details_modal.html:244
 #: .\templates\dashboard\projects\project_list.html:69
 msgid "Subscribe Now"
 msgstr "اشترك الآن"
@@ -974,7 +978,7 @@ msgid "Database"
 msgstr "قاعدة البيانات"
 
 #: .\templates\dashboard\plans\ServicePlans.html:146
-#: .\templates\pages\index.html:514
+#: .\templates\pages\index.html:577
 #: .\templates\pages\services\HRManagement.html:597
 #: .\templates\pages\services\PatientManagement.html:490
 msgid "Frequently Asked Questions"
@@ -1036,7 +1040,6 @@ msgstr ""
 "نعم، نوفر فترة تجريبية مجانية لبعض الخطط لتتمكن من تجربة الخدمة قبل الاشتراك."
 
 #: .\templates\dashboard\plans\ServicePlans.html:238
-#: .\templates\pages\index.html:550
 msgid "What payment methods are available?"
 msgstr "ما هي طرق الدفع المتاحة؟"
 
@@ -1067,7 +1070,7 @@ msgid "Great service, easy to use!"
 msgstr "خدمة رائعة وسهلة الاستخدام!"
 
 #: .\templates\dashboard\plans\ServicePlans.html:300
-#: .\templates\pages\index.html:482
+#: .\templates\pages\index.html:545
 msgid "Project Manager"
 msgstr "مدير المشروع"
 
@@ -1110,117 +1113,152 @@ msgstr "عرض تجريبي مباشر"
 
 #: .\templates\dashboard\projects\project_details_modal.html:29
 #: .\templates\dashboard\projects\project_details_modal.html:30
+#: .\templates\dashboard\projects\project_details_modal.html:34
 msgid "Documentation"
 msgstr "الوثائق"
 
-#: .\templates\dashboard\projects\project_details_modal.html:53
+#: .\templates\dashboard\projects\project_details_modal.html:35
+#: .\templates\dashboard\projects\project_details_modal.html:139
+msgid "Source Code"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:58
 msgid "Project Details:"
 msgstr "تفاصيل المشروع:"
 
-#: .\templates\dashboard\projects\project_details_modal.html:57
+#: .\templates\dashboard\projects\project_details_modal.html:62
 msgid "Difficulty Level:"
 msgstr "مستوى الصعوبة:"
 
-#: .\templates\dashboard\projects\project_details_modal.html:61
+#: .\templates\dashboard\projects\project_details_modal.html:66
 msgid "Estimated Install Time:"
 msgstr "الوقت المقدر للتثبيت:"
 
-#: .\templates\dashboard\projects\project_details_modal.html:62
+#: .\templates\dashboard\projects\project_details_modal.html:67
 msgid "minutes"
 msgstr "دقائق"
 
-#: .\templates\dashboard\projects\project_details_modal.html:65
+#: .\templates\dashboard\projects\project_details_modal.html:70
 msgid "Required Disk Space:"
 msgstr "مساحة القرص المطلوبة:"
 
-#: .\templates\dashboard\projects\project_details_modal.html:74
+#: .\templates\dashboard\projects\project_details_modal.html:79
 msgid "Engagement:"
 msgstr "مشاركة الموظفين:"
 
-#: .\templates\dashboard\projects\project_details_modal.html:89
+#: .\templates\dashboard\projects\project_details_modal.html:94
 msgid "Rating:"
 msgstr "التقييم:"
 
-#: .\templates\dashboard\projects\project_details_modal.html:94
+#: .\templates\dashboard\projects\project_details_modal.html:99
+msgid "Downloads:"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:105
 msgid "Installations:"
 msgstr "عدد مرات التثبيت:"
 
-#: .\templates\dashboard\projects\project_details_modal.html:101
+#: .\templates\dashboard\projects\project_details_modal.html:112
 msgid "Active Users:"
 msgstr "المستخدمون النشطون:"
 
-#: .\templates\dashboard\projects\project_details_modal.html:111
-msgid "Languages & Technologies Used:"
-msgstr "اللغات والتقنيات المستخدمة:"
-
-#: .\templates\dashboard\projects\project_details_modal.html:117
-msgid "No specific technologies"
-msgstr "لا توجد تقنيات محددة"
-
-#: .\templates\dashboard\projects\project_details_modal.html:125
-msgid "Minimum Operating Requirements:"
-msgstr "المتطلبات التشغيلية الدنيا:"
-
-#: .\templates\dashboard\projects\project_details_modal.html:137
-msgid "Optional Features After Install:"
-msgstr "الميزات الاختيارية بعد التثبيت:"
-
-#: .\templates\dashboard\projects\project_details_modal.html:153
-msgid "Short Install Steps:"
-msgstr "خطوات التثبيت المختصرة:"
-
-#: .\templates\dashboard\projects\project_details_modal.html:156
-msgid "No steps added yet"
-msgstr "لم تتم إضافة خطوات بعد"
-
-#: .\templates\dashboard\projects\project_details_modal.html:165
-msgid "About Project:"
-msgstr "حول المشروع:"
-
-#: .\templates\dashboard\projects\project_details_modal.html:175
-msgid "Available Plans:"
-msgstr "الخطط المتاحة:"
-
-#: .\templates\dashboard\projects\project_details_modal.html:198
-msgid "Subscribe to"
-msgstr "اشترك في"
-
-#: .\templates\dashboard\projects\project_details_modal.html:212
-msgid "User Reviews"
-msgstr "مراجعات المستخدمين"
-
-#: .\templates\dashboard\projects\project_details_modal.html:236
-msgid "No reviews yet"
-msgstr "لا توجد مراجعات بعد"
-
-#: .\templates\dashboard\projects\project_details_modal.html:242
-msgid "Add Your Review"
-msgstr "أضف مراجعتك"
-
-#: .\templates\dashboard\projects\project_details_modal.html:247
-msgid "Rating"
-msgstr "التقييم"
-
-#: .\templates\dashboard\projects\project_details_modal.html:258
-msgid "Your Comment"
-msgstr "تعليقك"
-
-#: .\templates\dashboard\projects\project_details_modal.html:259
-msgid "Add your comment here"
-msgstr "أضف تعليقك هنا"
-
-#: .\templates\dashboard\projects\project_details_modal.html:263
-msgid "Submit Review"
-msgstr "إرسال المراجعة"
-
-#: .\templates\dashboard\projects\project_details_modal.html:272
+#: .\templates\dashboard\projects\project_details_modal.html:121
+#: .\templates\dashboard\projects\project_details_modal.html:317
 msgid "Install"
 msgstr "تثبيت"
 
-#: .\templates\dashboard\projects\project_details_modal.html:273
-#: .\templates\dashboard\projects\project_list.html:248
+#: .\templates\dashboard\projects\project_details_modal.html:125
+#, fuzzy
+#| msgid "Install Project"
+msgid "install project cloud"
+msgstr "تثبيت المشروع"
+
+#: .\templates\dashboard\projects\project_details_modal.html:126
+msgid "Click to install this project automatically"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:128
+#: .\templates\dashboard\projects\project_details_modal.html:318
+#: .\templates\dashboard\projects\project_list.html:253
 msgid "Install Project"
 msgstr "تثبيت المشروع"
+
+#: .\templates\dashboard\projects\project_details_modal.html:133
+msgid "We will install the project for you, no need for a programmer."
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:144
+#: .\templates\dashboard\projects\project_details_modal.html:145
+msgid "Download and view the source code"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:147
+msgid "Download Source Code"
+msgstr ""
+
+#: .\templates\dashboard\projects\project_details_modal.html:156
+msgid "Languages & Technologies Used:"
+msgstr "اللغات والتقنيات المستخدمة:"
+
+#: .\templates\dashboard\projects\project_details_modal.html:162
+msgid "No specific technologies"
+msgstr "لا توجد تقنيات محددة"
+
+#: .\templates\dashboard\projects\project_details_modal.html:170
+msgid "Minimum Operating Requirements:"
+msgstr "المتطلبات التشغيلية الدنيا:"
+
+#: .\templates\dashboard\projects\project_details_modal.html:182
+msgid "Optional Features After Install:"
+msgstr "الميزات الاختيارية بعد التثبيت:"
+
+#: .\templates\dashboard\projects\project_details_modal.html:198
+msgid "Short Install Steps:"
+msgstr "خطوات التثبيت المختصرة:"
+
+#: .\templates\dashboard\projects\project_details_modal.html:201
+msgid "No steps added yet"
+msgstr "لم تتم إضافة خطوات بعد"
+
+#: .\templates\dashboard\projects\project_details_modal.html:210
+msgid "About Project:"
+msgstr "حول المشروع:"
+
+#: .\templates\dashboard\projects\project_details_modal.html:220
+msgid "Available Plans:"
+msgstr "الخطط المتاحة:"
+
+#: .\templates\dashboard\projects\project_details_modal.html:243
+msgid "Subscribe to"
+msgstr "اشترك في"
+
+#: .\templates\dashboard\projects\project_details_modal.html:257
+msgid "User Reviews"
+msgstr "مراجعات المستخدمين"
+
+#: .\templates\dashboard\projects\project_details_modal.html:281
+msgid "No reviews yet"
+msgstr "لا توجد مراجعات بعد"
+
+#: .\templates\dashboard\projects\project_details_modal.html:287
+msgid "Add Your Review"
+msgstr "أضف مراجعتك"
+
+#: .\templates\dashboard\projects\project_details_modal.html:292
+msgid "Rating"
+msgstr "التقييم"
+
+#: .\templates\dashboard\projects\project_details_modal.html:303
+msgid "Your Comment"
+msgstr "تعليقك"
+
+#: .\templates\dashboard\projects\project_details_modal.html:304
+msgid "Add your comment here"
+msgstr "أضف تعليقك هنا"
+
+#: .\templates\dashboard\projects\project_details_modal.html:308
+msgid "Submit Review"
+msgstr "إرسال المراجعة"
 
 #: .\templates\dashboard\projects\project_list.html:62
 msgid "Ready Projects Store"
@@ -1290,19 +1328,25 @@ msgstr "جديد"
 msgid "Fast Install"
 msgstr "تثبيت سريع"
 
-#: .\templates\dashboard\projects\project_list.html:216
+#: .\templates\dashboard\projects\project_list.html:212
+#, fuzzy
+#| msgid "Resources"
+msgid "Open Source"
+msgstr "موارد"
+
+#: .\templates\dashboard\projects\project_list.html:221
 msgid "Total Installs"
 msgstr "إجمالي التثبيتات"
 
-#: .\templates\dashboard\projects\project_list.html:232
+#: .\templates\dashboard\projects\project_list.html:237
 msgid "Average Rating"
 msgstr "متوسط التقييم"
 
-#: .\templates\dashboard\projects\project_list.html:252
+#: .\templates\dashboard\projects\project_list.html:257
 msgid "Details"
 msgstr "تفاصيل"
 
-#: .\templates\dashboard\projects\project_list.html:279
+#: .\templates\dashboard\projects\project_list.html:284
 msgid "Loading details..."
 msgstr "جارٍ تحميل التفاصيل..."
 
@@ -1641,7 +1685,7 @@ msgstr "الراتب الكلي"
 msgid "Total Income"
 msgstr "إجمالي الدخل"
 
-#: .\templates\dashboard_base.html:9 .\templates\pages\index.html:209
+#: .\templates\dashboard_base.html:9 .\templates\pages\index.html:272
 #: .\templates\pages\services\HRManagement.html:279
 #: .\templates\pages\services\PatientManagement.html:221
 #: .\templates\pages\services\SchoolManagement.html:252
@@ -1670,7 +1714,7 @@ msgstr ""
 "إجابات واضحة على الأسئلة الأكثر شيوعًا حول خدماتنا لمساعدتك في الحصول على "
 "المعلومات بسرعة وسهولة."
 
-#: .\templates\pages\index.html:6 .\templates\pages\index.html:26
+#: .\templates\pages\index.html:6
 msgid ""
 "A versatile software suite transforming businesses of all sizes by "
 "simplifying complex systems into efficient work environments."
@@ -1682,7 +1726,16 @@ msgstr ""
 msgid "SOFTmsg For"
 msgstr "سوفت مسج لـ"
 
-#: .\templates\pages\index.html:34
+#: .\templates\pages\index.html:26
+msgid ""
+"SOFTmsg is a marketplace that lets you launch ready-to-use web projects "
+"instantly — no coding required, just one click to deploy and manage your "
+"apps."
+msgstr ""
+"SOFTmsg هو متجر يتيح لك إطلاق مشاريع ويب جاهزة للاستخدام فورًا — لا حاجة "
+"للبرمجة، فقط بنقرة واحدة لنشر وإدارة تطبيقاتك."
+
+#: .\templates\pages\index.html:35
 #: .\templates\pages\services\HRManagement.html:22
 #: .\templates\pages\services\HRManagement.html:816
 #: .\templates\pages\services\PatientManagement.html:21
@@ -1692,86 +1745,76 @@ msgstr "سوفت مسج لـ"
 msgid "Get started for free"
 msgstr "ابدأ مجانًا"
 
-#: .\templates\pages\index.html:43 .\templates\pages\index.html:636
-#: .\templates\pages\services\HRManagement.html:26
-#: .\templates\pages\services\HRManagement.html:820
-#: .\templates\pages\services\PatientManagement.html:25
-#: .\templates\pages\services\PatientManagement.html:588
-#: .\templates\pages\services\SchoolManagement.html:25
-#: .\templates\pages\services\SchoolManagement.html:433
-#: .\templates\parts\footer.html:10 .\templates\parts\navbar.html:66
-msgid "Contact us"
-msgstr "تواصل معنا"
+#: .\templates\pages\index.html:45 .\templates\parts\dashboard\sidebar.html:28
+#: .\templates\parts\navbar.html:29
+msgid "Marketplace"
+msgstr "المتجر"
 
-#: .\templates\pages\index.html:68
+#: .\templates\pages\index.html:71
 #: .\templates\pages\services\HRManagement.html:38
 #: .\templates\pages\services\PatientManagement.html:37
 #: .\templates\pages\services\SchoolManagement.html:37
 msgid "Trusted by industry leaders"
 msgstr "يثق به قادة الصناعة"
 
-#: .\templates\pages\index.html:105
+#: .\templates\pages\index.html:148
 msgid ""
-"Solutions that actually <span class='text-success'>solve <br> your problems</"
-"span>"
-msgstr "الحلول التي فعلاً <span class='text-success'>تحل <br> مشاكلك</span>"
+"Powerful solutions that <span class='text-success'>launch your projects "
+"instantly</span>"
+msgstr "حلول قوية تقوم بـ <span class='text-success'>إطلاق مشاريعك فوراً</span>"
 
-#: .\templates\pages\index.html:116 .\templates\pages\index.html:774
-msgid "IT tickets"
-msgstr "تذاكر"
+#: .\templates\pages\index.html:158
+msgid "One-Click Install"
+msgstr "تثبيت بنقرة واحدة"
 
-#: .\templates\pages\index.html:122 .\templates\pages\index.html:775
-msgid "Tasks"
-msgstr "المهام"
+#: .\templates\pages\index.html:166
+msgid "Open-Source Marketplace"
+msgstr "متجر مفتوح المصدر"
 
-#: .\templates\pages\index.html:128 .\templates\pages\index.html:776
-msgid "Sales pipeline"
-msgstr "خط المبيعات"
+#: .\templates\pages\index.html:174
+msgid "Easy Management"
+msgstr "إدارة سهلة"
 
-#: .\templates\pages\index.html:134 .\templates\pages\index.html:777
-msgid "Contacts"
-msgstr "جهات الاتصال"
+#: .\templates\pages\index.html:182
+msgid "Secure by Default"
+msgstr "آمن بشكل افتراضي"
 
-#: .\templates\pages\index.html:140 .\templates\pages\index.html:778
-#: .\templates\pages\services\PatientManagement.html:130
-msgid "Appointments"
-msgstr "المواعيد"
+#: .\templates\pages\index.html:190
+msgid "Optimized for Servers"
+msgstr "محسّن للخوادم"
 
-#: .\templates\pages\index.html:146 .\templates\pages\index.html:779
-msgid "Roadmap planning"
-msgstr "تخطيط خريطة الطريق"
+#: .\templates\pages\index.html:198
+msgid "Import & Export Projects"
+msgstr "استيراد وتصدير المشاريع"
 
-#: .\templates\pages\index.html:152 .\templates\pages\index.html:780
-msgid "Recruitment"
-msgstr "توظيف"
+#: .\templates\pages\index.html:206
+msgid "Team Collaboration"
+msgstr "التعاون الجماعي"
 
-#: .\templates\pages\index.html:158 .\templates\pages\index.html:781
-msgid "Resource management"
-msgstr "إدارة الموارد"
+#: .\templates\pages\index.html:214
+msgid "Multi-Language Support"
+msgstr "دعم متعدد اللغات"
 
-#: .\templates\pages\index.html:164 .\templates\pages\index.html:782
-msgid "Reporting"
-msgstr "الإبلاغ"
+#: .\templates\pages\index.html:222 .\templates\pages\index.html:857
+msgid "24/7 Support"
+msgstr "دعم فني على مدار الساعة"
 
-#: .\templates\pages\index.html:170 .\templates\pages\index.html:783
-#: .\templates\pages\services\HRManagement.html:224
-#: .\templates\pages\services\PatientManagement.html:161
-#: .\templates\pages\services\SchoolManagement.html:197
-msgid "Exporting"
-msgstr "التصدير"
+#: .\templates\pages\index.html:230
+msgid "Continuous Updates"
+msgstr "تحديثات مستمرة"
 
-#: .\templates\pages\index.html:200
+#: .\templates\pages\index.html:263
 msgid "Services Features"
 msgstr "ميزات الخدمات"
 
-#: .\templates\pages\index.html:210
+#: .\templates\pages\index.html:273
 #: .\templates\pages\services\HRManagement.html:280
 #: .\templates\pages\services\PatientManagement.html:222
 #: .\templates\pages\services\SchoolManagement.html:253
 msgid "User-friendly dashboard"
-msgstr "لوحة معلومات سهلة الاستخدام"
+msgstr "لوحة تحكم سهلة الاستخدام"
 
-#: .\templates\pages\index.html:211
+#: .\templates\pages\index.html:274
 #: .\templates\pages\services\HRManagement.html:281
 #: .\templates\pages\services\PatientManagement.html:223
 #: .\templates\pages\services\SchoolManagement.html:254
@@ -1779,24 +1822,24 @@ msgid ""
 "A simple and intuitive interface that allows you to manage all your "
 "operations easily, even for non-technical users."
 msgstr ""
-"واجهة بسيطة وبديهية تتيح لك إدارة جميع عملياتك بسهولة ، حتى بالنسبة "
-"للمستخدمين غير التقنيين."
+"واجهة بسيطة وبديهية تتيح لك إدارة جميع عملياتك بسهولة، حتى للمستخدمين غير "
+"التقنيين"
 
-#: .\templates\pages\index.html:219
+#: .\templates\pages\index.html:282
 #: .\templates\pages\services\HRManagement.html:289
 #: .\templates\pages\services\PatientManagement.html:231
 #: .\templates\pages\services\SchoolManagement.html:262
 msgid "Security"
-msgstr "حماية"
+msgstr "الأمان"
 
-#: .\templates\pages\index.html:220
+#: .\templates\pages\index.html:283
 #: .\templates\pages\services\HRManagement.html:290
 #: .\templates\pages\services\PatientManagement.html:232
 #: .\templates\pages\services\SchoolManagement.html:263
 msgid "Protected from security vulnerabilities"
-msgstr "محمية من نقاط الضعف الأمنية"
+msgstr "محمي من الثغرات الأمنية"
 
-#: .\templates\pages\index.html:221
+#: .\templates\pages\index.html:284
 #: .\templates\pages\services\HRManagement.html:291
 #: .\templates\pages\services\PatientManagement.html:233
 #: .\templates\pages\services\SchoolManagement.html:264
@@ -1804,24 +1847,23 @@ msgid ""
 "A system equipped with advanced protection technologies to safeguard your "
 "data from threats and cyber-attacks."
 msgstr ""
-"نظام مزود بتقنيات الحماية المتقدمة لحماية بياناتك من التهديدات والهجمات "
-"الإلكترونية."
+"نظام مزود بتقنيات حماية متقدمة لحفظ بياناتك من التهديدات والهجمات الإلكترونية"
 
-#: .\templates\pages\index.html:229
+#: .\templates\pages\index.html:292
 #: .\templates\pages\services\HRManagement.html:299
 #: .\templates\pages\services\PatientManagement.html:241
 #: .\templates\pages\services\SchoolManagement.html:272
 msgid "Customize"
-msgstr "تخصيص"
+msgstr "قابل للتخصيص"
 
-#: .\templates\pages\index.html:230
+#: .\templates\pages\index.html:293
 #: .\templates\pages\services\HRManagement.html:300
 #: .\templates\pages\services\PatientManagement.html:242
 #: .\templates\pages\services\SchoolManagement.html:273
 msgid "Customizable"
 msgstr "قابل للتخصيص"
 
-#: .\templates\pages\index.html:231
+#: .\templates\pages\index.html:294
 #: .\templates\pages\services\HRManagement.html:301
 #: .\templates\pages\services\PatientManagement.html:243
 #: .\templates\pages\services\SchoolManagement.html:274
@@ -1830,21 +1872,21 @@ msgid ""
 "business needs."
 msgstr "تصميم مرن يسمح لك بتعديل النظام لتناسب احتياجات عملك المحددة."
 
-#: .\templates\pages\index.html:239
+#: .\templates\pages\index.html:302
 #: .\templates\pages\services\HRManagement.html:309
 #: .\templates\pages\services\PatientManagement.html:251
 #: .\templates\pages\services\SchoolManagement.html:282
 msgid "Responsive"
 msgstr "استجابة"
 
-#: .\templates\pages\index.html:240
+#: .\templates\pages\index.html:303
 #: .\templates\pages\services\HRManagement.html:310
 #: .\templates\pages\services\PatientManagement.html:252
 #: .\templates\pages\services\SchoolManagement.html:283
 msgid "Multi-device support"
 msgstr "دعم متعدد الأجهزة"
 
-#: .\templates\pages\index.html:241
+#: .\templates\pages\index.html:304
 #: .\templates\pages\services\HRManagement.html:311
 #: .\templates\pages\services\PatientManagement.html:253
 #: .\templates\pages\services\SchoolManagement.html:284
@@ -1855,7 +1897,7 @@ msgstr ""
 "الوصول إلى النظام عبر أجهزة مختلفة مثل أجهزة الكمبيوتر أو الهواتف الذكية أو "
 "الأجهزة اللوحية."
 
-#: .\templates\pages\index.html:249
+#: .\templates\pages\index.html:312
 #: .\templates\pages\services\HRManagement.html:218
 #: .\templates\pages\services\HRManagement.html:319
 #: .\templates\pages\services\PatientManagement.html:155
@@ -1868,14 +1910,14 @@ msgstr ""
 msgid "Permissions"
 msgstr "أذونات"
 
-#: .\templates\pages\index.html:250
+#: .\templates\pages\index.html:313
 #: .\templates\pages\services\HRManagement.html:320
 #: .\templates\pages\services\PatientManagement.html:262
 #: .\templates\pages\services\SchoolManagement.html:293
 msgid "User management and permissions"
 msgstr "إدارة المستخدمين والأذونات"
 
-#: .\templates\pages\index.html:251
+#: .\templates\pages\index.html:314
 #: .\templates\pages\services\HRManagement.html:321
 #: .\templates\pages\services\PatientManagement.html:263
 #: .\templates\pages\services\SchoolManagement.html:294
@@ -1885,21 +1927,21 @@ msgid ""
 msgstr ""
 "نظام تحكم متقدم يسمح لك بتعيين أدوار وأذونات مختلفة للمستخدمين داخل النظام."
 
-#: .\templates\pages\index.html:259
+#: .\templates\pages\index.html:322
 #: .\templates\pages\services\HRManagement.html:329
 #: .\templates\pages\services\PatientManagement.html:271
 #: .\templates\pages\services\SchoolManagement.html:302
 msgid "Support"
 msgstr "يدعم"
 
-#: .\templates\pages\index.html:260
+#: .\templates\pages\index.html:323
 #: .\templates\pages\services\HRManagement.html:330
 #: .\templates\pages\services\PatientManagement.html:272
 #: .\templates\pages\services\SchoolManagement.html:303
 msgid "24/7 technical support"
 msgstr "24/7 الدعم الفني"
 
-#: .\templates\pages\index.html:261
+#: .\templates\pages\index.html:324
 #: .\templates\pages\services\HRManagement.html:331
 #: .\templates\pages\services\PatientManagement.html:273
 #: .\templates\pages\services\SchoolManagement.html:304
@@ -1908,13 +1950,13 @@ msgid ""
 "issues or inquiries."
 msgstr "فريق دعم مخصص متاح على مدار الساعة لمساعدتك في أي مشكلات أو استفسارات."
 
-#: .\templates\pages\index.html:294
+#: .\templates\pages\index.html:357
 #: .\templates\pages\services\HRManagement.html:356
 #: .\templates\pages\services\PatientManagement.html:287
 msgid "Customer reviews"
 msgstr "مراجعات العملاء"
 
-#: .\templates\pages\index.html:304
+#: .\templates\pages\index.html:367
 #: .\templates\pages\services\HRManagement.html:364
 #: .\templates\pages\services\PatientManagement.html:295
 msgid ""
@@ -1924,7 +1966,7 @@ msgstr ""
 "حل إدارة متكامل أدى إلى تحسين سير العمل لدينا بشكل كبير. إنه سريع ودقيق "
 "وفعال بشكل لا يصدق."
 
-#: .\templates\pages\index.html:314 .\templates\pages\index.html:380
+#: .\templates\pages\index.html:377 .\templates\pages\index.html:443
 #: .\templates\pages\services\HRManagement.html:374
 #: .\templates\pages\services\HRManagement.html:439
 #: .\templates\pages\services\PatientManagement.html:305
@@ -1932,7 +1974,7 @@ msgstr ""
 msgid "Romania"
 msgstr "رومانيا"
 
-#: .\templates\pages\index.html:337
+#: .\templates\pages\index.html:400
 #: .\templates\pages\services\HRManagement.html:397
 #: .\templates\pages\services\PatientManagement.html:328
 msgid ""
@@ -1942,13 +1984,13 @@ msgstr ""
 "لقد أحدث هذا البرنامج تغييرًا جذريًا في أعمالنا! لقد أدى تنوع البرنامج وسهولة "
 "استخدامه إلى تعزيز إنتاجيتنا بشكل لم يحدث من قبل."
 
-#: .\templates\pages\index.html:347
+#: .\templates\pages\index.html:410
 #: .\templates\pages\services\HRManagement.html:407
 #: .\templates\pages\services\PatientManagement.html:338
 msgid "German"
 msgstr "الألمانية"
 
-#: .\templates\pages\index.html:370
+#: .\templates\pages\index.html:433
 #: .\templates\pages\services\HRManagement.html:429
 #: .\templates\pages\services\PatientManagement.html:360
 msgid ""
@@ -1958,15 +2000,15 @@ msgstr ""
 "لقد جربنا العديد من حلول الإدارة من قبل، لكن هذا الحل يتميز بكفاءته وسهولة "
 "استخدامه."
 
-#: .\templates\pages\index.html:423
+#: .\templates\pages\index.html:486
 msgid "Our Team"
 msgstr "فريقنا"
 
-#: .\templates\pages\index.html:434
+#: .\templates\pages\index.html:497
 msgid "Backend Dev"
 msgstr "الخلفية ديف"
 
-#: .\templates\pages\index.html:437
+#: .\templates\pages\index.html:500
 msgid ""
 "A highly skilled and trusted Backend Developer with deep expertise in "
 "building secure, integrated systems tailored to your business needs. "
@@ -1980,11 +2022,11 @@ msgstr ""
 "المخصصة التي تضمن الكفاءة والأداء العالي وأمن البيانات. شريكك المثالي لإنشاء "
 "نظام مرن ومستدام يلبي أهدافك بثقة."
 
-#: .\templates\pages\index.html:450
+#: .\templates\pages\index.html:513
 msgid "UI/UX Designer"
 msgstr "مصمم UI/UX"
 
-#: .\templates\pages\index.html:453
+#: .\templates\pages\index.html:516
 msgid ""
 "A highly skilled UI/UX Designer with expertise in creating innovative user "
 "interfaces and seamless user experiences. Focused on achieving a balance "
@@ -1998,11 +2040,11 @@ msgstr ""
 "مع ضمان تجربة تفاعلية جذابة وفعالة للمستخدمين. سعي دائمًا لتحويل الأفكار إلى "
 "تصميمات استثنائية تساهم في نجاح المشروع وتقديم تجربة مستخدم لا مثيل لها."
 
-#: .\templates\pages\index.html:466
+#: .\templates\pages\index.html:529
 msgid "Frontend Designer"
 msgstr "مصمم الواجهة"
 
-#: .\templates\pages\index.html:469
+#: .\templates\pages\index.html:532
 msgid ""
 "An exceptional Frontend Developer with expertise in transforming designs "
 "into interactive, user-friendly websites and applications. Focused on "
@@ -2015,7 +2057,7 @@ msgstr ""
 "وضمان تجربة مستخدم سلسة في جميع الأجهزة والمتصفحات. شريك موثوق به في جلب "
 "رؤيتك إلى الحياة من خلال واجهات رقمية مذهلة ومتكاملة بالكامل."
 
-#: .\templates\pages\index.html:485
+#: .\templates\pages\index.html:548
 msgid ""
 "A professional female Project Manager with extensive experience in "
 "successfully planning and executing projects. She is responsible for "
@@ -2030,76 +2072,69 @@ msgstr ""
 "الموارد لضمان تسليم المشروع في الوقت المحدد ووسط الميزانية. إنها تمتلك "
 "مهارات قيادية قوية وقدرات لحل المشكلات ، مما يجعلها شريكًا رئيسيًا في تحقيق "
 "نجاح المشروع وتوجيهه نحو النتائج المرجوة."
+#: .\templates\pages\index.html:586
+msgid "What is SOFTmsg?"
+msgstr "ما هو SOFTmsg؟"
 
-#: .\templates\pages\index.html:522
-msgid "What is SoftMsg?"
-msgstr "ما هو SoftMsg؟"
-
-#: .\templates\pages\index.html:527
+#: .\templates\pages\index.html:591
 msgid ""
-"SoftMsg is a platform that provides ready-to-use projects you can deploy "
-"with a single click, allowing you to launch your website or application "
-"easily without deep technical knowledge."
-msgstr ""
-"SoftMsg هو منصة توفر مشاريع جاهزة للاستخدام يمكنك نشرها بنقرة واحدة، مما "
-"يتيح لك إطلاق موقعك أو تطبيقك بسهولة دون الحاجة لمهارات تقنية متقدمة."
+"SOFTmsg is a marketplace for ready-to-use web projects. You can install and "
+"run applications instantly with one click, without needing programming "
+"skills."
+msgstr "SOFTmsg هو متجر للمشاريع الجاهزة للاستخدام على الويب. يمكنك تثبيت وتشغيل التطبيقات فورًا بنقرة واحدة، دون الحاجة لمهارات برمجة."
 
-#: .\templates\pages\index.html:536
-msgid "Do I need programming skills to use the platform?"
-msgstr "هل أحتاج لمهارات برمجة لاستخدام المنصة؟"
+#: .\templates\pages\index.html:601
+msgid "Do I need programming skills to use SOFTmsg?"
+msgstr "هل أحتاج لمهارات برمجة لاستخدام SOFTmsg؟"
 
-#: .\templates\pages\index.html:541
+#: .\templates\pages\index.html:606
 msgid ""
-"No, the platform is designed to be user-friendly even for non-developers. "
-"All you need to do is choose a project and deploy it with one click."
-msgstr ""
-"لا، تم تصميم المنصة لتكون سهلة الاستخدام حتى لغير المطورين. كل ما عليك فعله "
-"هو اختيار مشروع ونشره بنقرة واحدة."
+"No. The platform is designed to be simple and user-friendly. Just choose a "
+"project, click install, and it will be deployed automatically on your server."
+msgstr "لا. تم تصميم المنصة لتكون بسيطة وسهلة الاستخدام. فقط اختر المشروع، انقر على تثبيت، وسيتم نشره تلقائيًا على خادمك."
 
-#: .\templates\pages\index.html:555
+#: .\templates\pages\index.html:616
+msgid "What payment options are available?"
+msgstr "ما هي خيارات الدفع المتاحة؟"
+
+#: .\templates\pages\index.html:621
 msgid ""
-"We support payments via credit cards and PayPal, and in some countries local "
-"payment methods are available."
-msgstr ""
-"ندعم الدفع عبر بطاقات الائتمان وباي بال، وفي بعض الدول تتوفر طرق دفع محلية."
+"SOFTmsg offers both free and paid plans. Paid plans can be purchased using "
+"credit cards, PayPal, and in some regions local payment methods."
+msgstr "يقدم SOFTmsg خططًا مجانية ومدفوعة. يمكن شراء الخطط المدفوعة باستخدام بطاقات الائتمان، PayPal، وفي بعض المناطق طرق دفع محلية."
 
-#: .\templates\pages\index.html:564
+#: .\templates\pages\index.html:631
 msgid "Can I customize the projects?"
 msgstr "هل يمكنني تخصيص المشاريع؟"
 
-#: .\templates\pages\index.html:569
+#: .\templates\pages\index.html:636
 msgid ""
-"Yes, you can easily customize the design and settings. You can also access "
-"the source code if you want to make deeper modifications."
-msgstr ""
-"نعم، يمكنك تخصيص التصميم والإعدادات بسهولة. يمكنك أيضًا الوصول إلى كود المصدر "
-"إذا أردت إجراء تعديلات أعمق."
+"Yes. You can adjust settings directly from the dashboard, and if the project "
+"is open-source you can also download and modify the source code."
+msgstr "نعم. يمكنك تعديل الإعدادات مباشرة من لوحة التحكم، وإذا كان المشروع مفتوح المصدر، يمكنك أيضًا تنزيل وتعديل الكود المصدري."
 
-#: .\templates\pages\index.html:578
-msgid "Is there a trial period?"
-msgstr "هل هناك فترة تجريبية؟"
+#: .\templates\pages\index.html:646
+msgid "Is there a free trial?"
+msgstr "هل هناك فترة تجريبية مجانية؟"
 
-#: .\templates\pages\index.html:583
+#: .\templates\pages\index.html:651
 msgid ""
-"Yes, some projects offer a free trial version so you can test the service "
-"before subscribing to a paid plan."
-msgstr ""
-"نعم، بعض المشاريع توفر نسخة تجريبية مجانية لتتمكن من تجربة الخدمة قبل "
-"الاشتراك في خطة مدفوعة."
+"Yes. Many projects include a free plan or trial version so you can test them "
+"before upgrading to a paid subscription."
+msgstr "نعم. العديد من المشاريع توفر خطة مجانية أو نسخة تجريبية لتتمكن من تجربتها قبل الترقية إلى الاشتراك المدفوع."
 
-#: .\templates\pages\index.html:592
-msgid "How can I get technical support?"
-msgstr "كيف يمكنني الحصول على الدعم الفني؟"
+#: .\templates\pages\index.html:661
+msgid "How can I get support?"
+msgstr "كيف يمكنني الحصول على الدعم؟"
 
-#: .\templates\pages\index.html:597
+#: .\templates\pages\index.html:666
 msgid ""
-"We provide technical support through tickets and email, along with a "
-"knowledge base that contains detailed guides and tutorials."
-msgstr ""
-"نقدم الدعم الفني عبر التذاكر والبريد الإلكتروني، بالإضافة إلى قاعدة معرفة "
-"تحتوي على أدلة ودروس تفصيلية."
+"You can reach support through live chat and email. We also provide a "
+"knowledge base with guides, tutorials, and troubleshooting steps."
+msgstr "يمكنك الحصول على الدعم عبر الدردشة المباشرة والبريد الإلكتروني. كما نوفر قاعدة معرفة تحتوي على أدلة ودروس تعليمية وخطوات لحل المشاكل."
 
-#: .\templates\pages\index.html:627
+
+#: .\templates\pages\index.html:696
 msgid ""
 "Do you want to develop a custom program that <span class='text-"
 "primary'>meets your specific needs?"
@@ -2107,11 +2142,22 @@ msgstr ""
 "هل ترغب في تطوير برنامج مخصص يفي بـ <span class = 'text-promary'> تلبي "
 "احتياجاتك المحددة؟"
 
-#: .\templates\pages\index.html:632
+#: .\templates\pages\index.html:701
 msgid "Contact Form"
 msgstr "نموذج الاتصال"
 
-#: .\templates\pages\index.html:640
+#: .\templates\pages\index.html:705
+#: .\templates\pages\services\HRManagement.html:26
+#: .\templates\pages\services\HRManagement.html:820
+#: .\templates\pages\services\PatientManagement.html:25
+#: .\templates\pages\services\PatientManagement.html:588
+#: .\templates\pages\services\SchoolManagement.html:25
+#: .\templates\pages\services\SchoolManagement.html:433
+#: .\templates\parts\footer.html:10 .\templates\parts\navbar.html:66
+msgid "Contact us"
+msgstr "تواصل معنا"
+
+#: .\templates\pages\index.html:709
 msgid ""
 "Fill out the contact form now, and our dedicated team is ready to provide "
 "you with the support you need and turn your dreams into reality. Take the "
@@ -2120,59 +2166,117 @@ msgstr ""
 "املأ نموذج الاتصال الآن ، وفريقنا المخصص مستعد لتزويدك بالدعم الذي تحتاجه "
 "وتحويل أحلامك إلى حقيقة واقعة. اتخذ الخطوة الأولى نحو النجاح!"
 
-#: .\templates\pages\index.html:653 .\templates\parts\footer.html:19
+#: .\templates\pages\index.html:722 .\templates\parts\footer.html:19
 #: .\templates\parts\footer.html:20
 msgid "Email address"
 msgstr "عنوان البريد الإلكتروني"
 
-#: .\templates\pages\index.html:660
+#: .\templates\pages\index.html:729
 msgid "Phone Number"
 msgstr "رقم التليفون"
 
-#: .\templates\pages\index.html:677
+#: .\templates\pages\index.html:746
 msgid "Project Description"
 msgstr "وصف المشروع"
 
-#: .\templates\pages\index.html:681
+#: .\templates\pages\index.html:750
 msgid "Enter a detailed description of your project."
 msgstr "أدخل وصفًا مفصلاً لمشروعك."
 
-#: .\templates\pages\index.html:686
+#: .\templates\pages\index.html:755
 msgid "Examples of similar websites"
 msgstr "أمثلة على مواقع الويب المماثلة"
 
-#: .\templates\pages\index.html:690
+#: .\templates\pages\index.html:759
 msgid "Provide examples or links to designs and websites you like."
 msgstr "قدم أمثلة أو روابط للتصميمات والمواقع الإلكترونية التي تريدها."
 
-#: .\templates\pages\index.html:703
+#: .\templates\pages\index.html:772
 msgid ""
 "By sending this form I confirm that I have read and accept the Privacy Policy"
 msgstr "عن طريق إرسال هذا النموذج ، أؤكد أنني قرأت وقبول سياسة الخصوصية"
 
-#: .\templates\pages\index.html:705
+#: .\templates\pages\index.html:774
 msgid "You must agree before submitting."
 msgstr "يجب أن توافق قبل تقديمها."
 
-#: .\templates\pages\index.html:709
+#: .\templates\pages\index.html:778
 msgid "Submit"
-msgstr "يُقدِّم"
+msgstr "تقديم"
 
-#: .\templates\pages\index.html:757
-msgid "Management systems in one place for faster, precise results"
-msgstr "أنظمة الإدارة في مكان واحد للحصول على نتائج أسرع ودقيقة"
+#: .\templates\pages\index.html:826
+msgid "Install ready-to-use projects with just one click"
+msgstr "ثبت مشاريع جاهزة للاستخدام بنقرة واحدة فقط من لوحة التحكم"
 
-#: .\templates\pages\index.html:758
-msgid "All your projects ready to deploy with one click"
-msgstr "جميع مشاريعك جاهزة للنشر بنقرة واحدة"
 
-#: .\templates\pages\index.html:759
-msgid "Simplify your workflow and increase efficiency"
-msgstr "بسّط سير عملك وزد من الكفاءة"
+#: .\templates\pages\index.html:827
+msgid "No programming needed – we handle setup and hosting"
+msgstr "لا حاجة للبرمجة – نحن نتولى الإعداد والاستضافة"
 
-#: .\templates\pages\index.html:760
-msgid "A versatile software suite for businesses of all sizes"
-msgstr "مجموعة برمجيات متعددة الاستخدامات للشركات من جميع الأحجام"
+#: .\templates\pages\index.html:828
+msgid "Manage all your deployed projects in one place"
+msgstr "قم بإدارة جميع مشاريعك المنشورة من مكان واحد"
+
+#: .\templates\pages\index.html:829
+msgid "A marketplace of open-source projects, ready to launch"
+msgstr "سوق للمشاريع مفتوحة المصدر جاهزة للإطلاق"
+
+#: .\templates\pages\index.html:830
+msgid "Your marketplace for ready-to-use web projects"
+msgstr "سوقك للمشاريع الجاهزة للاستخدام على الويب"
+
+#: .\templates\pages\index.html:831
+msgid "Deploy projects with just one click in one dashboard"
+msgstr "انشر المشاريع بنقرة واحدة من لوحة تحكم واحدة"
+
+#: .\templates\pages\index.html:832
+msgid "No programming needed – we set it up for you"
+msgstr "لا حاجة للبرمجة – نحن نقوم بالإعداد لك"
+
+#: .\templates\pages\index.html:833
+msgid "Manage all your apps, domains, and hosting in one dashboard"
+msgstr "قم بإدارة جميع تطبيقاتك ونطاقاتك واستضافتك من لوحة تحكم واحدة"
+
+#: .\templates\pages\index.html:834
+msgid "Open-source projects, install and run instantly"
+msgstr "مشاريع مفتوحة المصدر، قم بالتثبيت والتشغيل فوراً"
+
+#: .\templates\pages\index.html:849
+msgid "One-Click Deploy"
+msgstr "نشر بنقرة واحدة"
+
+#: .\templates\pages\index.html:850
+msgid "Ready-to-Use Code"
+msgstr "كود جاهز للاستخدام"
+
+#: .\templates\pages\index.html:851
+msgid "Easy Configuration"
+msgstr "إعداد سهل"
+
+#: .\templates\pages\index.html:852
+msgid "Secure Setup"
+msgstr "إعداد آمن"
+
+#: .\templates\pages\index.html:853
+msgid "Server Ready"
+msgstr "الخادم جاهز"
+
+#: .\templates\pages\index.html:854
+msgid "Import/Export Projects"
+msgstr "استيراد/تصدير المشاريع"
+
+#: .\templates\pages\index.html:855
+msgid "Collaborate Easily"
+msgstr "تعاون بسهولة"
+
+#: .\templates\pages\index.html:856
+msgid "Responsive Design"
+msgstr "تصميم متجاوب"
+
+
+#: .\templates\pages\index.html:858
+msgid "Guaranteed Updates"
+msgstr "تحديثات مضمونة"
 
 #: .\templates\pages\services\HRManagement.html:6
 #: .\templates\pages\services\HRManagement.html:18
@@ -2290,6 +2394,12 @@ msgstr "التقارير"
 #: .\templates\pages\services\SchoolManagement.html:185
 msgid "Multi Manager"
 msgstr "مدير متعدد"
+
+#: .\templates\pages\services\HRManagement.html:224
+#: .\templates\pages\services\PatientManagement.html:161
+#: .\templates\pages\services\SchoolManagement.html:197
+msgid "Exporting"
+msgstr "التصدير"
 
 #: .\templates\pages\services\HRManagement.html:230
 #: .\templates\pages\services\PatientManagement.html:173
@@ -2733,6 +2843,10 @@ msgstr "مدير ملفات المريض"
 msgid "Medical Reports"
 msgstr "التقارير الطبية"
 
+#: .\templates\pages\services\PatientManagement.html:130
+msgid "Appointments"
+msgstr "المواعيد"
+
 #: .\templates\pages\services\PatientManagement.html:136
 msgid "Report Customizing"
 msgstr "تقرير تخصيص"
@@ -3139,10 +3253,6 @@ msgstr "الرئيسية"
 msgid "My Projects"
 msgstr "مشاريعي"
 
-#: .\templates\parts\dashboard\sidebar.html:28 .\templates\parts\navbar.html:29
-msgid "Marketplace"
-msgstr "المتجر"
-
 #: .\templates\parts\dashboard\sidebar.html:94
 msgid "Admin"
 msgstr "مسؤل"
@@ -3190,6 +3300,68 @@ msgstr "تسجيل الخروج"
 #: .\templates\parts\navbar.html:99
 msgid "Sign Up"
 msgstr "اشتراك"
+
+#~ msgid "IT tickets"
+#~ msgstr "تذاكر"
+
+#~ msgid "Tasks"
+#~ msgstr "المهام"
+
+#~ msgid "Sales pipeline"
+#~ msgstr "خط المبيعات"
+
+#~ msgid "Contacts"
+#~ msgstr "جهات الاتصال"
+
+#~ msgid "Roadmap planning"
+#~ msgstr "تخطيط خريطة الطريق"
+
+#~ msgid "Recruitment"
+#~ msgstr "توظيف"
+
+#~ msgid "Resource management"
+#~ msgstr "إدارة الموارد"
+
+#~ msgid "Reporting"
+#~ msgstr "الإبلاغ"
+
+#~ msgid ""
+#~ "SoftMsg is a platform that provides ready-to-use projects you can deploy "
+#~ "with a single click, allowing you to launch your website or application "
+#~ "easily without deep technical knowledge."
+#~ msgstr ""
+#~ "SoftMsg هو منصة توفر مشاريع جاهزة للاستخدام يمكنك نشرها بنقرة واحدة، مما "
+#~ "يتيح لك إطلاق موقعك أو تطبيقك بسهولة دون الحاجة لمهارات تقنية متقدمة."
+
+#~ msgid ""
+#~ "No, the platform is designed to be user-friendly even for non-developers. "
+#~ "All you need to do is choose a project and deploy it with one click."
+#~ msgstr ""
+#~ "لا، تم تصميم المنصة لتكون سهلة الاستخدام حتى لغير المطورين. كل ما عليك "
+#~ "فعله هو اختيار مشروع ونشره بنقرة واحدة."
+
+#~ msgid ""
+#~ "We support payments via credit cards and PayPal, and in some countries "
+#~ "local payment methods are available."
+#~ msgstr ""
+#~ "ندعم الدفع عبر بطاقات الائتمان وباي بال، وفي بعض الدول تتوفر طرق دفع "
+#~ "محلية."
+
+#~ msgid ""
+#~ "Yes, you can easily customize the design and settings. You can also "
+#~ "access the source code if you want to make deeper modifications."
+#~ msgstr ""
+#~ "نعم، يمكنك تخصيص التصميم والإعدادات بسهولة. يمكنك أيضًا الوصول إلى كود "
+#~ "المصدر إذا أردت إجراء تعديلات أعمق."
+
+#~ msgid "Management systems in one place for faster, precise results"
+#~ msgstr "أنظمة الإدارة في مكان واحد للحصول على نتائج أسرع ودقيقة"
+
+#~ msgid "Simplify your workflow and increase efficiency"
+#~ msgstr "بسّط سير عملك وزد من الكفاءة"
+
+#~ msgid "A versatile software suite for businesses of all sizes"
+#~ msgstr "مجموعة برمجيات متعددة الاستخدامات للشركات من جميع الأحجام"
 
 #~ msgid "Subscription ID"
 #~ msgstr "معرف الاشتراك"
@@ -3405,9 +3577,6 @@ msgstr "اشتراك"
 
 #~ msgid "Card Security Code"
 #~ msgstr "رمز أمان البطاقة"
-
-#~ msgid "Resources"
-#~ msgstr "موارد"
 
 #~ msgid ""
 #~ "You turned my digital vision into reality! The website you designed for "

@@ -30,6 +30,11 @@
                     <i class="fa-solid fa-book"></i> {% trans "Documentation" %}
                 </a>
                 {% endif %}
+                {% if project.source_code_url %}
+                <a href="{{project.source_code_url}}" aria-label="{{ project.name }} {% trans "Documentation" %}" target="_blank" class="btn btn-outline-secondary btn-sm">
+                    <i class="fa-solid fa-book"></i> {% trans "Source Code" %}
+                </a>
+                {% endif %}
             </div>
         </div>
 
@@ -91,7 +96,13 @@
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                            <i class="fa-solid fa-download text-primary"></i> {% trans "Installations:" %}
+                            <i class="fa-solid fa-download text-primary"></i> {% trans "Downloads:" %}
+                        </div>
+                        <span class="badge bg-primary rounded-pill">{{ project.downloads }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fa-solid fa-cloud-arrow-down text-primary"></i> {% trans "Installations:" %}
                         </div>
                         <span class="badge bg-primary rounded-pill">{{ project.installs }}</span>
                     </li>
@@ -104,6 +115,40 @@
                     </li>
                 </ul>
             </div>
+            <div class="text-center">
+                <!-- زر التثبيت -->
+                <a href="{% url 'plans_list' project.id %}" 
+                aria-label="{% trans "Install" %} {{ project.name }}" 
+                class="btn btn-primary btn-lg d-block mb-3"
+                data-bs-toggle="tooltip" 
+                data-bs-placement="top"
+                aria-label="{% trans "install project cloud" %}"
+                title="{% trans "Click to install this project automatically" %}">
+                    <i class="fa-solid fa-cloud-arrow-down me-1"></i> 
+                    {% trans "Install Project" %}
+                </a>
+
+                <!-- وصف -->
+                <p class="text-muted">
+                    {% trans "We will install the project for you, no need for a programmer." %}
+                </p>
+
+                <!-- زر الكود المصدري -->
+                {% if project.source_code_url %}
+                    <a href="{{ project.source_code_url }}" 
+                    aria-label="{{ project.name }} {% trans "Source Code" %}" 
+                    target="_blank" 
+                    class="btn btn-success btn-lg d-block mb-3"
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top"
+                    aria-label="{% trans "Download and view the source code" %}"
+                    title="{% trans "Download and view the source code" %}">
+                        <i class="fa-solid fa-code-branch me-1"></i> 
+                        {% trans "Download Source Code" %}
+                    </a>
+                {% endif %}
+            </div>
+
 
             <!-- Technologies -->
             <div class="mb-4 p-3 bg-white shadow-sm rounded">

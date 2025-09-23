@@ -24,7 +24,7 @@
 /* خلفية متدرجة تتحرك يمين/يسار */
 .header-animated {
     position: relative;
-    background: linear-gradient(43deg, #fecd3a 30%, #ffffff 31%, #000000 30%, #000000 50%, #ffffff 51%, #0d6efd 50%);
+    background: linear-gradient(43deg, #fecd3a 30%, #ffffff 31%, #2b2b2b 30%, #2b2b2b 50%, #ffffff 51%, #0d6efd 50%);
     background-size: 200% 200%;
     animation: gradientMove 10s ease-in-out infinite alternate;
     overflow: hidden;
@@ -45,7 +45,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(6px); /* تغبيش */
+    backdrop-filter: blur(20px); /* تغبيش */
     background-color: rgba(0, 0, 0, 0.2); /* طبقة شفافة */
     z-index: 0;
 }
@@ -203,8 +203,13 @@
               </span>
               {% endif %}
               {% if project.install_time_minutes <= 5 %}
-              <span class="badge bg-success shadow-sm">
+              <span class="badge bg-warning shadow-sm">
                 <i class="fa-solid fa-bolt me-1"></i> {% trans "Fast Install" %}
+              </span>
+              {% endif %}
+              {% if project.is_open_source %}
+              <span class="badge bg-success shadow-sm">
+                <i class="fa-solid fa-code me-1"></i> {% trans "Open Source" %}
               </span>
               {% endif %}
             </div>

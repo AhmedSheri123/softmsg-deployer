@@ -51,10 +51,16 @@ class AvailableProject(models.Model):
         null=True,
         blank=True
     )
+    is_open_source = models.BooleanField(default=False)
+    source_code_url = models.URLField(max_length=200, blank=True, null=True) 
     install_steps = HTMLField(blank=True, verbose_name=_("Installation Steps"))
     installs = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Number of Installs")
+    )
+    downloads = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Number of source code downloads")
     )
     
     about = HTMLField(blank=True, verbose_name=_("About Project"))

@@ -5,7 +5,7 @@ urlpatterns = [
     path("<int:project_id>/details/api/", views.project_details_ajax, name="project_details_ajax"),
     path("<int:project_id>/details/", views.project_details, name="project_details"),
 
-    path('project-list', views.project_list, name='project_list'),
+    path('marketplace', views.project_list, name='project_list'),
     
     path(
         "run/<int:container_id>/<int:action_id>/",
