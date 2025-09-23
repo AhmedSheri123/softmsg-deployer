@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-23 16:58+0300\n"
+"POT-Creation-Date: 2025-09-23 22:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,7 +260,7 @@ msgstr "كيف يمكن لفريقنا مساعدتك؟"
 msgid "https://example.com"
 msgstr "https://example.com"
 
-#: .\pages\models.py:7 .\templates\pages\index.html:715
+#: .\pages\models.py:7 .\templates\pages\index.html:854
 msgid "Full Name"
 msgstr "الاسم الكامل"
 
@@ -978,7 +978,7 @@ msgid "Database"
 msgstr "قاعدة البيانات"
 
 #: .\templates\dashboard\plans\ServicePlans.html:146
-#: .\templates\pages\index.html:577
+#: .\templates\pages\index.html:716
 #: .\templates\pages\services\HRManagement.html:597
 #: .\templates\pages\services\PatientManagement.html:490
 msgid "Frequently Asked Questions"
@@ -1070,7 +1070,7 @@ msgid "Great service, easy to use!"
 msgstr "خدمة رائعة وسهلة الاستخدام!"
 
 #: .\templates\dashboard\plans\ServicePlans.html:300
-#: .\templates\pages\index.html:545
+#: .\templates\pages\index.html:684
 msgid "Project Manager"
 msgstr "مدير المشروع"
 
@@ -1722,11 +1722,15 @@ msgstr ""
 "مجموعة برامج متعددة الاستخدامات تقوم بتحويل الشركات من جميع الأحجام عن طريق "
 "تبسيط الأنظمة المعقدة إلى بيئات عمل فعالة."
 
-#: .\templates\pages\index.html:21
+#: .\templates\pages\index.html:17 .\templates\pages\index.html:965
+msgid "Install ready-to-use projects with just one click"
+msgstr "ثبت مشاريع جاهزة للاستخدام بنقرة واحدة فقط من لوحة التحكم"
+
+#: .\templates\pages\index.html:22
 msgid "SOFTmsg For"
 msgstr "سوفت مسج لـ"
 
-#: .\templates\pages\index.html:26
+#: .\templates\pages\index.html:27
 msgid ""
 "SOFTmsg is a marketplace that lets you launch ready-to-use web projects "
 "instantly — no coding required, just one click to deploy and manage your "
@@ -1735,7 +1739,7 @@ msgstr ""
 "SOFTmsg هو متجر يتيح لك إطلاق مشاريع ويب جاهزة للاستخدام فورًا — لا حاجة "
 "للبرمجة، فقط بنقرة واحدة لنشر وإدارة تطبيقاتك."
 
-#: .\templates\pages\index.html:35
+#: .\templates\pages\index.html:36
 #: .\templates\pages\services\HRManagement.html:22
 #: .\templates\pages\services\HRManagement.html:816
 #: .\templates\pages\services\PatientManagement.html:21
@@ -1745,8 +1749,8 @@ msgstr ""
 msgid "Get started for free"
 msgstr "ابدأ مجانًا"
 
-#: .\templates\pages\index.html:45 .\templates\parts\dashboard\sidebar.html:28
-#: .\templates\parts\navbar.html:29
+#: .\templates\pages\index.html:45 .\templates\pages\index.html:353
+#: .\templates\parts\dashboard\sidebar.html:28 .\templates\parts\navbar.html:29
 msgid "Marketplace"
 msgstr "المتجر"
 
@@ -1795,7 +1799,7 @@ msgstr "التعاون الجماعي"
 msgid "Multi-Language Support"
 msgstr "دعم متعدد اللغات"
 
-#: .\templates\pages\index.html:222 .\templates\pages\index.html:857
+#: .\templates\pages\index.html:222 .\templates\pages\index.html:996
 msgid "24/7 Support"
 msgstr "دعم فني على مدار الساعة"
 
@@ -1950,13 +1954,90 @@ msgid ""
 "issues or inquiries."
 msgstr "فريق دعم مخصص متاح على مدار الساعة لمساعدتك في أي مشكلات أو استفسارات."
 
-#: .\templates\pages\index.html:357
+#: .\templates\pages\index.html:339
+msgid "Everything you need to launch and manage your apps — instantly"
+msgstr "كل ما تحتاجه لإطلاق وإدارة تطبيقاتك — فورًا"
+
+#: .\templates\pages\index.html:345
+msgid "SOFTmsg is your marketplace for ready-to-use web projects. Install, monitor, and scale apps in seconds — no coding required."
+msgstr "SOFTmsg هو متجرك للمشاريع الجاهزة على الويب. ثبّت التطبيقات وراقبها ووسّعها في ثوانٍ — دون الحاجة إلى برمجة."
+
+#: .\templates\pages\index.html:367
+msgid "Instant Deployment"
+msgstr "نشر فوري"
+
+#: .\templates\pages\index.html:368
+msgid "Launch projects with <span class=\"fw-bold\">one-click setup and zero downtime</span>"
+msgstr "أطلق المشاريع مع <span class=\"fw-bold\">إعداد بنقرة واحدة ودون أي توقف</span>"
+
+#: .\templates\pages\index.html:373
+msgid "One-click deployment with Docker & Traefik"
+msgstr "نشر بنقرة واحدة باستخدام Docker و Traefik"
+
+#: .\templates\pages\index.html:376
+msgid "Automatic SSL & domain management"
+msgstr "إدارة تلقائية لشهادات SSL والنطاقات"
+
+#: .\templates\pages\index.html:379
+msgid "Optimized for high traffic and reliability"
+msgstr "محسن للتعامل مع الزيارات العالية والموثوقية الكاملة"
+
+#: .\templates\pages\index.html:391
+msgid "Unified Dashboard"
+msgstr "لوحة تحكم موحدة"
+
+#: .\templates\pages\index.html:392
+msgid "Manage all your apps from <span class=\"fw-bold\">one clean and intuitive interface</span>"
+msgstr "أدر جميع تطبيقاتك من <span class=\"fw-bold\">واجهة نظيفة وبديهية واحدة</span>"
+
+#: .\templates\pages\index.html:397
+msgid "Simple UI for beginners and experts"
+msgstr "واجهة بسيطة للمبتدئين والخبراء"
+
+#: .\templates\pages\index.html:400
+msgid "Fully responsive and multilingual (i18n)"
+msgstr "متجاوب بالكامل ويدعم تعدد اللغات (i18n)"
+
+#: .\templates\pages\index.html:403
+msgid "Clear container and service management"
+msgstr "إدارة واضحة للحاويات والخدمات"
+
+#: .\templates\pages\index.html:415
+msgid "Smart Experience"
+msgstr "تجربة ذكية"
+
+#: .\templates\pages\index.html:416
+msgid "SOFTmsg helps you <span class=\"fw-bold\">discover, install, and trust projects</span> with built-in transparency and insights."
+msgstr "يساعدك SOFTmsg على <span class=\"fw-bold\">اكتشاف المشاريع وتثبيتها والثقة بها</span> من خلال الشفافية والرؤى المدمجة."
+
+#: .\templates\pages\index.html:421
+msgid "Live stats: installs, downloads, and active users"
+msgstr "إحصائيات مباشرة: التنصيبات، التنزيلات، والمستخدمون النشطون"
+
+#: .\templates\pages\index.html:424
+msgid "Built-in reviews and star ratings"
+msgstr "مراجعات وتقييمات مدمجة بالنجوم"
+
+#: .\templates\pages\index.html:427
+msgid "Access to source code for open-source projects"
+msgstr "الوصول إلى الشيفرة المصدرية للمشاريع مفتوحة المصدر"
+
+#: .\templates\pages\index.html:430
+msgid "Auto-sorted containers for smooth deployment flow"
+msgstr "فرز تلقائي للحاويات لتدفق نشر سلس"
+
+#: .\templates\pages\index.html:433
+msgid "SEO-friendly project pages with metadata"
+msgstr "صفحات مشاريع متوافقة مع تحسين محركات البحث (SEO) مع بيانات وصفية"
+
+
+#: .\templates\pages\index.html:496
 #: .\templates\pages\services\HRManagement.html:356
 #: .\templates\pages\services\PatientManagement.html:287
 msgid "Customer reviews"
 msgstr "مراجعات العملاء"
 
-#: .\templates\pages\index.html:367
+#: .\templates\pages\index.html:506
 #: .\templates\pages\services\HRManagement.html:364
 #: .\templates\pages\services\PatientManagement.html:295
 msgid ""
@@ -1966,7 +2047,7 @@ msgstr ""
 "حل إدارة متكامل أدى إلى تحسين سير العمل لدينا بشكل كبير. إنه سريع ودقيق "
 "وفعال بشكل لا يصدق."
 
-#: .\templates\pages\index.html:377 .\templates\pages\index.html:443
+#: .\templates\pages\index.html:516 .\templates\pages\index.html:582
 #: .\templates\pages\services\HRManagement.html:374
 #: .\templates\pages\services\HRManagement.html:439
 #: .\templates\pages\services\PatientManagement.html:305
@@ -1974,7 +2055,7 @@ msgstr ""
 msgid "Romania"
 msgstr "رومانيا"
 
-#: .\templates\pages\index.html:400
+#: .\templates\pages\index.html:539
 #: .\templates\pages\services\HRManagement.html:397
 #: .\templates\pages\services\PatientManagement.html:328
 msgid ""
@@ -1984,13 +2065,13 @@ msgstr ""
 "لقد أحدث هذا البرنامج تغييرًا جذريًا في أعمالنا! لقد أدى تنوع البرنامج وسهولة "
 "استخدامه إلى تعزيز إنتاجيتنا بشكل لم يحدث من قبل."
 
-#: .\templates\pages\index.html:410
+#: .\templates\pages\index.html:549
 #: .\templates\pages\services\HRManagement.html:407
 #: .\templates\pages\services\PatientManagement.html:338
 msgid "German"
 msgstr "الألمانية"
 
-#: .\templates\pages\index.html:433
+#: .\templates\pages\index.html:572
 #: .\templates\pages\services\HRManagement.html:429
 #: .\templates\pages\services\PatientManagement.html:360
 msgid ""
@@ -2000,15 +2081,15 @@ msgstr ""
 "لقد جربنا العديد من حلول الإدارة من قبل، لكن هذا الحل يتميز بكفاءته وسهولة "
 "استخدامه."
 
-#: .\templates\pages\index.html:486
+#: .\templates\pages\index.html:625
 msgid "Our Team"
 msgstr "فريقنا"
 
-#: .\templates\pages\index.html:497
+#: .\templates\pages\index.html:636
 msgid "Backend Dev"
 msgstr "الخلفية ديف"
 
-#: .\templates\pages\index.html:500
+#: .\templates\pages\index.html:639
 msgid ""
 "A highly skilled and trusted Backend Developer with deep expertise in "
 "building secure, integrated systems tailored to your business needs. "
@@ -2022,11 +2103,11 @@ msgstr ""
 "المخصصة التي تضمن الكفاءة والأداء العالي وأمن البيانات. شريكك المثالي لإنشاء "
 "نظام مرن ومستدام يلبي أهدافك بثقة."
 
-#: .\templates\pages\index.html:513
+#: .\templates\pages\index.html:652
 msgid "UI/UX Designer"
 msgstr "مصمم UI/UX"
 
-#: .\templates\pages\index.html:516
+#: .\templates\pages\index.html:655
 msgid ""
 "A highly skilled UI/UX Designer with expertise in creating innovative user "
 "interfaces and seamless user experiences. Focused on achieving a balance "
@@ -2040,11 +2121,11 @@ msgstr ""
 "مع ضمان تجربة تفاعلية جذابة وفعالة للمستخدمين. سعي دائمًا لتحويل الأفكار إلى "
 "تصميمات استثنائية تساهم في نجاح المشروع وتقديم تجربة مستخدم لا مثيل لها."
 
-#: .\templates\pages\index.html:529
+#: .\templates\pages\index.html:668
 msgid "Frontend Designer"
 msgstr "مصمم الواجهة"
 
-#: .\templates\pages\index.html:532
+#: .\templates\pages\index.html:671
 msgid ""
 "An exceptional Frontend Developer with expertise in transforming designs "
 "into interactive, user-friendly websites and applications. Focused on "
@@ -2057,7 +2138,7 @@ msgstr ""
 "وضمان تجربة مستخدم سلسة في جميع الأجهزة والمتصفحات. شريك موثوق به في جلب "
 "رؤيتك إلى الحياة من خلال واجهات رقمية مذهلة ومتكاملة بالكامل."
 
-#: .\templates\pages\index.html:548
+#: .\templates\pages\index.html:687
 msgid ""
 "A professional female Project Manager with extensive experience in "
 "successfully planning and executing projects. She is responsible for "
@@ -2072,69 +2153,81 @@ msgstr ""
 "الموارد لضمان تسليم المشروع في الوقت المحدد ووسط الميزانية. إنها تمتلك "
 "مهارات قيادية قوية وقدرات لحل المشكلات ، مما يجعلها شريكًا رئيسيًا في تحقيق "
 "نجاح المشروع وتوجيهه نحو النتائج المرجوة."
-#: .\templates\pages\index.html:586
+
+#: .\templates\pages\index.html:725
 msgid "What is SOFTmsg?"
 msgstr "ما هو SOFTmsg؟"
 
-#: .\templates\pages\index.html:591
+#: .\templates\pages\index.html:730
 msgid ""
 "SOFTmsg is a marketplace for ready-to-use web projects. You can install and "
 "run applications instantly with one click, without needing programming "
 "skills."
-msgstr "SOFTmsg هو متجر للمشاريع الجاهزة للاستخدام على الويب. يمكنك تثبيت وتشغيل التطبيقات فورًا بنقرة واحدة، دون الحاجة لمهارات برمجة."
+msgstr ""
+"SOFTmsg هو متجر للمشاريع الجاهزة للاستخدام على الويب. يمكنك تثبيت وتشغيل "
+"التطبيقات فورًا بنقرة واحدة، دون الحاجة لمهارات برمجة."
 
-#: .\templates\pages\index.html:601
+#: .\templates\pages\index.html:740
 msgid "Do I need programming skills to use SOFTmsg?"
 msgstr "هل أحتاج لمهارات برمجة لاستخدام SOFTmsg؟"
 
-#: .\templates\pages\index.html:606
+#: .\templates\pages\index.html:745
 msgid ""
 "No. The platform is designed to be simple and user-friendly. Just choose a "
 "project, click install, and it will be deployed automatically on your server."
-msgstr "لا. تم تصميم المنصة لتكون بسيطة وسهلة الاستخدام. فقط اختر المشروع، انقر على تثبيت، وسيتم نشره تلقائيًا على خادمك."
+msgstr ""
+"لا. تم تصميم المنصة لتكون بسيطة وسهلة الاستخدام. فقط اختر المشروع، انقر على "
+"تثبيت، وسيتم نشره تلقائيًا على خادمك."
 
-#: .\templates\pages\index.html:616
+#: .\templates\pages\index.html:755
 msgid "What payment options are available?"
 msgstr "ما هي خيارات الدفع المتاحة؟"
 
-#: .\templates\pages\index.html:621
+#: .\templates\pages\index.html:760
 msgid ""
 "SOFTmsg offers both free and paid plans. Paid plans can be purchased using "
 "credit cards, PayPal, and in some regions local payment methods."
-msgstr "يقدم SOFTmsg خططًا مجانية ومدفوعة. يمكن شراء الخطط المدفوعة باستخدام بطاقات الائتمان، PayPal، وفي بعض المناطق طرق دفع محلية."
+msgstr ""
+"يقدم SOFTmsg خططًا مجانية ومدفوعة. يمكن شراء الخطط المدفوعة باستخدام بطاقات "
+"الائتمان، PayPal، وفي بعض المناطق طرق دفع محلية."
 
-#: .\templates\pages\index.html:631
+#: .\templates\pages\index.html:770
 msgid "Can I customize the projects?"
 msgstr "هل يمكنني تخصيص المشاريع؟"
 
-#: .\templates\pages\index.html:636
+#: .\templates\pages\index.html:775
 msgid ""
 "Yes. You can adjust settings directly from the dashboard, and if the project "
 "is open-source you can also download and modify the source code."
-msgstr "نعم. يمكنك تعديل الإعدادات مباشرة من لوحة التحكم، وإذا كان المشروع مفتوح المصدر، يمكنك أيضًا تنزيل وتعديل الكود المصدري."
+msgstr ""
+"نعم. يمكنك تعديل الإعدادات مباشرة من لوحة التحكم، وإذا كان المشروع مفتوح "
+"المصدر، يمكنك أيضًا تنزيل وتعديل الكود المصدري."
 
-#: .\templates\pages\index.html:646
+#: .\templates\pages\index.html:785
 msgid "Is there a free trial?"
 msgstr "هل هناك فترة تجريبية مجانية؟"
 
-#: .\templates\pages\index.html:651
+#: .\templates\pages\index.html:790
 msgid ""
 "Yes. Many projects include a free plan or trial version so you can test them "
 "before upgrading to a paid subscription."
-msgstr "نعم. العديد من المشاريع توفر خطة مجانية أو نسخة تجريبية لتتمكن من تجربتها قبل الترقية إلى الاشتراك المدفوع."
+msgstr ""
+"نعم. العديد من المشاريع توفر خطة مجانية أو نسخة تجريبية لتتمكن من تجربتها "
+"قبل الترقية إلى الاشتراك المدفوع."
 
-#: .\templates\pages\index.html:661
+#: .\templates\pages\index.html:800
 msgid "How can I get support?"
 msgstr "كيف يمكنني الحصول على الدعم؟"
 
-#: .\templates\pages\index.html:666
+#: .\templates\pages\index.html:805
 msgid ""
 "You can reach support through live chat and email. We also provide a "
 "knowledge base with guides, tutorials, and troubleshooting steps."
-msgstr "يمكنك الحصول على الدعم عبر الدردشة المباشرة والبريد الإلكتروني. كما نوفر قاعدة معرفة تحتوي على أدلة ودروس تعليمية وخطوات لحل المشاكل."
+msgstr ""
+"يمكنك الحصول على الدعم عبر الدردشة المباشرة والبريد الإلكتروني. كما نوفر "
+"قاعدة معرفة تحتوي على أدلة ودروس تعليمية وخطوات لحل المشاكل."
 
-
-#: .\templates\pages\index.html:696
+#: .\templates\pages\index.html:835
 msgid ""
 "Do you want to develop a custom program that <span class='text-"
 "primary'>meets your specific needs?"
@@ -2142,11 +2235,11 @@ msgstr ""
 "هل ترغب في تطوير برنامج مخصص يفي بـ <span class = 'text-promary'> تلبي "
 "احتياجاتك المحددة؟"
 
-#: .\templates\pages\index.html:701
+#: .\templates\pages\index.html:840
 msgid "Contact Form"
 msgstr "نموذج الاتصال"
 
-#: .\templates\pages\index.html:705
+#: .\templates\pages\index.html:844
 #: .\templates\pages\services\HRManagement.html:26
 #: .\templates\pages\services\HRManagement.html:820
 #: .\templates\pages\services\PatientManagement.html:25
@@ -2157,7 +2250,7 @@ msgstr "نموذج الاتصال"
 msgid "Contact us"
 msgstr "تواصل معنا"
 
-#: .\templates\pages\index.html:709
+#: .\templates\pages\index.html:848
 msgid ""
 "Fill out the contact form now, and our dedicated team is ready to provide "
 "you with the support you need and turn your dreams into reality. Take the "
@@ -2166,115 +2259,109 @@ msgstr ""
 "املأ نموذج الاتصال الآن ، وفريقنا المخصص مستعد لتزويدك بالدعم الذي تحتاجه "
 "وتحويل أحلامك إلى حقيقة واقعة. اتخذ الخطوة الأولى نحو النجاح!"
 
-#: .\templates\pages\index.html:722 .\templates\parts\footer.html:19
+#: .\templates\pages\index.html:861 .\templates\parts\footer.html:19
 #: .\templates\parts\footer.html:20
 msgid "Email address"
 msgstr "عنوان البريد الإلكتروني"
 
-#: .\templates\pages\index.html:729
+#: .\templates\pages\index.html:868
 msgid "Phone Number"
 msgstr "رقم التليفون"
 
-#: .\templates\pages\index.html:746
+#: .\templates\pages\index.html:885
 msgid "Project Description"
 msgstr "وصف المشروع"
 
-#: .\templates\pages\index.html:750
+#: .\templates\pages\index.html:889
 msgid "Enter a detailed description of your project."
 msgstr "أدخل وصفًا مفصلاً لمشروعك."
 
-#: .\templates\pages\index.html:755
+#: .\templates\pages\index.html:894
 msgid "Examples of similar websites"
 msgstr "أمثلة على مواقع الويب المماثلة"
 
-#: .\templates\pages\index.html:759
+#: .\templates\pages\index.html:898
 msgid "Provide examples or links to designs and websites you like."
 msgstr "قدم أمثلة أو روابط للتصميمات والمواقع الإلكترونية التي تريدها."
 
-#: .\templates\pages\index.html:772
+#: .\templates\pages\index.html:911
 msgid ""
 "By sending this form I confirm that I have read and accept the Privacy Policy"
 msgstr "عن طريق إرسال هذا النموذج ، أؤكد أنني قرأت وقبول سياسة الخصوصية"
 
-#: .\templates\pages\index.html:774
+#: .\templates\pages\index.html:913
 msgid "You must agree before submitting."
 msgstr "يجب أن توافق قبل تقديمها."
 
-#: .\templates\pages\index.html:778
+#: .\templates\pages\index.html:917
 msgid "Submit"
 msgstr "تقديم"
 
-#: .\templates\pages\index.html:826
-msgid "Install ready-to-use projects with just one click"
-msgstr "ثبت مشاريع جاهزة للاستخدام بنقرة واحدة فقط من لوحة التحكم"
-
-
-#: .\templates\pages\index.html:827
+#: .\templates\pages\index.html:966
 msgid "No programming needed – we handle setup and hosting"
 msgstr "لا حاجة للبرمجة – نحن نتولى الإعداد والاستضافة"
 
-#: .\templates\pages\index.html:828
+#: .\templates\pages\index.html:967
 msgid "Manage all your deployed projects in one place"
 msgstr "قم بإدارة جميع مشاريعك المنشورة من مكان واحد"
 
-#: .\templates\pages\index.html:829
+#: .\templates\pages\index.html:968
 msgid "A marketplace of open-source projects, ready to launch"
 msgstr "سوق للمشاريع مفتوحة المصدر جاهزة للإطلاق"
 
-#: .\templates\pages\index.html:830
+#: .\templates\pages\index.html:969
 msgid "Your marketplace for ready-to-use web projects"
 msgstr "سوقك للمشاريع الجاهزة للاستخدام على الويب"
 
-#: .\templates\pages\index.html:831
+#: .\templates\pages\index.html:970
 msgid "Deploy projects with just one click in one dashboard"
 msgstr "انشر المشاريع بنقرة واحدة من لوحة تحكم واحدة"
 
-#: .\templates\pages\index.html:832
+#: .\templates\pages\index.html:971
 msgid "No programming needed – we set it up for you"
 msgstr "لا حاجة للبرمجة – نحن نقوم بالإعداد لك"
 
-#: .\templates\pages\index.html:833
+#: .\templates\pages\index.html:972
 msgid "Manage all your apps, domains, and hosting in one dashboard"
 msgstr "قم بإدارة جميع تطبيقاتك ونطاقاتك واستضافتك من لوحة تحكم واحدة"
 
-#: .\templates\pages\index.html:834
+#: .\templates\pages\index.html:973
 msgid "Open-source projects, install and run instantly"
 msgstr "مشاريع مفتوحة المصدر، قم بالتثبيت والتشغيل فوراً"
 
-#: .\templates\pages\index.html:849
+#: .\templates\pages\index.html:988
 msgid "One-Click Deploy"
 msgstr "نشر بنقرة واحدة"
 
-#: .\templates\pages\index.html:850
+#: .\templates\pages\index.html:989
 msgid "Ready-to-Use Code"
 msgstr "كود جاهز للاستخدام"
 
-#: .\templates\pages\index.html:851
+#: .\templates\pages\index.html:990
 msgid "Easy Configuration"
 msgstr "إعداد سهل"
 
-#: .\templates\pages\index.html:852
+#: .\templates\pages\index.html:991
 msgid "Secure Setup"
 msgstr "إعداد آمن"
 
-#: .\templates\pages\index.html:853
+#: .\templates\pages\index.html:992
 msgid "Server Ready"
 msgstr "الخادم جاهز"
 
-#: .\templates\pages\index.html:854
+#: .\templates\pages\index.html:993
 msgid "Import/Export Projects"
 msgstr "استيراد/تصدير المشاريع"
 
-#: .\templates\pages\index.html:855
+#: .\templates\pages\index.html:994
 msgid "Collaborate Easily"
 msgstr "تعاون بسهولة"
 
-#: .\templates\pages\index.html:856
+#: .\templates\pages\index.html:995
 msgid "Responsive Design"
 msgstr "تصميم متجاوب"
 
-
-#: .\templates\pages\index.html:858
+#: .\templates\pages\index.html:997
 msgid "Guaranteed Updates"
 msgstr "تحديثات مضمونة"
 

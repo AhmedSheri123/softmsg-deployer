@@ -14,13 +14,14 @@
 <div class="py-4"></div>
 <div class="px-4 py-5 text-center" data-sal="fade" data-sal-delay="100" data-sal-duration="800">
     <div class="py-4 text-body-emphasis">
-        <h1 class="display-5 fw-bold container mb-4 " style="max-width:600px;"
+        <h1 class="d-none">{% trans 'Install ready-to-use projects with just one click' %}</h1>
+        <div class="display-5 fw-bold container mb-4 " style="max-width:600px;"
             data-sal="slide-up" 
             data-sal-delay="200" 
             data-sal-duration="800">
             {% trans "SOFTmsg For" %}
             <span id="typed-text" class="text-primary"></span>
-        </h1>
+        </div>
         <div class="col-lg-6 mx-auto" data-sal="fade" data-sal-delay="300" data-sal-duration="800">
         <p class="fs-5 mb-4">
             {% trans "SOFTmsg is a marketplace that lets you launch ready-to-use web projects instantly — no coding required, just one click to deploy and manage your apps." %}
@@ -124,8 +125,8 @@
     content: "";
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(30px); /* تغبيش */
-    background-color: rgba(0, 0, 0, 0.2); /* طبقة شفافة */
+    backdrop-filter: blur(1px); /* تغبيش */
+    background-color: rgba(0, 0, 0, 0.04); /* طبقة شفافة */
     z-index: 0;
 }
 
@@ -138,10 +139,10 @@
 
 <!-- Solutions -->
 
-<div class="container py-5">
+<div class="p-2 p-md-5 py-5 bg-body-tertiary">
     
-    <div class="header-animated rounded-4">
-    <div class="p-4 p-md-5  text-center glass-eff">
+    <div class="header-animated rounded-4 border">
+    <div class="p-4 p-md-5  text-center glass-eff ">
             
         <h2 class="text-dark" data-sal="slide-up" data-sal-duration="800">
             {% trans "Powerful solutions that <span class='text-success'>launch your projects instantly</span>" %}
@@ -327,8 +328,147 @@
 </div>
 <!-- End Services Features -->
 
+
+
+<!-- Services Features -->
+<div class="p-2 p-md-5 py-5 bg-body-tertiary">
+    <h2 class="text-center py-4"
+        data-sal="slide-up" 
+        data-sal-duration="800">
+        {% trans "Everything you need to launch and manage your apps — instantly" %}
+    </h2>
+    <p class="text-center col-lg-6 mx-auto"
+       data-sal="fade" 
+       data-sal-delay="200" 
+       data-sal-duration="800">
+        {% trans "SOFTmsg is your marketplace for ready-to-use web projects. Install, monitor, and scale apps in seconds — no coding required." %}
+    </p>
+
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center"
+         data-sal="zoom-in" 
+         data-sal-delay="400" 
+         data-sal-duration="800">
+        <a href="{% url 'project_list' %}" class="btn btn-primary btn-lg px-4 zoom-anim rounded-4 shadow-lg">
+            {% trans "Marketplace" %}
+            <i class="fa-solid fa-store ms-2"></i>
+        </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+
+        <!-- Performance -->
+        <div class="col" 
+             data-sal="slide-up" 
+             data-sal-delay="100" 
+             data-sal-duration="800">
+            <div class="d-flex flex-column h-100 p-4 pb-3 text-dark glass-eff glass-light-dark text-center">
+                <i class="fa-solid fa-rocket fa-2x mb-2 text-primary" style="font-size:45px;"></i>
+                <h3 class="lh-1 fw-bold">{% trans "Instant Deployment" %}</h3>
+                <p>{% trans 'Launch projects with <span class="fw-bold">one-click setup and zero downtime</span>' %}</p>
+                <div class="mb-3">
+                    <img src="{% static 'img/sites/dashboard-1200x900.webp' %}" alt="" height="200" class="w-100 rounded-4 shadow img-pulse" style="object-fit: cover;">
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "One-click deployment with Docker & Traefik" %}</span>
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Automatic SSL & domain management" %}</span>
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Optimized for high traffic and reliability" %}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design -->
+        <div class="col" 
+             data-sal="slide-up" 
+             data-sal-delay="200" 
+             data-sal-duration="800">
+            <div class="d-flex flex-column h-100 p-4 pb-3 text-dark glass-eff glass-light-dark text-center">
+                <i class="fa-solid fa-layer-group fa-2x mb-2 text-primary" style="font-size:45px;"></i>
+                <h3 class="lh-1 fw-bold">{% trans "Unified Dashboard" %}</h3>
+                <p>{% trans 'Manage all your apps from <span class="fw-bold">one clean and intuitive interface</span>' %}</p>
+                <div class="mb-3">
+                    <img src="{% static 'img/sites/eCommerce-Website-Template.webp' %}" alt="" class="w-100 rounded-4 shadow img-pulse">
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Simple UI for beginners and experts" %}</span>
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Fully responsive and multilingual (i18n)" %}</span>
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Clear container and service management" %}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smart Experience -->
+        <div class="col" 
+             data-sal="slide-up" 
+             data-sal-delay="300" 
+             data-sal-duration="800">
+            <div class="d-flex flex-column h-100 p-4 pb-3 text-dark glass-eff glass-light-dark text-center">
+                <i class="fa-solid fa-users-gear fa-2x mb-2 text-primary" style="font-size:45px;"></i>
+                <h3 class="lh-1 fw-bold">{% trans "Smart Experience" %}</h3>
+                <p>{% trans 'SOFTmsg helps you <span class="fw-bold">discover, install, and trust projects</span> with built-in transparency and insights.' %}</p>
+                <div class="mb-3">
+                    <img src="{% static 'img/sites/attendance-report.webp' %}" alt="" class="w-100 rounded-4 shadow img-pulse">
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Live stats: installs, downloads, and active users" %}</span>
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Built-in reviews and star ratings" %}</span>
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Access to source code for open-source projects" %}</span>
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "Auto-sorted containers for smooth deployment flow" %}</span>
+                </div>
+                <div class="mb-2"><i class="fa-solid fa-check text-primary"></i>
+                    <span class="ms-2">{% trans "SEO-friendly project pages with metadata" %}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End Services Features -->
+
+
+
+
 <!-- CSS animation -->
 <style>
+/* صورة تتحرك تكبر وتصغر */
+@keyframes pulse-img {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* صورة تتحرك يمين ويسار */
+@keyframes float-img {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
+
+/* إضافة أنيميشن للصور */
+.img-pulse {
+  animation: pulse-img 4s ease-in-out infinite;
+}
+
+.img-float {
+  animation: float-img 6s ease-in-out infinite;
+}
+
+
+
+
 .animation-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: card-scale 3s ease-in-out infinite;
@@ -431,7 +571,7 @@
                     <ul class="d-flex list-unstyled mt-auto">
                         <li class="me-auto">
                             <img src="{% static 'img/reviews/review-3.webp' %}" alt="reviewer person 3" width="32" height="32"
-                                class="rounded-circle border border-white" loading="lazy">
+                                class="rounded-circle border border-white animation-hover" loading="lazy">
                         </li>
                         <li class="d-flex align-items-center me-3">
                             <svg class="bi me-2" width="1em" height="1em">

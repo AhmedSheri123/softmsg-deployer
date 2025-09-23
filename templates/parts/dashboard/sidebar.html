@@ -9,29 +9,29 @@
     </a>
     <ul class="nav nav-pills navbar-dark flex-column mb-auto py-5">
 <li class="nav-item">
-  <a href="{% url 'DashboardHome' %}" class="nav-link text-body-secondary" aria-current="page">
-    <i class="fa-solid fa-house me-2"></i>
+  <a href="{% url 'DashboardHome' %}" class="nav-link" aria-current="page">
+    <i class="fa-solid fa-house me-2 "></i>
     {% trans "Home" %}
   </a>
 </li>
 
 <li>
-  <a href="{% url 'my_deployments' %}" class="nav-link text-body-secondary">
-    <i class="fa-solid fa-server me-2"></i>
+  <a href="{% url 'my_deployments' %}" class="nav-link ">
+    <i class="fa-solid fa-server me-2 "></i>
     {% trans "My Projects" %}
   </a>
 </li>
 
 <li>
-  <a href="{% url 'project_list' %}" class="nav-link text-body-secondary d-flex align-items-center">
-    <i class="fa-solid fa-cart-plus me-2 text-primary"></i>
+  <a href="{% url 'project_list' %}" class="nav-link  d-flex align-items-center">
+    <i class="fa-solid fa-cart-plus me-2 "></i>
     <span>{% trans "Marketplace" %}</span>
   </a>
 </li>
 
 <li>
-  <a href="{% url 'MyOrders' %}" class="nav-link text-body-secondary d-flex align-items-center">
-    <i class="fa-solid fa-cart-shopping me-2 text-success"></i>
+  <a href="{% url 'MyOrders' %}" class="nav-link  d-flex align-items-center">
+    <i class="fa-solid fa-cart-shopping me-2 "></i>
     <span>{% trans "Orders" %}</span>
   </a>
 </li>
@@ -87,13 +87,13 @@
               <img src="{% static 'img/profile_default/default-profile-img-2.png' %}" alt="" width="46" height="46" class="rounded-circle me-2">
               {% endif %}  
               <div>
-                    <p class="mb-1 text-dark fw-bold dropdown-toggle text-wrap">{{user.userprofile.get_full_name}}</p>
-                    <span class="bg-light-orange rounded d-inline px-2 py-1 text-body-secondary">{% trans "Admin" %}</span>
+                    <p class="mb-1 fw-bold dropdown-toggle text-wrap">{{user.userprofile.get_full_name}}</p>
+                    <span class="bg-primary rounded d-inline px-2 py-1 text-white">{% trans "Admin" %}</span>
                 </div>
               </a>
               <a href="{%  url 'Logout' %}" class="bg-body-tertiary btn btn-light px-2 py-1">
               <!-- <a href="" class="text-decoration-none bg-body-tertiary px-2 py-1 text-body-secondary rounded"> -->
-                <i class="fa-regular fa-door-open"></i>
+                <i class="fa-solid fa-door-open"></i>
 
 
               </a>

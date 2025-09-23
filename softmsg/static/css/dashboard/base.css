@@ -1,24 +1,18 @@
 :root {
---light-orange: 255, 212, 128;
---light-orange-hover: 200, 212, 128;
+--light-orange: 13, 110, 253;
+--light-orange-hover: 11, 94, 215;
 --bs-tertiary-bg-rgb: 245, 241, 229;
 }
 
 .nav.nav-pills li i {
     font-size: 20px;
 }
-.nav.nav-pills .nav-link.active {
-    color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) !important;
-    background-color: rgb(var(--light-orange)) !important;
-}
+
 
 .bg-light-orange {
     background-color: rgb(var(--light-orange));
 }
-.offcanvas-sidbar .nav-link:hover, a.bg-light-orange:hover, .btn.bg-light-orange:hover {
-    background-color: rgba(var(--light-orange-hover), 1);
-}
-.offcanvas-sidbar .nav-link{margin-top: 4px;}
+
 
 .content-main-box {
     overflow-x: hidden;

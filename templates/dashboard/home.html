@@ -6,11 +6,11 @@
     <h5>Overall</h5>
     <div class="py-3 row row-cols-2 justify-content-center justify-content-md-between">
 
-        <div class="col card rounded-4 bg-light-orange me-2 p-2 mt-2" style="width: 15rem;">
+        <div class="col card rounded-4 bg-primary me-2 p-2 mt-2 text-white" style="width: 15rem;">
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-body-secondary">{% trans "Active Service" %}</h6>
+                <h6 class="card-subtitle mb-2 ">{% trans "Active Service" %}</h6>
                 <h2 class="mt-4">
-                    <i class="fa-solid fa-server text-body-secondary"></i>
+                    <i class="fa-solid fa-server "></i>
                     {{active_user_services}} {% trans "Services" %}
                 </h2>
                 {% trans "last update" %} <strong>{% trans "just now" %}</strong>
@@ -70,8 +70,8 @@
               <td>{{order.orderID}}</td>
               <td>{{order.project.name}}</td>
               <td>{{order.plan.name}}</td>
-              <td><span class="bg-light-orange px-2 py-1 rounded">{{order.get_duration_display}}</span></td>
-              <td><span class="bg-light-orange px-2 py-1 rounded">{{order.get_progress_display}}</span></td>
+              <td><span class="bg-primary text-white px-2 py-1 rounded">{{order.get_duration_display}}</span></td>
+              <td><span class="bg-primary text-white px-2 py-1 rounded">{{order.get_progress_display}}</span></td>
               <td>
                 {% if order.progress == '1' %}
                 <a href="{% url 'ServicePayment' order.orderID %}" class="btn btn-success">{% trans "Continue" %}</a>
