@@ -4,158 +4,202 @@
 
 {% block meta %}
 <meta name="description" content="{% trans "A versatile software suite transforming businesses of all sizes by simplifying complex systems into efficient work environments." %}">
+<!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/sal.js/dist/sal.css">
+
+
+
 {% endblock meta %}
 
 {% block sheri %}
 <!-- header -->
 <div class="py-4"></div>
-<div class="px-4 py-5 text-center">
+<div class="px-4 py-5 text-center" data-sal="fade" data-sal-delay="100" data-sal-duration="800">
     <div class="py-4 text-body-emphasis">
-      <h1 class="display-5 fw-bold container mb-4">
-        {% trans "Management systems in one place for <br><span class='text-primary'> faster, precise results" %}</span>
-      </h1>
-      <div class="col-lg-6 mx-auto">
-        <p class="fs-5 mb-4">
-            {% trans "A versatile software suite transforming businesses of all sizes by simplifying complex systems into efficient work environments." %}
-        </p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <a href="{% url 'Signup' %}" class="btn btn-primary btn-lg px-4">
-            {% trans "Get started for free" %}
-            <i class="fa-solid fa-caret-right"></i>
-          </a>
-          <a href="https://wa.me/963980606953" target="_blank" class="btn btn-success btn-lg px-4">
-            {% trans "Contact us" %}
-            <i class="fa-brands fa-whatsapp"></i>
-          </a>
+    <h1 class="display-5 fw-bold container mb-4" style="max-width:600px;"
+        data-sal="slide-up" 
+        data-sal-delay="200" 
+        data-sal-duration="800">
+        <span id="typed-text" class="text-primary"></span>
+    </h1>
+        <div class="col-lg-6 mx-auto" data-sal="fade" data-sal-delay="300" data-sal-duration="800">
+            <p class="fs-5 mb-4">
+                {% trans "A versatile software suite transforming businesses of all sizes by simplifying complex systems into efficient work environments." %}
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'Signup' %}" 
+                   class="btn btn-primary btn-lg px-4 hover-scale"
+                   data-sal="slide-up" 
+                   data-sal-delay="50" 
+                   data-sal-duration="600">
+                    {% trans "Get started for free" %}
+                    <i class="fa-solid fa-caret-right"></i>
+                </a>
+                <a href="https://wa.me/963980606953" 
+                   target="_blank" 
+                   class="btn btn-success btn-lg px-4 hover-scale"
+                   data-sal="slide-up" 
+                   data-sal-delay="50" 
+                   data-sal-duration="600">
+                    {% trans "Contact us" %}
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 <!-- end header -->
 
+<!-- CSS animation -->
+<style>
+.hover-scale {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-scale:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+</style>
+
+
+
 <!-- Trusted industry -->
-<div class="container py-5 text-center">
-    <h2 class="py-4">
+<div class="container py-5 text-center" data-sal="fade" data-sal-delay="100" data-sal-duration="800">
+    <h2 class="py-4" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">
         {% trans "Trusted by industry leaders" %}
     </h2>
     <div class="py-4 row row-cols-2 row-cols-sm-3 row-cols-lg-6 g-2 g-lg-3">
-        <div class="col">
+        <div class="col" data-sal="zoom-in" data-sal-delay="250" data-sal-duration="600">
             <i class="fa-brands fa-amazon fa-2x"></i>
             <span>mazon</span>
         </div>
-        <div class="col">
+        <div class="col" data-sal="zoom-in" data-sal-delay="300" data-sal-duration="600">
             <i class="fa-brands fa-facebook-f fa-2x"></i>
             <span>acebook</span>
         </div>
-        <div class="col">
+        <div class="col" data-sal="zoom-in" data-sal-delay="350" data-sal-duration="600">
             <i class="fa-solid fa-w fa-2x"></i>
             <span>hatsapp</span>
         </div>
-        <div class="col">
+        <div class="col" data-sal="zoom-in" data-sal-delay="400" data-sal-duration="600">
             <i class="fa-solid fa-o fa-2x"></i>
             <span>pen AI</span>
         </div>
-        <div class="col">
+        <div class="col" data-sal="zoom-in" data-sal-delay="450" data-sal-duration="600">
             <i class="fa-solid fa-d fa-2x"></i>
             <span>jango</span>
         </div>
-        <div class="col">
+        <div class="col" data-sal="zoom-in" data-sal-delay="500" data-sal-duration="600">
             <i class="fa-solid fa-u fa-2x"></i>
             <span>ltra MSG</span>
         </div>
-
     </div>
 </div>
 <!-- End Trusted industry -->
-
 
 <!-- Solutions -->
 <div class="container py-5">
     
     <div class="bg-black p-4 p-md-5 rounded-4 text-center">
-        <h2 class="text-white">
+        <h2 class="text-white" data-sal="slide-up" data-sal-duration="800">
             {% trans "Solutions that actually <span class='text-success'>solve <br> your problems</span>" %}
         </h2>
 
-
-        <ul class="p-0 py-4 row row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-2 g-lg-3 text-white" style="list-style: none;">
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-ticket fa-2x"></i>
-                <p>{% trans "IT tickets" %}</p>
+        <ul class="p-0 py-4 row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-2 g-lg-3 text-white" style="list-style: none;">
+            {% comment %} لكل عنصر أضفنا SAL مع تأخير متدرج {% endcomment %}
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="0">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-ticket fa-2x"></i>
+                    <p>{% trans "IT tickets" %}</p>
                 </button>
             </li>
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-list-check fa-2x"></i>
-                <p>{% trans "Tasks" %}</p>
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="100">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-list-check fa-2x"></i>
+                    <p>{% trans "Tasks" %}</p>
                 </button>
             </li>
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-chart-simple fa-2x"></i>
-                <p>{% trans "Sales pipeline" %}</p>
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="200">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-chart-simple fa-2x"></i>
+                    <p>{% trans "Sales pipeline" %}</p>
                 </button>
             </li>
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-address-book fa-2x"></i>
-                <p>{% trans "Contacts" %}</p>
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="300">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-address-book fa-2x"></i>
+                    <p>{% trans "Contacts" %}</p>
                 </button>
             </li>
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-calendar-check fa-2x"></i>
-                <p>{% trans "Appointments" %}</p>
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="400">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-calendar-check fa-2x"></i>
+                    <p>{% trans "Appointments" %}</p>
                 </button>
             </li>
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-map fa-2x"></i>
-                <p>{% trans "Roadmap planning" %}</p>
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="500">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-map fa-2x"></i>
+                    <p>{% trans "Roadmap planning" %}</p>
                 </button>
             </li>
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-user-group fa-2x"></i>
-                <p>{% trans "Recruitment" %}</p>
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="600">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-user-group fa-2x"></i>
+                    <p>{% trans "Recruitment" %}</p>
                 </button>
             </li>
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-users-gear fa-2x"></i>
-                <p>{% trans "Resource management" %}</p>
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="700">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-users-gear fa-2x"></i>
+                    <p>{% trans "Resource management" %}</p>
                 </button>
             </li>
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-print fa-2x"></i>
-                <p>{% trans "Reporting" %}</p>
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="800">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-print fa-2x"></i>
+                    <p>{% trans "Reporting" %}</p>
                 </button>
             </li>
-            <li class="col">
-                <button class="btn btn-outline-light p-4 w-100 h-100">
-                <i class="fa-solid fa-file-export fa-2x"></i>
-                <p>{% trans "Exporting" %}</p>
+            <li class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="900">
+                <button class="btn btn-outline-light p-4 w-100 h-100 animation-hover">
+                    <i class="fa-solid fa-file-export fa-2x"></i>
+                    <p>{% trans "Exporting" %}</p>
                 </button>
             </li>
-
-            
-    
         </ul>
     </div>
-
 </div>
 <!-- End Solutions -->
 
+<!-- CSS animation -->
+<style>
+.animation-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+.animation-hover:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(255,255,255,0.2);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+</style>
 
 
 <!-- Services Features -->
- <div class="container py-5">
-    <h2 class="text-center py-4">{% trans "Services Features" %}</h2>
+<div class="container py-5">
+    <h2 class="text-center py-4" data-sal="slide-up" data-sal-duration="800">
+        {% trans "Services Features" %}
+    </h2>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+        {% comment %} أضفنا SAL مع delays متدرجة لكل بطاقة {% endcomment %}
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="0">
+            <div class="card border d-grid border-0 h-100 animation-card">
                 <div class="bg-black p-5 text-start text-white rounded-4">
                     <i class="fa-solid fa-display fa-3x mb-2"></i>
                     <p class="text-success my-2">{% trans "Dashboard" %}</p>
@@ -164,8 +208,8 @@
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="100">
+            <div class="card border d-grid border-0 h-100 animation-card">
                 <div class="bg-black p-5 text-start text-white rounded-4">
                     <i class="fa-solid fa-shield-halved fa-3x"></i>
                     <p class="text-success my-2">{% trans "Security" %}</p>
@@ -174,8 +218,8 @@
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="200">
+            <div class="card border d-grid border-0 h-100 animation-card">
                 <div class="bg-black p-5 text-start text-white rounded-4">
                     <i class="fa-solid fa-cube fa-3x"></i>
                     <p class="text-success my-2">{% trans "Customize" %}</p>
@@ -184,8 +228,8 @@
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="300">
+            <div class="card border d-grid border-0 h-100 animation-card">
                 <div class="bg-black p-5 text-start text-white rounded-4">
                     <i class="fa-solid fa-tablet-screen-button fa-3x"></i>
                     <p class="text-success my-2">{% trans "Responsive" %}</p>
@@ -194,8 +238,8 @@
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="400">
+            <div class="card border d-grid border-0 h-100 animation-card">
                 <div class="bg-black p-5 text-start text-white rounded-4">
                     <i class="fa-solid fa-hand fa-3x"></i>
                     <p class="text-success my-2">{% trans "Permissions" %}</p>
@@ -204,8 +248,8 @@
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="500">
+            <div class="card border d-grid border-0 h-100 animation-card">
                 <div class="bg-black p-5 text-start text-white rounded-4">
                     <i class="fa-solid fa-headset fa-3x"></i>
                     <p class="text-success my-2">{% trans "Support" %}</p>
@@ -214,26 +258,44 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-    
- </div>
+</div>
 <!-- End Services Features -->
+
+<!-- CSS animation -->
+<style>
+.animation-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: card-scale 3s ease-in-out infinite;
+}
+
+.animation-card:hover {
+    transform: scale(1.15); /* تكبير أكبر عند المرور بالماوس */
+    box-shadow: 0 20px 40px rgba(255,255,255,0.2);
+}
+
+/* حركة تكبير وتصغير مستمرة */
+@keyframes card-scale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+</style>
 
 
 
 
 <!-- Customer reviews -->
 <div class="container py-5">
-    <h2 class="text-center py-4 border-top">{% trans "Customer reviews" %}</h2>
+    <h2 class="text-center py-4 border-top" data-sal="slide-up" data-sal-duration="800">
+        {% trans "Customer reviews" %}
+    </h2>
 
     <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-        <div class="col zoom-anim">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload"
+        {% comment %} أضفنا SAL مع delays متدرجة لكل مراجعة + حركة scale خفيفة {% endcomment %}
+        <div class="col zoom-anim" data-sal="slide-up" data-sal-duration="600" data-sal-delay="0">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload review-card"
             data-bg="{% static 'img/reviews/background-diva-26694057.webp' %}">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-
                     <h3 class="my-4 lh-1 fw-bold">{% trans "An all-in-one management solution that has significantly improved our workflow. It's fast, accurate, and incredibly efficient." %}</h3>
                     <ul class="d-flex list-unstyled mt-auto">
                         <li class="me-auto">
@@ -263,8 +325,8 @@
             </div>
         </div>
 
-        <div class="col zoom-anim">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload"
+        <div class="col zoom-anim" data-sal="slide-up" data-sal-duration="600" data-sal-delay="100">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload review-card"
             data-bg="{% static 'img/reviews/unsplash-photo-3.webp' %}">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                     <h3 class="my-4 lh-1 fw-bold">{% trans "A game-changer for our business! The software's versatility and ease of use have enhanced our productivity like never before." %}</h3>
@@ -296,8 +358,8 @@
             </div>
         </div>
 
-        <div class="col zoom-anim">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload"
+        <div class="col zoom-anim" data-sal="slide-up" data-sal-duration="600" data-sal-delay="200">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg lazyload review-card"
             data-bg="{% static 'img/reviews/background-rccbtn-61760629.webp'%}">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
                     <h3 class="my-4 lh-1 fw-bold">{% trans "We’ve tried several management solutions before, but this one stands out for its efficiency and ease of use." %}</h3>
@@ -332,13 +394,32 @@
 </div>
 <!-- End Customer reviews -->
 
+<!-- CSS animation -->
+<style>
+.review-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: review-scale 3s ease-in-out infinite;
+}
 
+.review-card:hover {
+    transform: scale(1.05); /* تكبير خفيف عند المرور بالماوس */
+    box-shadow: 0 10px 20px rgba(255,255,255,0.2);
+}
+
+/* حركة تكبير وتصغير مستمرة */
+@keyframes review-scale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+</style>
 <!-- Our developers -->
 <div class="container py-5">
-    <h2 class="text-center py-4">{% trans "Our Team" %}</h2>
+    <h2 class="text-center py-4" data-sal="slide-up" data-sal-duration="800">
+        {% trans "Our Team" %}
+    </h2>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="0">
+            <div class="card border d-grid border-0 h-100 dev-card">
                 <div class="px-3 px-sm-5 py-4 text-center btn btn-warning rounded-4">
                     <img src="{% static 'img/developers/ahmed-sheri.png' %}" width="150" class="rounded-circle" alt="ahmed sheri developer" loading="lazy">
                     <div class="mb-3">
@@ -348,13 +429,13 @@
                             {% trans "Backend Dev" %}
                         </span>
                     </div>
-
                     <p>{% trans "A highly skilled and trusted Backend Developer with deep expertise in building secure, integrated systems tailored to your business needs. Specializing in designing robust infrastructures and developing custom solutions that ensure efficiency, high performance, and data security. Your ideal partner for creating a flexible and sustainable system that meets your goals with confidence." %}</p>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="100">
+            <div class="card border d-grid border-0 h-100 dev-card">
                 <div class="px-3 px-sm-5 py-4 text-center btn btn-warning rounded-4">
                     <img src="{% static 'img/developers/mohhamad-sheri.webp' %}" width="150" class="rounded-circle" alt="mohammad sheri developer" loading="lazy">
                     <div class="mb-3">
@@ -364,13 +445,13 @@
                             {% trans "UI/UX Designer" %}
                         </span>
                     </div>
-
                     <p>{% trans "A highly skilled UI/UX Designer with expertise in creating innovative user interfaces and seamless user experiences. Focused on achieving a balance between functional aesthetics and ease of use, ensuring an engaging and effective interactive experience for users. Always striving to transform ideas into exceptional designs that contribute to the success of the project and deliver an unparalleled user experience." %}</p>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="200">
+            <div class="card border d-grid border-0 h-100 dev-card">
                 <div class="px-3 px-sm-5 py-4 text-center btn btn-warning rounded-4">
                     <img src="{% static 'img/developers/mohammad-alali.webp' %}" width="150" class="rounded-circle" alt="mohammad alali developer" loading="lazy">
                     <div class="mb-3">
@@ -380,13 +461,13 @@
                             {% trans "Frontend Designer" %}
                         </span>
                     </div>
-
                     <p>{% trans "An exceptional Frontend Developer with expertise in transforming designs into interactive, user-friendly websites and applications. Focused on writing clean and efficient code, ensuring a seamless user experience across all devices and browsers. A trusted partner in bringing your vision to life with stunning and fully integrated digital interfaces." %}</p>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card border d-grid border-0 h-100">
+
+        <div class="col" data-sal="slide-up" data-sal-duration="600" data-sal-delay="300">
+            <div class="card border d-grid border-0 h-100 dev-card">
                 <div class="px-3 px-sm-5 py-4 text-center btn btn-warning rounded-4">
                     <img src="{% static 'img/developers/nour-jalal.webp' %}" width="150" class="rounded-circle" alt="nour jalal manager" loading="lazy">
                     <div class="mb-3">
@@ -396,14 +477,139 @@
                             {% trans "Project Manager" %}
                         </span>
                     </div>
-
                     <p>{% trans "A professional female Project Manager with extensive experience in successfully planning and executing projects. She is responsible for coordinating between different teams, setting objectives and tasks, and managing resources to ensure project delivery on time and within budget. She possesses strong leadership skills and problem-solving abilities, making her a key partner in achieving project success and guiding it toward desired outcomes." %}</p>
                 </div>
             </div>
         </div>
     </div>
- </div>
- <!-- End Our developers -->
+</div>
+<!-- End Our developers -->
+
+<!-- CSS animation -->
+<style>
+.dev-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: dev-scale 3s ease-in-out infinite;
+}
+
+.dev-card:hover {
+    transform: scale(1.05); /* تكبير عند المرور بالماوس */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* حركة تكبير وتصغير مستمرة */
+@keyframes dev-scale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+</style>
+<!-- FAQ Section -->
+<div class="py-5 px-2 px-md-4 glass-light-dark">
+    <h2 class="text-center py-4" data-sal="slide-up" data-sal-duration="800">
+        {% trans "Frequently Asked Questions" %}
+    </h2>
+    <div class="accordion accordion-flush mx-auto" id="accordionFlushExample" style="max-width: 1080px;">
+
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow faq-card" data-sal="slide-up" data-sal-duration="600" data-sal-delay="0">
+            <h2 class="accordion-header">
+                <div class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    {% trans "What is SoftMsg?" %}
+                </div>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {% trans "SoftMsg is a platform that provides ready-to-use projects you can deploy with a single click, allowing you to launch your website or application easily without deep technical knowledge." %}
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow faq-card" data-sal="slide-up" data-sal-duration="600" data-sal-delay="100">
+            <h2 class="accordion-header">
+                <div class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    {% trans "Do I need programming skills to use the platform?" %}
+                </div>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {% trans "No, the platform is designed to be user-friendly even for non-developers. All you need to do is choose a project and deploy it with one click." %}
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow faq-card" data-sal="slide-up" data-sal-duration="600" data-sal-delay="200">
+            <h2 class="accordion-header">
+                <div class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    {% trans "What payment methods are available?" %}
+                </div>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {% trans "We support payments via credit cards and PayPal, and in some countries local payment methods are available." %}
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow faq-card" data-sal="slide-up" data-sal-duration="600" data-sal-delay="300">
+            <h2 class="accordion-header">
+                <div class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    {% trans "Can I customize the projects?" %}
+                </div>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {% trans "Yes, you can easily customize the design and settings. You can also access the source code if you want to make deeper modifications." %}
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow faq-card" data-sal="slide-up" data-sal-duration="600" data-sal-delay="400">
+            <h2 class="accordion-header">
+                <div class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                    {% trans "Is there a trial period?" %}
+                </div>
+            </h2>
+            <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {% trans "Yes, some projects offer a free trial version so you can test the service before subscribing to a paid plan." %}
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item p-4 rounded-4 mb-3 border-0 shadow faq-card" data-sal="slide-up" data-sal-duration="600" data-sal-delay="500">
+            <h2 class="accordion-header">
+                <div class="accordion-button collapsed rounded-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                    {% trans "How can I get technical support?" %}
+                </div>
+            </h2>
+            <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {% trans "We provide technical support through tickets and email, along with a knowledge base that contains detailed guides and tutorials." %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- CSS animation -->
+<style>
+.faq-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.faq-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+</style>
+
+
+
 
 <div id="contact-us" class="mb-4"></div>
 
@@ -500,7 +706,20 @@
     </div>
 </div>
 
+
+<!-- JS -->
+<script src="https://unpkg.com/sal.js/dist/sal.js"></script>
+
+
+
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      sal({
+          threshold: 0.2,   // يبدأ الحركة لما يظهر 20% من العنصر
+          once: true        // الحركة مرة وحدة فقط (إذا خليتها false يكرر مع كل scroll)
+      });
+  });
+
 (() => {
   'use strict'
 
@@ -521,4 +740,27 @@
 })()
 </script>
 <!-- End Contact -->
+
+
+<!-- إضافة مكتبة Typed.js -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var options = {
+        strings: [
+            "{% trans 'Management systems in one place for faster, precise results' %}",
+            "{% trans 'All your projects ready to deploy with one click' %}",
+            "{% trans 'Simplify your workflow and increase efficiency' %}",
+            "{% trans 'A versatile software suite for businesses of all sizes' %}"
+        ],
+        typeSpeed: 50,       // سرعة الكتابة
+        backSpeed: 30,       // سرعة المسح
+        backDelay: 2000,     // الانتظار قبل المسح
+        loop: true,          // تكرار النصوص
+        smartBackspace: true
+    };
+
+    var typed = new Typed('#typed-text', options);
+});
+</script>
 {% endblock sheri %}
