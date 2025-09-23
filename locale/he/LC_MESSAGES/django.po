@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-23 01:04+0300\n"
+"POT-Creation-Date: 2025-09-23 13:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,7 +274,7 @@ msgstr "איך הצוות שלנו יכול לעזור לך?"
 msgid "https://example.com"
 msgstr "https://example.com"
 
-#: .\pages\models.py:7 .\templates\pages\index.html:644
+#: .\pages\models.py:7 .\templates\pages\index.html:646
 msgid "Full Name"
 msgstr "שם מלא"
 
@@ -316,15 +316,15 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: .\projects\models.py:21 .\templates\dashboard\projects\project_list.html:78
+#: .\projects\models.py:21 .\templates\dashboard\projects\project_list.html:119
 msgid "Beginner"
 msgstr ""
 
-#: .\projects\models.py:22 .\templates\dashboard\projects\project_list.html:79
+#: .\projects\models.py:22 .\templates\dashboard\projects\project_list.html:120
 msgid "Intermediate"
 msgstr ""
 
-#: .\projects\models.py:23 .\templates\dashboard\projects\project_list.html:80
+#: .\projects\models.py:23 .\templates\dashboard\projects\project_list.html:121
 msgid "Advanced"
 msgstr ""
 
@@ -569,7 +569,7 @@ msgstr "לְשַׁנוֹת"
 
 #: .\templates\accounts\profile\EditProfile.html:152
 #: .\templates\dashboard\projects\project_details_modal.html:275
-#: .\templates\dashboard\projects\project_list.html:233
+#: .\templates\dashboard\projects\project_list.html:274
 msgid "Close"
 msgstr "לִסְגוֹר"
 
@@ -621,7 +621,7 @@ msgid "Settings"
 msgstr "הגדרות בית ספר"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:20
-#: .\templates\dashboard\projects\project_list.html:215
+#: .\templates\dashboard\projects\project_list.html:256
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:7
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:40
 #: .\templates\parts\navbar.html:54
@@ -987,7 +987,7 @@ msgstr "שְׁנָתִי"
 #: .\templates\dashboard\plans\ServicePlans.html:87
 #: .\templates\dashboard\plans\ServicePlans.html:354
 #: .\templates\dashboard\projects\project_details_modal.html:199
-#: .\templates\dashboard\projects\project_list.html:29
+#: .\templates\dashboard\projects\project_list.html:69
 #, fuzzy
 #| msgid "Subscribe"
 msgid "Subscribe Now"
@@ -1012,7 +1012,7 @@ msgid "Database"
 msgstr ""
 
 #: .\templates\dashboard\plans\ServicePlans.html:146
-#: .\templates\pages\index.html:512
+#: .\templates\pages\index.html:514
 #: .\templates\pages\services\HRManagement.html:597
 #: .\templates\pages\services\PatientManagement.html:490
 msgid "Frequently Asked Questions"
@@ -1072,7 +1072,7 @@ msgid ""
 msgstr ""
 
 #: .\templates\dashboard\plans\ServicePlans.html:238
-#: .\templates\pages\index.html:548
+#: .\templates\pages\index.html:550
 msgid "What payment methods are available?"
 msgstr ""
 
@@ -1104,7 +1104,7 @@ msgid "Great service, easy to use!"
 msgstr ""
 
 #: .\templates\dashboard\plans\ServicePlans.html:300
-#: .\templates\pages\index.html:480
+#: .\templates\pages\index.html:482
 msgid "Project Manager"
 msgstr "מנהל פרויקטים"
 
@@ -1279,103 +1279,103 @@ msgid "Install"
 msgstr ""
 
 #: .\templates\dashboard\projects\project_details_modal.html:273
-#: .\templates\dashboard\projects\project_list.html:207
+#: .\templates\dashboard\projects\project_list.html:248
 #, fuzzy
 #| msgid "Project"
 msgid "Install Project"
 msgstr "פּרוֹיֶקט"
 
-#: .\templates\dashboard\projects\project_list.html:25
+#: .\templates\dashboard\projects\project_list.html:62
 #, fuzzy
 #| msgid "My Projects"
 msgid "Ready Projects Store"
 msgstr "הפרויקטים שלי"
 
-#: .\templates\dashboard\projects\project_list.html:27
+#: .\templates\dashboard\projects\project_list.html:65
 msgid ""
 "Access popular ready projects, control panels, and apps. Get up and running "
 "in minutes with smooth one-click installation."
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:48
+#: .\templates\dashboard\projects\project_list.html:89
 #, fuzzy
 #| msgid "New project..."
 msgid "Search projects..."
 msgstr "פרויקט חדש ..."
 
-#: .\templates\dashboard\projects\project_list.html:77
+#: .\templates\dashboard\projects\project_list.html:118
 msgid "Any difficulty"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:90
+#: .\templates\dashboard\projects\project_list.html:131
 msgid "Sort by"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:91
+#: .\templates\dashboard\projects\project_list.html:132
 msgid "Most Installed"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:92
+#: .\templates\dashboard\projects\project_list.html:133
 msgid "Highest Rated"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:93
+#: .\templates\dashboard\projects\project_list.html:134
 #, fuzzy
 #| msgid "Updates"
 msgid "Latest"
 msgstr "עדכונים"
 
-#: .\templates\dashboard\projects\project_list.html:98
+#: .\templates\dashboard\projects\project_list.html:139
 msgid "Search"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:108
+#: .\templates\dashboard\projects\project_list.html:149
 #, fuzzy
 #| msgid "Create Project"
 msgid "Featured Projects"
 msgstr "צור פרויקט"
 
-#: .\templates\dashboard\projects\project_list.html:120
+#: .\templates\dashboard\projects\project_list.html:161
 msgid "Recommended"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:136
+#: .\templates\dashboard\projects\project_list.html:177
 #, fuzzy
 #| msgid "My Projects"
 msgid "All Projects"
 msgstr "הפרויקטים שלי"
 
-#: .\templates\dashboard\projects\project_list.html:148
+#: .\templates\dashboard\projects\project_list.html:189
 msgid "No Image"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:156
+#: .\templates\dashboard\projects\project_list.html:197
 msgid "Most Popular"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:161
+#: .\templates\dashboard\projects\project_list.html:202
 msgid "New"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:166
+#: .\templates\dashboard\projects\project_list.html:207
 msgid "Fast Install"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:175
+#: .\templates\dashboard\projects\project_list.html:216
 #, fuzzy
 #| msgid "Total visits"
 msgid "Total Installs"
 msgstr "סה\"כ ביקורים"
 
-#: .\templates\dashboard\projects\project_list.html:191
+#: .\templates\dashboard\projects\project_list.html:232
 msgid "Average Rating"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:211
+#: .\templates\dashboard\projects\project_list.html:252
 msgid "Details"
 msgstr ""
 
-#: .\templates\dashboard\projects\project_list.html:238
+#: .\templates\dashboard\projects\project_list.html:279
 msgid "Loading details..."
 msgstr ""
 
@@ -1712,7 +1712,7 @@ msgstr "משכורת מוחלטת"
 msgid "Total Income"
 msgstr "ההכנסה הכוללת"
 
-#: .\templates\dashboard_base.html:9 .\templates\pages\index.html:207
+#: .\templates\dashboard_base.html:9 .\templates\pages\index.html:209
 #: .\templates\pages\services\HRManagement.html:279
 #: .\templates\pages\services\PatientManagement.html:221
 #: .\templates\pages\services\SchoolManagement.html:252
@@ -1741,7 +1741,7 @@ msgstr ""
 "תשובות ברורות לשאלות הנפוצות ביותר לגבי השירותים שלנו כדי לעזור לך לקבל מידע "
 "במהירות ובקלות."
 
-#: .\templates\pages\index.html:6 .\templates\pages\index.html:27
+#: .\templates\pages\index.html:6 .\templates\pages\index.html:26
 msgid ""
 "A versatile software suite transforming businesses of all sizes by "
 "simplifying complex systems into efficient work environments."
@@ -1749,7 +1749,11 @@ msgstr ""
 "חבילת תוכנה רב -תכליתית המשנה עסקים בכל הגדלים על ידי פשטת מערכות מורכבות "
 "לסביבות עבודה יעילות."
 
-#: .\templates\pages\index.html:35
+#: .\templates\pages\index.html:21
+msgid "SOFTmsg For"
+msgstr ""
+
+#: .\templates\pages\index.html:34
 #: .\templates\pages\services\HRManagement.html:22
 #: .\templates\pages\services\HRManagement.html:816
 #: .\templates\pages\services\PatientManagement.html:21
@@ -1759,7 +1763,7 @@ msgstr ""
 msgid "Get started for free"
 msgstr "התחל בחינם"
 
-#: .\templates\pages\index.html:44 .\templates\pages\index.html:634
+#: .\templates\pages\index.html:43 .\templates\pages\index.html:636
 #: .\templates\pages\services\HRManagement.html:26
 #: .\templates\pages\services\HRManagement.html:820
 #: .\templates\pages\services\PatientManagement.html:25
@@ -1770,7 +1774,7 @@ msgstr "התחל בחינם"
 msgid "Contact us"
 msgstr "צרו קשר"
 
-#: .\templates\pages\index.html:69
+#: .\templates\pages\index.html:68
 #: .\templates\pages\services\HRManagement.html:38
 #: .\templates\pages\services\PatientManagement.html:37
 #: .\templates\pages\services\SchoolManagement.html:37
@@ -1784,62 +1788,62 @@ msgid ""
 msgstr ""
 "פתרונות שלמעשה <span class = 'text-uccess'> לפתור <br> הבעיות שלך </span>"
 
-#: .\templates\pages\index.html:114
+#: .\templates\pages\index.html:116 .\templates\pages\index.html:774
 msgid "IT tickets"
 msgstr "זה כרטיסים"
 
-#: .\templates\pages\index.html:120
+#: .\templates\pages\index.html:122 .\templates\pages\index.html:775
 msgid "Tasks"
 msgstr "משימות"
 
-#: .\templates\pages\index.html:126
+#: .\templates\pages\index.html:128 .\templates\pages\index.html:776
 msgid "Sales pipeline"
 msgstr "צינור מכירות"
 
-#: .\templates\pages\index.html:132
+#: .\templates\pages\index.html:134 .\templates\pages\index.html:777
 msgid "Contacts"
 msgstr "אנשי קשר"
 
-#: .\templates\pages\index.html:138
+#: .\templates\pages\index.html:140 .\templates\pages\index.html:778
 #: .\templates\pages\services\PatientManagement.html:130
 msgid "Appointments"
 msgstr "פגישות"
 
-#: .\templates\pages\index.html:144
+#: .\templates\pages\index.html:146 .\templates\pages\index.html:779
 msgid "Roadmap planning"
 msgstr "תכנון מפת דרכים"
 
-#: .\templates\pages\index.html:150
+#: .\templates\pages\index.html:152 .\templates\pages\index.html:780
 msgid "Recruitment"
 msgstr "גִיוּס"
 
-#: .\templates\pages\index.html:156
+#: .\templates\pages\index.html:158 .\templates\pages\index.html:781
 msgid "Resource management"
 msgstr "ניהול משאבים"
 
-#: .\templates\pages\index.html:162
+#: .\templates\pages\index.html:164 .\templates\pages\index.html:782
 msgid "Reporting"
 msgstr "דיווח"
 
-#: .\templates\pages\index.html:168
+#: .\templates\pages\index.html:170 .\templates\pages\index.html:783
 #: .\templates\pages\services\HRManagement.html:224
 #: .\templates\pages\services\PatientManagement.html:161
 #: .\templates\pages\services\SchoolManagement.html:197
 msgid "Exporting"
 msgstr "ייצוא"
 
-#: .\templates\pages\index.html:198
+#: .\templates\pages\index.html:200
 msgid "Services Features"
 msgstr "תכונות שירותים"
 
-#: .\templates\pages\index.html:208
+#: .\templates\pages\index.html:210
 #: .\templates\pages\services\HRManagement.html:280
 #: .\templates\pages\services\PatientManagement.html:222
 #: .\templates\pages\services\SchoolManagement.html:253
 msgid "User-friendly dashboard"
 msgstr "לוח מחוונים ידידותי למשתמש"
 
-#: .\templates\pages\index.html:209
+#: .\templates\pages\index.html:211
 #: .\templates\pages\services\HRManagement.html:281
 #: .\templates\pages\services\PatientManagement.html:223
 #: .\templates\pages\services\SchoolManagement.html:254
@@ -1850,21 +1854,21 @@ msgstr ""
 "ממשק פשוט ואינטואיטיבי המאפשר לך לנהל את כל הפעולות שלך בקלות, אפילו "
 "למשתמשים לא טכניים."
 
-#: .\templates\pages\index.html:217
+#: .\templates\pages\index.html:219
 #: .\templates\pages\services\HRManagement.html:289
 #: .\templates\pages\services\PatientManagement.html:231
 #: .\templates\pages\services\SchoolManagement.html:262
 msgid "Security"
 msgstr "בִּטָחוֹן"
 
-#: .\templates\pages\index.html:218
+#: .\templates\pages\index.html:220
 #: .\templates\pages\services\HRManagement.html:290
 #: .\templates\pages\services\PatientManagement.html:232
 #: .\templates\pages\services\SchoolManagement.html:263
 msgid "Protected from security vulnerabilities"
 msgstr "מוגן מפני פגיעויות אבטחה"
 
-#: .\templates\pages\index.html:219
+#: .\templates\pages\index.html:221
 #: .\templates\pages\services\HRManagement.html:291
 #: .\templates\pages\services\PatientManagement.html:233
 #: .\templates\pages\services\SchoolManagement.html:264
@@ -1875,21 +1879,21 @@ msgstr ""
 "מערכת המצוידת בטכנולוגיות הגנה מתקדמות כדי להגן על הנתונים שלך מפני איומים "
 "ומתקפות סייבר."
 
-#: .\templates\pages\index.html:227
+#: .\templates\pages\index.html:229
 #: .\templates\pages\services\HRManagement.html:299
 #: .\templates\pages\services\PatientManagement.html:241
 #: .\templates\pages\services\SchoolManagement.html:272
 msgid "Customize"
 msgstr "התאמה אישית"
 
-#: .\templates\pages\index.html:228
+#: .\templates\pages\index.html:230
 #: .\templates\pages\services\HRManagement.html:300
 #: .\templates\pages\services\PatientManagement.html:242
 #: .\templates\pages\services\SchoolManagement.html:273
 msgid "Customizable"
 msgstr "ניתן להתאמה אישית"
 
-#: .\templates\pages\index.html:229
+#: .\templates\pages\index.html:231
 #: .\templates\pages\services\HRManagement.html:301
 #: .\templates\pages\services\PatientManagement.html:243
 #: .\templates\pages\services\SchoolManagement.html:274
@@ -1899,21 +1903,21 @@ msgid ""
 msgstr ""
 "עיצוב גמיש המאפשר לך לשנות את המערכת כך שיתאים לצרכים העסקיים הספציפיים שלך."
 
-#: .\templates\pages\index.html:237
+#: .\templates\pages\index.html:239
 #: .\templates\pages\services\HRManagement.html:309
 #: .\templates\pages\services\PatientManagement.html:251
 #: .\templates\pages\services\SchoolManagement.html:282
 msgid "Responsive"
 msgstr "מגיב"
 
-#: .\templates\pages\index.html:238
+#: .\templates\pages\index.html:240
 #: .\templates\pages\services\HRManagement.html:310
 #: .\templates\pages\services\PatientManagement.html:252
 #: .\templates\pages\services\SchoolManagement.html:283
 msgid "Multi-device support"
 msgstr "תמיכה מרובת מכשירים"
 
-#: .\templates\pages\index.html:239
+#: .\templates\pages\index.html:241
 #: .\templates\pages\services\HRManagement.html:311
 #: .\templates\pages\services\PatientManagement.html:253
 #: .\templates\pages\services\SchoolManagement.html:284
@@ -1922,7 +1926,7 @@ msgid ""
 "or tablets."
 msgstr "גש למערכת במכשירים שונים כמו מחשבים, סמארטפונים או טאבלטים."
 
-#: .\templates\pages\index.html:247
+#: .\templates\pages\index.html:249
 #: .\templates\pages\services\HRManagement.html:218
 #: .\templates\pages\services\HRManagement.html:319
 #: .\templates\pages\services\PatientManagement.html:155
@@ -1935,14 +1939,14 @@ msgstr "גש למערכת במכשירים שונים כמו מחשבים, סמ�
 msgid "Permissions"
 msgstr "הרשאות"
 
-#: .\templates\pages\index.html:248
+#: .\templates\pages\index.html:250
 #: .\templates\pages\services\HRManagement.html:320
 #: .\templates\pages\services\PatientManagement.html:262
 #: .\templates\pages\services\SchoolManagement.html:293
 msgid "User management and permissions"
 msgstr "ניהול משתמשים והרשאות"
 
-#: .\templates\pages\index.html:249
+#: .\templates\pages\index.html:251
 #: .\templates\pages\services\HRManagement.html:321
 #: .\templates\pages\services\PatientManagement.html:263
 #: .\templates\pages\services\SchoolManagement.html:294
@@ -1952,21 +1956,21 @@ msgid ""
 msgstr ""
 "מערכת בקרה מתקדמת המאפשרת לך להקצות תפקידים והרשאות שונות למשתמשים במערכת."
 
-#: .\templates\pages\index.html:257
+#: .\templates\pages\index.html:259
 #: .\templates\pages\services\HRManagement.html:329
 #: .\templates\pages\services\PatientManagement.html:271
 #: .\templates\pages\services\SchoolManagement.html:302
 msgid "Support"
 msgstr "תְמִיכָה"
 
-#: .\templates\pages\index.html:258
+#: .\templates\pages\index.html:260
 #: .\templates\pages\services\HRManagement.html:330
 #: .\templates\pages\services\PatientManagement.html:272
 #: .\templates\pages\services\SchoolManagement.html:303
 msgid "24/7 technical support"
 msgstr "תמיכה טכנית 24/7"
 
-#: .\templates\pages\index.html:259
+#: .\templates\pages\index.html:261
 #: .\templates\pages\services\HRManagement.html:331
 #: .\templates\pages\services\PatientManagement.html:273
 #: .\templates\pages\services\SchoolManagement.html:304
@@ -1975,13 +1979,13 @@ msgid ""
 "issues or inquiries."
 msgstr "צוות תמיכה ייעודי זמין מסביב לשעון כדי לסייע לך בכל נושא או בירורים."
 
-#: .\templates\pages\index.html:292
+#: .\templates\pages\index.html:294
 #: .\templates\pages\services\HRManagement.html:356
 #: .\templates\pages\services\PatientManagement.html:287
 msgid "Customer reviews"
 msgstr "ביקורות לקוחות"
 
-#: .\templates\pages\index.html:302
+#: .\templates\pages\index.html:304
 #: .\templates\pages\services\HRManagement.html:364
 #: .\templates\pages\services\PatientManagement.html:295
 msgid ""
@@ -1991,7 +1995,7 @@ msgstr ""
 "פיתרון ניהול של כל אחד ששיפר משמעותית את זרימת העבודה שלנו. זה מהיר, מדויק "
 "ויעיל להפליא."
 
-#: .\templates\pages\index.html:312 .\templates\pages\index.html:378
+#: .\templates\pages\index.html:314 .\templates\pages\index.html:380
 #: .\templates\pages\services\HRManagement.html:374
 #: .\templates\pages\services\HRManagement.html:439
 #: .\templates\pages\services\PatientManagement.html:305
@@ -1999,7 +2003,7 @@ msgstr ""
 msgid "Romania"
 msgstr "רומניה"
 
-#: .\templates\pages\index.html:335
+#: .\templates\pages\index.html:337
 #: .\templates\pages\services\HRManagement.html:397
 #: .\templates\pages\services\PatientManagement.html:328
 msgid ""
@@ -2009,13 +2013,13 @@ msgstr ""
 "מחליף משחק לעסק שלנו! הרבגוניות של התוכנה וקלות השימוש של התוכנה שיפרו את "
 "הפרודוקטיביות שלנו כמו שלא היה מעולם."
 
-#: .\templates\pages\index.html:345
+#: .\templates\pages\index.html:347
 #: .\templates\pages\services\HRManagement.html:407
 #: .\templates\pages\services\PatientManagement.html:338
 msgid "German"
 msgstr "גֶרמָנִיָת"
 
-#: .\templates\pages\index.html:368
+#: .\templates\pages\index.html:370
 #: .\templates\pages\services\HRManagement.html:429
 #: .\templates\pages\services\PatientManagement.html:360
 msgid ""
@@ -2023,15 +2027,15 @@ msgid ""
 "its efficiency and ease of use."
 msgstr "ניסינו כמה פתרונות ניהול בעבר, אך זה בולט ביעילותו וקלות השימוש שלו."
 
-#: .\templates\pages\index.html:421
+#: .\templates\pages\index.html:423
 msgid "Our Team"
 msgstr "הצוות שלנו"
 
-#: .\templates\pages\index.html:432
+#: .\templates\pages\index.html:434
 msgid "Backend Dev"
 msgstr "Backend dev"
 
-#: .\templates\pages\index.html:435
+#: .\templates\pages\index.html:437
 msgid ""
 "A highly skilled and trusted Backend Developer with deep expertise in "
 "building secure, integrated systems tailored to your business needs. "
@@ -2045,11 +2049,11 @@ msgstr ""
 "מותאמים אישית המבטיחים יעילות, ביצועים גבוהים ואבטחת מידע. השותף האידיאלי "
 "שלך ליצירת מערכת גמישה ובת קיימא העומדת ביעדים שלך בביטחון."
 
-#: .\templates\pages\index.html:448
+#: .\templates\pages\index.html:450
 msgid "UI/UX Designer"
 msgstr "מעצב UI/UX"
 
-#: .\templates\pages\index.html:451
+#: .\templates\pages\index.html:453
 msgid ""
 "A highly skilled UI/UX Designer with expertise in creating innovative user "
 "interfaces and seamless user experiences. Focused on achieving a balance "
@@ -2063,11 +2067,11 @@ msgstr ""
 "הבטחת חוויה אינטראקטיבית מרתקת ויעילה למשתמשים. תמיד שואפים להפוך רעיונות "
 "לעיצובים יוצאי דופן התורמים להצלחת הפרויקט ומספקים חווית משתמש ללא תחרות."
 
-#: .\templates\pages\index.html:464
+#: .\templates\pages\index.html:466
 msgid "Frontend Designer"
 msgstr "מעצב חזית"
 
-#: .\templates\pages\index.html:467
+#: .\templates\pages\index.html:469
 msgid ""
 "An exceptional Frontend Developer with expertise in transforming designs "
 "into interactive, user-friendly websites and applications. Focused on "
@@ -2080,7 +2084,7 @@ msgstr ""
 "המכשירים והדפדפנים. שותף מהימן בהעלאת החזון שלך לחיים עם ממשקים דיגיטליים "
 "מדהימים ומשולבים לחלוטין."
 
-#: .\templates\pages\index.html:483
+#: .\templates\pages\index.html:485
 msgid ""
 "A professional female Project Manager with extensive experience in "
 "successfully planning and executing projects. She is responsible for "
@@ -2096,66 +2100,66 @@ msgstr ""
 "בעיות, מה שהופך אותה לשותפה מרכזית בהשגת הצלחת הפרויקט והנחייתם לעבר התוצאות "
 "הרצויות."
 
-#: .\templates\pages\index.html:520
+#: .\templates\pages\index.html:522
 msgid "What is SoftMsg?"
 msgstr ""
 
-#: .\templates\pages\index.html:525
+#: .\templates\pages\index.html:527
 msgid ""
 "SoftMsg is a platform that provides ready-to-use projects you can deploy "
 "with a single click, allowing you to launch your website or application "
 "easily without deep technical knowledge."
 msgstr ""
 
-#: .\templates\pages\index.html:534
+#: .\templates\pages\index.html:536
 msgid "Do I need programming skills to use the platform?"
 msgstr ""
 
-#: .\templates\pages\index.html:539
+#: .\templates\pages\index.html:541
 msgid ""
 "No, the platform is designed to be user-friendly even for non-developers. "
 "All you need to do is choose a project and deploy it with one click."
 msgstr ""
 
-#: .\templates\pages\index.html:553
+#: .\templates\pages\index.html:555
 msgid ""
 "We support payments via credit cards and PayPal, and in some countries local "
 "payment methods are available."
 msgstr ""
 
-#: .\templates\pages\index.html:562
+#: .\templates\pages\index.html:564
 msgid "Can I customize the projects?"
 msgstr ""
 
-#: .\templates\pages\index.html:567
+#: .\templates\pages\index.html:569
 msgid ""
 "Yes, you can easily customize the design and settings. You can also access "
 "the source code if you want to make deeper modifications."
 msgstr ""
 
-#: .\templates\pages\index.html:576
+#: .\templates\pages\index.html:578
 msgid "Is there a trial period?"
 msgstr ""
 
-#: .\templates\pages\index.html:581
+#: .\templates\pages\index.html:583
 msgid ""
 "Yes, some projects offer a free trial version so you can test the service "
 "before subscribing to a paid plan."
 msgstr ""
 
-#: .\templates\pages\index.html:590
+#: .\templates\pages\index.html:592
 #, fuzzy
 #| msgid "24/7 technical support"
 msgid "How can I get technical support?"
 msgstr "תמיכה טכנית 24/7"
 
-#: .\templates\pages\index.html:595
+#: .\templates\pages\index.html:597
 msgid ""
 "We provide technical support through tickets and email, along with a "
 "knowledge base that contains detailed guides and tutorials."
 msgstr ""
 
-#: .\templates\pages\index.html:625
+#: .\templates\pages\index.html:627
 msgid ""
 "Do you want to develop a custom program that <span class='text-"
 "primary'>meets your specific needs?"
@@ -2163,11 +2167,11 @@ msgstr ""
 "האם ברצונך לפתח תוכנית מותאמת אישית ש- <span class = 'טקסט-פרימי'> עונה על "
 "הצרכים הספציפיים שלך?"
 
-#: .\templates\pages\index.html:630
+#: .\templates\pages\index.html:632
 msgid "Contact Form"
 msgstr "טופס יצירת קשר"
 
-#: .\templates\pages\index.html:638
+#: .\templates\pages\index.html:640
 msgid ""
 "Fill out the contact form now, and our dedicated team is ready to provide "
 "you with the support you need and turn your dreams into reality. Take the "
@@ -2176,45 +2180,45 @@ msgstr ""
 "מלא את טופס יצירת הקשר עכשיו, והצוות המסור שלנו מוכן לספק לך את התמיכה "
 "הדרושה לך ולהפוך את חלומותיך למציאות. קח את הצעד הראשון לקראת הצלחה!"
 
-#: .\templates\pages\index.html:651 .\templates\parts\footer.html:19
+#: .\templates\pages\index.html:653 .\templates\parts\footer.html:19
 #: .\templates\parts\footer.html:20
 msgid "Email address"
 msgstr "כתובת דוא\"ל"
 
-#: .\templates\pages\index.html:658
+#: .\templates\pages\index.html:660
 msgid "Phone Number"
 msgstr "מספר טלפון"
 
-#: .\templates\pages\index.html:675
+#: .\templates\pages\index.html:677
 msgid "Project Description"
 msgstr "תיאור הפרויקט"
 
-#: .\templates\pages\index.html:679
+#: .\templates\pages\index.html:681
 msgid "Enter a detailed description of your project."
 msgstr "הזן תיאור מפורט של הפרויקט שלך."
 
-#: .\templates\pages\index.html:684
+#: .\templates\pages\index.html:686
 msgid "Examples of similar websites"
 msgstr "דוגמאות לאתרים דומים"
 
-#: .\templates\pages\index.html:688
+#: .\templates\pages\index.html:690
 msgid "Provide examples or links to designs and websites you like."
 msgstr "ספק דוגמאות או קישורים לעיצובים ואתרים שאתה אוהב."
 
-#: .\templates\pages\index.html:701
+#: .\templates\pages\index.html:703
 msgid ""
 "By sending this form I confirm that I have read and accept the Privacy Policy"
 msgstr "על ידי שליחת טופס זה אני מאשר שקראתי וקיבלתי את מדיניות הפרטיות"
 
-#: .\templates\pages\index.html:703
+#: .\templates\pages\index.html:705
 msgid "You must agree before submitting."
 msgstr "עליך להסכים לפני הגשת."
 
-#: .\templates\pages\index.html:707
+#: .\templates\pages\index.html:709
 msgid "Submit"
 msgstr "לְהַגִישׁ"
 
-#: .\templates\pages\index.html:756
+#: .\templates\pages\index.html:757
 #, fuzzy
 #| msgid ""
 #| "Management systems in one place for <br><span class='text-primary'> "
@@ -2224,15 +2228,15 @@ msgstr ""
 "מערכות ניהול במקום אחד עבור <br> <span class = 'טקסט-פרימי'> תוצאות מהירות "
 "ומדויקות יותר"
 
-#: .\templates\pages\index.html:757
+#: .\templates\pages\index.html:758
 msgid "All your projects ready to deploy with one click"
 msgstr ""
 
-#: .\templates\pages\index.html:758
+#: .\templates\pages\index.html:759
 msgid "Simplify your workflow and increase efficiency"
 msgstr ""
 
-#: .\templates\pages\index.html:759
+#: .\templates\pages\index.html:760
 msgid "A versatile software suite for businesses of all sizes"
 msgstr ""
 
