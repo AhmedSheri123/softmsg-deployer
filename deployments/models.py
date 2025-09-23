@@ -71,12 +71,11 @@ class Deployment(models.Model):
 
     @property    
     def domain(self):
-        pc = self.project.containers.all()
-        if pc.filter(type='backfront').exists():
-            return self.containers.get(project_container__type='backfront').domain
-        elif pc.filter(type='frontend').exists():
-            return self.containers.get(project_container__type='frontend').domain
-        else:return 'N/A'
+        dc = self.containers.get(project_container__have_main_domain=True)
+        if dc:
+            return dc.domain
+        return 'N/A'
+    
     @property
     def backend_domain(self):
         pc = self.project.containers.all()
