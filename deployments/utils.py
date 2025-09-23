@@ -104,7 +104,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # ---------------- Project containers ----------------
-def create_project_container(deployment, container):
+def create_project_container(container):
     """
     ينشئ أو يشغل حاوية Docker لمشروع معين مع إدارة الموارد، التخزين، والبيئة.
     """
@@ -178,7 +178,7 @@ def run_docker(deployment):
     all_ok = True
     for container in deployment.containers.all():
         try:
-            ok = create_project_container(deployment, container)
+            ok = create_project_container(container)
             if not ok:
                 logger.error(f"Failed to create/start container {container.container_name}")
                 all_ok = False
@@ -244,7 +244,7 @@ def restart_docker(deployment: Deployment):
             container.restart()
             logger.info(f"Container {cname} restarted successfully")
         except NotFound:
-            create_project_container(deployment, dc)
+            create_project_container(dc)
             logger.warning(f"Container {cname} not found, creating a new one...")
         except DockerException as e:
             logger.error(f"Failed to restart container {cname}: {e}")
@@ -304,7 +304,7 @@ def start_docker(deployment: Deployment):
             container.start()
             logger.info(f"Container {cname} started successfully")
         except NotFound:
-            create_project_container(deployment, dc)
+            create_project_container(dc)
             logger.warning(f"Container {cname} not found, creating a new one...")
         except DockerException as e:
             logger.error(f"Failed to start container {cname}: {e}")

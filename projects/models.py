@@ -1,3 +1,4 @@
+#projects\models.py
 from django.db import models
 from tinymce.models import HTMLField
 from django.db.models import Avg
@@ -188,7 +189,6 @@ class ProjectContainer(models.Model):
         related_name="containers",
         help_text="المشروع الذي ينتمي له هذا الكونتينر"
     )
-
     type = models.CharField(max_length=20, choices=CONTAINER_TYPES)
     technology = models.CharField(max_length=50, choices=TECHNOLOGY_CHOICES, blank=True, null=True)
     language = models.CharField(max_length=50, choices=LANGUAGE_CHOICES, blank=True, null=True)
@@ -197,6 +197,8 @@ class ProjectContainer(models.Model):
         max_length=200,
         help_text="اسم صورة Docker مثل: postgres:14 أو nginx:latest"
     )
+
+    have_main_domain = models.BooleanField(default=False)
 
     env_vars = models.JSONField(
         default=dict,

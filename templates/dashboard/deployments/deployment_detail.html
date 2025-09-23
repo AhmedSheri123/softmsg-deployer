@@ -4,7 +4,8 @@
 {% block sheri %}
 
 <div class="bg-light p-3 mb-3 rounded d-flex flex-wrap gap-2">
-    <a href="http://{{ deployment.domain }}:8000" target="_blank" class="btn btn-dark my-1">{% trans "Go To Dashboard" %}</a>
+    <a href="http://{{ deployment.domain }}" target="_blank" class="btn btn-dark my-1">{% trans "Go To Dashboard" %}</a>
+    <button data-bs-toggle="modal" data-bs-target="#ChangeDomainModal" class="btn btn-dark my-1">{% trans "Change Domain" %}</button>
     <a href="{% url 'env_settings' deployment.id %}" class="btn btn-dark my-1">{% trans "Settings" %}</a>
 
 
@@ -218,6 +219,32 @@
 </div>
 <!-- End Subscription -->
 
+
+
+<!-- Change Domain Modal -->
+<div class="modal fade" id="ChangeDomainModal" tabindex="-1" aria-labelledby="ChangeDomainModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h1 class="fw-bold mb-0 fs-2">{% trans "Change Project Domain" %}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-5 pt-0">
+                <form method="post" action="{% url 'change_project_domain' deployment.id %}">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
+                        <input type="text" dir="ltr" name="new_domain" class="form-control rounded-3" id="floatingDomain" placeholder="{% trans "New Domain" %}" value="{{ deployment.domain }}">
+                        <label for="floatingDomain">{% trans "New Domain" %}</label>
+                    </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">{% trans "Update Domain" %}</button>
+                    <a class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" href="{% url 'reset_project_domain' deployment.id %}" >{% trans "Rset Domain" %}</a>
+                    <small class="text-body-secondary">{% trans "By clicking Update, the project domain will be changed." %}</small>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
 
 
 <!-- Delete Modal -->

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-23 22:53+0300\n"
+"POT-Creation-Date: 2025-09-24 00:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,14 +204,14 @@ msgstr "דגמי שירות"
 msgid "User"
 msgstr "מִשׁתַמֵשׁ"
 
-#: .\dashboard\models.py:62 .\projects\models.py:26
-#: .\templates\dashboard\deployments\deployment_detail.html:95
+#: .\dashboard\models.py:62 .\projects\models.py:27
+#: .\templates\dashboard\deployments\deployment_detail.html:96
 #: .\templates\dashboard\services\AddService.html:21
 msgid "Project Name"
 msgstr "שם הפרויקט"
 
 #: .\dashboard\models.py:64
-#: .\templates\dashboard\deployments\deployment_detail.html:128
+#: .\templates\dashboard\deployments\deployment_detail.html:129
 #: .\templates\dashboard\deployments\my_deployments.html:22
 #: .\templates\dashboard\services\AddService.html:56
 #: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:111
@@ -296,7 +296,7 @@ msgstr ""
 msgid "Select technologies..."
 msgstr ""
 
-#: .\projects\forms.py:27 .\projects\models.py:14 .\projects\models.py:29
+#: .\projects\forms.py:27 .\projects\models.py:15 .\projects\models.py:30
 msgid "Categories"
 msgstr ""
 
@@ -304,150 +304,150 @@ msgstr ""
 msgid "Select categories..."
 msgstr ""
 
-#: .\projects\models.py:9
+#: .\projects\models.py:10
 msgid "Name"
 msgstr "שֵׁם"
 
-#: .\projects\models.py:10
+#: .\projects\models.py:11
 msgid "Slug"
 msgstr ""
 
-#: .\projects\models.py:13
+#: .\projects\models.py:14
 msgid "Category"
 msgstr ""
 
-#: .\projects\models.py:21 .\templates\dashboard\projects\project_list.html:119
+#: .\projects\models.py:22 .\templates\dashboard\projects\project_list.html:119
 msgid "Beginner"
 msgstr ""
 
-#: .\projects\models.py:22 .\templates\dashboard\projects\project_list.html:120
+#: .\projects\models.py:23 .\templates\dashboard\projects\project_list.html:120
 msgid "Intermediate"
 msgstr ""
 
-#: .\projects\models.py:23 .\templates\dashboard\projects\project_list.html:121
+#: .\projects\models.py:24 .\templates\dashboard\projects\project_list.html:121
 msgid "Advanced"
 msgstr ""
 
-#: .\projects\models.py:27
+#: .\projects\models.py:28
 #, fuzzy
 #| msgid "Subscription"
 msgid "Description"
 msgstr "מִנוּי"
 
-#: .\projects\models.py:28
+#: .\projects\models.py:29
 msgid "Image"
 msgstr ""
 
-#: .\projects\models.py:36
+#: .\projects\models.py:37
 msgid "Difficulty Level"
 msgstr ""
 
-#: .\projects\models.py:40
+#: .\projects\models.py:41
 msgid "Estimated Install Time (minutes)"
 msgstr ""
 
-#: .\projects\models.py:44
+#: .\projects\models.py:45
 msgid "Required Disk Size (MB)"
 msgstr ""
 
-#: .\projects\models.py:49
+#: .\projects\models.py:50
 msgid "Minimum Operating Requirements"
 msgstr ""
 
-#: .\projects\models.py:56
+#: .\projects\models.py:57
 msgid "Installation Steps"
 msgstr ""
 
-#: .\projects\models.py:59
+#: .\projects\models.py:60
 msgid "Number of Installs"
 msgstr ""
 
-#: .\projects\models.py:63
+#: .\projects\models.py:64
 msgid "Number of source code downloads"
 msgstr ""
 
-#: .\projects\models.py:66
+#: .\projects\models.py:67
 #, fuzzy
 #| msgid "Project"
 msgid "About Project"
 msgstr "פּרוֹיֶקט"
 
-#: .\projects\models.py:68
+#: .\projects\models.py:69
 #, fuzzy
 #| msgid "Creation Date"
 msgid "Publication Date"
 msgstr "תאריך יצירה"
 
-#: .\projects\models.py:292 .\projects\models.py:312 .\projects\models.py:351
+#: .\projects\models.py:294 .\projects\models.py:314 .\projects\models.py:353
 msgid "Label"
 msgstr ""
 
-#: .\projects\models.py:294
+#: .\projects\models.py:296
 msgid "Command"
 msgstr ""
 
-#: .\projects\models.py:294
+#: .\projects\models.py:296
 msgid "The function name or command to execute via Docker"
 msgstr ""
 
-#: .\projects\models.py:306 .\projects\models.py:339
+#: .\projects\models.py:308 .\projects\models.py:341
 msgid "String"
 msgstr ""
 
-#: .\projects\models.py:307 .\projects\models.py:340
+#: .\projects\models.py:309 .\projects\models.py:342
 msgid "Boolean"
 msgstr ""
 
-#: .\projects\models.py:308 .\projects\models.py:341
+#: .\projects\models.py:310 .\projects\models.py:343
 msgid "Integer"
 msgstr ""
 
-#: .\projects\models.py:313
+#: .\projects\models.py:315
 msgid "Internal Name"
 msgstr ""
 
-#: .\projects\models.py:313
+#: .\projects\models.py:315
 msgid "Internal name for code usage"
 msgstr ""
 
-#: .\projects\models.py:314 .\projects\models.py:353
+#: .\projects\models.py:316 .\projects\models.py:355
 msgid "Data Type"
 msgstr ""
 
-#: .\projects\models.py:315 .\projects\models.py:355
+#: .\projects\models.py:317 .\projects\models.py:357
 msgid "Required"
 msgstr ""
 
-#: .\projects\models.py:316 .\projects\models.py:356
+#: .\projects\models.py:318 .\projects\models.py:358
 msgid "Default Value"
 msgstr ""
 
-#: .\projects\models.py:316
+#: .\projects\models.py:318
 #, python-brace-format
 msgid "{deployment.id}"
 msgstr ""
 
-#: .\projects\models.py:325
-#: .\templates\dashboard\deployments\deployment_detail.html:156
+#: .\projects\models.py:327
+#: .\templates\dashboard\deployments\deployment_detail.html:157
 #, fuzzy
 #| msgid "title"
 msgid "Title"
 msgstr "כּוֹתֶרֶת"
 
-#: .\projects\models.py:352
+#: .\projects\models.py:354
 msgid "Key"
 msgstr ""
 
-#: .\projects\models.py:354
+#: .\projects\models.py:356
 msgid "Is Secret"
 msgstr ""
 
-#: .\projects\models.py:356
+#: .\projects\models.py:358
 #, python-brace-format
 msgid "{container.deployment.id}"
 msgstr ""
 
-#: .\projects\models.py:357
+#: .\projects\models.py:359
 msgid "Sort Index"
 msgstr ""
 
@@ -618,13 +618,19 @@ msgid "Go To Dashboard"
 msgstr "עבור אל לוח המחוונים"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:8
+#, fuzzy
+#| msgid "Change"
+msgid "Change Domain"
+msgstr "לְשַׁנוֹת"
+
+#: .\templates\dashboard\deployments\deployment_detail.html:9
 #: .\templates\dashboard\deployments\env_var\env_settings.html:7
 #, fuzzy
 #| msgid "School Settings"
 msgid "Settings"
 msgstr "הגדרות בית ספר"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:20
+#: .\templates\dashboard\deployments\deployment_detail.html:21
 #: .\templates\dashboard\projects\project_list.html:261
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:7
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:40
@@ -632,37 +638,37 @@ msgstr "הגדרות בית ספר"
 msgid "Documentations"
 msgstr "תיעוד"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:27
+#: .\templates\dashboard\deployments\deployment_detail.html:28
 msgid "Resource Allocation"
 msgstr ""
 
-#: .\templates\dashboard\deployments\deployment_detail.html:50
+#: .\templates\dashboard\deployments\deployment_detail.html:51
 msgid "used"
 msgstr ""
 
-#: .\templates\dashboard\deployments\deployment_detail.html:58
+#: .\templates\dashboard\deployments\deployment_detail.html:59
 msgid "Hard Restart"
 msgstr ""
 
-#: .\templates\dashboard\deployments\deployment_detail.html:63
+#: .\templates\dashboard\deployments\deployment_detail.html:64
 msgid "Restart"
 msgstr ""
 
-#: .\templates\dashboard\deployments\deployment_detail.html:68
+#: .\templates\dashboard\deployments\deployment_detail.html:69
 msgid "Stop"
 msgstr ""
 
-#: .\templates\dashboard\deployments\deployment_detail.html:68
+#: .\templates\dashboard\deployments\deployment_detail.html:69
 #, fuzzy
 #| msgid "Get Started"
 msgid "Start"
 msgstr "התחל"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:71
+#: .\templates\dashboard\deployments\deployment_detail.html:72
 msgid "Logs"
 msgstr ""
 
-#: .\templates\dashboard\deployments\deployment_detail.html:72
+#: .\templates\dashboard\deployments\deployment_detail.html:73
 #: .\templates\dashboard\deployments\my_deployments.html:99
 #: .\templates\dashboard\home.html:81
 #: .\templates\dashboard\orders\MyOrders.html:43
@@ -676,11 +682,11 @@ msgstr ""
 msgid "Delete"
 msgstr "לִמְחוֹק"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:82
+#: .\templates\dashboard\deployments\deployment_detail.html:83
 msgid "Deployment Info"
 msgstr ""
 
-#: .\templates\dashboard\deployments\deployment_detail.html:88
+#: .\templates\dashboard\deployments\deployment_detail.html:89
 #: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:52
 #: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:50
 #: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:50
@@ -690,17 +696,17 @@ msgstr ""
 msgid "Username"
 msgstr "שם משתמש"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:102
+#: .\templates\dashboard\deployments\deployment_detail.html:103
 #: .\templates\dashboard\deployments\my_deployments.html:19
 msgid "Plan"
 msgstr "לְתַכְנֵן"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:109
+#: .\templates\dashboard\deployments\deployment_detail.html:110
 #: .\templates\dashboard\deployments\my_deployments.html:20
 msgid "Domain"
 msgstr ""
 
-#: .\templates\dashboard\deployments\deployment_detail.html:116
+#: .\templates\dashboard\deployments\deployment_detail.html:117
 #: .\templates\dashboard\deployments\my_deployments.html:21
 #: .\templates\dashboard\home.html:62
 #: .\templates\dashboard\orders\MyOrders.html:24
@@ -708,63 +714,88 @@ msgstr ""
 msgid "Status"
 msgstr "סטָטוּס"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:149
+#: .\templates\dashboard\deployments\deployment_detail.html:150
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:50
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:153
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:153
 msgid "Subscription Info"
 msgstr "מידע על מנוי"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:164
+#: .\templates\dashboard\deployments\deployment_detail.html:165
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:63
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:166
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:166
 msgid "Plan scope"
 msgstr "תכנון היקף"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:172
+#: .\templates\dashboard\deployments\deployment_detail.html:173
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:70
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:173
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:173
 msgid "Subscription status"
 msgstr "סטטוס מנוי"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:180
+#: .\templates\dashboard\deployments\deployment_detail.html:181
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:77
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:180
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:180
 msgid "Subscription date"
 msgstr "תאריך מנוי"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:188
+#: .\templates\dashboard\deployments\deployment_detail.html:189
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:84
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:187
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:187
 msgid "Subscription end date"
 msgstr "תאריך סיום המנוי"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:196
+#: .\templates\dashboard\deployments\deployment_detail.html:197
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:91
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:194
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:194
 msgid "Actions"
 msgstr "פעולות"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:206
+#: .\templates\dashboard\deployments\deployment_detail.html:207
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:98
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:201
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:201
 msgid "Renew plan"
 msgstr "חידוש תוכנית"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:211
+#: .\templates\dashboard\deployments\deployment_detail.html:212
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:101
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:204
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:204
 msgid "Upgrade plan"
 msgstr "תוכנית שדרוג"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:228
+#: .\templates\dashboard\deployments\deployment_detail.html:229
+#, fuzzy
+#| msgid "Create Project"
+msgid "Change Project Domain"
+msgstr "צור פרויקט"
+
+#: .\templates\dashboard\deployments\deployment_detail.html:236
+#: .\templates\dashboard\deployments\deployment_detail.html:237
+msgid "New Domain"
+msgstr ""
+
+#: .\templates\dashboard\deployments\deployment_detail.html:239
+#, fuzzy
+#| msgid "Updates"
+msgid "Update Domain"
+msgstr "עדכונים"
+
+#: .\templates\dashboard\deployments\deployment_detail.html:240
+msgid "Rset Domain"
+msgstr ""
+
+#: .\templates\dashboard\deployments\deployment_detail.html:241
+msgid "By clicking Update, the project domain will be changed."
+msgstr ""
+
+#: .\templates\dashboard\deployments\deployment_detail.html:255
 #: .\templates\dashboard\deployments\my_deployments.html:120
 #: .\templates\dashboard\services\MyServices.html:56
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:158
@@ -773,7 +804,7 @@ msgstr "תוכנית שדרוג"
 msgid "Delete this service?"
 msgstr "למחוק את השירות הזה?"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:229
+#: .\templates\dashboard\deployments\deployment_detail.html:256
 #: .\templates\dashboard\services\MyServices.html:57
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:159
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:262
@@ -781,7 +812,7 @@ msgstr "למחוק את השירות הזה?"
 msgid "after deleting this service you can't restore again."
 msgstr "לאחר מחיקת השירות הזה אינך יכול לשחזר שוב."
 
-#: .\templates\dashboard\deployments\deployment_detail.html:232
+#: .\templates\dashboard\deployments\deployment_detail.html:259
 #: .\templates\dashboard\deployments\my_deployments.html:125
 #: .\templates\dashboard\services\MyServices.html:60
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:162
@@ -790,7 +821,7 @@ msgstr "לאחר מחיקת השירות הזה אינך יכול לשחזר ש�
 msgid "Yes, delete"
 msgstr "כן, מחק"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:233
+#: .\templates\dashboard\deployments\deployment_detail.html:260
 #: .\templates\dashboard\deployments\my_deployments.html:128
 #: .\templates\dashboard\services\MyServices.html:61
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:163

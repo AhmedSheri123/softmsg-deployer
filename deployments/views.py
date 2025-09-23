@@ -245,3 +245,60 @@ def update_all_env_vars(request, deployment_id):
             return JsonResponse({'success': False, 'error': str(e)})
 
     return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+@login_required
+def change_project_domain(request, deployment_id):
+    """
+    View لتغيير الدومين لمشروع (Deployment).
+    يفترض أن المشروع لديه container من نوع frontend أو backfront.
+    """
+    deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
+
+    # إيجاد الكونتينر المسؤول عن الدومين (frontend أو backfront)
+    container = deployment.containers.filter(project_container__have_main_domain=True).first()
+    if not container:
+        messages.error(request, "No container found for this deployment.")
+        return redirect('deployment_detail', deployment_id)
+
+    if request.method == "POST":
+        new_domain = request.POST.get("new_domain", "").strip()
+        if not new_domain:
+            messages.error(request, "Domain cannot be empty.")
+            return redirect('deployment_detail', deployment_id)
+
+        # هنا يمكن إضافة أي تحقق إضافي للدومين (format / DNS / regex)
+        container.domain = new_domain
+        container.save()
+        hard_restart(deployment)
+        messages.success(request, f"Project domain updated to {new_domain}.")
+        return redirect('deployment_detail', deployment_id)
+
+
+
+@login_required
+def reset_project_domain(request, deployment_id):
+    """
+    View لتغيير الدومين لمشروع (Deployment).
+    يفترض أن المشروع لديه container من نوع frontend أو backfront.
+    """
+    deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
+
+    # إيجاد الكونتينر المسؤول عن الدومين (frontend أو backfront)
+    container = deployment.containers.filter(project_container__have_main_domain=True).first()
+    if not container:
+        messages.error(request, "No container found for this deployment.")
+        return redirect('deployment_detail', deployment_id)
+    main_domain = ".softmsg.com"
+    new_domain = f"{container.container_name}{main_domain}"
+    if not new_domain:
+        messages.error(request, "Domain cannot be empty.")
+        return redirect('deployment_detail', deployment_id)
+
+    # هنا يمكن إضافة أي تحقق إضافي للدومين (format / DNS / regex)
+    container.domain = new_domain
+    container.save()
+    hard_restart(deployment)
+    
+    messages.success(request, f"Project domain updated to {new_domain}.")
+    return redirect('deployment_detail', deployment_id)

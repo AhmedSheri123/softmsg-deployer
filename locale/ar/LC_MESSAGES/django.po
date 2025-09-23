@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-23 22:53+0300\n"
+"POT-Creation-Date: 2025-09-24 00:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,14 +192,14 @@ msgstr "نماذج الخدمة"
 msgid "User"
 msgstr "مستخدم"
 
-#: .\dashboard\models.py:62 .\projects\models.py:26
-#: .\templates\dashboard\deployments\deployment_detail.html:95
+#: .\dashboard\models.py:62 .\projects\models.py:27
+#: .\templates\dashboard\deployments\deployment_detail.html:96
 #: .\templates\dashboard\services\AddService.html:21
 msgid "Project Name"
 msgstr "اسم المشروع"
 
 #: .\dashboard\models.py:64
-#: .\templates\dashboard\deployments\deployment_detail.html:128
+#: .\templates\dashboard\deployments\deployment_detail.html:129
 #: .\templates\dashboard\deployments\my_deployments.html:22
 #: .\templates\dashboard\services\AddService.html:56
 #: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:111
@@ -282,7 +282,7 @@ msgstr "التقنيات"
 msgid "Select technologies..."
 msgstr "اختر التقنيات..."
 
-#: .\projects\forms.py:27 .\projects\models.py:14 .\projects\models.py:29
+#: .\projects\forms.py:27 .\projects\models.py:15 .\projects\models.py:30
 msgid "Categories"
 msgstr "الفئات"
 
@@ -290,152 +290,152 @@ msgstr "الفئات"
 msgid "Select categories..."
 msgstr "اختر الفئات..."
 
-#: .\projects\models.py:9
+#: .\projects\models.py:10
 #, fuzzy
 #| msgid "Full Name"
 msgid "Name"
 msgstr "الاسم الكامل"
 
-#: .\projects\models.py:10
+#: .\projects\models.py:11
 msgid "Slug"
 msgstr "رابط قصير"
 
-#: .\projects\models.py:13
+#: .\projects\models.py:14
 msgid "Category"
 msgstr "الفئة"
 
-#: .\projects\models.py:21 .\templates\dashboard\projects\project_list.html:119
+#: .\projects\models.py:22 .\templates\dashboard\projects\project_list.html:119
 msgid "Beginner"
 msgstr "مبتدئ"
 
-#: .\projects\models.py:22 .\templates\dashboard\projects\project_list.html:120
+#: .\projects\models.py:23 .\templates\dashboard\projects\project_list.html:120
 msgid "Intermediate"
 msgstr "متوسط"
 
-#: .\projects\models.py:23 .\templates\dashboard\projects\project_list.html:121
+#: .\projects\models.py:24 .\templates\dashboard\projects\project_list.html:121
 msgid "Advanced"
 msgstr "متقدم"
 
-#: .\projects\models.py:27
+#: .\projects\models.py:28
 #, fuzzy
 #| msgid "Service Description"
 msgid "Description"
 msgstr "وصف الخدمة"
 
-#: .\projects\models.py:28
+#: .\projects\models.py:29
 msgid "Image"
 msgstr "صورة"
 
-#: .\projects\models.py:36
+#: .\projects\models.py:37
 msgid "Difficulty Level"
 msgstr "مستوى الصعوبة"
 
-#: .\projects\models.py:40
+#: .\projects\models.py:41
 msgid "Estimated Install Time (minutes)"
 msgstr "الوقت المقدر للتثبيت (بالدقائق)"
 
-#: .\projects\models.py:44
+#: .\projects\models.py:45
 msgid "Required Disk Size (MB)"
 msgstr "مساحة القرص المطلوبة (ميغابايت)"
 
-#: .\projects\models.py:49
+#: .\projects\models.py:50
 msgid "Minimum Operating Requirements"
 msgstr "المتطلبات التشغيلية الدنيا"
 
-#: .\projects\models.py:56
+#: .\projects\models.py:57
 msgid "Installation Steps"
 msgstr "خطوات التثبيت"
 
-#: .\projects\models.py:59
+#: .\projects\models.py:60
 msgid "Number of Installs"
 msgstr "عدد مرات التثبيت"
 
-#: .\projects\models.py:63
+#: .\projects\models.py:64
 msgid "Number of source code downloads"
 msgstr ""
 
-#: .\projects\models.py:66
+#: .\projects\models.py:67
 #, fuzzy
 #| msgid "About Project:"
 msgid "About Project"
 msgstr "حول المشروع:"
 
-#: .\projects\models.py:68
+#: .\projects\models.py:69
 #, fuzzy
 #| msgid "Creation Date"
 msgid "Publication Date"
 msgstr "تاريخ الإنشاء"
 
-#: .\projects\models.py:292 .\projects\models.py:312 .\projects\models.py:351
+#: .\projects\models.py:294 .\projects\models.py:314 .\projects\models.py:353
 msgid "Label"
 msgstr "التسمية"
 
-#: .\projects\models.py:294
+#: .\projects\models.py:296
 msgid "Command"
 msgstr "الأمر"
 
-#: .\projects\models.py:294
+#: .\projects\models.py:296
 msgid "The function name or command to execute via Docker"
 msgstr "اسم الدالة أو الأمر للتنفيذ عبر دوكر"
 
-#: .\projects\models.py:306 .\projects\models.py:339
+#: .\projects\models.py:308 .\projects\models.py:341
 msgid "String"
 msgstr "نص"
 
-#: .\projects\models.py:307 .\projects\models.py:340
+#: .\projects\models.py:309 .\projects\models.py:342
 msgid "Boolean"
 msgstr "قيمة منطقية"
 
-#: .\projects\models.py:308 .\projects\models.py:341
+#: .\projects\models.py:310 .\projects\models.py:343
 msgid "Integer"
 msgstr "عدد صحيح"
 
-#: .\projects\models.py:313
+#: .\projects\models.py:315
 msgid "Internal Name"
 msgstr "الاسم الداخلي"
 
-#: .\projects\models.py:313
+#: .\projects\models.py:315
 msgid "Internal name for code usage"
 msgstr "الاسم الداخلي لاستخدامه في الكود"
 
-#: .\projects\models.py:314 .\projects\models.py:353
+#: .\projects\models.py:316 .\projects\models.py:355
 msgid "Data Type"
 msgstr "نوع البيانات"
 
-#: .\projects\models.py:315 .\projects\models.py:355
+#: .\projects\models.py:317 .\projects\models.py:357
 msgid "Required"
 msgstr "مطلوب"
 
-#: .\projects\models.py:316 .\projects\models.py:356
+#: .\projects\models.py:318 .\projects\models.py:358
 msgid "Default Value"
 msgstr "القيمة الافتراضية"
 
-#: .\projects\models.py:316
+#: .\projects\models.py:318
 #, python-brace-format
 msgid "{deployment.id}"
 msgstr "{deployment.id}"
 
-#: .\projects\models.py:325
-#: .\templates\dashboard\deployments\deployment_detail.html:156
+#: .\projects\models.py:327
+#: .\templates\dashboard\deployments\deployment_detail.html:157
 #, fuzzy
 #| msgid "title"
 msgid "Title"
 msgstr "عنوان"
 
-#: .\projects\models.py:352
+#: .\projects\models.py:354
 msgid "Key"
 msgstr "المفتاح"
 
-#: .\projects\models.py:354
+#: .\projects\models.py:356
 msgid "Is Secret"
 msgstr "هل هو سري"
 
-#: .\projects\models.py:356
+#: .\projects\models.py:358
 #, python-brace-format
 msgid "{container.deployment.id}"
 msgstr "{container.deployment.id}"
 
-#: .\projects\models.py:357
+#: .\projects\models.py:359
 msgid "Sort Index"
 msgstr "ترتيب الفهرس"
 
@@ -604,11 +604,16 @@ msgid "Go To Dashboard"
 msgstr "اذهب إلى لوحة التحكم"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:8
+msgid "Change Domain"
+msgstr "تغيير النطاق"
+
+
+#: .\templates\dashboard\deployments\deployment_detail.html:9
 #: .\templates\dashboard\deployments\env_var\env_settings.html:7
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:20
+#: .\templates\dashboard\deployments\deployment_detail.html:21
 #: .\templates\dashboard\projects\project_list.html:261
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:7
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:40
@@ -616,35 +621,35 @@ msgstr "الإعدادات"
 msgid "Documentations"
 msgstr "الوثائق"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:27
+#: .\templates\dashboard\deployments\deployment_detail.html:28
 msgid "Resource Allocation"
 msgstr "تخصيص الموارد"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:50
+#: .\templates\dashboard\deployments\deployment_detail.html:51
 msgid "used"
 msgstr "مُستخدم"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:58
+#: .\templates\dashboard\deployments\deployment_detail.html:59
 msgid "Hard Restart"
 msgstr "إعادة تشغيل إجبارية"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:63
+#: .\templates\dashboard\deployments\deployment_detail.html:64
 msgid "Restart"
 msgstr "إعادة تشغيل"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:68
+#: .\templates\dashboard\deployments\deployment_detail.html:69
 msgid "Stop"
 msgstr "إيقاف"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:68
+#: .\templates\dashboard\deployments\deployment_detail.html:69
 msgid "Start"
 msgstr "ابدأ"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:71
+#: .\templates\dashboard\deployments\deployment_detail.html:72
 msgid "Logs"
 msgstr "السجلات"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:72
+#: .\templates\dashboard\deployments\deployment_detail.html:73
 #: .\templates\dashboard\deployments\my_deployments.html:99
 #: .\templates\dashboard\home.html:81
 #: .\templates\dashboard\orders\MyOrders.html:43
@@ -658,11 +663,11 @@ msgstr "السجلات"
 msgid "Delete"
 msgstr "مسح"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:82
+#: .\templates\dashboard\deployments\deployment_detail.html:83
 msgid "Deployment Info"
 msgstr "معلومات النشر"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:88
+#: .\templates\dashboard\deployments\deployment_detail.html:89
 #: .\templates\dashboard\services\AddServiceSettings\AddHRManagementSettings.html:52
 #: .\templates\dashboard\services\AddServiceSettings\AddPatientManagementSettings.html:50
 #: .\templates\dashboard\services\AddServiceSettings\AddSchoolManagementSettings.html:50
@@ -672,17 +677,17 @@ msgstr "معلومات النشر"
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:102
+#: .\templates\dashboard\deployments\deployment_detail.html:103
 #: .\templates\dashboard\deployments\my_deployments.html:19
 msgid "Plan"
 msgstr "يخطط"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:109
+#: .\templates\dashboard\deployments\deployment_detail.html:110
 #: .\templates\dashboard\deployments\my_deployments.html:20
 msgid "Domain"
 msgstr "النطاق"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:116
+#: .\templates\dashboard\deployments\deployment_detail.html:117
 #: .\templates\dashboard\deployments\my_deployments.html:21
 #: .\templates\dashboard\home.html:62
 #: .\templates\dashboard\orders\MyOrders.html:24
@@ -690,63 +695,83 @@ msgstr "النطاق"
 msgid "Status"
 msgstr "حالة"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:149
+#: .\templates\dashboard\deployments\deployment_detail.html:150
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:50
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:153
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:153
 msgid "Subscription Info"
 msgstr "معلومات الاشتراك"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:164
+#: .\templates\dashboard\deployments\deployment_detail.html:165
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:63
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:166
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:166
 msgid "Plan scope"
 msgstr "نطاق خطة"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:172
+#: .\templates\dashboard\deployments\deployment_detail.html:173
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:70
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:173
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:173
 msgid "Subscription status"
 msgstr "حالة الاشتراك"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:180
+#: .\templates\dashboard\deployments\deployment_detail.html:181
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:77
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:180
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:180
 msgid "Subscription date"
 msgstr "تاريخ الاشتراك"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:188
+#: .\templates\dashboard\deployments\deployment_detail.html:189
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:84
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:187
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:187
 msgid "Subscription end date"
 msgstr "تاريخ نهاية الاشتراك"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:196
+#: .\templates\dashboard\deployments\deployment_detail.html:197
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:91
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:194
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:194
 msgid "Actions"
 msgstr "الإجراءات"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:206
+#: .\templates\dashboard\deployments\deployment_detail.html:207
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:98
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:201
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:201
 msgid "Renew plan"
 msgstr "تجديد الخطة"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:211
+#: .\templates\dashboard\deployments\deployment_detail.html:212
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:101
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:204
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:204
 msgid "Upgrade plan"
 msgstr "ترقية الخطة"
+#: .\templates\dashboard\deployments\deployment_detail.html:229
+msgid "Change Project Domain"
+msgstr "تغيير نطاق المشروع"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:228
+#: .\templates\dashboard\deployments\deployment_detail.html:236
+#: .\templates\dashboard\deployments\deployment_detail.html:237
+msgid "New Domain"
+msgstr "النطاق الجديد"
+
+#: .\templates\dashboard\deployments\deployment_detail.html:239
+msgid "Update Domain"
+msgstr "تحديث النطاق"
+
+#: .\templates\dashboard\deployments\deployment_detail.html:240
+msgid "Rset Domain"
+msgstr "إعادة تعيين النطاق"
+
+#: .\templates\dashboard\deployments\deployment_detail.html:241
+msgid "By clicking Update, the project domain will be changed."
+msgstr "بالنقر على 'تحديث'، سيتم تغيير نطاق المشروع."
+
+#: .\templates\dashboard\deployments\deployment_detail.html:255
 #: .\templates\dashboard\deployments\my_deployments.html:120
 #: .\templates\dashboard\services\MyServices.html:56
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:158
@@ -755,7 +780,7 @@ msgstr "ترقية الخطة"
 msgid "Delete this service?"
 msgstr "حذف هذه الخدمة؟"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:229
+#: .\templates\dashboard\deployments\deployment_detail.html:256
 #: .\templates\dashboard\services\MyServices.html:57
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:159
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:262
@@ -763,7 +788,7 @@ msgstr "حذف هذه الخدمة؟"
 msgid "after deleting this service you can't restore again."
 msgstr "بعد حذف هذه الخدمة ، لا يمكنك استعادة مرة أخرى."
 
-#: .\templates\dashboard\deployments\deployment_detail.html:232
+#: .\templates\dashboard\deployments\deployment_detail.html:259
 #: .\templates\dashboard\deployments\my_deployments.html:125
 #: .\templates\dashboard\services\MyServices.html:60
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:162
@@ -772,7 +797,7 @@ msgstr "بعد حذف هذه الخدمة ، لا يمكنك استعادة مر
 msgid "Yes, delete"
 msgstr "نعم ، حذف"
 
-#: .\templates\dashboard\deployments\deployment_detail.html:233
+#: .\templates\dashboard\deployments\deployment_detail.html:260
 #: .\templates\dashboard\deployments\my_deployments.html:128
 #: .\templates\dashboard\services\MyServices.html:61
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:163
@@ -1959,16 +1984,24 @@ msgid "Everything you need to launch and manage your apps — instantly"
 msgstr "كل ما تحتاجه لإطلاق وإدارة تطبيقاتك — فورًا"
 
 #: .\templates\pages\index.html:345
-msgid "SOFTmsg is your marketplace for ready-to-use web projects. Install, monitor, and scale apps in seconds — no coding required."
-msgstr "SOFTmsg هو متجرك للمشاريع الجاهزة على الويب. ثبّت التطبيقات وراقبها ووسّعها في ثوانٍ — دون الحاجة إلى برمجة."
+msgid ""
+"SOFTmsg is your marketplace for ready-to-use web projects. Install, monitor, "
+"and scale apps in seconds — no coding required."
+msgstr ""
+"SOFTmsg هو متجرك للمشاريع الجاهزة على الويب. ثبّت التطبيقات وراقبها ووسّعها في "
+"ثوانٍ — دون الحاجة إلى برمجة."
 
 #: .\templates\pages\index.html:367
 msgid "Instant Deployment"
 msgstr "نشر فوري"
 
 #: .\templates\pages\index.html:368
-msgid "Launch projects with <span class=\"fw-bold\">one-click setup and zero downtime</span>"
-msgstr "أطلق المشاريع مع <span class=\"fw-bold\">إعداد بنقرة واحدة ودون أي توقف</span>"
+msgid ""
+"Launch projects with <span class=\"fw-bold\">one-click setup and zero "
+"downtime</span>"
+msgstr ""
+"أطلق المشاريع مع <span class=\"fw-bold\">إعداد بنقرة واحدة ودون أي توقف</"
+"span>"
 
 #: .\templates\pages\index.html:373
 msgid "One-click deployment with Docker & Traefik"
@@ -1987,8 +2020,11 @@ msgid "Unified Dashboard"
 msgstr "لوحة تحكم موحدة"
 
 #: .\templates\pages\index.html:392
-msgid "Manage all your apps from <span class=\"fw-bold\">one clean and intuitive interface</span>"
-msgstr "أدر جميع تطبيقاتك من <span class=\"fw-bold\">واجهة نظيفة وبديهية واحدة</span>"
+msgid ""
+"Manage all your apps from <span class=\"fw-bold\">one clean and intuitive "
+"interface</span>"
+msgstr ""
+"أدر جميع تطبيقاتك من <span class=\"fw-bold\">واجهة نظيفة وبديهية واحدة</span>"
 
 #: .\templates\pages\index.html:397
 msgid "Simple UI for beginners and experts"
@@ -2007,8 +2043,12 @@ msgid "Smart Experience"
 msgstr "تجربة ذكية"
 
 #: .\templates\pages\index.html:416
-msgid "SOFTmsg helps you <span class=\"fw-bold\">discover, install, and trust projects</span> with built-in transparency and insights."
-msgstr "يساعدك SOFTmsg على <span class=\"fw-bold\">اكتشاف المشاريع وتثبيتها والثقة بها</span> من خلال الشفافية والرؤى المدمجة."
+msgid ""
+"SOFTmsg helps you <span class=\"fw-bold\">discover, install, and trust "
+"projects</span> with built-in transparency and insights."
+msgstr ""
+"يساعدك SOFTmsg على <span class=\"fw-bold\">اكتشاف المشاريع وتثبيتها والثقة "
+"بها</span> من خلال الشفافية والرؤى المدمجة."
 
 #: .\templates\pages\index.html:421
 msgid "Live stats: installs, downloads, and active users"
@@ -2029,7 +2069,6 @@ msgstr "فرز تلقائي للحاويات لتدفق نشر سلس"
 #: .\templates\pages\index.html:433
 msgid "SEO-friendly project pages with metadata"
 msgstr "صفحات مشاريع متوافقة مع تحسين محركات البحث (SEO) مع بيانات وصفية"
-
 
 #: .\templates\pages\index.html:496
 #: .\templates\pages\services\HRManagement.html:356

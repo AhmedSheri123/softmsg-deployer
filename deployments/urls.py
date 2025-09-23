@@ -5,6 +5,8 @@ urlpatterns = [
     path('rebuild-project/<int:deployment_id>', views.rebuild_project, name='rebuild_project'),
     path('my-deployments/', views.my_deployments, name='my_deployments'),
     path('deployment-detail/<int:deployment_id>', views.deployment_detail, name='deployment_detail'),
+    path('change-project-domain/<int:deployment_id>', views.change_project_domain, name='change_project_domain'),
+    path('reset-project-domain/<int:deployment_id>', views.reset_project_domain, name='reset_project_domain'),
     path('delete-deployment/<int:deployment_id>', views.delete_deployment, name='delete_deployment'),
     path('deployments/<int:deployment_id>/usage/', views.deployment_usage_api, name='deployment_usage_api'),
 
