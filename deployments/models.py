@@ -379,6 +379,11 @@ class DeploymentContainer(models.Model):
         final_env = {k: self.resolve_placeholders(v) for k, v in env_vars.items()}
         
         config["environment"] = final_env
+        
+        
+        config["command"] = f"""
+        sh -c "{pc.script_run_after_install}"
+        """
 
         # -------------------------------
         # المنافذ

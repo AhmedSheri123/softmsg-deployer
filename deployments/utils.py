@@ -146,18 +146,6 @@ def create_project_container(container):
             logger.error(f"Failed to create container {container_name}: {e}")
             return False
 
-        # ----------- تشغيل سكربتات بعد الإنشاء ----------- 
-        if pc.script_run_after_install:
-            for script in pc.script_run_after_install.splitlines():
-                script = script.strip()
-                if not script:
-                    continue
-                try:
-                    exec_result = c.exec_run(script.format(container=container))
-                    output = exec_result.output.decode() if exec_result.output else ""
-                    logger.info(f"Executed script for {container_name}: {script}\nOutput: {output}")
-                except Exception as e:
-                    logger.warning(f"Failed to execute script '{script}' for {container_name}: {e}")
 
     return True
 
