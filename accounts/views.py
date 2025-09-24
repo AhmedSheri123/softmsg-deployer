@@ -8,6 +8,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.http import JsonResponse
 import requests
 from django.conf import settings
+from django.utils.translation import gettext as _
 # Create your views here.
 
 def verify_recaptcha_v3(token):
@@ -55,7 +56,7 @@ def Signup(request):
         recaptcha_result = verify_recaptcha_v3(token)
 
         if not recaptcha_result.get("success") or recaptcha_result.get("score", 0) < 0.5:
-            messages.error(request, "reCAPTCHA verification failed. Please try again.")
+            messages.error(request, _("reCAPTCHA verification failed. Please try again."))
             return redirect("Signup")
 
         if user_form.is_valid() and userprofile_form.is_valid():
@@ -70,7 +71,7 @@ def Signup(request):
 
             user.save()
             userprofile.save()
-            messages.success(request, 'Account Created Successfully')
+            messages.success(request, _('Account Created Successfully'))
             return redirect('Login')
         else:messages.error(request, user_form.errors+userprofile_form.errors)
     return render(request, 'accounts/signup.html', {'user_form':user_form, "userprofile_form":userprofile_form, "RECAPTCHA_SITE_KEY": settings.RECAPTCHA_SITE_KEY})
@@ -86,7 +87,7 @@ def Login(request):
         recaptcha_result = verify_recaptcha_v3(token)
 
         if not recaptcha_result.get("success") or recaptcha_result.get("score", 0) < 0.5:
-            messages.error(request, "reCAPTCHA verification failed. Please try again.")
+            messages.error(request, _("reCAPTCHA verification failed. Please try again."))
             return redirect("Login")
 
         if form.is_valid():
@@ -99,12 +100,12 @@ def Login(request):
                 user = authenticate(username=user.username, password=password)
                 if user is not None:
                     login(request, user)
-                    messages.success(request, 'Login Success')
+                    messages.success(request, _('Login Success'))
                     if next:
                         return redirect(next)
                     return redirect('DashboardHome')
-                else:messages.error(request, 'wrong email or password')
-            else:messages.error(request, 'user dos not exists')
+                else:messages.error(request, _('wrong email or password'))
+            else:messages.error(request, _('user dos not exists'))
         else:messages.error(request, form.errors)
     return render(request, 'accounts/login.html', {'form':form, "RECAPTCHA_SITE_KEY": settings.RECAPTCHA_SITE_KEY})
 

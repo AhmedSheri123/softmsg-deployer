@@ -7,7 +7,7 @@ from django.http import JsonResponse, HttpResponse
 import docker, json
 from .models import DeploymentContainerEnvVar, Deployment
 from projects.models import EnvVarsTitle
-
+from django.utils.translation import gettext as _
 
 @login_required
 def rebuild_project(request, deployment_id):
@@ -19,8 +19,8 @@ def rebuild_project(request, deployment_id):
     # استدعاء السكربت لإنشاء Docker container
     success = rebuild_docker(deployment)
     if not success:
-        messages.error(request, "Failed to deploy the project.")
-    else:messages.success(request, "Project deployed successfully!")
+        messages.error(request, _("Failed to deploy the project."))
+    else:messages.success(request, _("Project deployed successfully!"))
     return redirect('my_deployments')
 
 
@@ -258,20 +258,20 @@ def change_project_domain(request, deployment_id):
     # إيجاد الكونتينر المسؤول عن الدومين (frontend أو backfront)
     container = deployment.containers.filter(project_container__have_main_domain=True).first()
     if not container:
-        messages.error(request, "No container found for this deployment.")
+        messages.error(request, _("No container found for this deployment."))
         return redirect('deployment_detail', deployment_id)
 
     if request.method == "POST":
         new_domain = request.POST.get("new_domain", "").strip()
         if not new_domain:
-            messages.error(request, "Domain cannot be empty.")
+            messages.error(request, _("Domain cannot be empty."))
             return redirect('deployment_detail', deployment_id)
 
         # هنا يمكن إضافة أي تحقق إضافي للدومين (format / DNS / regex)
         container.domain = new_domain
         container.save()
         hard_restart(deployment)
-        messages.success(request, f"Project domain updated to {new_domain}.")
+        messages.success(request, _(f"Project domain updated to {new_domain}."))
         return redirect('deployment_detail', deployment_id)
 
 
@@ -287,12 +287,12 @@ def reset_project_domain(request, deployment_id):
     # إيجاد الكونتينر المسؤول عن الدومين (frontend أو backfront)
     container = deployment.containers.filter(project_container__have_main_domain=True).first()
     if not container:
-        messages.error(request, "No container found for this deployment.")
+        messages.error(request, _("No container found for this deployment."))
         return redirect('deployment_detail', deployment_id)
     main_domain = ".softmsg.com"
     new_domain = f"{container.container_name}{main_domain}"
     if not new_domain:
-        messages.error(request, "Domain cannot be empty.")
+        messages.error(request, _("Domain cannot be empty."))
         return redirect('deployment_detail', deployment_id)
 
     # هنا يمكن إضافة أي تحقق إضافي للدومين (format / DNS / regex)
@@ -300,5 +300,5 @@ def reset_project_domain(request, deployment_id):
     container.save()
     hard_restart(deployment)
     
-    messages.success(request, f"Project domain updated to {new_domain}.")
+    messages.success(request, _(f"Project domain updated to {new_domain}."))
     return redirect('deployment_detail', deployment_id)

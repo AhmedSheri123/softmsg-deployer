@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.db import transaction
 import logging
 from django.utils.text import slugify
+from django.utils.translation import gettext as _
 
 # Create your views here.
 @login_required
@@ -85,17 +86,18 @@ def ApplySubscription(request, order_id):
             if success:
                 deployment.project.installs += 1
                 deployment.project.save()
-                messages.success(request, 'تم شراء الخدمة وتشغيل الحاويات بنجاح')
+                install_time_minutes = deployment.project.install_time_minutes
+                messages.success(request, _(f"The service has been successfully purchased. Please wait {install_time_minutes} minutes for the installation to complete."))
                 logger.info(f"Docker containers for deployment {deployment.id} started successfully")
             else:
                 deployment.progress = 5  # Failed
                 deployment.save()
-                messages.error(request, 'فشل تشغيل الحاويات')
-                logger.error(f"Docker containers for deployment {deployment.id} failed to start")
+                messages.error(request, _("Failed to start the app"))
+                logger.error(f"app for deployment {deployment.id} failed to start")
 
     except Exception as e:
         logger.exception(f"Error applying subscription for order {order_id}: {e}")
-        messages.error(request, 'حدث خطأ أثناء تفعيل الخدمة. يرجى المحاولة لاحقاً.')
+        messages.error(request, _("An error occurred while activating the service. Please try again later."))
 
     return redirect('my_deployments')
 
@@ -118,7 +120,7 @@ def ApplyUpgradePlan(request, order_id):
     order.progress = '3'
     order.save()
 
-    messages.success(request, 'تم تجديد الخطة بنجاح')
+    messages.success(request, _("The plan has been successfully renewed."))
     return redirect('my_deployments')
     
 

@@ -39,7 +39,7 @@ def Contact(request):
         success, result = verify_recaptcha_v2(recaptcha_response)
 
         if not success:
-            messages.error(request, "يرجى تأكيد reCAPTCHA")
+            messages.error(request, _("Please confirm the reCAPTCHA."))
             return redirect('Signup')
 
         if form.is_valid():

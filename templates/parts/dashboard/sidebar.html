@@ -9,28 +9,28 @@
     </a>
     <ul class="nav nav-pills navbar-dark flex-column mb-auto py-5">
 <li class="nav-item">
-  <a href="{% url 'DashboardHome' %}" class="nav-link" aria-current="page">
+  <a href="{% url 'DashboardHome' %}" class="nav-link text-body-secondary" aria-current="page">
     <i class="fa-solid fa-house me-2 "></i>
     {% trans "Home" %}
   </a>
 </li>
 
 <li>
-  <a href="{% url 'my_deployments' %}" class="nav-link ">
+  <a href="{% url 'my_deployments' %}" class="nav-link text-body-secondary ">
     <i class="fa-solid fa-server me-2 "></i>
     {% trans "My Projects" %}
   </a>
 </li>
 
 <li>
-  <a href="{% url 'project_list' %}" class="nav-link  d-flex align-items-center">
+  <a href="{% url 'project_list' %}" class="nav-link text-body-secondary  d-flex align-items-center">
     <i class="fa-solid fa-cart-plus me-2 "></i>
     <span>{% trans "Marketplace" %}</span>
   </a>
 </li>
 
 <li>
-  <a href="{% url 'MyOrders' %}" class="nav-link  d-flex align-items-center">
+  <a href="{% url 'MyOrders' %}" class="nav-link text-body-secondary  d-flex align-items-center">
     <i class="fa-solid fa-cart-shopping me-2 "></i>
     <span>{% trans "Orders" %}</span>
   </a>

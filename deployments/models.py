@@ -381,8 +381,9 @@ class DeploymentContainer(models.Model):
         config["environment"] = final_env
         
         if pc.script_run_after_install:
+            command = self.resolve_command(pc.script_run_after_install)
             config["command"] = f"""
-            sh -c "{pc.script_run_after_install}"
+            sh -c "{command}"
             """
 
         # -------------------------------
@@ -608,6 +609,11 @@ class DeploymentContainer(models.Model):
             new_value = self.resolve_placeholders(v) if isinstance(v, str) else v
             resolved[new_key] = new_value
         return resolved
+
+    def resolve_command(self, command: str):
+        if command:
+            command = self.resolve_placeholders(command)
+        return command
 
 
 

@@ -8,10 +8,22 @@
     font-size: 20px;
 }
 
+.nav.nav-pills .nav-link.active {
+    color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) !important;
+    background-color: rgb(var(--light-orange)) !important;
+    color: white !important;
+}
 
 .bg-light-orange {
     background-color: rgb(var(--light-orange));
 }
+.offcanvas-sidbar .nav-link:hover, a.bg-light-orange:hover, .btn.bg-light-orange:hover {
+    background-color: rgba(var(--light-orange-hover), .4);
+}
+
+.offcanvas-sidbar .nav-link{margin-top: 4px;}
+
+
 
 
 .content-main-box {
