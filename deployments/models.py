@@ -380,11 +380,7 @@ class DeploymentContainer(models.Model):
         
         config["environment"] = final_env
         
-        if pc.script_run_after_install:
-            command = self.resolve_command(pc.script_run_after_install)
-            config["command"] = f"""
-            sh -c "{command}"
-            """
+
 
         # -------------------------------
         # المنافذ
@@ -460,8 +456,11 @@ class DeploymentContainer(models.Model):
         # command
         # -------------------------------
         if pc.command:
-            config["command"] = pc.command
-
+            command = self.resolve_command(pc.command)
+            config["command"] = f"""
+            sh -c "{command}"
+            """
+            logger.error(f"command:--> {command}")
         # -------------------------------
         # labels + domain + storage info
         # -------------------------------
