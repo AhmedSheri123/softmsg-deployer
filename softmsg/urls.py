@@ -39,7 +39,9 @@ urlpatterns = [
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
-    path('PrivacyPolicy', views.PrivacyPolicy, name='PrivacyPolicy')
+    path('PrivacyPolicy', views.PrivacyPolicy, name='PrivacyPolicy'),
+    path('l-accounts/', include('allauth.urls')),  # روابط allauth
+    
 ] + i18n_patterns(
     path('', include('pages.urls')),
     path('resources/', include('resources.urls')),
@@ -53,6 +55,7 @@ urlpatterns = [
     path('tinymce/', include("tinymce.urls")),
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
+    
 )
 
 
