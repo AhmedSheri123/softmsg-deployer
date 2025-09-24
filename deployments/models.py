@@ -380,10 +380,10 @@ class DeploymentContainer(models.Model):
         
         config["environment"] = final_env
         
-        
-        config["command"] = f"""
-        sh -c "{pc.script_run_after_install}"
-        """
+        if pc.script_run_after_install:
+            config["command"] = f"""
+            sh -c "{pc.script_run_after_install}"
+            """
 
         # -------------------------------
         # المنافذ
