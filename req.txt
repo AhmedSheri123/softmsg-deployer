@@ -1,8 +1,11 @@
 asgiref==3.8.1
 certifi==2024.8.30
+cffi==2.0.0
 chardet==3.0.4
 charset-normalizer==3.3.2
+cryptography==46.0.1
 Django==5.2.6
+django-allauth==65.11.2
 django-appconf==1.1.0
 django-filebrowser==4.0.3
 django-grappelli==3.0.9
@@ -25,6 +28,8 @@ migrate==0.3.7
 pillow==11.0.0
 polib==1.2.0
 psycopg2==2.9.10
+pycparser==2.23
+PyJWT==2.10.1
 pytz==2024.2
 pywin32==308
 PyYAML==6.0.2
