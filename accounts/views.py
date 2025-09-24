@@ -6,7 +6,41 @@ from .forms import UserSignUpModelForm, UserProfileSignUpModelForm, LoginForm
 from .libs import RandomDigitsGen
 from django.contrib.auth import logout, login, authenticate
 from django.http import JsonResponse
+import requests
+from django.conf import settings
 # Create your views here.
+
+def verify_recaptcha_v3(token):
+    """يتحقق من Google reCAPTCHA v3"""
+    secret = settings.RECAPTCHA_SECRET_KEY
+    url = "https://www.google.com/recaptcha/api/siteverify"
+    data = {
+        "secret": secret,
+        "response": token,
+    }
+    try:
+        r = requests.post(url, data=data)
+        result = r.json()
+    except Exception:
+        result = {"success": False, "score": 0}
+    return result
+
+def verify_recaptcha_v2(response_token):
+    """
+    يتحقق من Google reCAPTCHA v2/v3
+    """
+    url = "https://www.google.com/recaptcha/api/siteverify"
+    data = {
+        "secret": settings.RECAPTCHA_SECRET_KEY_V2,
+        "response": response_token,
+    }
+
+    try:
+        r = requests.post(url, data=data)
+        result = r.json()
+        return result.get("success", False), result
+    except Exception as e:
+        return False, {"error": str(e)}
 
 def Signup(request):
     user_form = UserSignUpModelForm()
@@ -15,6 +49,15 @@ def Signup(request):
     if request.method == 'POST':
         user_form = UserSignUpModelForm(data=request.POST)
         userprofile_form = UserProfileSignUpModelForm(data=request.POST)
+
+        # التحقق من reCAPTCHA أولاً
+        token = request.POST.get("g-recaptcha-response")
+        recaptcha_result = verify_recaptcha_v3(token)
+
+        if not recaptcha_result.get("success") or recaptcha_result.get("score", 0) < 0.5:
+            messages.error(request, "reCAPTCHA verification failed. Please try again.")
+            return redirect("Signup")
+
         if user_form.is_valid() and userprofile_form.is_valid():
             password = user_form.cleaned_data.get('password')
 
@@ -30,13 +73,22 @@ def Signup(request):
             messages.success(request, 'Account Created Successfully')
             return redirect('Login')
         else:messages.error(request, user_form.errors+userprofile_form.errors)
-    return render(request, 'accounts/signup.html', {'user_form':user_form, "userprofile_form":userprofile_form})
+    return render(request, 'accounts/signup.html', {'user_form':user_form, "userprofile_form":userprofile_form, "RECAPTCHA_SITE_KEY": settings.RECAPTCHA_SITE_KEY})
 
 def Login(request):
     form = LoginForm()
     next = request.GET.get('next')
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
+
+        # التحقق من reCAPTCHA أولاً
+        token = request.POST.get("g-recaptcha-response")
+        recaptcha_result = verify_recaptcha_v3(token)
+
+        if not recaptcha_result.get("success") or recaptcha_result.get("score", 0) < 0.5:
+            messages.error(request, "reCAPTCHA verification failed. Please try again.")
+            return redirect("Login")
+
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
@@ -54,7 +106,7 @@ def Login(request):
                 else:messages.error(request, 'wrong email or password')
             else:messages.error(request, 'user dos not exists')
         else:messages.error(request, form.errors)
-    return render(request, 'accounts/login.html', {'form':form})
+    return render(request, 'accounts/login.html', {'form':form, "RECAPTCHA_SITE_KEY": settings.RECAPTCHA_SITE_KEY})
 
 def Logout(request):
     logout(request)

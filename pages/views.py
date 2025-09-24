@@ -3,12 +3,13 @@ from django.contrib import messages
 from .forms import ContactFormModel, SubscribeToUsModelForm
 from django.utils.translation import gettext as _
 from django.utils import translation
-
+from accounts.views import verify_recaptcha_v2
+from django.conf import settings
 # Create your views here.
 
 def index(request):
     form = ContactFormModel()
-    return render(request, 'pages/index.html', {'form':form})
+    return render(request, 'pages/index.html', {'form':form, "RECAPTCHA_SITE_KEY_V2":settings.RECAPTCHA_SITE_KEY_V2})
 
 def PrivacyPolicy(request):
     return render(request, 'pages/PrivacyPolicy.html')
@@ -33,6 +34,14 @@ def SubscribeToUs(request):
 def Contact(request):
     if request.method == 'POST':
         form = ContactFormModel(data=request.POST)
+        # ✅ تحقق من reCAPTCHA
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        success, result = verify_recaptcha_v2(recaptcha_response)
+
+        if not success:
+            messages.error(request, "يرجى تأكيد reCAPTCHA")
+            return redirect('Signup')
+
         if form.is_valid():
             form.save()
             messages.success(request, _('Your message has been sent successfully. You will be replied after reviewing the details.'))

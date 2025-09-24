@@ -909,6 +909,9 @@
                     {% trans "You must agree before submitting." %}
                   </div>
               </div>
+            <!-- reCAPTCHA v2 -->
+            <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_SITE_KEY_V2 }}"></div>
+
             <button class="btn btn-primary mx-auto d-block">
                 {% trans "Submit" %}
                 <i class="fa-solid fa-paper-plane"></i>
@@ -917,6 +920,16 @@
     </div>
 </div>
 
+<!-- سكربت جوجل -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<style>
+    .g-recaptcha {
+  display: flex;
+  justify-content: center;  /* يوسّط المربع */
+  margin-bottom: 15px;
+
+}
+</style>
 
 <!-- JS -->
 <script src="https://unpkg.com/sal.js/dist/sal.js"></script>

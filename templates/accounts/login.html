@@ -29,10 +29,11 @@
                 {{form.password}}
             </div>
 
+            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
-        <button type="submit" class="btn btn-dark w-100 mt-3">
-            <i class="fa-solid fa-right-to-bracket me-1"></i> {% trans "Log in" %}
-        </button>
+            <button type="submit" class="btn btn-dark w-100 mt-3">
+                <i class="fa-solid fa-right-to-bracket me-1"></i> {% trans "Log in" %}
+            </button>
 
             <div class="text-center mt-3">
                 <a href="{% url 'Signup' %}" class="text-decoration-none">
@@ -43,5 +44,15 @@
     </div>
 </div>
  <!-- End Contact -->
+
+<!-- reCAPTCHA v3 -->
+<script src="https://www.google.com/recaptcha/api.js?render={{RECAPTCHA_SITE_KEY}}"></script>
+<script>
+grecaptcha.ready(function() {
+    grecaptcha.execute("{{RECAPTCHA_SITE_KEY}}", {action: 'login'}).then(function(token) {
+        document.getElementById('g-recaptcha-response').value = token;
+    });
+});
+</script>
 
 {% endblock sheri %}
