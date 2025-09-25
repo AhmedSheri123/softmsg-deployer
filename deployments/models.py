@@ -717,24 +717,40 @@ class DeploymentBackup(models.Model):
 
         try:
             os.makedirs("/var/lib/containers/backups", exist_ok=True)
+            backup_file = None
+
             if self.backup_type == "db":
-                backup_file = self._backup_database()
-            else:
+                try:
+                    backup_file = self._backup_database()
+                except RuntimeError as e:
+                    self.status = "failed"
+                    self.error_message = f"Database backup skipped: {e}"
+                    logger.warning(f"Database backup skipped for deployment {self.deployment.id}: {e}")
+            else:  # full backup
                 backup_file = self._backup_full()
 
-            self.file_path = backup_file
-            self.size_mb = int(os.path.getsize(backup_file) / (1024 * 1024))
-            self.status = "completed"
-            logger.info(f"Backup completed: {backup_file} ({self.size_mb} MB)")
+            if backup_file and os.path.exists(backup_file):
+                self.file_path = backup_file
+                self.size_mb = int(os.path.getsize(backup_file) / (1024 * 1024))
+                if self.status != "failed":
+                    self.status = "completed"
+                logger.info(f"Backup completed: {backup_file} ({self.size_mb} MB)")
+            else:
+                if self.status != "failed":
+                    self.status = "failed"
+                    self.error_message = "Backup file not created."
+                    logger.error(f"Backup failed: Backup file not created for deployment {self.deployment.id}")
+
         except Exception as e:
             self.status = "failed"
             self.error_message = str(e)
-            logger.error(f"Backup failed: {e}", exc_info=True)
+            logger.error(f"Backup failed for deployment {self.deployment.id}: {e}", exc_info=True)
         finally:
             self.finished_at = timezone.now()
             self.save()
 
         return self.file_path
+
 
     def restore_backup(self):
         logger.info(f"Starting restore for backup {self.id}")
