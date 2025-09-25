@@ -113,7 +113,7 @@
                 <label class="form-label">
                     <i class="fa-solid fa-globe"></i> {% trans "Domain" %}
                 </label>
-                <input type="text" class="form-control" disabled value="{{ deployment.domain|default:"N/A" }}">
+                <input type="text" dir="ltr" class="form-control" disabled value="{{ deployment.domain|default:"N/A" }}">
             </div>
 
             <div class="col">
@@ -207,7 +207,7 @@
                         <input type="hidden" name="deployment_id" value="{{deployment.id}}">
                         <input type="hidden" name="plan_id" value="{{ deployment.subscription.plan.id }}">
                         <input type="hidden" name="duration_type" class="duration_type_input" value="{{deployment.subscription.duration}}">
-                        <button type="submit" class="btn bg-light-orange">
+                        <button type="submit" class="btn btn-primary">
                             <i class="fa-solid fa-rotate-right"></i> {% trans "Renew plan" %}
                         </button>
                     </form>
