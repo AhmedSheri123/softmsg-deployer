@@ -16,10 +16,13 @@
             <div class="row g-2 align-items-center">
                 <div class="col-auto">
                     <select name="backup_type" class="form-select form-select-sm">
-                        <option value="full">{% trans "Full Backup" %}</option>
                         {% if deployment.project.db_config and deployment.project.db_config.is_valid %}
+                        <option value="full">{% trans "Full Backup" %}</option>
                         <option value="db">{% trans "Database Only" %}</option>
                         {% endif %}
+                        
+                        <option value="files">{% trans "Files Only" %}</option>
+
                     </select>
                 </div>
                 <div class="col-auto">
@@ -97,7 +100,7 @@
 </div>
 
 <script>
-  // Enable tooltips
+  // تمكين الـ tooltips لعرض رسائل الخطأ عند الفشل
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)

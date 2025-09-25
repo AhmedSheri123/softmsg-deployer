@@ -682,7 +682,8 @@ import tarfile
 
 class DeploymentBackup(models.Model):
     BACKUP_TYPE_CHOICES = [
-        ("full", "Full Project (volumes + db)"),
+        ("full", "Full (Files + Database)"),
+        ("files", "Files Only"),
         ("db", "Database Only"),
     ]
     STATUS_CHOICES = [
@@ -702,6 +703,7 @@ class DeploymentBackup(models.Model):
     finished_at = models.DateTimeField(null=True, blank=True)
     restored = models.BooleanField(default=False)
     error_message = models.TextField(blank=True, null=True)
+    backup_summary = models.CharField(max_length=255, blank=True, null=True, help_text="Summary of what was backed up")
 
     class Meta:
         ordering = ["-created_at"]
@@ -709,49 +711,93 @@ class DeploymentBackup(models.Model):
     def __str__(self):
         return f"Backup {self.backup_type} for {self.deployment} at {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
 
+    # ---------------------------
+    # إنشاء النسخة الاحتياطية
+    # ---------------------------
     def create_backup(self):
         logger.info(f"Starting backup for deployment {self.deployment.id}, type={self.backup_type}")
         self.status = "running"
         self.started_at = timezone.now()
+        self.backup_summary = ""
         self.save()
+
+        files_backed_up = False
+        db_backed_up = False
+        backup_file = None
 
         try:
             os.makedirs("/var/lib/containers/backups", exist_ok=True)
-            backup_file = None
 
-            if self.backup_type == "db":
+            if self.backup_type in ["full", "files"]:
                 try:
-                    backup_file = self._backup_database()
-                except RuntimeError as e:
-                    self.status = "failed"
-                    self.error_message = f"Database backup skipped: {e}"
-                    logger.warning(f"Database backup skipped for deployment {self.deployment.id}: {e}")
-            else:  # full backup
-                backup_file = self._backup_full()
+                    backup_file_files = self._backup_files()
+                    files_backed_up = True
+                except Exception as e:
+                    logger.warning(f"Files backup failed: {e}")
 
+            if self.backup_type in ["full", "db"]:
+                try:
+                    backup_file_db = self._backup_database()
+                    db_backed_up = True
+                except RuntimeError as e:
+                    logger.warning(f"Database backup skipped: {e}")
+                except Exception as e:
+                    logger.error(f"Database backup failed: {e}", exc_info=True)
+
+            # دمج الملفات في حالة full backup
+            if self.backup_type == "full":
+                timestamp = timezone.now().strftime("%Y%m%d%H%M%S")
+                backup_file = f"/var/lib/containers/backups/deployment_{self.deployment.id}_full_{timestamp}.tar.gz"
+                with tarfile.open(backup_file, "w:gz") as tar:
+                    if files_backed_up and os.path.exists(backup_file_files):
+                        tar.add(backup_file_files, arcname=os.path.basename(backup_file_files))
+                    if db_backed_up and os.path.exists(backup_file_db):
+                        tar.add(backup_file_db, arcname=os.path.basename(backup_file_db))
+            elif self.backup_type == "files":
+                backup_file = backup_file_files
+            elif self.backup_type == "db":
+                backup_file = backup_file_db
+
+            # تحديث summary
+            summary_parts = []
+            if files_backed_up:
+                summary_parts.append("Files")
+            if db_backed_up:
+                summary_parts.append("Database")
+            if summary_parts:
+                self.backup_summary = " & ".join(summary_parts) + " backed up successfully"
+                if self.backup_type == "full" and (not files_backed_up or not db_backed_up):
+                    self.backup_summary += " (partial)"
+                if self.status != "failed":
+                    self.status = "completed"
+            else:
+                self.backup_summary = "Backup failed"
+                self.status = "failed"
+
+            # إعداد الملف والحجم
             if backup_file and os.path.exists(backup_file):
                 self.file_path = backup_file
                 self.size_mb = int(os.path.getsize(backup_file) / (1024 * 1024))
-                if self.status != "failed":
-                    self.status = "completed"
                 logger.info(f"Backup completed: {backup_file} ({self.size_mb} MB)")
             else:
                 if self.status != "failed":
                     self.status = "failed"
-                    self.error_message = "Backup file not created."
+                    self.error_message = "Backup file not created"
                     logger.error(f"Backup failed: Backup file not created for deployment {self.deployment.id}")
 
         except Exception as e:
             self.status = "failed"
             self.error_message = str(e)
-            logger.error(f"Backup failed for deployment {self.deployment.id}: {e}", exc_info=True)
+            logger.error(f"Backup failed: {e}", exc_info=True)
         finally:
             self.finished_at = timezone.now()
             self.save()
 
         return self.file_path
 
-
+    # ---------------------------
+    # Restore النسخة الاحتياطية
+    # ---------------------------
     def restore_backup(self):
         logger.info(f"Starting restore for backup {self.id}")
         try:
@@ -759,7 +805,6 @@ class DeploymentBackup(models.Model):
                 self._restore_database()
             else:
                 self._restore_full()
-
             self.restored = True
             logger.info("Restore completed successfully")
         except Exception as e:
@@ -770,29 +815,22 @@ class DeploymentBackup(models.Model):
             self.save()
 
     # ---------------------------
-    # Backup Full Project
+    # نسخ الملفات فقط
     # ---------------------------
-    def _backup_full(self):
+    def _backup_files(self):
         storage_data = self.deployment.get_volume_storage_data
         mount_dir = storage_data["mount_dir"]
         timestamp = timezone.now().strftime("%Y%m%d%H%M%S")
-        backup_file = f"/var/lib/containers/backups/deployment_{self.deployment.id}_full_{timestamp}.tar.gz"
+        backup_file = f"/var/lib/containers/backups/deployment_{self.deployment.id}_files_{timestamp}.tar.gz"
 
-        logger.info(f"Creating full backup at {backup_file}")
-
+        logger.info(f"Backing up files to {backup_file}")
         with tarfile.open(backup_file, "w:gz") as tar:
             if os.path.exists(mount_dir):
                 tar.add(mount_dir, arcname=f"deployment_{self.deployment.id}_data")
-                logger.info(f"Added volume data from {mount_dir}")
-            db_file = self._backup_database()
-            if os.path.exists(db_file):
-                tar.add(db_file, arcname=os.path.basename(db_file))
-                logger.info(f"Added database backup {db_file}")
-
         return backup_file
 
     # ---------------------------
-    # Backup Database Only
+    # نسخ قاعدة البيانات فقط
     # ---------------------------
     def _backup_database(self):
         env = self._get_db_env()
@@ -805,7 +843,7 @@ class DeploymentBackup(models.Model):
 
         timestamp = timezone.now().strftime("%Y%m%d%H%M%S")
         backup_file = f"/var/lib/containers/backups/{db_name}_{timestamp}.sql.gz"
-        logger.info(f"Creating database backup at {backup_file}")
+        logger.info(f"Backing up database to {backup_file}")
 
         os.makedirs(os.path.dirname(backup_file), exist_ok=True)
 
@@ -822,7 +860,6 @@ class DeploymentBackup(models.Model):
                 logger.info(f"Running command: {' '.join(cmd)}")
                 subprocess.run(cmd, stdout=f, check=True, env=env_vars)
             subprocess.run(["gzip", "-f", temp_file], check=True)
-            logger.info("Database compressed with gzip")
 
         return backup_file
 
@@ -840,7 +877,7 @@ class DeploymentBackup(models.Model):
         logger.info("Full restore completed")
 
     # ---------------------------
-    # Restore Database Only
+    # Restore Database
     # ---------------------------
     def _restore_database(self):
         env = self._get_db_env()
@@ -870,7 +907,7 @@ class DeploymentBackup(models.Model):
         logger.info("Database restore completed")
 
     # ---------------------------
-    # Get DB environment
+    # جلب بيانات DB من المشروع والحاوية
     # ---------------------------
     def _get_db_env(self):
         db_config = getattr(self.deployment.project, "db_config", None)
@@ -888,7 +925,7 @@ class DeploymentBackup(models.Model):
             "db_name": env.get(db_config.db_name),
             "db_user": env.get(db_config.db_user),
             "db_password": env.get(db_config.db_password),
-            "db_host": env.get(db_config.db_host, db_container.container_name),
+            "db_host": db_container.container_name,
             "db_port": env.get(db_config.db_port, "5432"),
             "container_name": db_container.container_name
         }

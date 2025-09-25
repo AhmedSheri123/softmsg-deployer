@@ -309,7 +309,13 @@ def reset_project_domain(request, deployment_id):
 
 
 
+# -------------------------------
+# قائمة النسخ الاحتياطية
+# -------------------------------
 def deployment_backups(request, deployment_id):
+    """
+    عرض جميع النسخ الاحتياطية الخاصة بنشر معين
+    """
     deployment = get_object_or_404(Deployment, id=deployment_id)
     backups = deployment.backups.all()
     return render(request, "dashboard/deployments/backup/backup_list.html", {
@@ -318,19 +324,31 @@ def deployment_backups(request, deployment_id):
     })
 
 
+# -------------------------------
+# إنشاء نسخة احتياطية جديدة
+# -------------------------------
 def create_backup(request, deployment_id):
+    """
+    إنشاء نسخة احتياطية للملفات، قاعدة البيانات أو النسخة الكاملة حسب اختيار المستخدم
+    """
     deployment = get_object_or_404(Deployment, id=deployment_id)
+
     if request.method == "POST":
         backup_type = request.POST.get("backup_type", "full")
 
-        # تحقق من DB config إذا كان backup db-only
-        if backup_type == "db":
+        # تحقق من DB config إذا كان النسخ يتضمن قاعدة البيانات
+        if backup_type in ["db", "full"]:
             db_config = getattr(deployment.project, "db_config", None)
             if not db_config or not db_config.is_valid():
                 msg = _("Cannot create database backup: no valid DB config found for this project.")
                 messages.error(request, msg)
                 logger.error(msg)
-                return redirect("deployment_backups", deployment_id=deployment.id)
+                # إذا كان db-only، نوقف العملية مباشرة
+                if backup_type == "db":
+                    return redirect("deployment_backups", deployment_id=deployment.id)
+                # إذا كان full، نستمر ولكن فقط الملفات
+                backup_type = "files"
+                logger.warning(f"DB config missing: creating files-only backup for deployment {deployment.id}")
 
         backup = DeploymentBackup.objects.create(
             deployment=deployment,
@@ -338,9 +356,10 @@ def create_backup(request, deployment_id):
         )
 
         try:
-            backup.create_backup()
-            messages.success(request, _(f"Backup ({backup_type}) created successfully."))
-            logger.info(f"Backup created successfully: {backup.file_path}")
+            backup_file = backup.create_backup()
+            summary_msg = backup.backup_summary or _(f"Backup ({backup_type}) created successfully.")
+            messages.success(request, summary_msg)
+            logger.info(f"Backup created successfully: {backup_file}")
         except Exception as e:
             messages.error(request, _(f"Failed to create backup: {e}"))
             logger.error(f"Failed to create backup for deployment {deployment.id}: {e}", exc_info=True)
@@ -348,8 +367,15 @@ def create_backup(request, deployment_id):
     return redirect("deployment_backups", deployment_id=deployment.id)
 
 
+# -------------------------------
+# استعادة نسخة احتياطية
+# -------------------------------
 def restore_backup(request, backup_id):
+    """
+    استعادة نسخة احتياطية محددة
+    """
     backup = get_object_or_404(DeploymentBackup, id=backup_id)
+
     if request.method == "POST":
         try:
             backup.restore_backup()
