@@ -3,12 +3,13 @@ from django.contrib.auth.decorators import login_required
 from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, hard_restart, get_storage_usage
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, FileResponse, Http404
 import docker, json
 from .models import DeploymentContainerEnvVar, Deployment, DeploymentBackup
 from projects.models import EnvVarsTitle
 from django.utils.translation import gettext as _
-import logging
+import logging, os
+from django.utils import timezone
 
 logger = logging.getLogger(__name__)
 
@@ -386,3 +387,72 @@ def restore_backup(request, backup_id):
             logger.error(f"Failed to restore backup {backup.id}: {e}", exc_info=True)
 
     return redirect("deployment_backups", deployment_id=backup.deployment.id)
+
+
+def delete_backup(request, backup_id):
+    backup = get_object_or_404(DeploymentBackup, id=backup_id)
+
+    if request.method == "POST":
+        deployment_id = backup.deployment.id
+        try:
+            # احذف الملف من النظام إذا موجود
+            if backup.file_path and os.path.exists(backup.file_path):
+                os.remove(backup.file_path)
+                logger.info(f"Backup file deleted: {backup.file_path}")
+
+            backup.delete()
+            messages.success(request, _("Backup deleted successfully."))
+            logger.info(f"Backup record deleted: {backup_id}")
+        except Exception as e:
+            messages.error(request, _(f"Failed to delete backup: {e}"))
+            logger.error(f"Failed to delete backup {backup_id}: {e}", exc_info=True)
+
+        return redirect("deployment_backups", deployment_id=deployment_id)
+
+    return redirect("deployment_backups", deployment_id=backup.deployment.id)
+
+
+@login_required
+def download_backup(request, backup_id):
+    backup = get_object_or_404(DeploymentBackup, id=backup_id)
+
+    if not backup.file_path or not os.path.exists(backup.file_path):
+        raise Http404("Backup file not found.")
+
+    filename = os.path.basename(backup.file_path)
+    response = FileResponse(open(backup.file_path, "rb"), as_attachment=True, filename=filename)
+    return response
+
+
+@login_required
+def upload_backup(request, deployment_id):
+    deployment = get_object_or_404(Deployment, id=deployment_id)
+
+    if request.method == "POST":
+        backup_file = request.FILES.get("backup_file")
+        backup_type = request.POST.get("backup_type", "full")
+
+        if not backup_file:
+            messages.error(request, _("No file selected."))
+            return redirect("deployment_backups", deployment_id=deployment.id)
+
+        filename = f"{deployment.id}_{backup_type}_{timezone.now().strftime('%Y%m%d%H%M%S')}_{backup_file.name}"
+        save_path = os.path.join("/var/lib/containers/backups", filename)
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+        with open(save_path, "wb+") as destination:
+            for chunk in backup_file.chunks():
+                destination.write(chunk)
+
+        DeploymentBackup.objects.create(
+            deployment=deployment,
+            backup_type=backup_type,
+            file_path=save_path,
+            status="completed",
+            size_mb=int(os.path.getsize(save_path)/(1024*1024))
+        )
+
+        messages.success(request, _("Backup uploaded successfully."))
+        logger.info(f"Backup uploaded: {save_path}")
+
+    return redirect("deployment_backups", deployment_id=deployment.id)

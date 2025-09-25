@@ -23,4 +23,10 @@ urlpatterns = [
     path("deployment/<int:deployment_id>/backups/", views.deployment_backups, name="deployment_backups"),
     path("deployment/<int:deployment_id>/backups/create/", views.create_backup, name="deployment_backup_create"),
     path("backups/<int:backup_id>/restore/", views.restore_backup, name="deployment_backup_restore"),
+    path("deployments/backups/<int:backup_id>/delete/", views.delete_backup, name="deployment_backup_delete"),
+    path("deployments/backups/<int:backup_id>/download/", views.download_backup, name="deployment_backup_download"),
+    path("deployments/<int:deployment_id>/backups/upload/", views.upload_backup, name="deployment_backup_upload"),
+
+
+
 ]

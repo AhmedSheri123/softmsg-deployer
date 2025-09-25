@@ -8,7 +8,10 @@
 
 <div class="container py-4">
     <h5 class="mb-4">{% trans "Backups for Deployment" %} {{ deployment.id }}</h5>
-
+    <!-- زر فتح المودال -->
+    <button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#UploadBackupModal">
+        <i class="fa-solid fa-upload me-1"></i> {% trans "Upload Backup" %}
+    </button>
     <!-- إنشاء نسخة احتياطية -->
     <div class="card shadow-sm p-3 mb-3">
         <form method="post" action="{% url 'deployment_backup_create' deployment.id %}">
@@ -82,10 +85,46 @@
                                 </button>
                             </form>
                             {% if backup.file_path %}
-                            <a href="{{ backup.file_path }}" download class="btn btn-outline-success btn-sm w-100 w-md-auto">
+                            <a href="{% url 'deployment_backup_download' backup.id %}" 
+                            class="btn btn-outline-success btn-sm w-100 w-md-auto">
                                 <i class="fa-solid fa-download me-1"></i> {% trans "Download" %}
                             </a>
+
                             {% endif %}
+
+                            <button type="button" class="btn btn-outline-danger btn-sm w-100 w-md-auto"
+                                    data-bs-toggle="modal" data-bs-target="#deleteBackupModal{{ backup.id }}">
+                                <i class="fa-solid fa-trash me-1"></i> {% trans "Delete" %}
+                            </button>
+
+
+                            <!-- Delete Backup Modal -->
+                            <div class="modal fade" id="deleteBackupModal{{ backup.id }}" tabindex="-1" aria-labelledby="deleteBackupModalLabel{{ backup.id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content rounded-3 shadow">
+                                        <div class="modal-body p-4 text-center">
+                                            <i class="fa-solid fa-triangle-exclamation fa-2x text-danger mb-2"></i>
+                                            <h5 class="mb-0">{% trans "Delete this backup?" %}</h5>
+                                            <p class="mb-0">{% trans "After deleting, the backup file cannot be restored or downloaded again." %}</p>
+                                        </div>
+                                        <div class="modal-footer flex-nowrap p-0">
+                                            <form method="post" action="{% url 'deployment_backup_delete' backup.id %}" class="col-6 m-0 p-0">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none w-100 py-3 m-0 rounded-0 border-end">
+                                                    <strong>{% trans "Yes, Delete" %}</strong>
+                                                </button>
+                                            </form>
+                                            <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                                                    data-bs-dismiss="modal">
+                                                {% trans "Cancel" %}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end Delete Backup Modal -->
+
+
                         </td>
                     </tr>
                     {% empty %}
@@ -98,6 +137,35 @@
         </div>
     </div>
 </div>
+
+
+<!-- Upload Backup Modal -->
+<div class="modal fade" id="UploadBackupModal" tabindex="-1" aria-labelledby="UploadBackupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-3 shadow">
+            <div class="modal-body p-4 text-center">
+                <i class="fa-solid fa-upload fa-2x text-primary mb-2"></i>
+                <h5 class="mb-2">{% trans "Upload a backup file" %}</h5>
+                <p class="mb-0">{% trans "Select a backup file to add it to this deployment." %}</p>
+            </div>
+            <div class="modal-footer p-4">
+                <form method="post" action="{% url 'deployment_backup_upload' deployment.id %}" enctype="multipart/form-data" class="w-100">
+                    {% csrf_token %}
+                    <input type="file" name="backup_file" accept=".tar.gz,.sql.gz" class="form-control mb-2" required>
+                    <select name="backup_type" class="form-select mb-2">
+                        <option value="full">{% trans "Full Backup" %}</option>
+                        <option value="db">{% trans "Database Only" %}</option>
+                        <option value="files">{% trans "Files Only" %}</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary w-100">{% trans "Upload Backup" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <script>
   // تمكين الـ tooltips لعرض رسائل الخطأ عند الفشل
