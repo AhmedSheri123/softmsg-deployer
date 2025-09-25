@@ -857,7 +857,7 @@ class DeploymentBackup(models.Model):
     # Get DB environment
     # ---------------------------
     def _get_db_env(self):
-        db_config = getattr(self.project, "db_config", None)
+        db_config = getattr(self.deployment.project, "db_config", None)
         if not db_config or not db_config.is_valid():
             raise RuntimeError("No valid DB config found for this project. Backup cannot proceed.")
 
