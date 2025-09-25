@@ -1,0 +1,106 @@
+{% extends "dashboard_base.html" %}
+{% load i18n %}
+
+{% block sheri %}
+<div class="bg-light p-3 mb-3 rounded">
+    <a href="{% url 'project_list' %}" class="btn btn-outline-primary">{% trans "Buy Service" %}</a>
+</div>
+
+<div class="container py-4">
+    <h5 class="mb-4">{% trans "Backups for Deployment" %} {{ deployment.id }}</h5>
+
+    <!-- إنشاء نسخة احتياطية -->
+    <div class="card shadow-sm p-3 mb-3">
+        <form method="post" action="{% url 'deployment_backup_create' deployment.id %}">
+            {% csrf_token %}
+            <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <select name="backup_type" class="form-select form-select-sm">
+                        <option value="full">{% trans "Full Backup" %}</option>
+                        {% if deployment.project.db_config and deployment.project.db_config.is_valid %}
+                        <option value="db">{% trans "Database Only" %}</option>
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary btn-sm">{% trans "Create Backup" %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- جدول النسخ الاحتياطية -->
+    <div class="card shadow-sm p-3">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{% trans "Type" %}</th>
+                        <th scope="col">{% trans "Size (MB)" %}</th>
+                        <th scope="col">{% trans "Created At" %}</th>
+                        <th scope="col">{% trans "Status" %}</th>
+                        <th scope="col">{% trans "Restored" %}</th>
+                        <th scope="col">{% trans "Options" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for backup in backups %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ backup.get_backup_type_display }}</td>
+                        <td>{{ backup.size_mb|default:"-" }}</td>
+                        <td>{{ backup.created_at|date:"Y-m-d H:i" }}</td>
+                        <td>
+                            {% if backup.status == "pending" %}
+                                <span class="badge bg-secondary">{% trans "Pending" %}</span>
+                            {% elif backup.status == "running" %}
+                                <span class="badge bg-info">{% trans "Running" %}</span>
+                            {% elif backup.status == "completed" %}
+                                <span class="badge bg-success">{% trans "Completed" %}</span>
+                            {% elif backup.status == "failed" %}
+                                <span class="badge bg-danger" data-bs-toggle="tooltip" title="{{ backup.error_message|default:'' }}">
+                                    {% trans "Failed" %}
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if backup.restored %}
+                                <span class="badge bg-success">{% trans "Yes" %}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{% trans "No" %}</span>
+                            {% endif %}
+                        </td>
+                        <td class="d-flex flex-column flex-md-row gap-1">
+                            <form method="post" action="{% url 'deployment_backup_restore' backup.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-primary btn-sm w-100 w-md-auto">
+                                    <i class="fa-solid fa-upload me-1"></i> {% trans "Restore" %}
+                                </button>
+                            </form>
+                            {% if backup.file_path %}
+                            <a href="{{ backup.file_path }}" download class="btn btn-outline-success btn-sm w-100 w-md-auto">
+                                <i class="fa-solid fa-download me-1"></i> {% trans "Download" %}
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">{% trans "No backups found." %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+  // Enable tooltips
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>
+{% endblock sheri %}

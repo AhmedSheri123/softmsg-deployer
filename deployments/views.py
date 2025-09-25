@@ -5,9 +5,12 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 import docker, json
-from .models import DeploymentContainerEnvVar, Deployment
+from .models import DeploymentContainerEnvVar, Deployment, DeploymentBackup
 from projects.models import EnvVarsTitle
 from django.utils.translation import gettext as _
+import logging
+
+logger = logging.getLogger(__name__)
 
 @login_required
 def rebuild_project(request, deployment_id):
@@ -302,3 +305,58 @@ def reset_project_domain(request, deployment_id):
     
     messages.success(request, _(f"Project domain updated to {new_domain}."))
     return redirect('deployment_detail', deployment_id)
+
+
+
+
+def deployment_backups(request, deployment_id):
+    deployment = get_object_or_404(Deployment, id=deployment_id)
+    backups = deployment.backups.all()
+    return render(request, "dashboard/deployments/backup/backup_list.html", {
+        "deployment": deployment,
+        "backups": backups
+    })
+
+
+def create_backup(request, deployment_id):
+    deployment = get_object_or_404(Deployment, id=deployment_id)
+    if request.method == "POST":
+        backup_type = request.POST.get("backup_type", "full")
+
+        # تحقق من DB config إذا كان backup db-only
+        if backup_type == "db":
+            db_config = getattr(deployment.project, "db_config", None)
+            if not db_config or not db_config.is_valid():
+                msg = _("Cannot create database backup: no valid DB config found for this project.")
+                messages.error(request, msg)
+                logger.error(msg)
+                return redirect("deployment_backups", deployment_id=deployment.id)
+
+        backup = DeploymentBackup.objects.create(
+            deployment=deployment,
+            backup_type=backup_type
+        )
+
+        try:
+            backup.create_backup()
+            messages.success(request, _(f"Backup ({backup_type}) created successfully."))
+            logger.info(f"Backup created successfully: {backup.file_path}")
+        except Exception as e:
+            messages.error(request, _(f"Failed to create backup: {e}"))
+            logger.error(f"Failed to create backup for deployment {deployment.id}: {e}", exc_info=True)
+
+    return redirect("deployment_backups", deployment_id=deployment.id)
+
+
+def restore_backup(request, backup_id):
+    backup = get_object_or_404(DeploymentBackup, id=backup_id)
+    if request.method == "POST":
+        try:
+            backup.restore_backup()
+            messages.success(request, _("Backup restored successfully."))
+            logger.info(f"Backup restored successfully: {backup.file_path}")
+        except Exception as e:
+            messages.error(request, _(f"Failed to restore backup: {e}"))
+            logger.error(f"Failed to restore backup {backup.id}: {e}", exc_info=True)
+
+    return redirect("deployment_backups", deployment_id=backup.deployment.id)

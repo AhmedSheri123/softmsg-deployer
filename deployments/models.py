@@ -2,7 +2,8 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from projects.models import AvailableProject, EnvVar
+from projects.models import AvailableProject
+from django.utils import timezone
 import os
 import platform
 import subprocess
@@ -10,6 +11,7 @@ import docker
 import re
 import logging
 logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
 SERVICE_PROGRESS = [
     (1, 'Create Project'),
@@ -667,3 +669,210 @@ class DeploymentContainerEnvVar(models.Model):
                 return 0
         else:  # string
             return str(val)
+        
+
+
+
+# deployments/models.py
+import tarfile
+
+
+
+
+
+class DeploymentBackup(models.Model):
+    BACKUP_TYPE_CHOICES = [
+        ("full", "Full Project (volumes + db)"),
+        ("db", "Database Only"),
+    ]
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("running", "Running"),
+        ("completed", "Completed"),
+        ("failed", "Failed"),
+    ]
+
+    deployment = models.ForeignKey("Deployment", on_delete=models.CASCADE, related_name="backups")
+    backup_type = models.CharField(max_length=10, choices=BACKUP_TYPE_CHOICES, default="full")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    file_path = models.CharField(max_length=512, blank=True, null=True)
+    size_mb = models.PositiveIntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField(null=True, blank=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+    restored = models.BooleanField(default=False)
+    error_message = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Backup {self.backup_type} for {self.deployment} at {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
+
+    def create_backup(self):
+        logger.info(f"Starting backup for deployment {self.deployment.id}, type={self.backup_type}")
+        self.status = "running"
+        self.started_at = timezone.now()
+        self.save()
+
+        try:
+            os.makedirs("/var/lib/containers/backups", exist_ok=True)
+            if self.backup_type == "db":
+                backup_file = self._backup_database()
+            else:
+                backup_file = self._backup_full()
+
+            self.file_path = backup_file
+            self.size_mb = int(os.path.getsize(backup_file) / (1024 * 1024))
+            self.status = "completed"
+            logger.info(f"Backup completed: {backup_file} ({self.size_mb} MB)")
+        except Exception as e:
+            self.status = "failed"
+            self.error_message = str(e)
+            logger.error(f"Backup failed: {e}", exc_info=True)
+        finally:
+            self.finished_at = timezone.now()
+            self.save()
+
+        return self.file_path
+
+    def restore_backup(self):
+        logger.info(f"Starting restore for backup {self.id}")
+        try:
+            if self.backup_type == "db":
+                self._restore_database()
+            else:
+                self._restore_full()
+
+            self.restored = True
+            logger.info("Restore completed successfully")
+        except Exception as e:
+            self.error_message = str(e)
+            logger.error(f"Restore failed: {e}", exc_info=True)
+            raise
+        finally:
+            self.save()
+
+    # ---------------------------
+    # Backup Full Project
+    # ---------------------------
+    def _backup_full(self):
+        storage_data = self.deployment.get_volume_storage_data
+        mount_dir = storage_data["mount_dir"]
+        timestamp = timezone.now().strftime("%Y%m%d%H%M%S")
+        backup_file = f"/var/lib/containers/backups/deployment_{self.deployment.id}_full_{timestamp}.tar.gz"
+
+        logger.info(f"Creating full backup at {backup_file}")
+
+        with tarfile.open(backup_file, "w:gz") as tar:
+            if os.path.exists(mount_dir):
+                tar.add(mount_dir, arcname=f"deployment_{self.deployment.id}_data")
+                logger.info(f"Added volume data from {mount_dir}")
+            db_file = self._backup_database()
+            if os.path.exists(db_file):
+                tar.add(db_file, arcname=os.path.basename(db_file))
+                logger.info(f"Added database backup {db_file}")
+
+        return backup_file
+
+    # ---------------------------
+    # Backup Database Only
+    # ---------------------------
+    def _backup_database(self):
+        env = self._get_db_env()
+        db_name = env["db_name"]
+        db_user = env["db_user"]
+        db_password = env["db_password"]
+        db_host = env["db_host"]
+        db_port = env["db_port"]
+        container_name = env["container_name"]
+
+        timestamp = timezone.now().strftime("%Y%m%d%H%M%S")
+        backup_file = f"/var/lib/containers/backups/{db_name}_{timestamp}.sql.gz"
+        logger.info(f"Creating database backup at {backup_file}")
+
+        os.makedirs(os.path.dirname(backup_file), exist_ok=True)
+
+        if db_host in [c.container_name for c in self.deployment.containers.all()]:
+            cmd = f"docker exec {container_name} pg_dump -U {db_user} {db_name} | gzip > {backup_file}"
+            logger.info(f"Running command: {cmd}")
+            subprocess.run(cmd, shell=True, check=True)
+        else:
+            env_vars = os.environ.copy()
+            env_vars["PGPASSWORD"] = db_password
+            temp_file = backup_file.replace(".gz", "")
+            with open(temp_file, "wb") as f:
+                cmd = ["pg_dump", "-h", db_host, "-p", str(db_port), "-U", db_user, "-d", db_name]
+                logger.info(f"Running command: {' '.join(cmd)}")
+                subprocess.run(cmd, stdout=f, check=True, env=env_vars)
+            subprocess.run(["gzip", "-f", temp_file], check=True)
+            logger.info("Database compressed with gzip")
+
+        return backup_file
+
+    # ---------------------------
+    # Restore Full
+    # ---------------------------
+    def _restore_full(self):
+        storage_data = self.deployment.get_volume_storage_data
+        mount_dir = storage_data["mount_dir"]
+        os.makedirs(mount_dir, exist_ok=True)
+
+        logger.info(f"Restoring full backup from {self.file_path} to {mount_dir}")
+        with tarfile.open(self.file_path, "r:gz") as tar:
+            tar.extractall(path=mount_dir)
+        logger.info("Full restore completed")
+
+    # ---------------------------
+    # Restore Database Only
+    # ---------------------------
+    def _restore_database(self):
+        env = self._get_db_env()
+        db_name = env["db_name"]
+        db_user = env["db_user"]
+        db_password = env["db_password"]
+        db_host = env["db_host"]
+        db_port = env["db_port"]
+        container_name = env["container_name"]
+
+        logger.info(f"Restoring database {db_name} from {self.file_path}")
+
+        if db_host in [c.container_name for c in self.deployment.containers.all()]:
+            cmd = f"gunzip -c {self.file_path} | docker exec -i {container_name} psql -U {db_user} -d {db_name}"
+            logger.info(f"Running command: {cmd}")
+            subprocess.run(cmd, shell=True, check=True)
+        else:
+            env_vars = os.environ.copy()
+            env_vars["PGPASSWORD"] = db_password
+            with open(self.file_path, "rb") as f:
+                subprocess.run(
+                    ["psql", "-h", db_host, "-p", str(db_port), "-U", db_user, "-d", db_name],
+                    input=f.read(),
+                    check=True,
+                    env=env_vars
+                )
+        logger.info("Database restore completed")
+
+    # ---------------------------
+    # Get DB environment
+    # ---------------------------
+    def _get_db_env(self):
+        db_config = getattr(self.project, "db_config", None)
+        if not db_config or not db_config.is_valid():
+            raise RuntimeError("No valid DB config found for this project. Backup cannot proceed.")
+
+        db_container = self.deployment.containers.filter(
+            project_container__type="db"
+        ).first()
+        if not db_container:
+            raise RuntimeError("No database container found for this deployment")
+
+        env = db_container.get_env_vars()
+        return {
+            "db_name": env.get(db_config.db_name),
+            "db_user": env.get(db_config.db_user),
+            "db_password": env.get(db_config.db_password),
+            "db_host": env.get(db_config.db_host, db_container.container_name),
+            "db_port": env.get(db_config.db_port, "5432"),
+            "container_name": db_container.container_name
+        }

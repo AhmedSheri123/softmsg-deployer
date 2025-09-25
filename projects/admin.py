@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AvailableProject, ProjectContainer, Action, ActionParameter, EnvVar, EnvVarsTitle, ProjectReview, Category
+from .models import AvailableProject, ProjectContainer, Action, ActionParameter, EnvVar, EnvVarsTitle, ProjectReview, Category, ProjectDBConfig
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
 from modeltranslation.admin import TabbedTranslationAdmin
@@ -7,6 +7,7 @@ from modeltranslation.admin import TabbedTranslationAdmin
 # -------------------------
 # Action & EnvVar
 # -------------------------
+admin.site.register(ProjectDBConfig)
 admin.site.register(Category)
 admin.site.register(ProjectReview)
 

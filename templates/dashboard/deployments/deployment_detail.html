@@ -19,6 +19,10 @@
         {% endfor %}
     {% endfor %}
     <a href="{% url 'view_service_resources' deployment.project.id %}" target="_blank" class="btn btn-dark my-1">{% trans "Documentations" %}</a>
+    <button class="btn btn-danger my-1" data-bs-toggle="modal" data-bs-target="#ReinstallingModal">
+        {% trans "Reinstall" %}
+    </button>
+    <a href="{% url 'deployment_backups' deployment.id %}" class="btn btn-primary my-1">{% trans "Backups" %}</a>
 </div>
 
 
@@ -252,11 +256,30 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content rounded-3 shadow">
         <div class="modal-body p-4 text-center">
+            <i class="fa-solid fa-triangle-exclamation fa-2x text-danger mb-2"></i>
             <h5 class="mb-0">{% trans "Delete this service?" %}</h5>
             <p class="mb-0">{% trans "after deleting this service you can't restore again." %}</p>
         </div>
         <div class="modal-footer flex-nowrap p-0">
             <a type="button" href="{% url 'delete_deployment' deployment.id %}" id="yesDelete" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>{% trans "Yes, delete" %}</strong></a>
+            <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">{% trans "No thanks" %}</button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- end Modal  -->
+
+<!-- Delete Modal -->
+<div class="modal fade" id="ReinstallingModal" tabindex="-1" aria-labelledby="ReinstallingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-3 shadow">
+        <div class="modal-body p-4 text-center">
+            <i class="fa-solid fa-triangle-exclamation fa-2x text-danger mb-2"></i>
+            <h5 class="mb-0">{% trans "Reinstalling this app?" %}</h5>
+            <p class="mb-0">{% trans "After reinstalling, the application data cannot be restored again." %}</p>
+        </div>
+        <div class="modal-footer flex-nowrap p-0">
+            <a type="button" href="{% url 'rebuild_project' deployment.id %}" id="yesDelete" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>{% trans "Yes, Reinstall" %}</strong></a>
             <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">{% trans "No thanks" %}</button>
         </div>
         </div>

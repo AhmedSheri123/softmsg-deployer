@@ -18,4 +18,9 @@ urlpatterns = [
 
     path('deployments/<int:deployment_id>/env-vars/update/', views.update_all_env_vars, name='update_all_env_vars'),
     path('env-settings/<int:deployment_id>/', views.env_settings, name='env_settings'),
+
+    #backups
+    path("deployment/<int:deployment_id>/backups/", views.deployment_backups, name="deployment_backups"),
+    path("deployment/<int:deployment_id>/backups/create/", views.create_backup, name="deployment_backup_create"),
+    path("backups/<int:backup_id>/restore/", views.restore_backup, name="deployment_backup_restore"),
 ]

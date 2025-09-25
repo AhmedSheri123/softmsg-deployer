@@ -379,3 +379,22 @@ class ProjectReview(models.Model):
 
     class Meta:
         unique_together = ("project", "user")
+
+
+
+class ProjectDBConfig(models.Model):
+    project = models.OneToOneField(AvailableProject, on_delete=models.CASCADE, related_name="db_config")
+    
+    db_name = models.CharField(max_length=255, help_text="POSTGRES_DB")
+    db_user = models.CharField(max_length=255, blank=True, null=True, help_text="POSTGRES_USER")
+    db_password = models.CharField(max_length=255, blank=True, null=True, help_text="POSTGRES_PASS")
+    db_host = models.CharField(max_length=255, blank=True, null=True, help_text="POSTGRES_HOST")
+    db_port = models.PositiveIntegerField(blank=True, null=True, help_text="POSTGRES_PORT")
+    
+    def __str__(self):
+        return f"{self.project} DB Config"
+
+    def is_valid(self):
+        """تتحقق إذا كانت البيانات كافية للنسخ الاحتياطي"""
+        return bool(self.db_name and self.db_user and self.db_host)
+
