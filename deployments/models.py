@@ -920,7 +920,7 @@ class DeploymentBackup(models.Model):
         if not db_container:
             raise RuntimeError("No database container found for this deployment")
 
-        env = db_container.get_env_vars()
+        env = db_container.get_resolved_env_vars()
         return {
             "db_name": env.get(db_config.db_name),
             "db_user": env.get(db_config.db_user),
