@@ -65,41 +65,9 @@
 
 
 
-<!-- Trusted industry -->
-<div class="container py-5 text-center" data-sal="fade" data-sal-delay="100" data-sal-duration="800">
-    <h2 class="py-4" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">
-        {% trans "Trusted by industry leaders" %}
-    </h2>
-    <div class="py-4 row row-cols-2 row-cols-sm-3 row-cols-lg-6 g-2 g-lg-3">
-        <div class="col" data-sal="zoom-in" data-sal-delay="250" data-sal-duration="600">
-            <i class="fa-brands fa-amazon fa-2x"></i>
-            <span>mazon</span>
-        </div>
-        <div class="col" data-sal="zoom-in" data-sal-delay="300" data-sal-duration="600">
-            <i class="fa-brands fa-facebook-f fa-2x"></i>
-            <span>acebook</span>
-        </div>
-        <div class="col" data-sal="zoom-in" data-sal-delay="350" data-sal-duration="600">
-            <i class="fa-solid fa-w fa-2x"></i>
-            <span>hatsapp</span>
-        </div>
-        <div class="col" data-sal="zoom-in" data-sal-delay="400" data-sal-duration="600">
-            <i class="fa-solid fa-o fa-2x"></i>
-            <span>pen AI</span>
-        </div>
-        <div class="col" data-sal="zoom-in" data-sal-delay="450" data-sal-duration="600">
-            <i class="fa-solid fa-d fa-2x"></i>
-            <span>jango</span>
-        </div>
-        <div class="col" data-sal="zoom-in" data-sal-delay="500" data-sal-duration="600">
-            <i class="fa-solid fa-u fa-2x"></i>
-            <span>ltra MSG</span>
-        </div>
-    </div>
-</div>
-<!-- End Trusted industry -->
+
  
-<div class="container py-5">
+<div class="container py-5 ">
     <h3 class="mb-4 text-center" data-sal="slide-down" data-sal-duration="800" data-sal-delay="100">
         {% trans "Project Installation Stages" %}
     </h3>
@@ -243,7 +211,7 @@
     position: absolute;
     inset: 0;
     backdrop-filter: blur(1px); /* تغبيش */
-    background-color: rgba(0, 0, 0, 0.04); /* طبقة شفافة */
+    background-color: rgba(67, 67, 67, 0.02); /* طبقة شفافة */
     z-index: 0;
 }
 
@@ -260,7 +228,7 @@
 
 <!-- Solutions -->
 
-<div class="p-2 p-md-5 py-5 bg-body-tertiary">
+<div class="p-2 p-md-5 py-5">
     
     <div class="header-animated rounded-4 border">
     <div class="p-4 p-md-5  text-center glass-eff ">
@@ -376,6 +344,41 @@
     50% { transform: translateY(-5px); }
 }
 </style>
+
+
+<!-- Trusted industry -->
+<div class="container py-5 text-center" dir="ltr" data-sal="fade" data-sal-delay="100" data-sal-duration="800">
+    <h2 class="py-4" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">
+        {% trans "Trusted by industry leaders" %}
+    </h2>
+    <div class="py-4 row row-cols-2 row-cols-sm-3 row-cols-lg-6 g-2 g-lg-3">
+        <div class="col" data-sal="zoom-in" data-sal-delay="250" data-sal-duration="600">
+            <i class="fa-brands fa-amazon fa-2x"></i>
+            <span>mazon</span>
+        </div>
+        <div class="col" data-sal="zoom-in" data-sal-delay="300" data-sal-duration="600">
+            <i class="fa-brands fa-facebook-f fa-2x"></i>
+            <span>acebook</span>
+        </div>
+        <div class="col" data-sal="zoom-in" data-sal-delay="350" data-sal-duration="600">
+            <i class="fa-solid fa-w fa-2x"></i>
+            <span>hatsapp</span>
+        </div>
+        <div class="col" data-sal="zoom-in" data-sal-delay="400" data-sal-duration="600">
+            <i class="fa-solid fa-o fa-2x"></i>
+            <span>pen AI</span>
+        </div>
+        <div class="col" data-sal="zoom-in" data-sal-delay="450" data-sal-duration="600">
+            <i class="fa-solid fa-d fa-2x"></i>
+            <span>jango</span>
+        </div>
+        <div class="col" data-sal="zoom-in" data-sal-delay="500" data-sal-duration="600">
+            <i class="fa-solid fa-u fa-2x"></i>
+            <span>ltra MSG</span>
+        </div>
+    </div>
+</div>
+<!-- End Trusted industry -->
 
 
 <!-- Services Features -->
@@ -1241,7 +1244,7 @@
 <script>
 tsParticles.load("tsparticles-bg", {
   particles: {
-    number: { value: 15 },
+    number: { value: 10 },
     color: { value: "#0d6efd" },
     shape: { type: "circle" },
     links: { enable: true, distance: 200, color: "#0d6efd", opacity: 0.3, width: 2 },
@@ -1258,7 +1261,7 @@ tsParticles.load("tsparticles-bg", {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;           /* خلف كل شيء */
+  z-index: -1;           /* خلف كل شيء */
 }
 .col.sal-animate {
     z-index: 1;
