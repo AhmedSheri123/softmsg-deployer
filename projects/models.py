@@ -255,6 +255,18 @@ class ProjectContainer(models.Model):
         help_text="الأمر الذي يُنفذ عند تشغيل الكونتينر"
     )
 
+    healthcheck = models.JSONField(
+        default=dict, blank=True, null=True,
+        help_text="""
+            {
+                "test": ["CMD-SHELL", "pg_isready -U user"],
+                "interval": 5000000000,  # 5 ثواني بالنانoseconds
+                "retries": 10,
+                "timeout": 3000000000  # 3 ثواني
+            }
+        """
+    )
+
     labels = models.JSONField(
         default=dict, blank=True,
         help_text="Labels key:value metadata"

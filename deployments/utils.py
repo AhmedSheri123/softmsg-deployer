@@ -7,6 +7,7 @@ from plans.models import Plan
 import socket
 import logging
 import os
+import time
 
 logger = logging.getLogger(__name__)
 
@@ -105,34 +106,30 @@ logger = logging.getLogger(__name__)
 
 # ---------------- Project containers ----------------
 def create_project_container(container):
-    """
-    ينشئ أو يشغل حاوية Docker لمشروع معين مع إدارة الموارد، التخزين، والبيئة.
-    """
     client = docker.from_env()
     pc = container.project_container
     container_name = container.container_name
 
-    # ----------- الحصول على إعدادات Docker ----------- 
     try:
         config = container.to_docker_run_config()
     except Exception as e:
         logger.error(f"Failed to get Docker config for container {container_name}: {e}")
         return False
 
-    # ----------- إضافة الشبكة الافتراضية ----------- 
+    # الشبكة
     network_name = config.get("network") or "deploy_network"
     try:
         client.networks.get(network_name)
     except NotFound:
         try:
-            client.networks.create(network_name, driver="bridge")
+            client.networks.create(network_name, driver="bridge", check_duplicate=True)
             logger.info(f"Network '{network_name}' created")
         except APIError as e:
             logger.error(f"Failed to create network '{network_name}': {e}")
             return False
     config["network"] = network_name
 
-    # ----------- تشغيل أو إنشاء الحاوية ----------- 
+    # تشغيل/إنشاء الحاوية
     try:
         c = client.containers.get(container_name)
         c.start()
@@ -140,14 +137,24 @@ def create_project_container(container):
     except NotFound:
         logger.info(f"Project container {container_name} not found, creating a new one...")
         try:
-            c = client.containers.run(**config)
+            c = client.containers.run(detach=True, **config)
             logger.info(f"Project container {container_name} created successfully")
         except APIError as e:
             logger.error(f"Failed to create container {container_name}: {e}")
             return False
 
+    # healthcheck
+    if getattr(pc, "healthcheck", None):
+        for i in range(30):
+            c.reload()
+            health_status = c.attrs["State"].get("Health", {}).get("Status")
+            logger.info(f"Container {container_name} health: {health_status}")
+            if health_status == "healthy":
+                break
+            time.sleep(2)
 
     return True
+
 
 
 # ---------------- Deployment updater ----------------

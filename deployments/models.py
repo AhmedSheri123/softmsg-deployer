@@ -463,6 +463,10 @@ class DeploymentContainer(models.Model):
             sh -c "{command}"
             """
             logger.error(f"command:--> {command}")
+
+        if pc.healthcheck:
+            healthcheck_command = self.resolve_command(pc.healthcheck)
+            config["healthcheck"] = healthcheck_command
         # -------------------------------
         # labels + domain + storage info
         # -------------------------------
@@ -615,6 +619,7 @@ class DeploymentContainer(models.Model):
         if command:
             command = self.resolve_placeholders(command)
         return command
+
 
 
 
