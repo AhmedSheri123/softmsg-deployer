@@ -137,7 +137,7 @@ def create_project_container(container):
     except NotFound:
         logger.info(f"Project container {container_name} not found, creating a new one...")
         try:
-            c = client.containers.run(detach=True, **config)
+            c = client.containers.run(**config)
             logger.info(f"Project container {container_name} created successfully")
         except APIError as e:
             logger.error(f"Failed to create container {container_name}: {e}")
