@@ -211,6 +211,7 @@ class Deployment(models.Model):
 
     def render_dc_compose(self):
         """Render docker-compose مع volumes مركزي لكل Deployment مع logging"""
+        logger = logging.getLogger(__name__)
         storage_data = self.get_volume_storage_data
         volume_base_path = storage_data["mount_dir"]
         os.makedirs(volume_base_path, exist_ok=True)
@@ -222,9 +223,9 @@ class Deployment(models.Model):
         all_volumes = {}
 
         for name, config in services.items():
-            new_name = f"{name}_{self.id}"
-            config["pc_name"] = name
-            logger.info(f"Processing service: {name} -> {new_name}")
+            container_name = f"{name}_{self.id}"
+            config["container_name"] = container_name
+            logger.info(f"Processing service: {container_name}")
 
             # إعداد الموارد لكل container
             if "deploy" not in config:
@@ -234,14 +235,10 @@ class Deployment(models.Model):
 
             config["deploy"]["resources"]["limits"]["cpus"] = self.plan.cpu
             config["deploy"]["resources"]["limits"]["memory"] = f'{self.plan.ram}m'
-            logger.info(f"Assigned resources for {new_name}: CPUs={self.plan.cpu}, RAM={self.plan.ram}M")
+            logger.info(f"Assigned resources for {container_name}: CPUs={self.plan.cpu}, RAM={self.plan.ram}M")
 
-            new_services[new_name] = config
+            new_services[name] = config
 
-            # تعديل depends_on
-            if "depends_on" in config:
-                config["depends_on"] = [f"{dep}_{self.id}" for dep in config["depends_on"]]
-                logger.info(f"Updated depends_on for {new_name}: {config['depends_on']}")
 
             # إعداد volumes
             if "volumes" in config:
@@ -303,23 +300,23 @@ class Deployment(models.Model):
             parts = expr.split(".")
 
             try:
-                # container access
-                if parts[0] == "container" and len(parts)>=3:
-                    pc_name = parts[1]
-                    subkeys = parts[2:]
-                    services = context["compose"].get("services",{})
-                    node = None
-                    for svc_name, svc_conf in services.items():
-                        if svc_conf.get("pc_name")==pc_name:
-                            node = svc_conf
-                            break
+                # container access via service name
+                if parts[0] == "container" and len(parts) >= 3:
+                    service_name = parts[1]   # اسم الخدمة من Compose
+                    subkeys = parts[2:]       # مثل image أو environment.WORDPRESS_DB_HOST
+                    services = context["compose"].get("services", {})
+                    
+                    node = services.get(service_name)  # البحث مباشرة بالاسم
                     if node is None:
                         return match.group(0)
+                    
                     for k in subkeys:
-                        node = node.get(k) if isinstance(node,dict) else None
+                        node = node.get(k) if isinstance(node, dict) else None
                         if node is None:
                             return match.group(0)
+                    
                     return str(node)
+
 
                 # deployment access
                 elif parts[0]=="deployment" and len(parts)>=2:
