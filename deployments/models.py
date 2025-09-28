@@ -223,6 +223,15 @@ class Deployment(models.Model):
         for name, config in services.items():
             new_name = f"{name}_{self.id}"
             config["pc_name"] = name
+
+            if "deploy" not in config:
+                config["deploy"] = {"resources": {"limits": {}}}
+            if "limits" not in config["deploy"]["resources"]:
+                config["deploy"]["resources"]["limits"] = {}
+
+            config["deploy"]["resources"]["limits"]["cpus"] = self.plan.cpu
+            config["deploy"]["resources"]["limits"]["memory"] = f'{self.plan.ram}m'
+
             new_services[new_name] = config
 
             if "depends_on" in config:
