@@ -210,10 +210,11 @@ class Deployment(models.Model):
         return yaml.safe_load(self.project.docker_compose_template)
 
     def render_dc_compose(self):
-        """Render docker-compose مع volumes مركزي لكل Deployment"""
+        """Render docker-compose مع volumes مركزي لكل Deployment مع logging"""
         storage_data = self.get_volume_storage_data
         volume_base_path = storage_data["mount_dir"]
         os.makedirs(volume_base_path, exist_ok=True)
+        logger.info(f"Volume base path created: {volume_base_path}")
 
         compose = self.docker_compose()
         services = compose.get("services", {})
@@ -223,7 +224,9 @@ class Deployment(models.Model):
         for name, config in services.items():
             new_name = f"{name}_{self.id}"
             config["pc_name"] = name
+            logger.info(f"Processing service: {name} -> {new_name}")
 
+            # إعداد الموارد لكل container
             if "deploy" not in config:
                 config["deploy"] = {"resources": {"limits": {}}}
             if "limits" not in config["deploy"]["resources"]:
@@ -231,12 +234,16 @@ class Deployment(models.Model):
 
             config["deploy"]["resources"]["limits"]["cpus"] = self.plan.cpu
             config["deploy"]["resources"]["limits"]["memory"] = f'{self.plan.ram}m'
+            logger.info(f"Assigned resources for {new_name}: CPUs={self.plan.cpu}, RAM={self.plan.ram}M")
 
             new_services[new_name] = config
 
+            # تعديل depends_on
             if "depends_on" in config:
                 config["depends_on"] = [f"{dep}_{self.id}" for dep in config["depends_on"]]
+                logger.info(f"Updated depends_on for {new_name}: {config['depends_on']}")
 
+            # إعداد volumes
             if "volumes" in config:
                 new_volumes = []
                 for vol_idx, vol in enumerate(config["volumes"]):
@@ -248,12 +255,14 @@ class Deployment(models.Model):
                     folder_name = container_path.strip("/").replace("/","_")
                     host_path = os.path.join(volume_base_path, folder_name)
                     os.makedirs(host_path, exist_ok=True)
+                    logger.info(f"Created host volume path: {host_path}")
 
                     if storage_data["system"] == "Windows":
                         host_path = host_path.replace("/", "\\")
 
                     new_volumes.append(f"{host_path}:{container_path}")
                     all_volumes[folder_name] = None
+                    logger.info(f"Mapped volume: {host_path}:{container_path}")
 
                 config["volumes"] = new_volumes
 
@@ -261,6 +270,9 @@ class Deployment(models.Model):
         if "volumes" not in compose or not compose["volumes"]:
             compose["volumes"] = {}
         compose["volumes"].update(all_volumes)
+        logger.info(f"Final volumes section: {compose['volumes']}")
+
+        logger.info("Docker-compose rendering completed")
         return compose
 
     # ------------------- Placeholder Resolver -------------------
