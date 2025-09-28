@@ -8,6 +8,9 @@ import socket
 import logging
 import os
 import time
+import subprocess
+from django.conf import settings
+BASE_DIR = settings.BASE_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -165,30 +168,48 @@ def update_deployment(deployment, progress, status):
     logger.info(f"Deployment {deployment.id} updated: progress={progress}, status={status}")
 
 
-# ---------------- Runner ----------------
 def run_docker(deployment):
     """
-    تشغيل جميع حاويات الـ Deployment
+    تشغيل جميع حاويات الـ Deployment باستخدام docker-compose
     """
-    all_ok = True
-    for container in deployment.containers.all():
-        try:
-            ok = create_project_container(container)
-            if not ok:
-                logger.error(f"Failed to create/start container {container.container_name}")
-                all_ok = False
-        except Exception as e:
-            logger.exception(f"Error deploying container {container.container_name}: {e}")
-            all_ok = False
+    try:
+        compose_yaml = deployment.render_docker_resolved_compose_template()
+        logger.info(f"compose_yaml!!!-----> {compose_yaml}")
 
-    # تحديث حالة Deployment بعد التشغيل
-    if all_ok:
-        update_deployment(deployment, progress=4, status=2)  # Completed / Running
-        logger.info(f"Deployment {deployment.id} succeeded")
-        return True
-    else:
-        update_deployment(deployment, progress=5, status=3)  # Failed / Undefined
-        logger.warning(f"Deployment {deployment.id} failed")
+        compose_file = f"docker-compose-{deployment.id}.yml"
+        compose_dir = BASE_DIR / "compose"
+        compose_dir.mkdir(parents=True, exist_ok=True)
+
+        compose_file_path = compose_dir / compose_file
+
+        # حذف الملف القديم إذا كان موجود
+        if compose_file_path.exists():
+            compose_file_path.unlink()
+            logger.info(f"Old compose file {compose_file_path} removed")
+
+        # كتابة ملف الـ compose الجديد
+        compose_file_path.write_text(compose_yaml)
+        logger.info(f"Compose file {compose_file_path} created")
+
+        # تشغيل docker-compose
+        result = subprocess.run(
+            ["docker-compose", "-f", str(compose_file_path), "up", "-d"],
+            capture_output=True,
+            text=True
+        )
+
+        if result.returncode == 0:
+            update_deployment(deployment, progress=4, status=2)  # Running
+            logger.info(f"Deployment {deployment.id} succeeded")
+            return True
+        else:
+            update_deployment(deployment, progress=5, status=3)  # Failed
+            logger.error(f"Deployment {deployment.id} failed: {result.stderr}")
+            return False
+
+    except Exception as e:
+        update_deployment(deployment, progress=5, status=3)  # Failed
+        logger.exception(f"Deployment {deployment.id} crashed: {e}")
         return False
 
 
@@ -204,18 +225,24 @@ def delete_container(client, cname):
             return True
         except NotFound:
             logger.warning(f"Container {cname} not found")
+            return False
         except DockerException as e:
             logger.error(f"Failed to remove container {cname}: {e}")
+            return False
 
-
-
-def delete_docker(deployment: Deployment):
-    containers = deployment.containers.all()
+def delete_docker(deployment):
     client = docker.from_env()
+    containers = deployment.containers.all()
     for container in containers:
         cname = container.container_name
         delete_container(client, cname)
-    deployment.remove_xfs_volume()
+    
+    # حذف الـ volume المركزي
+    try:
+        deployment.remove_xfs_volume()
+    except Exception as e:
+        logger.error(f"Failed to remove XFS volume for deployment {deployment.id}: {e}")
+    
     return True
 
 def rebuild_docker(deployment: Deployment):

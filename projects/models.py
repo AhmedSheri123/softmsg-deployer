@@ -67,6 +67,9 @@ class AvailableProject(models.Model):
     about = HTMLField(blank=True, verbose_name=_("About Project"))
     pub_date = models.DateTimeField(auto_now_add=True, null=True, verbose_name=_("Publication Date"))
     
+
+    docker_compose_template = models.TextField(null=True, blank=True)
+
     def __str__(self):
         return self.name
 

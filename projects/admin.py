@@ -77,6 +77,6 @@ class AvailableProjectAdmin(TabbedTranslationAdmin):
     # -------------------------
     fieldsets = (
         ("Basic Info", {
-            "fields": ('name', 'description', 'image', 'is_open_source', 'source_code_url', 'install_steps', 'difficulty_level', 'install_time_minutes', 'disk_size_mb', 'minimum_operating_requirements', 'about')
+            "fields": ('name', 'description', 'image', 'is_open_source', 'source_code_url', 'install_steps', 'difficulty_level', 'install_time_minutes', 'disk_size_mb', 'minimum_operating_requirements', 'about', 'docker_compose_template')
         }),
     )

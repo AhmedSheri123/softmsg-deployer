@@ -10,6 +10,9 @@ import subprocess
 import docker
 import re
 import logging
+import yaml
+import shutil
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
@@ -46,6 +49,7 @@ class Deployment(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
 
     def __str__(self):
         return f"{self.user.username} - {self.project.name}"
@@ -60,6 +64,7 @@ class Deployment(models.Model):
             return Subscription.objects.get(deployment=self)
         except Subscription.DoesNotExist:
             return None
+        
     @property
     def plan(self):
         return self.subscription.plan
@@ -85,20 +90,20 @@ class Deployment(models.Model):
             return self.containers.get(project_container__type='backend').domain
         else:return 'N/A'
 
+
+
+
+    # ------------------- Volume Storage -------------------
     @property
     def get_volume_storage_data(self):
-        """
-        تُرجع بيانات التخزين: اسم volume، ملف img (Linux)، ومجلد mount
-        """
+        """رجوع بيانات التخزين حسب النظام"""
         volume_name = f"vol_{self.id}"
         system = platform.system()
 
         if system == "Windows":
-            # على Windows استخدم مجلد عادي
-            img_path = f"C:\\containers\\data\\{volume_name}"
-            mount_dir = f"C:\\containers\\mnt\\{volume_name}"
+            img_path = os.path.join("C:\\containers\\data", volume_name)
+            mount_dir = os.path.join("C:\\containers\\mnt", volume_name)
         else:
-            # على Linux استخدم XFS + ملف img
             img_path = f"/var/lib/containers/data/{volume_name}.img"
             mount_dir = f"/mnt/{volume_name}"
 
@@ -110,120 +115,254 @@ class Deployment(models.Model):
         }
 
     def create_xfs_volume(self, size_mb=1024):
-        """
-        ينشئ Docker volume حسب النظام:
-        - Linux: XFS + loop + Docker volume
-        - Windows: مجلد عادي + Docker volume عادي
-        """
+        """إنشاء volume مركزي لكل Deployment مع تسجيل الأحداث"""
+
         storage_data = self.get_volume_storage_data
         volume_name = storage_data["volume_name"]
         img_path = storage_data["img_path"]
+        mount_dir = storage_data["mount_dir"]
         system = storage_data["system"]
 
-        os.makedirs(os.path.dirname(img_path), exist_ok=True)
+        logger.info(f"Creating XFS volume '{volume_name}' for deployment {self.id} on {system}")
 
+        os.makedirs(os.path.dirname(img_path), exist_ok=True)
         client = docker.from_env()
         existing_volumes = [v.name for v in client.volumes.list()]
 
-        if system == "Linux":
-            # 1️⃣ إنشاء ملف img إذا لم يكن موجود
-            if not os.path.exists(img_path) or os.path.getsize(img_path) == 0:
-                with open(img_path, "wb") as f:
-                    f.truncate(size_mb * 1024 * 1024)
-
-                # 2️⃣ تهيئة XFS
-                try:
+        try:
+            if system != "Windows":
+                logger.info(f"Preparing XFS file at {img_path} ({size_mb} MB)")
+                if not os.path.exists(img_path) or os.path.getsize(img_path) == 0:
+                    with open(img_path, "wb") as f:
+                        f.truncate(size_mb * 1024 * 1024)
+                    logger.info(f"File {img_path} created, formatting XFS")
                     subprocess.run(["mkfs.xfs", "-f", img_path], check=True)
-                except subprocess.CalledProcessError as e:
-                    raise RuntimeError(f"فشل تهيئة XFS للملف {img_path}: {e}")
+                    logger.info(f"XFS formatting completed for {img_path}")
 
-            # 3️⃣ إنشاء Docker volume
-            if volume_name in existing_volumes:
-                volume = client.volumes.get(volume_name)
+                if volume_name in existing_volumes:
+                    volume = client.volumes.get(volume_name)
+                    logger.info(f"Volume '{volume_name}' already exists, using existing")
+                else:
+                    volume = client.volumes.create(
+                        name=volume_name,
+                        driver="local",
+                        driver_opts={"type": "xfs", "device": img_path, "o": "loop"}
+                    )
+                    logger.info(f"Volume '{volume_name}' created successfully with XFS")
+
             else:
-                volume = client.volumes.create(
-                    name=volume_name,
-                    driver="local",
-                    driver_opts={
-                        "type": "xfs",
-                        "device": img_path,
-                        "o": "loop"
-                    }
-                )
-
-        elif system == "Windows":
-            # على Windows نستخدم مجلد عادي
-            if not os.path.exists(img_path):
+                logger.info(f"Windows detected, using directory {img_path}")
                 os.makedirs(img_path, exist_ok=True)
+                if volume_name in existing_volumes:
+                    volume = client.volumes.get(volume_name)
+                    logger.info(f"Volume '{volume_name}' already exists, using existing")
+                else:
+                    volume = client.volumes.create(name=volume_name, driver="local")
+                    logger.info(f"Volume '{volume_name}' created successfully on Windows")
 
-            if volume_name in existing_volumes:
-                volume = client.volumes.get(volume_name)
-            else:
-                volume = client.volumes.create(
-                    name=volume_name,
-                    driver="local"
-                )
+            return volume
 
-        else:
-            raise RuntimeError(f"نظام التشغيل غير مدعوم: {system}")
-
-        return volume
-
+        except Exception as e:
+            logger.exception(f"Failed to create volume '{volume_name}': {e}")
+            raise
 
     def remove_xfs_volume(self):
-        """
-        حذف Docker volume المرتبط بالـ Deployment.
-        على Linux يحذف أيضاً ملف img.
-        """
+        """حذف volume مركزي للـ Deployment مع تسجيل الأحداث"""
+
         storage_data = self.get_volume_storage_data
         volume_name = storage_data["volume_name"]
         img_path = storage_data["img_path"]
+        mount_dir = storage_data["mount_dir"]
         system = storage_data["system"]
 
+        logger.info(f"Removing XFS volume '{volume_name}' for deployment {self.id} on {system}")
+
         client = docker.from_env()
-        
-        # حذف Docker volume إذا كان موجود
+
+        # حذف Docker volume
         try:
             volume = client.volumes.get(volume_name)
             volume.remove(force=True)
-            print(f"Volume {volume_name} removed successfully")
+            logger.info(f"Volume '{volume_name}' removed successfully")
         except docker.errors.NotFound:
-            print(f"Volume {volume_name} not found, skipping removal")
+            logger.warning(f"Volume '{volume_name}' not found, skipping removal")
         except docker.errors.APIError as e:
-            print(f"Failed to remove volume {volume_name}: {e}")
+            logger.error(f"Failed to remove volume '{volume_name}': {e}")
 
-        mount_dir = storage_data["mount_dir"]
-        if system != "Windows" and os.path.exists(mount_dir):
-            try:
-                os.rmdir(mount_dir)  # يحذف فقط إذا كان فارغ
-                print(f"Mount directory {mount_dir} removed successfully")
-            except OSError:
-                # إذا لم يكن فارغًا، يمكن استخدام shutil.rmtree
-                import shutil
+        # حذف ملفات/mount على Linux
+        if system != "Windows":
+            if os.path.exists(mount_dir):
                 try:
                     shutil.rmtree(mount_dir)
-                    print(f"Mount directory {mount_dir} removed recursively")
+                    logger.info(f"Mount directory '{mount_dir}' removed successfully")
                 except Exception as e:
-                    print(f"Failed to remove mount directory {mount_dir}: {e}")
+                    logger.error(f"Failed to remove mount directory '{mount_dir}': {e}")
+            if os.path.exists(img_path):
+                try:
+                    os.remove(img_path)
+                    logger.info(f"Image file '{img_path}' removed successfully")
+                except Exception as e:
+                    logger.error(f"Failed to remove image file '{img_path}': {e}")
 
 
-        # حذف ملف img على Linux
-        if system != "Windows" and os.path.exists(img_path):
+    # ------------------- Compose Rendering -------------------
+    def docker_compose(self):
+        return yaml.safe_load(self.project.docker_compose_template)
+
+    def render_dc_compose(self):
+        """Render docker-compose مع volumes مركزي لكل Deployment"""
+        storage_data = self.get_volume_storage_data
+        volume_base_path = storage_data["mount_dir"]
+        os.makedirs(volume_base_path, exist_ok=True)
+
+        compose = self.docker_compose()
+        services = compose.get("services", {})
+        new_services = {}
+        all_volumes = {}
+
+        for name, config in services.items():
+            new_name = f"{name}_{self.id}"
+            config["pc_name"] = name
+            new_services[new_name] = config
+
+            if "depends_on" in config:
+                config["depends_on"] = [f"{dep}_{self.id}" for dep in config["depends_on"]]
+
+            if "volumes" in config:
+                new_volumes = []
+                for vol_idx, vol in enumerate(config["volumes"]):
+                    if isinstance(vol, str) and ":" in vol:
+                        _, container_path = vol.split(":",1)
+                    else:
+                        container_path = vol if isinstance(vol, str) else f"/vol{vol_idx}"
+
+                    folder_name = container_path.strip("/").replace("/","_")
+                    host_path = os.path.join(volume_base_path, folder_name)
+                    os.makedirs(host_path, exist_ok=True)
+
+                    if storage_data["system"] == "Windows":
+                        host_path = host_path.replace("/", "\\")
+
+                    new_volumes.append(f"{host_path}:{container_path}")
+                    all_volumes[folder_name] = None
+
+                config["volumes"] = new_volumes
+
+        compose["services"] = new_services
+        if "volumes" not in compose or not compose["volumes"]:
+            compose["volumes"] = {}
+        compose["volumes"].update(all_volumes)
+        return compose
+
+    # ------------------- Placeholder Resolver -------------------
+    def resolve_placeholders(self, value, context=None):
+        """
+        يدعم:
+        {container.<pc_name>.<field>}
+        {deployment.<field>}
+        {dc.<pc_name>.<field>}
+        """
+        if context is None:
+            context = {
+                "deployment": self,
+                "compose": self.docker_compose()
+            }
+
+        if isinstance(value, dict):
+            return {k: self.resolve_placeholders(v, context) for k,v in value.items()}
+        elif isinstance(value,list):
+            return [self.resolve_placeholders(v, context) for v in value]
+        elif not isinstance(value,str):
+            return value
+
+        pattern = re.compile(r"\{([^{}]+)\}")
+
+        def replacer(match):
+            expr = match.group(1).strip()
+            parts = expr.split(".")
+
             try:
-                os.remove(img_path)
-                print(f"Image file {img_path} removed successfully")
-            except Exception as e:
-                print(f"Failed to remove image file {img_path}: {e}")
+                # container access
+                if parts[0] == "container" and len(parts)>=3:
+                    pc_name = parts[1]
+                    subkeys = parts[2:]
+                    services = context["compose"].get("services",{})
+                    node = None
+                    for svc_name, svc_conf in services.items():
+                        if svc_conf.get("pc_name")==pc_name:
+                            node = svc_conf
+                            break
+                    if node is None:
+                        return match.group(0)
+                    for k in subkeys:
+                        node = node.get(k) if isinstance(node,dict) else None
+                        if node is None:
+                            return match.group(0)
+                    return str(node)
 
+                # deployment access
+                elif parts[0]=="deployment" and len(parts)>=2:
+                    node = self
+                    for k in parts[1:]:
+                        node = getattr(node,k,None)
+                        if node is None:
+                            return match.group(0)
+                    return str(node)
 
+                # dc access
+                elif parts[0]=="dc" and len(parts)>=3:
+                    pc_name = parts[1]
+                    subkeys = parts[2:]
+                    from projects.models import DeploymentContainer
+                    try:
+                        dc_obj = DeploymentContainer.objects.get(deployment=self, pc_name=pc_name)
+                    except DeploymentContainer.DoesNotExist:
+                        return match.group(0)
+                    node = dc_obj
+                    for k in subkeys:
+                        node = getattr(node,k,None)
+                        if node is None:
+                            return match.group(0)
+                    return str(node)
+
+                return match.group(0)
+            except:
+                return match.group(0)
+
+        prev_value = value
+        for _ in range(5):
+            new_value = pattern.sub(replacer, prev_value)
+            if new_value == prev_value:
+                break
+            prev_value = new_value
+        return prev_value
+
+    def get_resolved_compose(self):
+        """حل جميع placeholders في compose"""
+        compose = self.render_dc_compose()
+        resolved = compose
+        for _ in range(5):
+            new_resolved = {k:self.resolve_placeholders(v) for k,v in resolved.items()}
+            if new_resolved == resolved:
+                break
+            resolved = new_resolved
+        return resolved
+    
+    def render_docker_resolved_compose(self):
+        resolved_compose = self.get_resolved_compose()
+        return resolved_compose
+
+    def render_docker_resolved_compose_template(self):
+        resolved = self.get_resolved_compose()
+        return yaml.dump(resolved, sort_keys=False, default_flow_style=False)
 
 
 class DeploymentContainer(models.Model):
     STATUS_CHOICES = [(1,'Pending'),(2,'Running'),(3,'Error')]
 
     deployment = models.ForeignKey(Deployment, on_delete=models.CASCADE, related_name="containers")
-    project_container = models.ForeignKey('projects.ProjectContainer', on_delete=models.CASCADE, null=True)
     container_name = models.CharField(max_length=255)
+    pc_name = models.CharField(max_length=255)
     domain = models.CharField(max_length=255, blank=True, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
 

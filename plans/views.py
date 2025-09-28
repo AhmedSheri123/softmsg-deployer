@@ -57,23 +57,18 @@ def ApplySubscription(request, order_id):
             logger.info(f"Subscription created for deployment {deployment.id}")
 
             # إنشاء DeploymentContainers من ProjectContainers
-            for pc in project.get_sorted_containers():
+            compose = deployment.render_dc_compose()
+            services = compose.get("services", {})
+            for container_name, config in services.items():
+                pc_name = config.get('pc_name')
                 dc = DeploymentContainer.objects.create(
                     deployment=deployment,
-                    project_container=pc,
                     status=1,  # Pending
+                    container_name = container_name,
+                    pc_name = pc_name,
+                    domain = f"{container_name}{main_domain}"
                 )
 
-                # تعيين اسم الكونتينر
-                container_name = slugify(f"{request.user.username}-{dc.id}")[:63]  # Docker name limit
-                dc.container_name = container_name
-
-                # تعيين الدومين
-                if pc.type in ("backend",):
-                    dc.domain = f"api.{container_name}{main_domain}"
-                else:
-                    dc.domain = f"{container_name}{main_domain}"
-                dc.save()
                 logger.info(f"DeploymentContainer {dc.container_name} created with domain {dc.domain}")
 
             # تحديث env vars الافتراضية لكل container
@@ -81,6 +76,7 @@ def ApplySubscription(request, order_id):
                 container.update_default_env_vars()
             logger.info(f"Default env vars updated for deployment {deployment.id}")
 
+            deployment.create_xfs_volume(plan.storage)
             # تشغيل الـ Docker containers
             success = run_docker(deployment)
             if success:
