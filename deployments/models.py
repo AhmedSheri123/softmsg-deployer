@@ -238,6 +238,9 @@ class Deployment(models.Model):
             config["deploy"]["resources"]["limits"]["cpus"] = str(float(self.plan.cpu))
             config["deploy"]["resources"]["limits"]["memory"] = f"{self.plan.ram}m"
 
+            if "depends_on" in config:
+                config["depends_on"] = [f"{dep}_{self.id}" for dep in config["depends_on"]]
+
             # الشبكة
             config["networks"] = ["deploy_network"]
 
