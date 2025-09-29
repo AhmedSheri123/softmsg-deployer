@@ -170,7 +170,7 @@ def update_deployment(deployment, progress, status):
 
 def run_docker(deployment):
     """
-    تشغيل جميع حاويات الـ Deployment باستخدام docker-compose
+    تشغيل جميع حاويات الـ Deployment باستخدام docker-compose مع project name فريد
     """
     try:
         compose_yaml = deployment.render_docker_resolved_compose_template()
@@ -191,16 +191,19 @@ def run_docker(deployment):
         compose_file_path.write_text(compose_yaml)
         logger.info(f"Compose file {compose_file_path} created")
 
+        # project name فريد لكل deployment
+        project_name = f"deploy_{deployment.id}"
+
         # تشغيل docker-compose
         result = subprocess.run(
-            ["docker-compose", "-f", str(compose_file_path), "up", "-d"],
+            ["docker-compose", "-f", str(compose_file_path), "-p", project_name, "up", "-d"],
             capture_output=True,
             text=True
         )
 
         if result.returncode == 0:
             update_deployment(deployment, progress=4, status=2)  # Running
-            logger.info(f"Deployment {deployment.id} succeeded")
+            logger.info(f"Deployment {deployment.id} succeeded with project name {project_name}")
             return True
         else:
             update_deployment(deployment, progress=5, status=3)  # Failed
@@ -225,16 +228,19 @@ def delete_docker_compose(deployment):
             logger.warning(f"Compose file {compose_file_path} does not exist")
             return False
 
+        # project name فريد لكل deployment
+        project_name = f"deploy_{deployment.id}"
+
         # تنفيذ docker-compose down
         result = subprocess.run(
-            ["docker-compose", "-f", str(compose_file_path), "down"],
+            ["docker-compose", "-f", str(compose_file_path), "-p", project_name, "down"],
             capture_output=True,
             text=True
         )
 
         if result.returncode == 0:
             update_deployment(deployment, progress=5, status=1)  # Stopped
-            logger.info(f"Deployment {deployment.id} stopped successfully")
+            logger.info(f"Deployment {deployment.id} stopped successfully with project name {project_name}")
             return True
         else:
             logger.error(f"Failed to stop deployment {deployment.id}: {result.stderr}")
@@ -243,6 +249,7 @@ def delete_docker_compose(deployment):
     except Exception as e:
         logger.exception(f"Error stopping deployment {deployment.id}: {e}")
         return False
+
 
 
 
