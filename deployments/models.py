@@ -381,6 +381,7 @@ class DeploymentContainer(models.Model):
     deployment = models.ForeignKey(Deployment, on_delete=models.CASCADE, related_name="containers")
     container_name = models.CharField(max_length=255)
     pc_name = models.CharField(max_length=255, null=True)
+    project_container = models.ForeignKey('projects.ProjectContainer', on_delete=models.CASCADE, null=True)
     domain = models.CharField(max_length=255, blank=True, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
