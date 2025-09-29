@@ -237,7 +237,7 @@ class Deployment(models.Model):
             config["deploy"]["resources"]["limits"]["memory"] = f'{self.plan.ram}m'
             logger.info(f"Assigned resources for {container_name}: CPUs={float(self.plan.cpu)}, RAM={self.plan.ram}M")
 
-            config["networks"].append("deploy_network")
+            config["networks"] = ["deploy_network"]
 
             new_services[name] = config
 
