@@ -59,13 +59,13 @@ def ApplySubscription(request, order_id):
             # إنشاء DeploymentContainers من ProjectContainers
             compose = deployment.render_dc_compose()
             services = compose.get("services", {})
-            for container_name, config in services.items():
-                pc_name = config.get('pc_name')
+            for name, config in services.items():
+                container_name = config.get('container_name')
                 dc = DeploymentContainer.objects.create(
                     deployment=deployment,
                     status=1,  # Pending
                     container_name = container_name,
-                    pc_name = pc_name,
+                    pc_name = name,
                     domain = f"{container_name}{main_domain}"
                 )
 
