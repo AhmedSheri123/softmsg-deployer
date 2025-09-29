@@ -300,13 +300,15 @@ class Deployment(models.Model):
                 "compose": self.render_dc_compose()
             }
 
+        # معالجة dicts و lists بشكل recursive
         if isinstance(value, dict):
-            return {k: self.resolve_placeholders(v, context) for k,v in value.items()}
-        elif isinstance(value,list):
+            return {k: self.resolve_placeholders(v, context) for k, v in value.items()}
+        elif isinstance(value, list):
             return [self.resolve_placeholders(v, context) for v in value]
-        elif not isinstance(value,str):
+        elif not isinstance(value, str):
             return value
 
+        # regex للعثور على placeholders
         pattern = re.compile(r"\{([^{}]+)\}")
 
         def replacer(match):
@@ -314,35 +316,31 @@ class Deployment(models.Model):
             parts = expr.split(".")
 
             try:
-                # container access via service name
+                # container access
                 if parts[0] == "container" and len(parts) >= 3:
-                    service_name = parts[1]   # اسم الخدمة من Compose
-                    subkeys = parts[2:]       # مثل image أو environment.WORDPRESS_DB_HOST
+                    service_name = parts[1]
+                    subkeys = parts[2:]
                     services = context["compose"].get("services", {})
-                    
-                    node = services.get(service_name)  # البحث مباشرة بالاسم
+                    node = services.get(service_name)
                     if node is None:
                         return match.group(0)
-                    
                     for k in subkeys:
                         node = node.get(k) if isinstance(node, dict) else None
                         if node is None:
                             return match.group(0)
-                    
                     return str(node)
 
-
                 # deployment access
-                elif parts[0]=="deployment" and len(parts)>=2:
+                elif parts[0] == "deployment" and len(parts) >= 2:
                     node = self
                     for k in parts[1:]:
-                        node = getattr(node,k,None)
+                        node = getattr(node, k, None)
                         if node is None:
                             return match.group(0)
                     return str(node)
 
                 # dc access
-                elif parts[0]=="dc" and len(parts)>=3:
+                elif parts[0] == "dc" and len(parts) >= 3:
                     pc_name = parts[1]
                     subkeys = parts[2:]
                     from projects.models import DeploymentContainer
@@ -352,33 +350,39 @@ class Deployment(models.Model):
                         return match.group(0)
                     node = dc_obj
                     for k in subkeys:
-                        node = getattr(node,k,None)
+                        node = getattr(node, k, None)
                         if node is None:
                             return match.group(0)
                     return str(node)
 
                 return match.group(0)
-            except:
+            except Exception:
                 return match.group(0)
 
+        # حل placeholders بشكل متكرر حتى 5 مرات لضمان استبدال كل المستويات
         prev_value = value
         for _ in range(5):
             new_value = pattern.sub(replacer, prev_value)
             if new_value == prev_value:
                 break
             prev_value = new_value
+
         return prev_value
+
     
     def get_resolved_compose(self):
         """حل جميع placeholders في compose"""
-        compose = self.render_dc_compose()
+        compose = self.render_dc_compose()  # هذا يحتوي على container_name والvolumes
+        context = {"deployment": self, "compose": compose}
+        
         resolved = compose
         for _ in range(5):
-            new_resolved = {k: self.resolve_placeholders(v, context={"deployment": self, "compose": compose}) for k, v in resolved.items()}
+            new_resolved = {k: self.resolve_placeholders(v, context=context) for k, v in resolved.items()}
             if new_resolved == resolved:
                 break
             resolved = new_resolved
         return resolved
+
 
     
     def render_docker_resolved_compose(self):
