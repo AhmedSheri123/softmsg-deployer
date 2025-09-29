@@ -49,7 +49,7 @@ class ProjectContainerAdmin(admin.ModelAdmin):
 # -------------------------
 @admin.register(AvailableProject)
 class AvailableProjectAdmin(TabbedTranslationAdmin):
-    list_display = ('name', 'docker_images', 'has_frontend', 'has_redis')
+    list_display = ('name', 'has_frontend', 'has_redis')
     search_fields = ('name',)
 
 
