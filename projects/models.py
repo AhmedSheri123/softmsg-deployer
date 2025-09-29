@@ -69,6 +69,7 @@ class AvailableProject(models.Model):
     
 
     docker_compose_template = models.TextField(null=True, blank=True)
+    which_service_has_main_domain = models.CharField(blank=True, null=True, max_length=50, help_text="enter service name from docker compose template")
 
     def __str__(self):
         return self.name

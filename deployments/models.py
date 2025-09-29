@@ -78,7 +78,7 @@ class Deployment(models.Model):
 
     @property    
     def domain(self):
-        dc = self.containers.get(project_container__have_main_domain=True)
+        dc = self.containers.get(pc_name=self.project.which_service_has_main_domain)
         if dc:
             return dc.domain
         return 'N/A'
