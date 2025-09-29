@@ -212,6 +212,38 @@ def run_docker(deployment):
         logger.exception(f"Deployment {deployment.id} crashed: {e}")
         return False
 
+def stop_docker(deployment):
+    """
+    إيقاف وإزالة جميع حاويات الـ Deployment باستخدام docker-compose
+    """
+    try:
+        compose_file = f"docker-compose-{deployment.id}.yml"
+        compose_dir = BASE_DIR / "compose"
+        compose_file_path = compose_dir / compose_file
+
+        if not compose_file_path.exists():
+            logger.warning(f"Compose file {compose_file_path} does not exist")
+            return False
+
+        # تنفيذ docker-compose down
+        result = subprocess.run(
+            ["docker-compose", "-f", str(compose_file_path), "down"],
+            capture_output=True,
+            text=True
+        )
+
+        if result.returncode == 0:
+            update_deployment(deployment, progress=5, status=1)  # Stopped
+            logger.info(f"Deployment {deployment.id} stopped successfully")
+            return True
+        else:
+            logger.error(f"Failed to stop deployment {deployment.id}: {result.stderr}")
+            return False
+
+    except Exception as e:
+        logger.exception(f"Error stopping deployment {deployment.id}: {e}")
+        return False
+
 
 
 
@@ -232,6 +264,7 @@ def delete_container(client, cname):
 
 def delete_docker(deployment):
     client = docker.from_env()
+    stop_docker(deployment)
     containers = deployment.containers.all()
     for container in containers:
         cname = container.container_name
