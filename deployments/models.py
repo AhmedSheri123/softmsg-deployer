@@ -404,7 +404,20 @@ class Deployment(models.Model):
 
     def render_docker_resolved_compose_template(self):
         resolved = self.get_resolved_compose()
-        return yaml.dump(resolved, sort_keys=False, default_flow_style=False)
+
+        # فلترة recursive لحذف أي pc_name
+        def remove_pc_name(d):
+            if isinstance(d, dict):
+                d.pop("pc_name", None)  # حذف المفتاح إن وجد
+                for k, v in d.items():
+                    remove_pc_name(v)
+            elif isinstance(d, list):
+                for item in d:
+                    remove_pc_name(item)
+            return d
+
+        cleaned = remove_pc_name(resolved)
+        return yaml.dump(cleaned, sort_keys=False, default_flow_style=False)
 
 
 class DeploymentContainer(models.Model):
