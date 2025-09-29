@@ -212,7 +212,7 @@ def run_docker(deployment):
         logger.exception(f"Deployment {deployment.id} crashed: {e}")
         return False
 
-def stop_docker(deployment):
+def delete_docker_compose(deployment):
     """
     إيقاف وإزالة جميع حاويات الـ Deployment باستخدام docker-compose
     """
@@ -264,7 +264,7 @@ def delete_container(client, cname):
 
 def delete_docker(deployment):
     client = docker.from_env()
-    stop_docker(deployment)
+    delete_docker_compose(deployment)
     containers = deployment.containers.all()
     for container in containers:
         cname = container.container_name
