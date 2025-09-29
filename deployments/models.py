@@ -233,9 +233,9 @@ class Deployment(models.Model):
             if "limits" not in config["deploy"]["resources"]:
                 config["deploy"]["resources"]["limits"] = {}
 
-            config["deploy"]["resources"]["limits"]["cpus"] = self.plan.cpu
+            config["deploy"]["resources"]["limits"]["cpus"] = float(self.plan.cpu)
             config["deploy"]["resources"]["limits"]["memory"] = f'{self.plan.ram}m'
-            logger.info(f"Assigned resources for {container_name}: CPUs={self.plan.cpu}, RAM={self.plan.ram}M")
+            logger.info(f"Assigned resources for {container_name}: CPUs={float(self.plan.cpu)}, RAM={self.plan.ram}M")
 
             new_services[name] = config
 
