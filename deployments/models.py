@@ -206,9 +206,6 @@ class Deployment(models.Model):
 
 
     # ------------------- Compose Rendering -------------------
-    def docker_compose(self):
-        return yaml.safe_load(self.project.docker_compose_template)
-
     def render_dc_compose(self):
         """Render docker-compose مع volumes مركزي لكل Deployment مع logging"""
         logger = logging.getLogger(__name__)
@@ -237,10 +234,10 @@ class Deployment(models.Model):
             config["deploy"]["resources"]["limits"]["memory"] = f'{self.plan.ram}m'
             logger.info(f"Assigned resources for {container_name}: CPUs={float(self.plan.cpu)}, RAM={self.plan.ram}M")
 
+            # الشبكات: اجبار كل container على استخدام deploy_network
             config["networks"] = ["deploy_network"]
 
             new_services[name] = config
-
 
             # إعداد volumes
             if "volumes" in config:
@@ -251,7 +248,7 @@ class Deployment(models.Model):
                     else:
                         container_path = vol if isinstance(vol, str) else f"/vol{vol_idx}"
 
-                    folder_name = container_path.strip("/").replace("/","_")
+                    folder_name = container_path.strip("/").replace("/", "_")
                     host_path = os.path.join(volume_base_path, folder_name)
                     os.makedirs(host_path, exist_ok=True)
                     logger.info(f"Created host volume path: {host_path}")
@@ -265,18 +262,18 @@ class Deployment(models.Model):
 
                 config["volumes"] = new_volumes
 
+        # تحديث compose
         compose["services"] = new_services
         if "volumes" not in compose or not compose["volumes"]:
             compose["volumes"] = {}
         compose["volumes"].update(all_volumes)
         logger.info(f"Final volumes section: {compose['volumes']}")
 
-        # بعد تحديث compose["services"] و compose["volumes"]
+        # إضافة الشبكة النهائية
         compose["networks"] = {
             "deploy_network": {"external": True}
         }
         logger.info(f"Final networks section: {compose['networks']}")
-
 
         logger.info("Docker-compose rendering completed")
         return compose
