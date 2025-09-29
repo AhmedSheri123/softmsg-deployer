@@ -297,6 +297,7 @@ class Deployment(models.Model):
         - recursive على dict/list
         - تمرير context ثابت (compose المعد من render_dc_compose)
         - logging تشخيصي لكل placeholder يتم محاولة حله
+        - يدعم استبدال placeholders داخل المفاتيح (keys) والقيم (values)
         """
         if context is None:
             context = {
@@ -306,7 +307,10 @@ class Deployment(models.Model):
 
         # recursive handling
         if isinstance(value, dict):
-            return {k: self.resolve_placeholders(v, context) for k, v in value.items()}
+            return {
+                self.resolve_placeholders(k, context): self.resolve_placeholders(v, context)
+                for k, v in value.items()
+            }
         if isinstance(value, list):
             return [self.resolve_placeholders(v, context) for v in value]
         if not isinstance(value, str):
@@ -320,11 +324,11 @@ class Deployment(models.Model):
             logger.debug("resolve_placeholder: expr=%s parts=%s", expr, parts)
 
             try:
-                # ---- dc.<pc_name>.<field>  (DeploymentContainer lookup) ----
+                # ---- dc.<pc_name>.<field> ----
                 if parts[0] == "dc" and len(parts) >= 3:
                     pc_name = parts[1]
                     subkeys = parts[2:]
-                    
+
                     dc_obj = DeploymentContainer.objects.filter(deployment=self, pc_name=pc_name).first()
                     if not dc_obj:
                         logger.debug("dc not found: deployment=%s pc_name=%s", self.id, pc_name)
@@ -338,7 +342,7 @@ class Deployment(models.Model):
                     logger.debug("dc resolved: %s -> %s", expr, node)
                     return str(node)
 
-                # ---- container.<service_name>.<field> (read from compose dict) ----
+                # ---- container.<service_name>.<field> ----
                 if parts[0] == "container" and len(parts) >= 3:
                     service_name = parts[1]
                     subkeys = parts[2:]
@@ -375,7 +379,7 @@ class Deployment(models.Model):
                 logger.exception("Error while resolving placeholder %s: %s", expr, e)
                 return match.group(0)
 
-        # نعمل عدة مرّات لأن placeholders قد تكون متداخلة بعد الاستبدال
+        # نعمل عدة مرات لأن placeholders ممكن تكون متداخلة
         prev = value
         for _ in range(5):
             new = pattern.sub(replacer, prev)
@@ -385,18 +389,23 @@ class Deployment(models.Model):
         return prev
 
 
+
     def get_resolved_compose(self):
         """
         نحصل على compose المعد (render_dc_compose) ثم نمرره كـ context
         ثم نستدعي resolve_placeholders مرة واحدة على whole structure (recursive)
         """
-        compose = self.render_dc_compose()
+        compose = self.render_dc_compose_template()
         context = {"deployment": self, "compose": compose}
         resolved = self.resolve_placeholders(compose, context=context)
         return resolved
 
 
     
+    def render_dc_compose_template(self):
+        compose = self.render_dc_compose()
+        return yaml.dump(compose, sort_keys=False, default_flow_style=False)
+
     def render_docker_resolved_compose(self):
         resolved_compose = self.get_resolved_compose()
         return resolved_compose
