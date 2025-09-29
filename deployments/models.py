@@ -368,17 +368,18 @@ class Deployment(models.Model):
                 break
             prev_value = new_value
         return prev_value
-
+    
     def get_resolved_compose(self):
         """حل جميع placeholders في compose"""
         compose = self.render_dc_compose()
         resolved = compose
         for _ in range(5):
-            new_resolved = {k:self.resolve_placeholders(v) for k,v in resolved.items()}
+            new_resolved = {k: self.resolve_placeholders(v, context={"deployment": self, "compose": compose}) for k, v in resolved.items()}
             if new_resolved == resolved:
                 break
             resolved = new_resolved
         return resolved
+
     
     def render_docker_resolved_compose(self):
         resolved_compose = self.get_resolved_compose()
