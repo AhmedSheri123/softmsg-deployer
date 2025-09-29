@@ -206,6 +206,9 @@ class Deployment(models.Model):
 
 
     # ------------------- Compose Rendering -------------------
+    def docker_compose(self):
+        return yaml.safe_load(self.project.docker_compose_template)
+    
     def render_dc_compose(self):
         """Render docker-compose مع volumes مركزي لكل Deployment مع logging"""
         logger = logging.getLogger(__name__)
