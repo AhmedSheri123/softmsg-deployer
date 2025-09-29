@@ -61,7 +61,7 @@ def ApplySubscription(request, order_id):
             services = compose.get("services", {})
 
             for name, config in services.items():
-                container_name = f"{name}_{deployment.id}"
+                container_name = f"{name}-{deployment.id}"
                 dc = DeploymentContainer.objects.create(
                     deployment=deployment,
                     status=1,  # Pending
