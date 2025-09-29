@@ -197,7 +197,7 @@ class ProjectContainer(models.Model):
         help_text="المشروع الذي ينتمي له هذا الكونتينر"
     )
 
-    service_name = models.CharField(max_length=50, help_text="service name in project docker compose template, for example=wordpress, db")
+    service_name = models.CharField(max_length=50, null=True, help_text="service name in project docker compose template, for example=wordpress, db")
     type = models.CharField(max_length=20, choices=CONTAINER_TYPES)
     technology = models.CharField(max_length=50, choices=TECHNOLOGY_CHOICES, blank=True, null=True)
     language = models.CharField(max_length=50, choices=LANGUAGE_CHOICES, blank=True, null=True)

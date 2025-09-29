@@ -39,13 +39,9 @@ class EnvVarAdmin(admin.ModelAdmin):
 # -------------------------
 @admin.register(ProjectContainer)
 class ProjectContainerAdmin(admin.ModelAdmin):
-    list_display = ('project', 'type', 'docker_image_name', 'default_port')
-    search_fields = ('docker_image_name',)
+    list_display = ('project', 'type')
+    search_fields = ('project',)
     
-    # استخدام محرر JSON للحقل env_vars و volume
-    formfield_overrides = {
-        models.JSONField: {'widget': JSONEditorWidget},
-    }
 
 
 # -------------------------
