@@ -371,17 +371,11 @@ class Deployment(models.Model):
 
     
     def get_resolved_compose(self):
-        """حل جميع placeholders في compose"""
-        compose = self.render_dc_compose()  # هذا يحتوي على container_name والvolumes
-        context = {"deployment": self, "compose": compose}
-        
-        resolved = compose
-        for _ in range(5):
-            new_resolved = {k: self.resolve_placeholders(v, context=context) for k, v in resolved.items()}
-            if new_resolved == resolved:
-                break
-            resolved = new_resolved
+        """حل جميع placeholders في كل compose (بما فيه nested labels و configs)"""
+        compose = self.render_dc_compose()
+        resolved = self.resolve_placeholders(compose)
         return resolved
+
 
 
     
