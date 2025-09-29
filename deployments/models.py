@@ -286,13 +286,17 @@ class Deployment(models.Model):
         return compose
 
 
-    # ------------------- Placeholder Resolver -------------------
+
     def resolve_placeholders(self, value, context=None):
         """
         يدعم:
-        {container.<pc_name>.<field>}
+        {container.<service_name>.<field>}
         {deployment.<field>}
         {dc.<pc_name>.<field>}
+        هذه النسخة:
+        - recursive على dict/list
+        - تمرير context ثابت (compose المعد من render_dc_compose)
+        - logging تشخيصي لكل placeholder يتم محاولة حله
         """
         if context is None:
             context = {
@@ -300,82 +304,96 @@ class Deployment(models.Model):
                 "compose": self.render_dc_compose()
             }
 
-        # معالجة dicts و lists بشكل recursive
+        # recursive handling
         if isinstance(value, dict):
             return {k: self.resolve_placeholders(v, context) for k, v in value.items()}
-        elif isinstance(value, list):
+        if isinstance(value, list):
             return [self.resolve_placeholders(v, context) for v in value]
-        elif not isinstance(value, str):
+        if not isinstance(value, str):
             return value
 
-        # regex للعثور على placeholders
         pattern = re.compile(r"\{([^{}]+)\}")
 
         def replacer(match):
             expr = match.group(1).strip()
             parts = expr.split(".")
+            logger.debug("resolve_placeholder: expr=%s parts=%s", expr, parts)
 
             try:
-                # container access
-                if parts[0] == "container" and len(parts) >= 3:
-                    service_name = parts[1]
-                    subkeys = parts[2:]
-                    services = context["compose"].get("services", {})
-                    node = services.get(service_name)
-                    if node is None:
-                        return match.group(0)
-                    for k in subkeys:
-                        node = node.get(k) if isinstance(node, dict) else None
-                        if node is None:
-                            return match.group(0)
-                    return str(node)
-
-                # deployment access
-                elif parts[0] == "deployment" and len(parts) >= 2:
-                    node = self
-                    for k in parts[1:]:
-                        node = getattr(node, k, None)
-                        if node is None:
-                            return match.group(0)
-                    return str(node)
-
-                # dc access
-                elif parts[0] == "dc" and len(parts) >= 3:
+                # ---- dc.<pc_name>.<field>  (DeploymentContainer lookup) ----
+                if parts[0] == "dc" and len(parts) >= 3:
                     pc_name = parts[1]
                     subkeys = parts[2:]
                     from projects.models import DeploymentContainer
-                    try:
-                        dc_obj = DeploymentContainer.objects.get(deployment=self, pc_name=pc_name)
-                    except DeploymentContainer.DoesNotExist:
+                    dc_obj = DeploymentContainer.objects.filter(deployment=self, pc_name=pc_name).first()
+                    if not dc_obj:
+                        logger.debug("dc not found: deployment=%s pc_name=%s", self.id, pc_name)
                         return match.group(0)
                     node = dc_obj
                     for k in subkeys:
                         node = getattr(node, k, None)
                         if node is None:
+                            logger.debug("dc field not found: %s on %s", k, dc_obj)
                             return match.group(0)
+                    logger.debug("dc resolved: %s -> %s", expr, node)
+                    return str(node)
+
+                # ---- container.<service_name>.<field> (read from compose dict) ----
+                if parts[0] == "container" and len(parts) >= 3:
+                    service_name = parts[1]
+                    subkeys = parts[2:]
+                    services = context.get("compose", {}).get("services", {})
+                    svc = services.get(service_name)
+                    if svc is None:
+                        logger.debug("container service not found in compose: %s", service_name)
+                        return match.group(0)
+                    node = svc
+                    for k in subkeys:
+                        if isinstance(node, dict):
+                            node = node.get(k)
+                        else:
+                            node = None
+                        if node is None:
+                            logger.debug("container field not found: %s on service %s", k, service_name)
+                            return match.group(0)
+                    logger.debug("container resolved: %s -> %s", expr, node)
+                    return str(node)
+
+                # ---- deployment.<field> ----
+                if parts[0] == "deployment" and len(parts) >= 2:
+                    node = self
+                    for k in parts[1:]:
+                        node = getattr(node, k, None)
+                        if node is None:
+                            logger.debug("deployment field not found: %s", k)
+                            return match.group(0)
+                    logger.debug("deployment resolved: %s -> %s", expr, node)
                     return str(node)
 
                 return match.group(0)
-            except Exception:
+            except Exception as e:
+                logger.exception("Error while resolving placeholder %s: %s", expr, e)
                 return match.group(0)
 
-        # حل placeholders بشكل متكرر حتى 5 مرات لضمان استبدال كل المستويات
-        prev_value = value
+        # نعمل عدة مرّات لأن placeholders قد تكون متداخلة بعد الاستبدال
+        prev = value
         for _ in range(5):
-            new_value = pattern.sub(replacer, prev_value)
-            if new_value == prev_value:
+            new = pattern.sub(replacer, prev)
+            if new == prev:
                 break
-            prev_value = new_value
+            prev = new
+        return prev
 
-        return prev_value
 
-    
     def get_resolved_compose(self):
-        """حل جميع placeholders في كل compose (بما فيه nested labels و configs)"""
+        """
+        نحصل على compose المعد (render_dc_compose) ثم نمرره كـ context
+        ثم نستدعي resolve_placeholders مرة واحدة على whole structure (recursive)
+        """
         compose = self.render_dc_compose()
-        resolved = self.resolve_placeholders(compose)
+        context = {"deployment": self, "compose": compose}
+        resolved = self.resolve_placeholders(compose, context=context)
         return resolved
-
 
 
     
