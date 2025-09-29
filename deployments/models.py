@@ -225,8 +225,10 @@ class Deployment(models.Model):
         for name, config in services.items():
             # احصل على container_name من DeploymentContainer
             dc = DeploymentContainer.objects.get(deployment=self, pc_name=name)
+            new_name = f"{name}_{self.id}"
             container_name = dc.container_name
             config["container_name"] = container_name
+            config["pc_name"] = name
 
             # إعداد الموارد
             if "deploy" not in config:
@@ -261,7 +263,7 @@ class Deployment(models.Model):
 
                 config["volumes"] = new_volumes
 
-            new_services[name] = config
+            new_services[new_name] = config
 
         compose["services"] = new_services
         compose["volumes"] = all_volumes
@@ -330,24 +332,25 @@ class Deployment(models.Model):
 
                 # ---- container.<service_name>.<field> ----
                 if parts[0] == "container" and len(parts) >= 3:
-                    service_name = parts[1]
+                    pc_name = parts[1]
                     subkeys = parts[2:]
                     services = context.get("compose", {}).get("services", {})
-                    svc = services.get(service_name)
-                    if svc is None:
-                        logger.debug("container service not found in compose: %s", service_name)
+                    node = None
+                    for svc_name, svc_conf in services.items():
+                        if svc_conf.get("pc_name") == pc_name:
+                            node = svc_conf
+                            break
+                    if node is None:
+                        logger.debug("container with pc_name %s not found", pc_name)
                         return match.group(0)
-                    node = svc
                     for k in subkeys:
-                        if isinstance(node, dict):
-                            node = node.get(k)
-                        else:
-                            node = None
+                        node = node.get(k) if isinstance(node, dict) else None
                         if node is None:
-                            logger.debug("container field not found: %s on service %s", k, service_name)
+                            logger.debug("field %s not found in container %s", k, pc_name)
                             return match.group(0)
                     logger.debug("container resolved: %s -> %s", expr, node)
                     return str(node)
+
 
                 # ---- deployment.<field> ----
                 if parts[0] == "deployment" and len(parts) >= 2:
