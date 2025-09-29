@@ -297,7 +297,7 @@ class Deployment(models.Model):
         if context is None:
             context = {
                 "deployment": self,
-                "compose": self.docker_compose()
+                "compose": self.render_dc_compose()
             }
 
         if isinstance(value, dict):
