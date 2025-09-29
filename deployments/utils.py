@@ -171,10 +171,7 @@ def get_compose_file_path(deployment):
     compose_file = f"docker-compose-{deployment.id}.yml"
     compose_dir = BASE_DIR / "compose"
     compose_file_path = compose_dir / compose_file
-
-    if not compose_file_path.exists():
-        logger.warning(f"Compose file {compose_file_path} does not exist")
-        return False
+    return compose_file_path
     
 def run_docker(deployment):
     """
@@ -226,6 +223,9 @@ def start_docker_compose(deployment):
     """
     try:
         compose_file_path = get_compose_file_path(deployment)
+        if not compose_file_path.exists():
+            logger.warning(f"Compose file {compose_file_path} does not exist")
+            return False
         # project name فريد لكل deployment
         project_name = deployment.deployment_name
 
@@ -256,6 +256,9 @@ def stop_docker_compose(deployment):
     try:
 
         compose_file_path = get_compose_file_path(deployment)
+        if not compose_file_path.exists():
+            logger.warning(f"Compose file {compose_file_path} does not exist")
+            return False
         # project name فريد لكل deployment
         project_name = deployment.deployment_name
 
@@ -286,6 +289,9 @@ def restart_docker_compose(deployment):
     try:
 
         compose_file_path = get_compose_file_path(deployment)
+        if not compose_file_path.exists():
+            logger.warning(f"Compose file {compose_file_path} does not exist")
+            return False
         # project name فريد لكل deployment
         project_name = deployment.deployment_name
 
@@ -317,6 +323,9 @@ def delete_docker_compose(deployment):
     try:
 
         compose_file_path = get_compose_file_path(deployment)
+        if not compose_file_path.exists():
+            logger.warning(f"Compose file {compose_file_path} does not exist")
+            return False
         # project name فريد لكل deployment
         project_name = deployment.deployment_name
 
@@ -347,6 +356,9 @@ def hard_stop_docker_compose(deployment):
     try:
 
         compose_file_path = get_compose_file_path(deployment)
+        if not compose_file_path.exists():
+            logger.warning(f"Compose file {compose_file_path} does not exist")
+            return False
         # project name فريد لكل deployment
         project_name = deployment.deployment_name
 
