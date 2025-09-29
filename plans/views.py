@@ -57,17 +57,19 @@ def ApplySubscription(request, order_id):
             logger.info(f"Subscription created for deployment {deployment.id}")
 
             # إنشاء DeploymentContainers من ProjectContainers
-            compose = deployment.render_dc_compose()
+            compose = deployment.docker_compose()
             services = compose.get("services", {})
+
             for name, config in services.items():
-                container_name = config.get('container_name')
+                container_name = f"{name}_{deployment.id}"
                 dc = DeploymentContainer.objects.create(
                     deployment=deployment,
                     status=1,  # Pending
-                    container_name = container_name,
-                    pc_name = name,
-                    domain = f"{container_name}{main_domain}"
+                    container_name=container_name,
+                    pc_name=name,
+                    domain=f"{container_name}{main_domain}"
                 )
+
 
                 logger.info(f"DeploymentContainer {dc.container_name} created with domain {dc.domain}")
 

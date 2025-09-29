@@ -224,7 +224,8 @@ class Deployment(models.Model):
 
         for name, config in services.items():
             # إنشاء اسم container فريد
-            container_name = f"{name}_{self.id}"
+            dc = DeploymentContainer.objects.get(deployment=self, pc_name=name)
+            container_name = dc.container_name
             config["container_name"] = container_name
             logger.info(f"Processing service: {container_name}")
 
