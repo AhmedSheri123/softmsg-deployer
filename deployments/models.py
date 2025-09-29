@@ -271,6 +271,13 @@ class Deployment(models.Model):
         compose["volumes"].update(all_volumes)
         logger.info(f"Final volumes section: {compose['volumes']}")
 
+        # بعد تحديث compose["services"] و compose["volumes"]
+        compose["networks"] = {
+            "deploy_network": {"external": True}
+        }
+        logger.info(f"Final networks section: {compose['networks']}")
+
+
         logger.info("Docker-compose rendering completed")
         return compose
 
