@@ -223,7 +223,7 @@ class Deployment(models.Model):
         all_volumes = {}
 
         for name, config in services.items():
-            # إنشاء اسم container فريد
+            # إنشاء اسم container فريد لكل Deployment
             dc = DeploymentContainer.objects.get(deployment=self, pc_name=name)
             container_name = dc.container_name
             config["container_name"] = container_name
@@ -242,16 +242,17 @@ class Deployment(models.Model):
             # الشبكة الوحيدة المستخدمة
             config["networks"] = ["deploy_network"]
 
-            # إعداد volumes
+            # إعداد volumes بشكل فريد لكل Deployment
             if "volumes" in config:
                 new_volumes = []
                 for vol_idx, vol in enumerate(config["volumes"]):
                     if isinstance(vol, str) and ":" in vol:
-                        _, container_path = vol.split(":",1)
+                        _, container_path = vol.split(":", 1)
                     else:
                         container_path = vol if isinstance(vol, str) else f"/vol{vol_idx}"
 
-                    folder_name = container_path.strip("/").replace("/","_")
+                    # اجعل أسماء المجلدات فريدة باستخدام container_name
+                    folder_name = f"{container_name}_{container_path.strip('/').replace('/', '_')}"
                     host_path = os.path.join(volume_base_path, folder_name)
                     os.makedirs(host_path, exist_ok=True)
                     logger.info(f"Created host volume path: {host_path}")
@@ -270,9 +271,8 @@ class Deployment(models.Model):
 
         compose["services"] = new_services
 
-        # volumes
-        if "volumes" not in compose or not compose["volumes"]:
-            compose["volumes"] = {}
+        # volumes فريدة لكل Deployment
+        compose["volumes"] = compose.get("volumes", {})
         compose["volumes"].update(all_volumes)
         logger.info(f"Final volumes section: {compose['volumes']}")
 
@@ -284,6 +284,7 @@ class Deployment(models.Model):
 
         logger.info("Docker-compose rendering completed")
         return compose
+
 
 
 
