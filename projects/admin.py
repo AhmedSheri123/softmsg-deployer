@@ -52,13 +52,6 @@ class AvailableProjectAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'docker_images', 'has_frontend', 'has_redis')
     search_fields = ('name',)
 
-    # -------------------------
-    # حقول محسوبة
-    # -------------------------
-    def docker_images(self, obj):
-        # كل docker_image_name لكل الحاويات المرتبطة بالمشروع
-        return ", ".join([c.docker_image_name for c in obj.containers.all()])
-    docker_images.short_description = "Docker Images"
 
     def has_frontend(self, obj):
         return obj.containers.filter(type='frontend').exists()
