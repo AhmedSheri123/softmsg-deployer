@@ -395,7 +395,7 @@ class Deployment(models.Model):
         نحصل على compose المعد (render_dc_compose) ثم نمرره كـ context
         ثم نستدعي resolve_placeholders مرة واحدة على whole structure (recursive)
         """
-        compose = self.render_dc_compose_template()
+        compose = self.render_dc_compose()
         context = {"deployment": self, "compose": compose}
         resolved = self.resolve_placeholders(compose, context=context)
         return resolved
