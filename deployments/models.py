@@ -208,7 +208,7 @@ class Deployment(models.Model):
     # ------------------- Compose Rendering -------------------
     def docker_compose(self):
         return yaml.safe_load(self.project.docker_compose_template)
-    
+        
     def render_dc_compose(self):
         """Render docker-compose مع volumes مركزي لكل Deployment مع logging"""
         logger = logging.getLogger(__name__)
@@ -223,6 +223,7 @@ class Deployment(models.Model):
         all_volumes = {}
 
         for name, config in services.items():
+            # إنشاء اسم container فريد
             container_name = f"{name}_{self.id}"
             config["container_name"] = container_name
             logger.info(f"Processing service: {container_name}")
@@ -234,13 +235,11 @@ class Deployment(models.Model):
                 config["deploy"]["resources"]["limits"] = {}
 
             config["deploy"]["resources"]["limits"]["cpus"] = str(float(self.plan.cpu))
-            config["deploy"]["resources"]["limits"]["memory"] = f'{self.plan.ram}m'
+            config["deploy"]["resources"]["limits"]["memory"] = f"{self.plan.ram}m"
             logger.info(f"Assigned resources for {container_name}: CPUs={float(self.plan.cpu)}, RAM={self.plan.ram}M")
 
-            # الشبكات: اجبار كل container على استخدام deploy_network
+            # الشبكة الوحيدة المستخدمة
             config["networks"] = ["deploy_network"]
-
-            new_services[name] = config
 
             # إعداد volumes
             if "volumes" in config:
@@ -251,7 +250,7 @@ class Deployment(models.Model):
                     else:
                         container_path = vol if isinstance(vol, str) else f"/vol{vol_idx}"
 
-                    folder_name = container_path.strip("/").replace("/", "_")
+                    folder_name = container_path.strip("/").replace("/","_")
                     host_path = os.path.join(volume_base_path, folder_name)
                     os.makedirs(host_path, exist_ok=True)
                     logger.info(f"Created host volume path: {host_path}")
@@ -265,14 +264,18 @@ class Deployment(models.Model):
 
                 config["volumes"] = new_volumes
 
-        # تحديث compose
+            # أضف الخدمة إلى new_services باستخدام اسم container كالمفتاح الخارجي
+            new_services[container_name] = config
+
         compose["services"] = new_services
+
+        # volumes
         if "volumes" not in compose or not compose["volumes"]:
             compose["volumes"] = {}
         compose["volumes"].update(all_volumes)
         logger.info(f"Final volumes section: {compose['volumes']}")
 
-        # إضافة الشبكة النهائية
+        # الشبكة النهائية
         compose["networks"] = {
             "deploy_network": {"external": True}
         }
@@ -280,6 +283,7 @@ class Deployment(models.Model):
 
         logger.info("Docker-compose rendering completed")
         return compose
+
 
     # ------------------- Placeholder Resolver -------------------
     def resolve_placeholders(self, value, context=None):
