@@ -46,6 +46,8 @@ def ApplySubscription(request, order_id):
                 progress=3,  # Deploying
                 status=1,   # Stopped كبداية
             )
+            deployment.deployment_name = f"deploy_{deployment.id}"
+            deployment.save()
             logger.info(f"Deployment {deployment.id} created for project {project.name}")
 
             # إنشاء Subscription مرتبط بالـ Deployment
@@ -62,11 +64,14 @@ def ApplySubscription(request, order_id):
 
             for name, config in services.items():
                 container_name = f"{name}-{deployment.id}"
+                dc_name = f"{name}_{deployment.id}_app"
+                
                 dc = DeploymentContainer.objects.create(
                     deployment=deployment,
                     status=1,  # Pending
                     container_name=container_name,
                     pc_name=name,
+                    dc_name=dc_name,
                     domain=f"{container_name}{main_domain}"
                 )
 

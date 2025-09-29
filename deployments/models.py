@@ -34,7 +34,7 @@ SERVICE_STATUS = [
 class Deployment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(AvailableProject, on_delete=models.CASCADE)
-
+    deployment_name = models.CharField(max_length=50, blank=True, null=True)
     
     ip_address = models.GenericIPAddressField(blank=True, null=True)
     version = models.CharField(max_length=50, default="1.0")
@@ -225,7 +225,7 @@ class Deployment(models.Model):
         for name, config in services.items():
             # احصل على container_name من DeploymentContainer
             dc = DeploymentContainer.objects.get(deployment=self, pc_name=name)
-            new_name = f"{name}_{self.id}_app"
+            new_name = dc.dc_name
             container_name = dc.container_name
             config["container_name"] = container_name
             config["pc_name"] = name
@@ -438,6 +438,7 @@ class DeploymentContainer(models.Model):
     deployment = models.ForeignKey(Deployment, on_delete=models.CASCADE, related_name="containers")
     container_name = models.CharField(max_length=255)
     pc_name = models.CharField(max_length=255, null=True)
+    dc_name = models.CharField(max_length=255, null=True)
     project_container = models.ForeignKey('projects.ProjectContainer', on_delete=models.CASCADE, null=True)
     domain = models.CharField(max_length=255, blank=True, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
