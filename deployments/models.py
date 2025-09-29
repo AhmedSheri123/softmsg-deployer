@@ -334,25 +334,37 @@ class Deployment(models.Model):
                     return str(node)
 
                 # ---- container.<service_name>.<field> ----
-                if parts[0] == "container" and len(parts) >= 3:
+                if parts[0] == "container" and len(parts) >= 2:
                     pc_name = parts[1]
-                    subkeys = parts[2:]
+                    subkeys = parts[2:]  # باقي الحقول، يمكن أن تكون فارغة
+
                     services = context.get("compose", {}).get("services", {})
                     node = None
+                    new_service_name = None
                     for svc_name, svc_conf in services.items():
                         if svc_conf.get("pc_name") == pc_name:
                             node = svc_conf
+                            new_service_name = svc_name  # الاسم الجديد بعد إضافة _id
                             break
+
                     if node is None:
                         logger.debug("container with pc_name %s not found", pc_name)
                         return match.group(0)
+
+                    if not subkeys:
+                        # إذا لم يتم تحديد أي field، أرجع اسم الخدمة الجديد
+                        return new_service_name
+
+                    # استمر للوصول للحقل المطلوب
                     for k in subkeys:
                         node = node.get(k) if isinstance(node, dict) else None
                         if node is None:
                             logger.debug("field %s not found in container %s", k, pc_name)
                             return match.group(0)
+
                     logger.debug("container resolved: %s -> %s", expr, node)
                     return str(node)
+
 
 
                 # ---- deployment.<field> ----
