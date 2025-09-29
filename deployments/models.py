@@ -225,7 +225,7 @@ class Deployment(models.Model):
         for name, config in services.items():
             # احصل على container_name من DeploymentContainer
             dc = DeploymentContainer.objects.get(deployment=self, pc_name=name)
-            new_name = f"{name}_{self.id}"
+            new_name = f"{name}_{self.id}_app"
             container_name = dc.container_name
             config["container_name"] = container_name
             config["pc_name"] = name
@@ -239,7 +239,7 @@ class Deployment(models.Model):
             config["deploy"]["resources"]["limits"]["memory"] = f"{self.plan.ram}m"
 
             if "depends_on" in config:
-                config["depends_on"] = [f"{dep}_{self.id}" for dep in config["depends_on"]]
+                config["depends_on"] = [f"{dep}_{self.id}_app" for dep in config["depends_on"]]
 
             # الشبكة
             config["networks"] = ["deploy_network"]
