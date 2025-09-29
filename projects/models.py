@@ -69,7 +69,7 @@ class AvailableProject(models.Model):
     
 
     docker_compose_template = models.TextField(null=True, blank=True)
-    which_service_has_main_domain = models.CharField(blank=True, null=True, max_length=50, help_text="enter service name from docker compose template")
+    which_service_has_main_domain = models.CharField(blank=True, null=True, max_length=50, help_text="enter service name from docker compose template, for example=wordpress, db")
 
     def __str__(self):
         return self.name
@@ -196,117 +196,11 @@ class ProjectContainer(models.Model):
         related_name="containers",
         help_text="المشروع الذي ينتمي له هذا الكونتينر"
     )
+
+    service_name = models.CharField(max_length=50, help_text="service name in project docker compose template, for example=wordpress, db")
     type = models.CharField(max_length=20, choices=CONTAINER_TYPES)
     technology = models.CharField(max_length=50, choices=TECHNOLOGY_CHOICES, blank=True, null=True)
     language = models.CharField(max_length=50, choices=LANGUAGE_CHOICES, blank=True, null=True)
-
-    docker_image_name = models.CharField(
-        max_length=200,
-        help_text="اسم صورة Docker مثل: postgres:14 أو nginx:latest"
-    )
-
-    have_main_domain = models.BooleanField(default=False)
-
-    env_vars = models.JSONField(
-        default=dict,
-        blank=True,
-        help_text="""
-        يمكنك استخدام placeholders ديناميكية داخل القيم:
-        - الكونتينر الحالي: {container.container_name}, {container.domain}, {container.env.VAR_NAME}
-        - كونتينرات أخرى حسب النوع أو الاسم: {container.db.env.POSTGRES_USER}, {container.frontend.domain}
-        - Deployment والـ Plan: {container.deployment.id}, {container.deployment.plan.ram}, {container.deployment.plan.cpu}
-        - متغيرات عامة: {frontend_domain}, {backfront_domain}
-        مثال:
-        {
-            "DJANGO_ALLOWED_HOSTS": "{container.frontend.domain},127.0.0.1,localhost",
-            "DATABASE_URL": "postgres://{container.db.env.POSTGRES_USER}:{container.db.env.POSTGRES_PASSWORD}@{container.db.container_name}:5432/{container.db.env.POSTGRES_DB}"
-        }
-        """
-    )
-
-    default_port = models.PositiveIntegerField(
-        blank=True, null=True,
-        help_text="المنفذ الافتراضي داخل الكونتينر"
-    )
-
-    ports = models.JSONField(
-        default=list, blank=True,
-        help_text="قائمة المنافذ لربط {host:container} مثل [{'8000':'80'}]"
-    )
-
-    volume = models.JSONField(
-        default=list, blank=True,
-        help_text="قائمة المجلدات المربوطة {host:container}"
-    )
-
-    networks = models.JSONField(
-        default=list, blank=True,
-        help_text="الشبكات التي سينضم إليها الكونتينر"
-    )
-
-    working_dir = models.CharField(
-        max_length=255, blank=True, null=True,
-        help_text="الدليل الافتراضي الذي يبدأ فيه الكونتينر"
-    )
-
-    entrypoint = models.TextField(
-        blank=True, null=True,
-        help_text="استبدال الـ Entrypoint الافتراضي للصورة"
-    )
-
-    command = models.TextField(
-        blank=True, null=True,
-        help_text="الأمر الذي يُنفذ عند تشغيل الكونتينر"
-    )
-
-    healthcheck = models.JSONField(
-        default=dict, blank=True, null=True,
-        help_text="""
-            {
-                "test": ["CMD-SHELL", "pg_isready -U user"],
-                "interval": 5000000000,  # 5 ثواني بالنانoseconds
-                "retries": 10,
-                "timeout": 3000000000  # 3 ثواني
-            }
-        """
-    )
-
-    labels = models.JSONField(
-        default=dict, blank=True,
-        help_text="Labels key:value metadata"
-    )
-
-    privileged = models.BooleanField(
-        default=False,
-        help_text="تشغيل الكونتينر بوضع Privileged (صلاحيات كاملة)"
-    )
-
-    restart_policy = models.CharField(
-        max_length=20,
-        choices=[('no', 'No'), ('always', 'Always'), ('on-failure', 'On Failure'), ('unless-stopped', 'Unless Stopped')],
-        default="unless-stopped",
-        help_text="سياسة إعادة التشغيل للكونتينر"
-    )
-
-    script_run_after_install = models.TextField(
-        help_text="سكريبت يتم تنفيذه بعد تثبيت الكونتينر. يمكن أن يحتوي {container.id}",
-        blank=True
-    )
-
-    # -------------------------
-    # طرق env_vars
-    # -------------------------
-    def get_env_vars(self):
-        return self.env_vars or {}
-
-    def get_env_vars_list(self):
-        return list(self.get_env_vars().items())
-
-    def get_env_var(self, key, default=None):
-        return self.get_env_vars().get(key, default)
-
-
-
 
 
 class Action(models.Model):

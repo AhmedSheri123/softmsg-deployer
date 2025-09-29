@@ -78,7 +78,7 @@ class Deployment(models.Model):
 
     @property    
     def domain(self):
-        dc = self.containers.get(pc_name=self.project.which_service_has_main_domain)
+        dc = self.containers.get(service_name=self.project.which_service_has_main_domain)
         if dc:
             return dc.domain
         return 'N/A'
@@ -224,11 +224,11 @@ class Deployment(models.Model):
 
         for name, config in services.items():
             # احصل على container_name من DeploymentContainer
-            dc = DeploymentContainer.objects.get(deployment=self, pc_name=name)
+            dc = DeploymentContainer.objects.get(deployment=self, service_name=name)
             new_name = dc.dc_name
             container_name = dc.container_name
             config["container_name"] = container_name
-            config["pc_name"] = name
+            config["service_name"] = name
 
             # إعداد الموارد
             if "deploy" not in config:
@@ -283,7 +283,7 @@ class Deployment(models.Model):
         يدعم:
         {container.<service_name>.<field>}
         {deployment.<field>}
-        {dc.<pc_name>.<field>}
+        {dc.<service_name>.<field>}
         هذه النسخة:
         - recursive على dict/list
         - تمرير context ثابت (compose المعد من render_dc_compose)
@@ -315,14 +315,14 @@ class Deployment(models.Model):
             logger.debug("resolve_placeholder: expr=%s parts=%s", expr, parts)
 
             try:
-                # ---- dc.<pc_name>.<field> ----
+                # ---- dc.<service_name>.<field> ----
                 if parts[0] == "dc" and len(parts) >= 3:
-                    pc_name = parts[1]
+                    service_name = parts[1]
                     subkeys = parts[2:]
 
-                    dc_obj = DeploymentContainer.objects.filter(deployment=self, pc_name=pc_name).first()
+                    dc_obj = DeploymentContainer.objects.filter(deployment=self, service_name=service_name).first()
                     if not dc_obj:
-                        logger.debug("dc not found: deployment=%s pc_name=%s", self.id, pc_name)
+                        logger.debug("dc not found: deployment=%s service_name=%s", self.id, service_name)
                         return match.group(0)
                     node = dc_obj
                     for k in subkeys:
@@ -335,20 +335,20 @@ class Deployment(models.Model):
 
                 # ---- container.<service_name>.<field> ----
                 if parts[0] == "container" and len(parts) >= 2:
-                    pc_name = parts[1]
+                    service_name = parts[1]
                     subkeys = parts[2:]  # باقي الحقول، يمكن أن تكون فارغة
 
                     services = context.get("compose", {}).get("services", {})
                     node = None
                     new_service_name = None
                     for svc_name, svc_conf in services.items():
-                        if svc_conf.get("pc_name") == pc_name:
+                        if svc_conf.get("service_name") == service_name:
                             node = svc_conf
                             new_service_name = svc_name  # الاسم الجديد بعد إضافة _id
                             break
 
                     if node is None:
-                        logger.debug("container with pc_name %s not found", pc_name)
+                        logger.debug("container with service_name %s not found", service_name)
                         return match.group(0)
 
                     if not subkeys:
@@ -359,7 +359,7 @@ class Deployment(models.Model):
                     for k in subkeys:
                         node = node.get(k) if isinstance(node, dict) else None
                         if node is None:
-                            logger.debug("field %s not found in container %s", k, pc_name)
+                            logger.debug("field %s not found in container %s", k, service_name)
                             return match.group(0)
 
                     logger.debug("container resolved: %s -> %s", expr, node)
@@ -417,18 +417,18 @@ class Deployment(models.Model):
     def render_docker_resolved_compose_template(self):
         resolved = self.get_resolved_compose()
 
-        # فلترة recursive لحذف أي pc_name
-        def remove_pc_name(d):
+        # فلترة recursive لحذف أي service_name
+        def remove_service_name(d):
             if isinstance(d, dict):
-                d.pop("pc_name", None)  # حذف المفتاح إن وجد
+                d.pop("service_name", None)  # حذف المفتاح إن وجد
                 for k, v in d.items():
-                    remove_pc_name(v)
+                    remove_service_name(v)
             elif isinstance(d, list):
                 for item in d:
-                    remove_pc_name(item)
+                    remove_service_name(item)
             return d
 
-        cleaned = remove_pc_name(resolved)
+        cleaned = remove_service_name(resolved)
         return yaml.dump(cleaned, sort_keys=False, default_flow_style=False)
 
 
@@ -437,9 +437,9 @@ class DeploymentContainer(models.Model):
 
     deployment = models.ForeignKey(Deployment, on_delete=models.CASCADE, related_name="containers")
     container_name = models.CharField(max_length=255)
-    pc_name = models.CharField(max_length=255, null=True)
+    service_name = models.CharField(max_length=255, null=True)
     dc_name = models.CharField(max_length=255, null=True)
-    project_container = models.ForeignKey('projects.ProjectContainer', on_delete=models.CASCADE, null=True)
+    project_container = models.ForeignKey('projects.ProjectContainer', on_delete=models.CASCADE, null=True, blank=True)
     domain = models.CharField(max_length=255, blank=True, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
@@ -701,141 +701,6 @@ class DeploymentContainer(models.Model):
             config["privileged"] = True
 
         return config
-
-
-
-    def resolve_placeholders(self, value):
-        """
-        استبدال placeholders داخل string أو dict أو list بشكل آمن بدون eval.
-        يدعم:
-        - container.current.field
-        - container.<other>.field
-        - container.<other>.env.KEY
-        - fixed_env
-        - suffix/prefix بعد placeholder
-        """
-        if isinstance(value, dict):
-            return {k: self.resolve_placeholders(v) for k, v in value.items()}
-        elif isinstance(value, list):
-            return [self.resolve_placeholders(v) for v in value]
-        elif not isinstance(value, str):
-            return value
-
-        fixed_env = {
-            "deployment": self.deployment,
-            "plan": getattr(self.deployment, "plan", None),
-            "container": self,
-            "this_container_domain": self.domain or "",
-            "frontend_domain": getattr(self.deployment, "domain", ""),
-            "backfront_domain": getattr(self.deployment, "backend_domain", ""),
-        }
-
-        pattern = re.compile(r"\{([^{}]+)\}")
-
-        def replacer(match):
-            expr = match.group(1).strip()
-            parts = expr.split(".")
-
-            try:
-                if parts[0] == "container":
-                    # container.current.field
-                    if len(parts) == 2:
-                        field = parts[1]
-                        if field == "container_name":
-                            return self.container_name
-                        elif field == "domain":
-                            return self.domain or ""
-                        elif field == "env":
-                            return str(self.get_resolved_env_vars())
-                        else:
-                            return match.group(0)
-
-                    # container.<other>.field or env
-                    elif len(parts) >= 3:
-                        target_type_or_name = parts[1]
-                        field = parts[2]
-                        rest = parts[3:] if len(parts) > 3 else []
-
-                        # البحث عن الكونتينر الهدف
-                        target = self.deployment.containers.filter(
-                            project_container__type=target_type_or_name
-                        ).first()
-                        if not target:
-                            target = self.deployment.containers.filter(
-                                container_name=target_type_or_name
-                            ).first()
-                        if not target:
-                            return match.group(0)
-
-                        if field == "env" and rest:
-                            key = rest[0]
-                            val = target.get_resolved_env_vars().get(key)
-                            if val is None:
-                                val = target.project_container.env_vars.get(key, "")
-                            return str(val)
-                        elif field == "container_name":
-                            return target.container_name
-                        elif field == "domain":
-                            return target.domain or ""
-                        else:
-                            return match.group(0)
-
-                # fixed_env
-                elif parts[0] in fixed_env:
-                    val = fixed_env[parts[0]]
-                    for attr in parts[1:]:
-                        val = getattr(val, attr, None)
-                        if val is None:
-                            return match.group(0)
-                    return str(val)
-
-                return match.group(0)
-            except Exception:
-                return match.group(0)
-
-        # حل متكرر لدعم placeholders داخل placeholders
-        prev_value = value
-        max_iter = 5
-        for _ in range(max_iter):
-            new_value = pattern.sub(replacer, prev_value)
-            if new_value == prev_value:
-                break
-            prev_value = new_value
-        return prev_value
-
-
-    def get_resolved_env_vars(self):
-        """
-        إرجاع env_vars بعد حل جميع placeholders بشكل متكرر
-        لدعم التعابير المتداخلة بين الكونتينرات.
-        """
-        env_vars = self.project_container.env_vars or {}
-        resolved = env_vars
-        max_iter = 5
-        for _ in range(max_iter):
-            new_resolved = {k: self.resolve_placeholders(v) for k, v in resolved.items()}
-            if new_resolved == resolved:
-                break
-            resolved = new_resolved
-        return resolved
-
-
-    def resolve_labels(self, labels: dict):
-        """
-        حل جميع placeholders داخل Traefik labels (keys و values) باستخدام نفس منطق env_vars.
-        """
-        resolved = {}
-        for k, v in labels.items():
-            new_key = self.resolve_placeholders(k) if isinstance(k, str) else k
-            new_value = self.resolve_placeholders(v) if isinstance(v, str) else v
-            resolved[new_key] = new_value
-        return resolved
-
-    def resolve_command(self, command: str):
-        if command:
-            command = self.resolve_placeholders(command)
-        return command
-
 
 
 

@@ -70,7 +70,7 @@ def ApplySubscription(request, order_id):
                     deployment=deployment,
                     status=1,  # Pending
                     container_name=container_name,
-                    pc_name=name,
+                    service_name=name,
                     dc_name=dc_name,
                     domain=f"{container_name}{main_domain}"
                 )

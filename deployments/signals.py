@@ -10,8 +10,8 @@ def create_deployment_env_vars(sender, instance, created, **kwargs):
     لما يتنشئ Deployment جديد، ننشئ/نربط له متغيرات البيئة الخاصة بالمشروع.
     """
     if created:  # فقط عند الإنشاء
-        project = instance.project_container
-        for env_vars_title in EnvVarsTitle.objects.filter(project_container=project):
+        service_name = instance.service_name
+        for env_vars_title in EnvVarsTitle.objects.filter(project_container__service_name=service_name):
             for env_var in env_vars_title.project_envs.all():
                 DeploymentContainerEnvVar.objects.get_or_create(
                     container=instance,
