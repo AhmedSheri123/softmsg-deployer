@@ -324,7 +324,7 @@ class Deployment(models.Model):
                 if parts[0] == "dc" and len(parts) >= 3:
                     pc_name = parts[1]
                     subkeys = parts[2:]
-                    from projects.models import DeploymentContainer
+                    
                     dc_obj = DeploymentContainer.objects.filter(deployment=self, pc_name=pc_name).first()
                     if not dc_obj:
                         logger.debug("dc not found: deployment=%s pc_name=%s", self.id, pc_name)
