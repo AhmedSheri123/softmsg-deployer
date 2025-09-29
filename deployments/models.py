@@ -265,7 +265,7 @@ class Deployment(models.Model):
                 config["volumes"] = new_volumes
 
             # أضف الخدمة إلى new_services باستخدام اسم container كالمفتاح الخارجي
-            new_services[container_name] = config
+            new_services[name] = config
 
         compose["services"] = new_services
 
