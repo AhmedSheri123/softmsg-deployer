@@ -210,7 +210,7 @@ class Deployment(models.Model):
         return yaml.safe_load(self.project.docker_compose_template)
         
     def render_dc_compose(self):
-        """Render docker-compose مع volumes مركزي لكل Deployment مع logging"""
+        """Render docker-compose مع volumes فريدة لكل Deployment"""
         logger = logging.getLogger(__name__)
         storage_data = self.get_volume_storage_data
         volume_base_path = storage_data["mount_dir"]
@@ -223,26 +223,23 @@ class Deployment(models.Model):
         all_volumes = {}
 
         for name, config in services.items():
-            # إنشاء اسم container فريد لكل Deployment
+            # احصل على container_name من DeploymentContainer
             dc = DeploymentContainer.objects.get(deployment=self, pc_name=name)
             container_name = dc.container_name
             config["container_name"] = container_name
-            logger.info(f"Processing service: {container_name}")
 
-            # إعداد الموارد لكل container
+            # إعداد الموارد
             if "deploy" not in config:
                 config["deploy"] = {"resources": {"limits": {}}}
             if "limits" not in config["deploy"]["resources"]:
                 config["deploy"]["resources"]["limits"] = {}
-
             config["deploy"]["resources"]["limits"]["cpus"] = str(float(self.plan.cpu))
             config["deploy"]["resources"]["limits"]["memory"] = f"{self.plan.ram}m"
-            logger.info(f"Assigned resources for {container_name}: CPUs={float(self.plan.cpu)}, RAM={self.plan.ram}M")
 
-            # الشبكة الوحيدة المستخدمة
+            # الشبكة
             config["networks"] = ["deploy_network"]
 
-            # إعداد volumes بشكل فريد لكل Deployment
+            # إعداد volumes فريدة لكل container
             if "volumes" in config:
                 new_volumes = []
                 for vol_idx, vol in enumerate(config["volumes"]):
@@ -251,36 +248,24 @@ class Deployment(models.Model):
                     else:
                         container_path = vol if isinstance(vol, str) else f"/vol{vol_idx}"
 
-                    # اجعل أسماء المجلدات فريدة باستخدام container_name
+                    # اجعل اسم المجلد فريد باستخدام self.id واسم container
                     folder_name = f"{container_name}_{container_path.strip('/').replace('/', '_')}"
                     host_path = os.path.join(volume_base_path, folder_name)
                     os.makedirs(host_path, exist_ok=True)
-                    logger.info(f"Created host volume path: {host_path}")
 
                     if storage_data["system"] == "Windows":
                         host_path = host_path.replace("/", "\\")
 
                     new_volumes.append(f"{host_path}:{container_path}")
                     all_volumes[folder_name] = None
-                    logger.info(f"Mapped volume: {host_path}:{container_path}")
 
                 config["volumes"] = new_volumes
 
-            # أضف الخدمة إلى new_services باستخدام اسم container كالمفتاح الخارجي
             new_services[name] = config
 
         compose["services"] = new_services
-
-        # volumes فريدة لكل Deployment
-        compose["volumes"] = compose.get("volumes", {})
-        compose["volumes"].update(all_volumes)
-        logger.info(f"Final volumes section: {compose['volumes']}")
-
-        # الشبكة النهائية
-        compose["networks"] = {
-            "deploy_network": {"external": True}
-        }
-        logger.info(f"Final networks section: {compose['networks']}")
+        compose["volumes"] = all_volumes
+        compose["networks"] = {"deploy_network": {"external": True}}
 
         logger.info("Docker-compose rendering completed")
         return compose
