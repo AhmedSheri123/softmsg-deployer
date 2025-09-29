@@ -260,7 +260,7 @@ def change_project_domain(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
 
     # إيجاد الكونتينر المسؤول عن الدومين (frontend أو backfront)
-    container = deployment.containers.filter(project_container__have_main_domain=True).first()
+    container = deployment.containers.filter(pc_name=deployment.project.which_service_has_main_domain).first()
     if not container:
         messages.error(request, _("No container found for this deployment."))
         return redirect('deployment_detail', deployment_id)
@@ -289,7 +289,7 @@ def reset_project_domain(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
 
     # إيجاد الكونتينر المسؤول عن الدومين (frontend أو backfront)
-    container = deployment.containers.filter(project_container__have_main_domain=True).first()
+    container = deployment.containers.filter(pc_name=deployment.project.which_service_has_main_domain).first()
     if not container:
         messages.error(request, _("No container found for this deployment."))
         return redirect('deployment_detail', deployment_id)
