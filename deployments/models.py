@@ -446,6 +446,11 @@ class DeploymentContainer(models.Model):
     def __str__(self):
         return f"{self.deployment} | {self.container_name}"
 
+    def get_actions(self):
+        from projects.models import Action
+        actions = Action.objects.filter(container__service_name=self.service_name)
+        return actions
+    
     def get_env_vars(self):
         """
         ترجع قاموس {key: value} لجميع متغيرات البيئة الخاصة بهذا الـ Deployment

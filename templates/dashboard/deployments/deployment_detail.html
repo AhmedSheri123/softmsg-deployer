@@ -11,7 +11,7 @@
 
     {% for container in deployment.containers.all %}
     
-        {% for action in container.project_container.actions.all %}
+        {% for action in container.get_actions %}
         <button class="btn btn-dark my-1" data-bs-toggle="modal" data-bs-target="#ActionModal{{ action.id }}">
             {{ action.label }}
         </button>
