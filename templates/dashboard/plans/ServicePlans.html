@@ -4,7 +4,7 @@
 
 {% block sheri %}
 
-<div class="container py-5">
+<div class="container py-5 px-3">
 
     <!-- Project Title -->
     <div class="text-center mb-5">
@@ -93,6 +93,191 @@
         </div>
         {% endfor %}
     </div>
+
+
+
+
+<!-- Project Solutions -->
+<div class="py-5 position-relative overflow-hidden">
+    <!-- Colored Moving Balls -->
+    <div class="animated-balls">
+        <div class="ball" style="--i:0;"></div>
+        <div class="ball" style="--i:1;"></div>
+        <div class="ball" style="--i:2;"></div>
+        <div class="ball" style="--i:3;"></div>
+        <div class="ball" style="--i:4;"></div>
+        <div class="ball" style="--i:5;"></div>
+        <div class="ball" style="--i:6;"></div>
+        <div class="ball" style="--i:7;"></div>
+        <div class="ball" style="--i:8;"></div>
+        <div class="ball" style="--i:9;"></div>
+    </div>
+
+    <div class="">
+        <div class="text-center ">
+            
+            <h2 class="text-dark mb-4" data-sal="fade" data-sal-duration="800" data-sal-delay="200">
+                {% trans "Key features to <span class='text-success'>manage your projects effortlessly</span>" %}
+            </h2>
+
+            <ul class="p-0 py-4 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3 text-dark" style="list-style: none;">
+                
+                <li class="col" data-sal="zoom-in" data-sal-delay="100">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'Install projects with a single click' %}">
+                        <i class="fa-solid fa-cloud-arrow-down fa-2x mb-2"></i>
+                        <p>{% trans "One-Click Deployment" %}</p>
+                    </button>
+                </li>
+
+                <li class="col" data-sal="zoom-in" data-sal-delay="200">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'Control project running state easily' %}">
+                        <i class="fa-solid fa-play fa-2x mb-2"></i>
+                        <p>{% trans "Manage Operations" %}</p>
+                    </button>
+                </li>
+
+                <li class="col" data-sal="zoom-in" data-sal-delay="300">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'Create and manage backups safely' %}">
+                        <i class="fa-solid fa-file-archive fa-2x mb-2"></i>
+                        <p>{% trans "Backups" %}</p>
+                    </button>
+                </li>
+
+                <li class="col" data-sal="zoom-in" data-sal-delay="400">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'Restore your projects from backups' %}">
+                        <i class="fa-solid fa-upload fa-2x mb-2"></i>
+                        <p>{% trans "Restore" %}</p>
+                    </button>
+                </li>
+
+                <li class="col" data-sal="zoom-in" data-sal-delay="500">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'Upgrade, renew, or manage subscriptions easily' %}">
+                        <i class="fa-solid fa-credit-card fa-2x mb-2"></i>
+                        <p>{% trans "Subscriptions" %}</p>
+                    </button>
+                </li>
+
+                <li class="col" data-sal="zoom-in" data-sal-delay="600">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'Monitor usage and performance in real-time' %}">
+                        <i class="fa-solid fa-chart-line fa-2x mb-2"></i>
+                        <p>{% trans "Performance" %}</p>
+                    </button>
+                </li>
+
+                <li class="col" data-sal="zoom-in" data-sal-delay="700">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'Change the project domain easily' %}">
+                        <i class="fa-solid fa-globe fa-2x mb-2"></i>
+                        <p>{% trans "Change Domain" %}</p>
+                    </button>
+                </li>
+
+                <li class="col" data-sal="zoom-in" data-sal-delay="800">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'SSL certificates ready for your project' %}">
+                        <i class="fa-solid fa-lock fa-2x mb-2"></i>
+                        <p>{% trans "SSL Certificates" %}</p>
+                    </button>
+                </li>
+
+                <li class="col" data-sal="zoom-in" data-sal-delay="900">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'View project logs and activities' %}">
+                        <i class="fa-solid fa-file-lines fa-2x mb-2"></i>
+                        <p>{% trans "Logs Viewer" %}</p>
+                    </button>
+                </li>
+
+                <li class="col" data-sal="zoom-in" data-sal-delay="1000">
+                    <button class="btn solution-btn glass-eff" title="{% trans 'Rebuild or update your project easily' %}">
+                        <i class="fa-solid fa-arrows-rotate fa-2x mb-2"></i>
+                        <p>{% trans "Rebuild & Update" %}</p>
+                    </button>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Project Solutions -->
+
+
+
+<!-- Styles -->
+<style>
+
+/* Solution Buttons (from your code) */
+.solution-btn {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 30px 20px;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+    color: #343a40;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 2;
+}
+.solution-btn i { transition: transform 0.3s ease; }
+.solution-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    background: linear-gradient(145deg, #0d6efd, #198754);
+    color: white;
+}
+.solution-btn:hover i { transform: scale(1.2) rotate(10deg); }
+.solution-btn p { margin-top: 10px; font-weight: 600; }
+.animated-balls {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    overflow: visible;
+    z-index: 0;
+}
+
+.ball {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 40px; height: 40px;
+    background: rgba(13, 110, 253, 0.3);
+    border-radius: 50%;
+    animation: floatBallCenter 8s ease-in-out infinite alternate;
+    transform-origin: 0 0;
+}
+
+/* تغييرات على حجم وألوان الكرات */
+.ball:nth-child(2) { background: rgba(25, 135, 84,0.3); width: 50px; height:50px; animation-duration: 10s;}
+.ball:nth-child(3) { background: rgba(255, 193, 7,0.3); width: 30px; height:30px; animation-duration: 12s;}
+.ball:nth-child(4) { background: rgba(220,53,69,0.3); width: 60px; height:60px; animation-duration: 14s;}
+.ball:nth-child(5) { background: rgba(102,16,242,0.3); width: 25px; height:25px; animation-duration: 9s;}
+.ball:nth-child(6) { background: rgba(13,202,240,0.3); width: 45px; height:45px; animation-duration: 11s;}
+.ball:nth-child(7) { background: rgba(255, 87, 34,0.3); width: 35px; height:35px; animation-duration: 13s;}
+.ball:nth-child(8) { background: rgba(0,123,255,0.3); width: 55px; height:55px; animation-duration: 15s;}
+.ball:nth-child(9) { background: rgba(0,200,83,0.3); width: 30px; height:30px; animation-duration: 10s;}
+.ball:nth-child(10) { background: rgba(233,30,99,0.3); width: 50px; height:50px; animation-duration: 12s;}
+
+@keyframes floatBallCenter {
+    0%   { transform: translate(0px, 0px) rotate(0deg); }
+    25%  { transform: translate(250px, -130px) rotate(90deg); }   /* أقصى يمين */
+    50%  { transform: translate(-250px, 130px) rotate(180deg); }  /* أقصى يسار */
+    75%  { transform: translate(-200px, 40px) rotate(270deg); }
+    100% { transform: translate(220px, -20px) rotate(360deg); }  /* أقصى يمين */
+}
+
+
+
+
+</style>
+
+<!-- Enable Bootstrap tooltips -->
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>
+
 
 
 <!-- Plans Comparison Section -->

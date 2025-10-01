@@ -4,18 +4,23 @@
 
 
 {% block meta %}
-<meta name="description" content="Access popular ready projects, control panels, and apps. One-click installation, ready in minutes.">
-<meta name="keywords" content="ready projects, install apps, control panels, projects store, one click install">
+<meta name="description" content="{% trans 'Browse a marketplace of open-source projects, modern apps, and control panels. Install instantly with one click and save time.' %}">
+<meta name="keywords" content="{% trans "ready projects, web apps, control panels, one click install, project templates, SaaS apps, software marketplace, app store, management systems, open source projects" %}">
 <meta name="robots" content="index, follow">
 
+<title>{% trans "Open-source projects marketplace – Install with one click" %} | SOFTmsg</title>
+
 <!-- Open Graph for social sharing -->
-<meta property="og:title" content="Ready Projects Store">
-<meta property="og:description" content="Access popular ready projects, control panels, and apps. One-click installation, ready in minutes.">
+<meta property="og:title" content="{% trans 'Open-source projects marketplace – Install with one click' %}">
+<meta property="og:description" content="{% trans 'Discover and install ready projects, apps, and control panels instantly.' %}">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta property="og:type" content="website">
+<meta property="og:image" content="{{ static 'img/softmsg-logo.png' }}">
+
 <!-- CSS -->
 <link rel="stylesheet" href="https://unpkg.com/sal.js/dist/sal.css">
 {% endblock meta %}
+
 
 
 {% block sheri %}
@@ -73,7 +78,7 @@
 <!-- end header -->
 
 {% endif %}
-<div class="py-5 px-4" data-sal="fade" data-sal-delay="300" data-sal-duration="800">
+<div class="py-5 px-4">
     <div class="row">
     <!-- LEFT: FILTERS -->
     <div class="col-md-3">

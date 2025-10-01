@@ -3,7 +3,9 @@
 {% load i18n %}
 
 {% block meta %}
-<meta name="description" content="{% trans "A versatile software suite transforming businesses of all sizes by simplifying complex systems into efficient work environments." %}">
+
+<title>{% trans 'Install ready-to-use projects with just one click' %} | SOFTmsg</title>
+<meta name="description" content="{% trans "SOFTmsg is a marketplace that lets you launch ready-to-use web projects instantly — no coding required, just one click to deploy and manage your apps." %}">
 <!-- CSS -->
 <link rel="stylesheet" href="https://unpkg.com/sal.js/dist/sal.css">
 
@@ -14,8 +16,7 @@
 <div class="py-4"></div>
 <div class="px-4 py-5 text-center" data-sal="fade" data-sal-delay="100" data-sal-duration="800">
     <div class="py-4 text-body-emphasis">
-        <h1 class="d-none">{% trans 'Install ready-to-use projects with just one click' %}</h1>
-        <div class="display-5 fw-bold container mb-4 " style="max-width:600px;"
+        <div class="display-5 fw-bold container mb-4 " style="max-width:600px;min-height: 185px;"
             data-sal="slide-up" 
             data-sal-delay="200" 
             data-sal-duration="800">
@@ -233,7 +234,7 @@
     <div class="header-animated rounded-4 border">
     <div class="p-4 p-md-5  text-center glass-eff ">
             
-        <h2 class="text-dark" data-sal="slide-up" data-sal-duration="800">
+        <h2 class="text-dark" data-sal="slide-up" data-sal-duration="800" style="min-height: 120px;">
             {% trans "Powerful solutions that <span class='text-success'>launch your projects instantly</span>" %}
             <span id="typed-solutions"></span>
         </h2>

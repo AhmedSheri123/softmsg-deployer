@@ -3,11 +3,28 @@
 {% load projects_filters %}
 
 {% block meta %}
+<title>{{ project.name }} | SOFTmsg</title>
+
 <meta name="description" content="{{ project.description|truncatewords:30 }}">
-<meta property="og:title" content="{{ project.name }}">
+
+<meta property="og:title" content="{{ project.name }} | SOFTmsg">
+
 <meta property="og:description" content="{{ project.description|truncatewords:30 }}">
-<meta property="og:image" content="{{ project.image.url }}">
+
+{% if project.image %}
+  <meta property="og:image" content="{{ project.image.url }}">
+{% endif %}
+
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ project.name }}">
+<meta name="twitter:description" content="{{ project.description|striptags|truncatewords:30 }}">
+{% if project.image %}
+<meta name="twitter:image" content="{{ project.image.url }}">
+{% endif %}
+
 {% endblock meta %}
 
 {% block sheri %}

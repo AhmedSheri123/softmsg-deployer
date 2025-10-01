@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-26 14:53+0300\n"
+"POT-Creation-Date: 2025-10-01 18:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,27 +49,23 @@ msgstr "Passwort"
 
 #: .\accounts\views.py:59 .\accounts\views.py:90
 msgid "reCAPTCHA verification failed. Please try again."
-msgstr ""
+msgstr "reCAPTCHA-Überprüfung fehlgeschlagen. Bitte versuchen Sie es erneut."
 
 #: .\accounts\views.py:74
-#, fuzzy
-#| msgid "Environment variables updated successfully!"
 msgid "Account Created Successfully"
-msgstr "Umgebungsvariablen erfolgreich aktualisiert!"
+msgstr "Konto erfolgreich erstellt"
 
 #: .\accounts\views.py:103
 msgid "Login Success"
-msgstr ""
+msgstr "Anmeldung erfolgreich"
 
 #: .\accounts\views.py:107
-#, fuzzy
-#| msgid "Confirm password:"
 msgid "wrong email or password"
-msgstr "Passwort bestätigen:"
+msgstr "Falsche E-Mail oder falsches Passwort"
 
 #: .\accounts\views.py:108
 msgid "user dos not exists"
-msgstr ""
+msgstr "Benutzer existiert nicht"
 
 #: .\billing\models.py:18 .\dashboard\models.py:25 .\dashboard\models.py:39
 #: .\templates\dashboard\deployments\backup\backup_list.html:62
@@ -269,6 +265,12 @@ msgstr "Benutzerdienstmodell"
 #: .\dashboard\models.py:79
 msgid "User Service Models"
 msgstr "Benutzerdienstmodelle"
+
+#: .\deployments\views.py:26
+msgid "Failed to deploy the project."
+msgstr "Fehler bei der Bereitstellung des Projekts."
+
+
 #: .\deployments\views.py:27
 msgid "Project deployed successfully!"
 msgstr "Projekt erfolgreich bereitgestellt!"
@@ -287,8 +289,11 @@ msgid "Project domain updated to {new_domain}."
 msgstr "Die Projektdomain wurde auf {new_domain} aktualisiert."
 
 #: .\deployments\views.py:344
-msgid "Cannot create database backup: no valid DB config found for this project."
-msgstr "Datenbanksicherung konnte nicht erstellt werden: Keine gültige DB-Konfiguration für dieses Projekt gefunden."
+msgid ""
+"Cannot create database backup: no valid DB config found for this project."
+msgstr ""
+"Datenbanksicherung konnte nicht erstellt werden: Keine gültige DB-"
+"Konfiguration für dieses Projekt gefunden."
 
 #: .\deployments\views.py:361
 #, python-brace-format
@@ -342,13 +347,14 @@ msgstr "Wie kann unser Team Ihnen helfen?"
 msgid "https://example.com"
 msgstr "https://example.com"
 
-#: .\pages\models.py:7 .\templates\pages\index.html:1153
+#: .\pages\models.py:7 .\templates\pages\index.html:1157
 msgid "Full Name"
 msgstr "Vollständiger Name"
 
 #: .\pages\views.py:30
 msgid "Your has been subscribed successfully."
 msgstr "Ihr Abonnement war erfolgreich."
+
 #: .\pages\views.py:42
 msgid "Please confirm the reCAPTCHA."
 msgstr "Bitte bestätigen Sie das reCAPTCHA."
@@ -357,27 +363,32 @@ msgstr "Bitte bestätigen Sie das reCAPTCHA."
 msgid ""
 "Your message has been sent successfully. You will be replied after reviewing "
 "the details."
-msgstr "Ihre Nachricht wurde erfolgreich gesendet. Sie erhalten nach Überprüfung der Details eine Antwort."
+msgstr ""
+"Ihre Nachricht wurde erfolgreich gesendet. Sie erhalten nach Überprüfung der "
+"Details eine Antwort."
 
-#: .\plans\views.py:90
+#: .\plans\views.py:93
 #, python-brace-format
 msgid ""
 "The service has been successfully purchased. Please wait "
 "{install_time_minutes} minutes for the installation to complete."
-msgstr "Der Service wurde erfolgreich gekauft. Bitte warten Sie {install_time_minutes} Minuten, bis die Installation abgeschlossen ist."
+msgstr ""
+"Der Service wurde erfolgreich gekauft. Bitte warten Sie "
+"{install_time_minutes} Minuten, bis die Installation abgeschlossen ist."
 
-#: .\plans\views.py:95
+#: .\plans\views.py:98
 msgid "Failed to start the app"
 msgstr "Die App konnte nicht gestartet werden."
 
-#: .\plans\views.py:100
+#: .\plans\views.py:103
 msgid "An error occurred while activating the service. Please try again later."
-msgstr "Beim Aktivieren des Services ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
+msgstr ""
+"Beim Aktivieren des Services ist ein Fehler aufgetreten. Bitte versuchen Sie "
+"es später erneut."
 
-#: .\plans\views.py:123
+#: .\plans\views.py:126
 msgid "The plan has been successfully renewed."
 msgstr "Der Plan wurde erfolgreich erneuert."
-
 
 #: .\projects\forms.py:14
 msgid "Technologies"
@@ -407,15 +418,15 @@ msgstr "Slug"
 msgid "Category"
 msgstr "Kategorie"
 
-#: .\projects\models.py:22 .\templates\dashboard\projects\project_list.html:119
+#: .\projects\models.py:22 .\templates\dashboard\projects\project_list.html:124
 msgid "Beginner"
 msgstr "Anfänger"
 
-#: .\projects\models.py:23 .\templates\dashboard\projects\project_list.html:120
+#: .\projects\models.py:23 .\templates\dashboard\projects\project_list.html:125
 msgid "Intermediate"
 msgstr "Fortgeschritten"
 
-#: .\projects\models.py:24 .\templates\dashboard\projects\project_list.html:121
+#: .\projects\models.py:24 .\templates\dashboard\projects\project_list.html:126
 msgid "Advanced"
 msgstr "Experte"
 
@@ -451,9 +462,9 @@ msgstr "Installationsschritte"
 msgid "Number of Installs"
 msgstr "Anzahl der Installationen"
 
-#: .\projects\models.py:64
 msgid "Number of source code downloads"
-msgstr ""
+msgstr "Anzahl der Quellcode-Downloads"
+
 
 #: .\projects\models.py:67
 msgid "About Project"
@@ -463,74 +474,74 @@ msgstr "Über das Projekt"
 msgid "Publication Date"
 msgstr "Veröffentlichungsdatum"
 
-#: .\projects\models.py:297 .\projects\models.py:317 .\projects\models.py:356
+#: .\projects\models.py:207 .\projects\models.py:227 .\projects\models.py:266
 msgid "Label"
 msgstr "Bezeichnung"
 
-#: .\projects\models.py:299
+#: .\projects\models.py:209
 msgid "Command"
 msgstr "Befehl"
 
-#: .\projects\models.py:299
+#: .\projects\models.py:209
 msgid "The function name or command to execute via Docker"
 msgstr "Der Funktionsname oder Befehl, der über Docker ausgeführt wird"
 
-#: .\projects\models.py:311 .\projects\models.py:344
+#: .\projects\models.py:221 .\projects\models.py:254
 msgid "String"
 msgstr "Zeichenkette"
 
-#: .\projects\models.py:312 .\projects\models.py:345
+#: .\projects\models.py:222 .\projects\models.py:255
 msgid "Boolean"
 msgstr "Boolesch"
 
-#: .\projects\models.py:313 .\projects\models.py:346
+#: .\projects\models.py:223 .\projects\models.py:256
 msgid "Integer"
 msgstr "Ganzzahl"
 
-#: .\projects\models.py:318
+#: .\projects\models.py:228
 msgid "Internal Name"
 msgstr "Interner Name"
 
-#: .\projects\models.py:318
+#: .\projects\models.py:228
 msgid "Internal name for code usage"
 msgstr "Interner Name für die Verwendung im Code"
 
-#: .\projects\models.py:319 .\projects\models.py:358
+#: .\projects\models.py:229 .\projects\models.py:268
 msgid "Data Type"
 msgstr "Datentyp"
 
-#: .\projects\models.py:320 .\projects\models.py:360
+#: .\projects\models.py:230 .\projects\models.py:270
 msgid "Required"
 msgstr "Erforderlich"
 
-#: .\projects\models.py:321 .\projects\models.py:361
+#: .\projects\models.py:231 .\projects\models.py:271
 msgid "Default Value"
 msgstr "Standardwert"
 
-#: .\projects\models.py:321
+#: .\projects\models.py:231
 #, python-brace-format
 msgid "{deployment.id}"
 msgstr "{deployment.id}"
 
-#: .\projects\models.py:330
+#: .\projects\models.py:240
 #: .\templates\dashboard\deployments\deployment_detail.html:161
 msgid "Title"
 msgstr "Titel"
 
-#: .\projects\models.py:357
+#: .\projects\models.py:267
 msgid "Key"
 msgstr "Schlüssel"
 
-#: .\projects\models.py:359
+#: .\projects\models.py:269
 msgid "Is Secret"
 msgstr "Ist geheim"
 
-#: .\projects\models.py:361
+#: .\projects\models.py:271
 #, python-brace-format
 msgid "{container.deployment.id}"
 msgstr "{container.deployment.id}"
 
-#: .\projects\models.py:362
+#: .\projects\models.py:272
 msgid "Sort Index"
 msgstr "Sortierindex"
 
@@ -543,9 +554,9 @@ msgstr "Einloggen"
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
-#: .\templates\accounts\login.html:46 .\templates\accounts\signup.html:73
 msgid "Sign in with Google"
-msgstr ""
+msgstr "Mit Google anmelden"
+
 
 #: .\templates\accounts\login.html:51
 msgid "Dont have account? Create Account"
@@ -657,7 +668,7 @@ msgstr "Ändern"
 
 #: .\templates\accounts\profile\EditProfile.html:152
 #: .\templates\dashboard\projects\project_details_modal.html:320
-#: .\templates\dashboard\projects\project_list.html:279
+#: .\templates\dashboard\projects\project_list.html:284
 msgid "Close"
 msgstr "Schließen"
 
@@ -686,16 +697,9 @@ msgid "Create"
 msgstr "Erstellen"
 
 #: .\templates\accounts\signup.html:78
-#, fuzzy
-#| msgid "Create an account"
 msgid "Already have an account? Log in"
-msgstr "Ein Konto erstellen"
+msgstr "Sie haben bereits ein Konto? Einloggen"
 
-#: .\templates\base.html:7
-#, fuzzy
-#| msgid "Resource management"
-msgid "for management systems"
-msgstr "Ressourcenmanagement"
 
 #: .\templates\dashboard\deployments\backup\backup_list.html:6
 #: .\templates\dashboard\deployments\my_deployments.html:6
@@ -703,6 +707,7 @@ msgstr "Ressourcenmanagement"
 #: .\templates\dashboard\services\MyServices.html:5
 msgid "Buy Service"
 msgstr "Dienst kaufen"
+
 #: .\templates\dashboard\deployments\backup\backup_list.html:10
 msgid "Backups for Deployment"
 msgstr "Backups für die Bereitstellung"
@@ -777,7 +782,8 @@ msgid "No"
 msgstr "Nein"
 
 #: .\templates\dashboard\deployments\backup\backup_list.html:84
-#: .\templates\pages\index.html:140 .\templates\pages\index.html:660
+#: .\templates\dashboard\plans\ServicePlans.html:149
+#: .\templates\pages\index.html:109 .\templates\pages\index.html:664
 msgid "Restore"
 msgstr "Wiederherstellen"
 
@@ -806,7 +812,9 @@ msgstr "Dieses Backup löschen?"
 
 #: .\templates\dashboard\deployments\backup\backup_list.html:108
 msgid "After deleting, the backup file cannot be restored or downloaded again."
-msgstr "Nach dem Löschen kann die Backup-Datei nicht wiederhergestellt oder erneut heruntergeladen werden."
+msgstr ""
+"Nach dem Löschen kann die Backup-Datei nicht wiederhergestellt oder erneut "
+"heruntergeladen werden."
 
 #: .\templates\dashboard\deployments\backup\backup_list.html:114
 msgid "Yes, Delete"
@@ -826,8 +834,9 @@ msgstr "Backup-Datei hochladen"
 
 #: .\templates\dashboard\deployments\backup\backup_list.html:149
 msgid "Select a backup file to add it to this deployment."
-msgstr "Wählen Sie eine Backup-Datei aus, um sie zu dieser Bereitstellung hinzuzufügen."
-
+msgstr ""
+"Wählen Sie eine Backup-Datei aus, um sie zu dieser Bereitstellung "
+"hinzuzufügen."
 
 #: .\templates\dashboard\deployments\deployment_detail.html:7
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:5
@@ -836,42 +845,38 @@ msgstr "Wählen Sie eine Backup-Datei aus, um sie zu dieser Bereitstellung hinzu
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:142
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:5
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:142
-#, fuzzy
-#| msgid "Dashboard"
 msgid "Go To Dashboard"
-msgstr "Armaturenbrett"
+msgstr "Zum Dashboard"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:8
-#: .\templates\pages\index.html:681
+#: .\templates\dashboard\plans\ServicePlans.html:170
+#: .\templates\pages\index.html:685
 msgid "Change Domain"
 msgstr "Domain ändern"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:9
 #: .\templates\dashboard\deployments\env_var\env_settings.html:7
-#, fuzzy
-#| msgid "School Settings"
 msgid "Settings"
-msgstr "Schuleinstellungen"
+msgstr "Einstellungen"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:21
-#: .\templates\dashboard\projects\project_list.html:261
+#: .\templates\dashboard\projects\project_list.html:266
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:7
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:40
 #: .\templates\parts\navbar.html:54
-#, fuzzy
-#| msgid "Documentation"
 msgid "Documentations"
-msgstr "Dokumentation"
+msgstr "Dokumentationen"
 
+
+#: .\templates\dashboard\deployments\deployment_detail.html:23
 msgid "Reinstall"
 msgstr "Neu installieren"
 
-
 #: .\templates\dashboard\deployments\deployment_detail.html:25
-#: .\templates\pages\index.html:134 .\templates\pages\index.html:653
+#: .\templates\dashboard\plans\ServicePlans.html:142
+#: .\templates\pages\index.html:103 .\templates\pages\index.html:657
 msgid "Backups"
 msgstr "Backups"
-
 
 #: .\templates\dashboard\deployments\deployment_detail.html:32
 msgid "Resource Allocation"
@@ -894,8 +899,6 @@ msgid "Stop"
 msgstr "Stoppen"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:73
-#, fuzzy
-#| msgid "Restart"
 msgid "Start"
 msgstr "Neustarten"
 
@@ -914,17 +917,14 @@ msgstr "Bereitstellungsinformationen"
 #: .\templates\dashboard\services\viewService\ViewHRManagementService.html:19
 #: .\templates\dashboard\services\viewService\ViewPatientManagementService.html:110
 #: .\templates\dashboard\services\viewService\ViewSchoolManagementService.html:110
-#, fuzzy
-#| msgid "User"
 msgid "Username"
-msgstr "Benutzer"
+msgstr "Benutzername"
 
 #: .\templates\dashboard\deployments\deployment_detail.html:107
 #: .\templates\dashboard\deployments\my_deployments.html:19
-#, fuzzy
-#| msgid "Plans"
 msgid "Plan"
-msgstr "Pläne"
+msgstr "Plan"
+
 
 #: .\templates\dashboard\deployments\deployment_detail.html:114
 #: .\templates\dashboard\deployments\my_deployments.html:20
@@ -1046,16 +1046,19 @@ msgstr "Ja, löschen"
 msgid "No thanks"
 msgstr "Nein danke"
 
+#: .\templates\dashboard\deployments\deployment_detail.html:278
 msgid "Reinstalling this app?"
 msgstr "Diese App neu installieren?"
 
-
+#: .\templates\dashboard\deployments\deployment_detail.html:279
 msgid "After reinstalling, the application data cannot be restored again."
-msgstr "Nach der Neuinstallation können die Anwendungsdaten nicht wiederhergestellt werden."
+msgstr ""
+"Nach der Neuinstallation können die Anwendungsdaten nicht wiederhergestellt "
+"werden."
 
+#: .\templates\dashboard\deployments\deployment_detail.html:282
 msgid "Yes, Reinstall"
 msgstr "Ja, neu installieren"
-
 
 #: .\templates\dashboard\deployments\env_var\env_settings.html:61
 msgid "Save All"
@@ -1222,56 +1225,150 @@ msgid "Year"
 msgstr "Jährlich"
 
 #: .\templates\dashboard\plans\ServicePlans.html:87
-#: .\templates\dashboard\plans\ServicePlans.html:354
+#: .\templates\dashboard\plans\ServicePlans.html:539
 #: .\templates\dashboard\projects\project_details_modal.html:244
-#: .\templates\dashboard\projects\project_list.html:69
+#: .\templates\dashboard\projects\project_list.html:74
 msgid "Subscribe Now"
 msgstr "Jetzt abonnieren"
 
-#: .\templates\dashboard\plans\ServicePlans.html:101
+#: .\templates\dashboard\plans\ServicePlans.html:120
+#: .\templates\pages\index.html:635
+msgid ""
+"Key features to <span class='text-success'>manage your projects "
+"effortlessly</span>"
+msgstr ""
+"Hauptfunktionen, um Ihre Projekte <span class='text-success'>mühelos zu "
+"verwalten</span>"
+
+#: .\templates\dashboard\plans\ServicePlans.html:126
+#: .\templates\pages\index.html:641
+msgid "Install projects with a single click"
+msgstr "Projekte mit nur einem Klick installieren"
+
+#: .\templates\dashboard\plans\ServicePlans.html:128
+#: .\templates\pages\index.html:643
+msgid "One-Click Deployment"
+msgstr "Bereitstellung mit einem Klick"
+
+#: .\templates\dashboard\plans\ServicePlans.html:133
+#: .\templates\pages\index.html:648
+msgid "Control project running state easily"
+msgstr "Projektstatus einfach steuern"
+
+#: .\templates\dashboard\plans\ServicePlans.html:135
+#: .\templates\pages\index.html:97 .\templates\pages\index.html:650
+msgid "Manage Operations"
+msgstr "Operationen verwalten"
+
+#: .\templates\dashboard\plans\ServicePlans.html:140
+#: .\templates\pages\index.html:655
+msgid "Create and manage backups safely"
+msgstr "Backups sicher erstellen und verwalten"
+
+#: .\templates\dashboard\plans\ServicePlans.html:147
+#: .\templates\pages\index.html:662
+msgid "Restore your projects from backups"
+msgstr "Projekte aus Backups wiederherstellen"
+
+#: .\templates\dashboard\plans\ServicePlans.html:154
+#: .\templates\pages\index.html:669
+msgid "Upgrade, renew, or manage subscriptions easily"
+msgstr "Abonnements einfach aktualisieren, erneuern oder verwalten"
+
+#: .\templates\dashboard\plans\ServicePlans.html:156
+#: .\templates\pages\index.html:115 .\templates\pages\index.html:671
+msgid "Subscriptions"
+msgstr "Abonnements"
+
+#: .\templates\dashboard\plans\ServicePlans.html:161
+#: .\templates\pages\index.html:676
+msgid "Monitor usage and performance in real-time"
+msgstr "Nutzung und Leistung in Echtzeit überwachen"
+
+#: .\templates\dashboard\plans\ServicePlans.html:163
+#: .\templates\pages\index.html:678
+msgid "Performance"
+msgstr "Leistung"
+
+#: .\templates\dashboard\plans\ServicePlans.html:168
+#: .\templates\pages\index.html:683
+msgid "Change the project domain easily"
+msgstr "Projekt-Domain einfach ändern"
+
+#: .\templates\dashboard\plans\ServicePlans.html:175
+#: .\templates\pages\index.html:690
+msgid "SSL certificates ready for your project"
+msgstr "SSL-Zertifikate für Ihr Projekt bereit"
+
+#: .\templates\dashboard\plans\ServicePlans.html:177
+#: .\templates\pages\index.html:692
+msgid "SSL Certificates"
+msgstr "SSL-Zertifikate"
+
+#: .\templates\dashboard\plans\ServicePlans.html:182
+#: .\templates\pages\index.html:697
+msgid "View project logs and activities"
+msgstr "Projektprotokolle und Aktivitäten anzeigen"
+
+#: .\templates\dashboard\plans\ServicePlans.html:184
+#: .\templates\pages\index.html:699
+msgid "Logs Viewer"
+msgstr "Protokollanzeige"
+
+#: .\templates\dashboard\plans\ServicePlans.html:189
+#: .\templates\pages\index.html:704
+msgid "Rebuild or update your project easily"
+msgstr "Projekt einfach neu erstellen oder aktualisieren"
+
+#: .\templates\dashboard\plans\ServicePlans.html:191
+#: .\templates\pages\index.html:706
+msgid "Rebuild & Update"
+msgstr "Neu erstellen & Aktualisieren"
+
+#: .\templates\dashboard\plans\ServicePlans.html:286
 msgid "Plans Comparison"
 msgstr "Planvergleich"
 
-#: .\templates\dashboard\plans\ServicePlans.html:107
+#: .\templates\dashboard\plans\ServicePlans.html:292
 msgid "Feature"
 msgstr "Funktion"
 
-#: .\templates\dashboard\plans\ServicePlans.html:121
+#: .\templates\dashboard\plans\ServicePlans.html:306
 msgid "Storage"
 msgstr "Speicher"
 
-#: .\templates\dashboard\plans\ServicePlans.html:133
+#: .\templates\dashboard\plans\ServicePlans.html:318
 msgid "Database"
 msgstr "Datenbank"
 
-#: .\templates\dashboard\plans\ServicePlans.html:146
-#: .\templates\pages\index.html:1015
+#: .\templates\dashboard\plans\ServicePlans.html:331
+#: .\templates\pages\index.html:1019
 #: .\templates\pages\services\HRManagement.html:597
 #: .\templates\pages\services\PatientManagement.html:490
 msgid "Frequently Asked Questions"
 msgstr "Häufig gestellte Fragen"
 
-#: .\templates\dashboard\plans\ServicePlans.html:154
+#: .\templates\dashboard\plans\ServicePlans.html:339
 msgid "Can I upgrade my plan later?"
 msgstr "Kann ich meinen Plan später upgraden?"
 
-#: .\templates\dashboard\plans\ServicePlans.html:159
+#: .\templates\dashboard\plans\ServicePlans.html:344
 msgid "Yes, you can upgrade your plan anytime from the dashboard."
 msgstr "Ja, Sie können Ihren Plan jederzeit über das Dashboard upgraden."
 
-#: .\templates\dashboard\plans\ServicePlans.html:168
+#: .\templates\dashboard\plans\ServicePlans.html:353
 msgid "Is there a refund policy?"
 msgstr "Gibt es eine Rückerstattungsrichtlinie?"
 
-#: .\templates\dashboard\plans\ServicePlans.html:173
+#: .\templates\dashboard\plans\ServicePlans.html:358
 msgid "Yes, we have a 14-day money-back guarantee."
 msgstr "Ja, wir bieten eine 14-tägige Geld-zurück-Garantie."
 
-#: .\templates\dashboard\plans\ServicePlans.html:182
+#: .\templates\dashboard\plans\ServicePlans.html:367
 msgid "Can I cancel my subscription anytime?"
 msgstr "Kann ich mein Abonnement jederzeit kündigen?"
 
-#: .\templates\dashboard\plans\ServicePlans.html:187
+#: .\templates\dashboard\plans\ServicePlans.html:372
 msgid ""
 "Yes, you can cancel anytime. Your account will remain active until the end "
 "of the paid period."
@@ -1279,32 +1376,32 @@ msgstr ""
 "Ja, Sie können jederzeit kündigen. Ihr Konto bleibt bis zum Ende des "
 "bezahlten Zeitraums aktiv."
 
-#: .\templates\dashboard\plans\ServicePlans.html:196
+#: .\templates\dashboard\plans\ServicePlans.html:381
 msgid "Are taxes included in the prices?"
 msgstr "Sind Steuern in den Preisen enthalten?"
 
-#: .\templates\dashboard\plans\ServicePlans.html:201
+#: .\templates\dashboard\plans\ServicePlans.html:386
 msgid ""
 "Prices do not include taxes. VAT may be applied depending on your country."
 msgstr ""
 "Preise verstehen sich ohne Steuern. Die Mehrwertsteuer kann je nach Land "
 "anfallen."
 
-#: .\templates\dashboard\plans\ServicePlans.html:210
+#: .\templates\dashboard\plans\ServicePlans.html:395
 msgid "Do you offer 24/7 support?"
 msgstr "Bieten Sie 24/7 Support an?"
 
-#: .\templates\dashboard\plans\ServicePlans.html:215
+#: .\templates\dashboard\plans\ServicePlans.html:400
 msgid "Yes, our support team is available 24/7 via live chat and email."
 msgstr ""
 "Ja, unser Support-Team ist rund um die Uhr über Live-Chat und E-Mail "
 "erreichbar."
 
-#: .\templates\dashboard\plans\ServicePlans.html:224
+#: .\templates\dashboard\plans\ServicePlans.html:409
 msgid "Can I try the service before paying?"
 msgstr "Kann ich den Service vor der Zahlung testen?"
 
-#: .\templates\dashboard\plans\ServicePlans.html:229
+#: .\templates\dashboard\plans\ServicePlans.html:414
 msgid ""
 "Yes, we provide a free trial for some plans so you can test the service "
 "before subscribing."
@@ -1312,63 +1409,61 @@ msgstr ""
 "Ja, für einige Pläne bieten wir eine kostenlose Testphase an, damit Sie den "
 "Service vor dem Abonnement testen können."
 
-#: .\templates\dashboard\plans\ServicePlans.html:238
+#: .\templates\dashboard\plans\ServicePlans.html:423
 msgid "What payment methods are available?"
 msgstr "Welche Zahlungsmethoden stehen zur Verfügung?"
 
-#: .\templates\dashboard\plans\ServicePlans.html:243
+#: .\templates\dashboard\plans\ServicePlans.html:428
 msgid "We accept credit cards, PayPal, and bank transfers."
 msgstr "Wir akzeptieren Kreditkarten, PayPal und Banküberweisungen."
 
-#: .\templates\dashboard\plans\ServicePlans.html:252
+#: .\templates\dashboard\plans\ServicePlans.html:437
 msgid "Can I downgrade to a cheaper plan?"
 msgstr "Kann ich auf einen günstigeren Plan wechseln?"
 
-#: .\templates\dashboard\plans\ServicePlans.html:257
+#: .\templates\dashboard\plans\ServicePlans.html:442
 msgid ""
 "Yes, you can downgrade anytime and your invoice will be adjusted accordingly."
 msgstr ""
 "Ja, Sie können jederzeit downgraden, und Ihre Rechnung wird entsprechend "
 "angepasst."
 
-#: .\templates\dashboard\plans\ServicePlans.html:268
+#: .\templates\dashboard\plans\ServicePlans.html:453
 msgid "Customer Testimonials"
 msgstr "Kundenbewertungen"
 
-#: .\templates\dashboard\plans\ServicePlans.html:279
+#: .\templates\dashboard\plans\ServicePlans.html:464
 msgid "Entrepreneur"
 msgstr "Unternehmer"
 
-#: .\templates\dashboard\plans\ServicePlans.html:282
+#: .\templates\dashboard\plans\ServicePlans.html:467
 msgid "Great service, easy to use!"
 msgstr "Toller Service, einfach zu bedienen!"
 
-#: .\templates\dashboard\plans\ServicePlans.html:300
-#: .\templates\pages\index.html:983
-#, fuzzy
-#| msgid "Project name"
+#: .\templates\dashboard\plans\ServicePlans.html:485
+#: .\templates\pages\index.html:987
 msgid "Project Manager"
-msgstr "Projektname"
+msgstr "Projektmanager"
 
-#: .\templates\dashboard\plans\ServicePlans.html:303
+
+#: .\templates\dashboard\plans\ServicePlans.html:488
 msgid "Best hosting I’ve tried so far."
 msgstr "Das beste Hosting, das ich bisher ausprobiert habe."
 
-#: .\templates\dashboard\plans\ServicePlans.html:321
+#: .\templates\dashboard\plans\ServicePlans.html:506
 msgid "Web Developer"
 msgstr "Webentwickler"
 
-#: .\templates\dashboard\plans\ServicePlans.html:324
+#: .\templates\dashboard\plans\ServicePlans.html:509
 msgid "Excellent and responsive support."
 msgstr "Ausgezeichneter und schneller Support"
 
-#: .\templates\dashboard\plans\ServicePlans.html:351
-#, fuzzy
-#| msgid "Get Started"
+#: .\templates\dashboard\plans\ServicePlans.html:536
 msgid "Get Started Now"
-msgstr "Fangen an"
+msgstr "Jetzt starten"
 
-#: .\templates\dashboard\plans\ServicePlans.html:352
+
+#: .\templates\dashboard\plans\ServicePlans.html:537
 #, python-format
 msgid "Subscribe today and get 20%% off the yearly plan"
 msgstr ""
@@ -1388,15 +1483,15 @@ msgstr "Live-Demo"
 msgid "Documentation"
 msgstr "Dokumentation"
 
+#: .\templates\dashboard\projects\project_details_modal.html:35
+#: .\templates\dashboard\projects\project_details_modal.html:139
 msgid "Source Code"
 msgstr "Quellcode"
 
-
 #: .\templates\dashboard\projects\project_details_modal.html:58
-#, fuzzy
-#| msgid "Project Settings"
 msgid "Project Details:"
-msgstr "Projekteinstellungen"
+msgstr "Projektdetails:"
+
 
 #: .\templates\dashboard\projects\project_details_modal.html:62
 msgid "Difficulty Level:"
@@ -1415,62 +1510,59 @@ msgid "Required Disk Space:"
 msgstr "Benötigter Speicherplatz:"
 
 #: .\templates\dashboard\projects\project_details_modal.html:79
-#, fuzzy
-#| msgid "Employee Engagement"
 msgid "Engagement:"
-msgstr "Engagement der Mitarbeiter"
+msgstr "Mitarbeiterengagement:"
 
 #: .\templates\dashboard\projects\project_details_modal.html:94
-#, fuzzy
-#| msgid "Reporting"
 msgid "Rating:"
-msgstr "Berichterstattung"
+msgstr "Bewertung:"
 
+#: .\templates\dashboard\projects\project_details_modal.html:99
 msgid "Downloads:"
 msgstr "Downloads:"
-
 
 #: .\templates\dashboard\projects\project_details_modal.html:105
 msgid "Installations:"
 msgstr "Installationen:"
 
 #: .\templates\dashboard\projects\project_details_modal.html:112
-#, fuzzy
-#| msgid "Active Service"
 msgid "Active Users:"
-msgstr "Aktiver Service"
+msgstr "Aktive Benutzer:"
+
 
 #: .\templates\dashboard\projects\project_details_modal.html:121
 #: .\templates\dashboard\projects\project_details_modal.html:317
-#: .\templates\pages\index.html:122
+#: .\templates\pages\index.html:91
 msgid "Install"
 msgstr "Installieren"
 
+#: .\templates\dashboard\projects\project_details_modal.html:125
 msgid "install project cloud"
 msgstr "Projekt in der Cloud installieren"
 
-
+#: .\templates\dashboard\projects\project_details_modal.html:126
 msgid "Click to install this project automatically"
 msgstr "Klicken Sie, um dieses Projekt automatisch zu installieren"
 
-
 #: .\templates\dashboard\projects\project_details_modal.html:128
 #: .\templates\dashboard\projects\project_details_modal.html:318
-#: .\templates\dashboard\projects\project_list.html:253
-#, fuzzy
-#| msgid "About Project"
+#: .\templates\dashboard\projects\project_list.html:258
 msgid "Install Project"
-msgstr "Über das Projekt"
+msgstr "Projekt installieren"
 
+
+#: .\templates\dashboard\projects\project_details_modal.html:133
 msgid "We will install the project for you, no need for a programmer."
 msgstr "Wir installieren das Projekt für Sie, kein Programmierer nötig."
 
+#: .\templates\dashboard\projects\project_details_modal.html:144
+#: .\templates\dashboard\projects\project_details_modal.html:145
 msgid "Download and view the source code"
 msgstr "Quellcode herunterladen und ansehen"
 
+#: .\templates\dashboard\projects\project_details_modal.html:147
 msgid "Download Source Code"
 msgstr "Quellcode herunterladen"
-
 
 #: .\templates\dashboard\projects\project_details_modal.html:156
 msgid "Languages & Technologies Used:"
@@ -1497,44 +1589,34 @@ msgid "No steps added yet"
 msgstr "Noch keine Schritte hinzugefügt"
 
 #: .\templates\dashboard\projects\project_details_modal.html:210
-#, fuzzy
-#| msgid "About Project"
 msgid "About Project:"
-msgstr "Über das Projekt"
+msgstr "Über das Projekt:"
+
 
 #: .\templates\dashboard\projects\project_details_modal.html:220
 msgid "Available Plans:"
 msgstr "Verfügbare Pläne:"
 
 #: .\templates\dashboard\projects\project_details_modal.html:243
-#, fuzzy
-#| msgid "Subscribe Now"
 msgid "Subscribe to"
-msgstr "Jetzt abonnieren"
+msgstr "Abonnieren"
 
 #: .\templates\dashboard\projects\project_details_modal.html:257
-#, fuzzy
-#| msgid "Customer reviews"
 msgid "User Reviews"
-msgstr "Kundenbewertungen"
+msgstr "Benutzerbewertungen"
 
 #: .\templates\dashboard\projects\project_details_modal.html:281
-#, fuzzy
-#| msgid "Customer reviews"
 msgid "No reviews yet"
-msgstr "Kundenbewertungen"
+msgstr "Noch keine Bewertungen"
 
 #: .\templates\dashboard\projects\project_details_modal.html:287
-#, fuzzy
-#| msgid "Add Service"
 msgid "Add Your Review"
-msgstr "Service hinzufügen"
+msgstr "Bewertung hinzufügen"
 
 #: .\templates\dashboard\projects\project_details_modal.html:292
-#, fuzzy
-#| msgid "Reporting"
 msgid "Rating"
-msgstr "Berichterstattung"
+msgstr "Bewertung"
+
 
 #: .\templates\dashboard\projects\project_details_modal.html:303
 msgid "Your Comment"
@@ -1545,111 +1627,119 @@ msgid "Add your comment here"
 msgstr "Fügen Sie hier Ihren Kommentar hinzu"
 
 #: .\templates\dashboard\projects\project_details_modal.html:308
-#, fuzzy
-#| msgid "Submit"
 msgid "Submit Review"
-msgstr "Einreichen"
+msgstr "Bewertung absenden"
 
-#: .\templates\dashboard\projects\project_list.html:62
-#, fuzzy
-#| msgid "My Projects"
+
+#: .\templates\dashboard\projects\project_list.html:7
+msgid ""
+"Browse a marketplace of open-source projects, modern apps, and control "
+"panels. Install instantly with one click and save time."
+msgstr "Durchstöbern Sie einen Marktplatz für Open-Source-Projekte, moderne Apps und Control Panels. Installieren Sie sofort mit nur einem Klick und sparen Sie Zeit."
+
+#: .\templates\dashboard\projects\project_list.html:8
+msgid ""
+"ready projects, web apps, control panels, one click install, project "
+"templates, SaaS apps, software marketplace, app store, management systems, "
+"open source projects"
+msgstr "fertige Projekte, Web-Apps, Control Panels, Ein-Klick-Installation, Projektvorlagen, SaaS-Apps, Software-Marktplatz, App-Store, Management-Systeme, Open-Source-Projekte"
+
+#: .\templates\dashboard\projects\project_list.html:11
+#: .\templates\dashboard\projects\project_list.html:14
+msgid "Open-source projects marketplace – Install with one click"
+msgstr "Marktplatz für Open-Source-Projekte – Installation mit einem Klick"
+
+#: .\templates\dashboard\projects\project_list.html:15
+msgid ""
+"Discover and install ready projects, apps, and control panels instantly."
+msgstr "Entdecken und installieren Sie sofort fertige Projekte, Apps und Control Panels."
+
+#: .\templates\dashboard\projects\project_list.html:67
 msgid "Ready Projects Store"
-msgstr "Meine Projekte"
+msgstr "Store für fertige Projekte"
 
-#: .\templates\dashboard\projects\project_list.html:65
+#: .\templates\dashboard\projects\project_list.html:70
 msgid ""
 "Access popular ready projects, control panels, and apps. Get up and running "
 "in minutes with smooth one-click installation."
-msgstr ""
-"Greifen Sie auf beliebte fertige Projekte, Control Panels und Apps zu. "
-"Starten Sie in wenigen Minuten mit einer reibungslosen Ein-Klick-"
-"Installation."
+msgstr "Greifen Sie auf beliebte fertige Projekte, Control Panels und Apps zu. Starten Sie in wenigen Minuten mit einer nahtlosen Ein-Klick-Installation."
 
-#: .\templates\dashboard\projects\project_list.html:89
-#, fuzzy
-#| msgid "New project..."
+#: .\templates\dashboard\projects\project_list.html:94
 msgid "Search projects..."
-msgstr "Neues Projekt ..."
+msgstr "Projekte suchen..."
 
-#: .\templates\dashboard\projects\project_list.html:118
+
+#: .\templates\dashboard\projects\project_list.html:123
 msgid "Any difficulty"
 msgstr "Beliebiger Schwierigkeitsgrad"
 
-#: .\templates\dashboard\projects\project_list.html:131
+#: .\templates\dashboard\projects\project_list.html:136
 msgid "Sort by"
 msgstr "Sortieren nach"
 
-#: .\templates\dashboard\projects\project_list.html:132
+#: .\templates\dashboard\projects\project_list.html:137
 msgid "Most Installed"
 msgstr "Am häufigsten installiert"
 
-#: .\templates\dashboard\projects\project_list.html:133
+#: .\templates\dashboard\projects\project_list.html:138
 msgid "Highest Rated"
 msgstr "Höchste Bewertung"
 
-#: .\templates\dashboard\projects\project_list.html:134
-#, fuzzy
-#| msgid "Updates"
-msgid "Latest"
-msgstr "Aktualisierungen"
-
 #: .\templates\dashboard\projects\project_list.html:139
+msgid "Latest"
+msgstr "Neueste"
+
+#: .\templates\dashboard\projects\project_list.html:144
 msgid "Search"
 msgstr "Suchen"
 
-#: .\templates\dashboard\projects\project_list.html:149
-#, fuzzy
-#| msgid "Create Project"
+#: .\templates\dashboard\projects\project_list.html:154
 msgid "Featured Projects"
-msgstr "Projekt erstellen"
+msgstr "Ausgewählte Projekte"
 
-#: .\templates\dashboard\projects\project_list.html:161
+#: .\templates\dashboard\projects\project_list.html:166
 msgid "Recommended"
 msgstr "Empfohlen"
 
-#: .\templates\dashboard\projects\project_list.html:177
-#, fuzzy
-#| msgid "My Projects"
+#: .\templates\dashboard\projects\project_list.html:182
 msgid "All Projects"
-msgstr "Meine Projekte"
+msgstr "Alle Projekte"
 
-#: .\templates\dashboard\projects\project_list.html:189
+
+#: .\templates\dashboard\projects\project_list.html:194
 msgid "No Image"
 msgstr "Kein Bild"
 
-#: .\templates\dashboard\projects\project_list.html:197
+#: .\templates\dashboard\projects\project_list.html:202
 msgid "Most Popular"
 msgstr "Am beliebtesten"
 
-#: .\templates\dashboard\projects\project_list.html:202
+#: .\templates\dashboard\projects\project_list.html:207
 msgid "New"
 msgstr "Neu"
 
-#: .\templates\dashboard\projects\project_list.html:207
+#: .\templates\dashboard\projects\project_list.html:212
 msgid "Fast Install"
 msgstr "Schnelle Installation"
 
-#: .\templates\dashboard\projects\project_list.html:212
-#, fuzzy
-#| msgid "Resources"
+#: .\templates\dashboard\projects\project_list.html:217
 msgid "Open Source"
-msgstr "Ressourcen"
+msgstr "Open-Source"
 
-#: .\templates\dashboard\projects\project_list.html:221
-#, fuzzy
-#| msgid "Most Installed"
+#: .\templates\dashboard\projects\project_list.html:226
 msgid "Total Installs"
-msgstr "Am häufigsten installiert"
+msgstr "Gesamtinstallationen"
 
-#: .\templates\dashboard\projects\project_list.html:237
+
+#: .\templates\dashboard\projects\project_list.html:242
 msgid "Average Rating"
 msgstr "Durchschnittliche Bewertung"
 
-#: .\templates\dashboard\projects\project_list.html:257
+#: .\templates\dashboard\projects\project_list.html:262
 msgid "Details"
 msgstr "Details"
 
-#: .\templates\dashboard\projects\project_list.html:284
+#: .\templates\dashboard\projects\project_list.html:289
 msgid "Loading details..."
 msgstr "Details werden geladen..."
 
@@ -1987,7 +2077,7 @@ msgstr "Gesamtgehalt"
 msgid "Total Income"
 msgstr "Gesamteinkommen"
 
-#: .\templates\dashboard_base.html:9 .\templates\pages\index.html:393
+#: .\templates\dashboard_base.html:9 .\templates\pages\index.html:397
 #: .\templates\pages\services\HRManagement.html:279
 #: .\templates\pages\services\PatientManagement.html:221
 #: .\templates\pages\services\SchoolManagement.html:252
@@ -2008,7 +2098,7 @@ msgstr "Neue Warnungen"
 msgid "There are no notifications at the moment."
 msgstr "Im Moment gibt es keine Benachrichtigungen."
 
-#: .\templates\pages\PrivacyPolicy.html:6
+#: .\templates\pages\PrivacyPolicy.html:7
 msgid ""
 "Clear answers to the most frequently asked questions about our services to "
 "help you get information quickly and easily."
@@ -2016,23 +2106,11 @@ msgstr ""
 "Klare Antworten auf die am häufigsten gestellten Fragen zu unseren Diensten, "
 "damit Sie schnell und einfach Informationen erhalten können."
 
-#: .\templates\pages\index.html:6
-msgid ""
-"A versatile software suite transforming businesses of all sizes by "
-"simplifying complex systems into efficient work environments."
-msgstr ""
-"Eine vielseitige Software -Suite, die Unternehmen aller Größen verwandelt, "
-"indem komplexe Systeme in effiziente Arbeitsumgebungen vereinfacht werden."
-
-#: .\templates\pages\index.html:17 .\templates\pages\index.html:1344
+#: .\templates\pages\index.html:7 .\templates\pages\index.html:1348
 msgid "Install ready-to-use projects with just one click"
 msgstr "Bereit zur Nutzung: Projekte mit nur einem Klick installieren"
 
-#: .\templates\pages\index.html:22
-msgid "SOFTmsg For"
-msgstr "SOFTmsg für"
-
-#: .\templates\pages\index.html:27
+#: .\templates\pages\index.html:8 .\templates\pages\index.html:28
 msgid ""
 "SOFTmsg is a marketplace that lets you launch ready-to-use web projects "
 "instantly — no coding required, just one click to deploy and manage your "
@@ -2042,7 +2120,11 @@ msgstr ""
 "starten können – keine Programmierkenntnisse erforderlich, nur ein Klick zum "
 "Bereitstellen und Verwalten Ihrer Apps."
 
-#: .\templates\pages\index.html:36
+#: .\templates\pages\index.html:23
+msgid "SOFTmsg For"
+msgstr "SOFTmsg für"
+
+#: .\templates\pages\index.html:37
 #: .\templates\pages\services\HRManagement.html:22
 #: .\templates\pages\services\HRManagement.html:816
 #: .\templates\pages\services\PatientManagement.html:21
@@ -2052,35 +2134,24 @@ msgstr ""
 msgid "Get started for free"
 msgstr "Kostenlos starten"
 
-#: .\templates\pages\index.html:45 .\templates\pages\index.html:474
+#: .\templates\pages\index.html:46 .\templates\pages\index.html:478
 #: .\templates\parts\dashboard\sidebar.html:28 .\templates\parts\navbar.html:29
 msgid "Marketplace"
 msgstr "Marktplatz"
 
-#: .\templates\pages\index.html:71
-#: .\templates\pages\services\HRManagement.html:38
-#: .\templates\pages\services\PatientManagement.html:37
-#: .\templates\pages\services\SchoolManagement.html:37
-msgid "Trusted by industry leaders"
-msgstr "Vertrauenswürdig bei Branchenführern"
-
+#: .\templates\pages\index.html:73
 msgid "Project Installation Stages"
 msgstr "Projektinstallationsphasen"
 
+#: .\templates\pages\index.html:85
 msgid "Discover Project"
 msgstr "Projekt entdecken"
 
-msgid "Manage Operations"
-msgstr "Operationen verwalten"
-
-msgid "Subscriptions"
-msgstr "Abonnements"
-
+#: .\templates\pages\index.html:121
 msgid "Performance Monitoring"
 msgstr "Leistungsüberwachung"
 
-
-#: .\templates\pages\index.html:269
+#: .\templates\pages\index.html:238
 msgid ""
 "Powerful solutions that <span class='text-success'>launch your projects "
 "instantly</span>"
@@ -2088,60 +2159,66 @@ msgstr ""
 "Leistungsstarke Lösungen, die Ihre Projekte <span class='text-"
 "success'>sofort starten</span>"
 
-#: .\templates\pages\index.html:279
+#: .\templates\pages\index.html:248
 msgid "One-Click Install"
 msgstr "Ein-Klick-Installation"
 
-#: .\templates\pages\index.html:287
+#: .\templates\pages\index.html:256
 msgid "Open-Source Marketplace"
 msgstr "Open-Source Marktplatz"
 
-#: .\templates\pages\index.html:295
+#: .\templates\pages\index.html:264
 msgid "Easy Management"
 msgstr "Einfache Verwaltung"
 
-#: .\templates\pages\index.html:303
+#: .\templates\pages\index.html:272
 msgid "Secure by Default"
 msgstr "Standardmäßig sicher"
 
-#: .\templates\pages\index.html:311
+#: .\templates\pages\index.html:280
 msgid "Optimized for Servers"
 msgstr "Server-optimiert"
 
-#: .\templates\pages\index.html:319
+#: .\templates\pages\index.html:288
 msgid "Import & Export Projects"
 msgstr "Projekte importieren & exportieren"
 
-#: .\templates\pages\index.html:327
+#: .\templates\pages\index.html:296
 msgid "Team Collaboration"
 msgstr "Teamzusammenarbeit"
 
-#: .\templates\pages\index.html:335
-#, fuzzy
-#| msgid "Multi Languages"
+#: .\templates\pages\index.html:304
 msgid "Multi-Language Support"
-msgstr "Multisprachen"
+msgstr "Mehrsprachige Unterstützung"
 
-#: .\templates\pages\index.html:343 .\templates\pages\index.html:1375
+
+#: .\templates\pages\index.html:312 .\templates\pages\index.html:1379
 msgid "24/7 Support"
 msgstr "Rund-um-die-Uhr-Support"
 
-#: .\templates\pages\index.html:351
+#: .\templates\pages\index.html:320
 msgid "Continuous Updates"
 msgstr "Kontinuierliche Updates"
 
-#: .\templates\pages\index.html:384
+#: .\templates\pages\index.html:353
+#: .\templates\pages\services\HRManagement.html:38
+#: .\templates\pages\services\PatientManagement.html:37
+#: .\templates\pages\services\SchoolManagement.html:37
+msgid "Trusted by industry leaders"
+msgstr "Vertrauenswürdig bei Branchenführern"
+
+#: .\templates\pages\index.html:388
 msgid "Services Features"
 msgstr "Serviceleistungen"
 
-#: .\templates\pages\index.html:394
+#: .\templates\pages\index.html:398
 #: .\templates\pages\services\HRManagement.html:280
 #: .\templates\pages\services\PatientManagement.html:222
 #: .\templates\pages\services\SchoolManagement.html:253
 msgid "User-friendly dashboard"
 msgstr "Benutzerfreundliches Dashboard"
 
-#: .\templates\pages\index.html:395
+#: .\templates\pages\index.html:399
 #: .\templates\pages\services\HRManagement.html:281
 #: .\templates\pages\services\PatientManagement.html:223
 #: .\templates\pages\services\SchoolManagement.html:254
@@ -2152,21 +2229,21 @@ msgstr ""
 "Eine einfache und intuitive Oberfläche, mit der Sie alle Ihre Vorgänge auch "
 "für nicht-technische Benutzer problemlos verwalten können."
 
-#: .\templates\pages\index.html:403
+#: .\templates\pages\index.html:407
 #: .\templates\pages\services\HRManagement.html:289
 #: .\templates\pages\services\PatientManagement.html:231
 #: .\templates\pages\services\SchoolManagement.html:262
 msgid "Security"
 msgstr "Sicherheit"
 
-#: .\templates\pages\index.html:404
+#: .\templates\pages\index.html:408
 #: .\templates\pages\services\HRManagement.html:290
 #: .\templates\pages\services\PatientManagement.html:232
 #: .\templates\pages\services\SchoolManagement.html:263
 msgid "Protected from security vulnerabilities"
 msgstr "Vor Sicherheitslücken geschützt"
 
-#: .\templates\pages\index.html:405
+#: .\templates\pages\index.html:409
 #: .\templates\pages\services\HRManagement.html:291
 #: .\templates\pages\services\PatientManagement.html:233
 #: .\templates\pages\services\SchoolManagement.html:264
@@ -2177,21 +2254,21 @@ msgstr ""
 "Ein System, das mit fortschrittlichen Schutztechnologien ausgestattet ist, "
 "um Ihre Daten vor Bedrohungen und Cyber-Angriffen zu schützen."
 
-#: .\templates\pages\index.html:413
+#: .\templates\pages\index.html:417
 #: .\templates\pages\services\HRManagement.html:299
 #: .\templates\pages\services\PatientManagement.html:241
 #: .\templates\pages\services\SchoolManagement.html:272
 msgid "Customize"
 msgstr "Anpassen"
 
-#: .\templates\pages\index.html:414
+#: .\templates\pages\index.html:418
 #: .\templates\pages\services\HRManagement.html:300
 #: .\templates\pages\services\PatientManagement.html:242
 #: .\templates\pages\services\SchoolManagement.html:273
 msgid "Customizable"
 msgstr "Anpassbar"
 
-#: .\templates\pages\index.html:415
+#: .\templates\pages\index.html:419
 #: .\templates\pages\services\HRManagement.html:301
 #: .\templates\pages\services\PatientManagement.html:243
 #: .\templates\pages\services\SchoolManagement.html:274
@@ -2202,21 +2279,21 @@ msgstr ""
 "Ein flexibles Design, mit dem Sie das System so ändern können, dass sie "
 "Ihren spezifischen Geschäftsanforderungen entsprechen."
 
-#: .\templates\pages\index.html:423
+#: .\templates\pages\index.html:427
 #: .\templates\pages\services\HRManagement.html:309
 #: .\templates\pages\services\PatientManagement.html:251
 #: .\templates\pages\services\SchoolManagement.html:282
 msgid "Responsive"
 msgstr "Reaktionsschnell"
 
-#: .\templates\pages\index.html:424
+#: .\templates\pages\index.html:428
 #: .\templates\pages\services\HRManagement.html:310
 #: .\templates\pages\services\PatientManagement.html:252
 #: .\templates\pages\services\SchoolManagement.html:283
 msgid "Multi-device support"
 msgstr "Support mit mehreren Geräten"
 
-#: .\templates\pages\index.html:425
+#: .\templates\pages\index.html:429
 #: .\templates\pages\services\HRManagement.html:311
 #: .\templates\pages\services\PatientManagement.html:253
 #: .\templates\pages\services\SchoolManagement.html:284
@@ -2227,7 +2304,7 @@ msgstr ""
 "Greifen Sie auf das System über verschiedene Geräte wie Computer, "
 "Smartphones oder Tablets zu."
 
-#: .\templates\pages\index.html:433
+#: .\templates\pages\index.html:437
 #: .\templates\pages\services\HRManagement.html:218
 #: .\templates\pages\services\HRManagement.html:319
 #: .\templates\pages\services\PatientManagement.html:155
@@ -2240,14 +2317,14 @@ msgstr ""
 msgid "Permissions"
 msgstr "Berechtigungen"
 
-#: .\templates\pages\index.html:434
+#: .\templates\pages\index.html:438
 #: .\templates\pages\services\HRManagement.html:320
 #: .\templates\pages\services\PatientManagement.html:262
 #: .\templates\pages\services\SchoolManagement.html:293
 msgid "User management and permissions"
 msgstr "Benutzerverwaltung und Berechtigungen"
 
-#: .\templates\pages\index.html:435
+#: .\templates\pages\index.html:439
 #: .\templates\pages\services\HRManagement.html:321
 #: .\templates\pages\services\PatientManagement.html:263
 #: .\templates\pages\services\SchoolManagement.html:294
@@ -2258,21 +2335,21 @@ msgstr ""
 "Ein erweitertes Steuerungssystem, mit dem Sie Benutzern im System "
 "unterschiedliche Rollen und Berechtigungen zuweisen können."
 
-#: .\templates\pages\index.html:443
+#: .\templates\pages\index.html:447
 #: .\templates\pages\services\HRManagement.html:329
 #: .\templates\pages\services\PatientManagement.html:271
 #: .\templates\pages\services\SchoolManagement.html:302
 msgid "Support"
 msgstr "Unterstützung"
 
-#: .\templates\pages\index.html:444
+#: .\templates\pages\index.html:448
 #: .\templates\pages\services\HRManagement.html:330
 #: .\templates\pages\services\PatientManagement.html:272
 #: .\templates\pages\services\SchoolManagement.html:303
 msgid "24/7 technical support"
 msgstr "24/7 technischer Support"
 
-#: .\templates\pages\index.html:445
+#: .\templates\pages\index.html:449
 #: .\templates\pages\services\HRManagement.html:331
 #: .\templates\pages\services\PatientManagement.html:273
 #: .\templates\pages\services\SchoolManagement.html:304
@@ -2283,12 +2360,12 @@ msgstr ""
 "Ein engagiertes Support -Team, das rund um die Uhr verfügbar ist, um Sie bei "
 "Problemen oder Anfragen zu unterstützen."
 
-#: .\templates\pages\index.html:460
+#: .\templates\pages\index.html:464
 msgid "Everything you need to launch and manage your apps — instantly"
 msgstr ""
 "Alles, was Sie brauchen, um Ihre Apps sofort zu starten und zu verwalten"
 
-#: .\templates\pages\index.html:466
+#: .\templates\pages\index.html:470
 msgid ""
 "SOFTmsg is your marketplace for ready-to-use web projects. Install, monitor, "
 "and scale apps in seconds — no coding required."
@@ -2297,11 +2374,11 @@ msgstr ""
 "Installieren, überwachen und skalieren Sie Apps in Sekunden — ganz ohne "
 "Programmierung."
 
-#: .\templates\pages\index.html:488
+#: .\templates\pages\index.html:492
 msgid "Instant Deployment"
 msgstr "Sofortige Bereitstellung"
 
-#: .\templates\pages\index.html:489
+#: .\templates\pages\index.html:493
 msgid ""
 "Launch projects with <span class=\"fw-bold\">one-click setup and zero "
 "downtime</span>"
@@ -2309,23 +2386,23 @@ msgstr ""
 "Starten Sie Projekte mit <span class=\"fw-bold\">Ein-Klick-Installation und "
 "ohne Ausfallzeit</span>"
 
-#: .\templates\pages\index.html:494
+#: .\templates\pages\index.html:498
 msgid "One-click deployment with Docker & Traefik"
 msgstr "Bereitstellung mit einem Klick über Docker & Traefik"
 
-#: .\templates\pages\index.html:497
+#: .\templates\pages\index.html:501
 msgid "Automatic SSL & domain management"
 msgstr "Automatische SSL- & Domainverwaltung"
 
-#: .\templates\pages\index.html:500
+#: .\templates\pages\index.html:504
 msgid "Optimized for high traffic and reliability"
 msgstr "Optimiert für hohen Traffic und maximale Zuverlässigkeit"
 
-#: .\templates\pages\index.html:512
+#: .\templates\pages\index.html:516
 msgid "Unified Dashboard"
 msgstr "Zentrales Dashboard"
 
-#: .\templates\pages\index.html:513
+#: .\templates\pages\index.html:517
 msgid ""
 "Manage all your apps from <span class=\"fw-bold\">one clean and intuitive "
 "interface</span>"
@@ -2333,23 +2410,23 @@ msgstr ""
 "Verwalten Sie alle Ihre Apps über <span class=\"fw-bold\">eine klare und "
 "intuitive Oberfläche</span>"
 
-#: .\templates\pages\index.html:518
+#: .\templates\pages\index.html:522
 msgid "Simple UI for beginners and experts"
 msgstr "Einfache Benutzeroberfläche für Anfänger und Profis"
 
-#: .\templates\pages\index.html:521
+#: .\templates\pages\index.html:525
 msgid "Fully responsive and multilingual (i18n)"
 msgstr "Vollständig responsiv und mehrsprachig (i18n)"
 
-#: .\templates\pages\index.html:524
+#: .\templates\pages\index.html:528
 msgid "Clear container and service management"
 msgstr "Übersichtliches Container- und Service-Management"
 
-#: .\templates\pages\index.html:536
+#: .\templates\pages\index.html:540
 msgid "Smart Experience"
 msgstr "Intelligente Benutzererfahrung"
 
-#: .\templates\pages\index.html:537
+#: .\templates\pages\index.html:541
 msgid ""
 "SOFTmsg helps you <span class=\"fw-bold\">discover, install, and trust "
 "projects</span> with built-in transparency and insights."
@@ -2358,84 +2435,34 @@ msgstr ""
 "installieren und ihnen zu vertrauen</span> – mit integrierter Transparenz "
 "und Einblicken."
 
-#: .\templates\pages\index.html:542
+#: .\templates\pages\index.html:546
 msgid "Live stats: installs, downloads, and active users"
 msgstr "Live-Statistiken: Installationen, Downloads und aktive Nutzer"
 
-#: .\templates\pages\index.html:545
+#: .\templates\pages\index.html:549
 msgid "Built-in reviews and star ratings"
 msgstr "Integrierte Bewertungen und Sternebewertungen"
 
-#: .\templates\pages\index.html:548
+#: .\templates\pages\index.html:552
 msgid "Access to source code for open-source projects"
 msgstr "Zugang zum Quellcode von Open-Source-Projekten"
 
-#: .\templates\pages\index.html:551
+#: .\templates\pages\index.html:555
 msgid "Auto-sorted containers for smooth deployment flow"
 msgstr ""
 "Automatisch sortierte Container für einen reibungslosen Bereitstellungsablauf"
 
-#: .\templates\pages\index.html:554
+#: .\templates\pages\index.html:558
 msgid "SEO-friendly project pages with metadata"
 msgstr "SEO-freundliche Projektseiten mit Metadaten"
 
-msgid "Key features to <span class='text-success'>manage your projects effortlessly</span>"
-msgstr "Hauptfunktionen, um Ihre Projekte <span class='text-success'>mühelos zu verwalten</span>"
-
-msgid "Install projects with a single click"
-msgstr "Projekte mit nur einem Klick installieren"
-
-msgid "One-Click Deployment"
-msgstr "Bereitstellung mit einem Klick"
-
-
-msgid "Control project running state easily"
-msgstr "Projektstatus einfach steuern"
-
-msgid "Create and manage backups safely"
-msgstr "Backups sicher erstellen und verwalten"
-
-msgid "Restore your projects from backups"
-msgstr "Projekte aus Backups wiederherstellen"
-
-msgid "Upgrade, renew, or manage subscriptions easily"
-msgstr "Abonnements einfach aktualisieren, erneuern oder verwalten"
-
-msgid "Monitor usage and performance in real-time"
-msgstr "Nutzung und Leistung in Echtzeit überwachen"
-
-msgid "Performance"
-msgstr "Leistung"
-
-msgid "Change the project domain easily"
-msgstr "Projekt-Domain einfach ändern"
-
-msgid "SSL certificates ready for your project"
-msgstr "SSL-Zertifikate für Ihr Projekt bereit"
-
-msgid "SSL Certificates"
-msgstr "SSL-Zertifikate"
-
-msgid "View project logs and activities"
-msgstr "Projektprotokolle und Aktivitäten anzeigen"
-
-msgid "Logs Viewer"
-msgstr "Protokollanzeige"
-
-msgid "Rebuild or update your project easily"
-msgstr "Projekt einfach neu erstellen oder aktualisieren"
-
-msgid "Rebuild & Update"
-msgstr "Neu erstellen & Aktualisieren"
-
-
-#: .\templates\pages\index.html:795
+#: .\templates\pages\index.html:799
 #: .\templates\pages\services\HRManagement.html:356
 #: .\templates\pages\services\PatientManagement.html:287
 msgid "Customer reviews"
 msgstr "Kundenbewertungen"
 
-#: .\templates\pages\index.html:805
+#: .\templates\pages\index.html:809
 #: .\templates\pages\services\HRManagement.html:364
 #: .\templates\pages\services\PatientManagement.html:295
 msgid ""
@@ -2445,7 +2472,7 @@ msgstr ""
 "Eine All-in-One-Management-Lösung, die unseren Workflow erheblich verbessert "
 "hat. Es ist schnell, genau und unglaublich effizient."
 
-#: .\templates\pages\index.html:815 .\templates\pages\index.html:881
+#: .\templates\pages\index.html:819 .\templates\pages\index.html:885
 #: .\templates\pages\services\HRManagement.html:374
 #: .\templates\pages\services\HRManagement.html:439
 #: .\templates\pages\services\PatientManagement.html:305
@@ -2453,7 +2480,7 @@ msgstr ""
 msgid "Romania"
 msgstr "Rumänien"
 
-#: .\templates\pages\index.html:838
+#: .\templates\pages\index.html:842
 #: .\templates\pages\services\HRManagement.html:397
 #: .\templates\pages\services\PatientManagement.html:328
 msgid ""
@@ -2464,13 +2491,13 @@ msgstr ""
 "die Benutzerfreundlichkeit haben unsere Produktivität wie nie zuvor "
 "verbessert."
 
-#: .\templates\pages\index.html:848
+#: .\templates\pages\index.html:852
 #: .\templates\pages\services\HRManagement.html:407
 #: .\templates\pages\services\PatientManagement.html:338
 msgid "German"
 msgstr "Deutsch"
 
-#: .\templates\pages\index.html:871
+#: .\templates\pages\index.html:875
 #: .\templates\pages\services\HRManagement.html:429
 #: .\templates\pages\services\PatientManagement.html:360
 msgid ""
@@ -2480,15 +2507,15 @@ msgstr ""
 "Wir haben schon mehrere Managementlösungen ausprobiert, aber dieser sticht "
 "auf die Effizienz und Benutzerfreundlichkeit ab."
 
-#: .\templates\pages\index.html:924
+#: .\templates\pages\index.html:928
 msgid "Our Team"
 msgstr "Unser Team"
 
-#: .\templates\pages\index.html:935
+#: .\templates\pages\index.html:939
 msgid "Backend Dev"
 msgstr "Backend Dev"
 
-#: .\templates\pages\index.html:938
+#: .\templates\pages\index.html:942
 msgid ""
 "A highly skilled and trusted Backend Developer with deep expertise in "
 "building secure, integrated systems tailored to your business needs. "
@@ -2505,11 +2532,11 @@ msgstr ""
 "Partner für die Schaffung eines flexiblen und nachhaltigen Systems, das Ihre "
 "Ziele mit Zuversicht entspricht."
 
-#: .\templates\pages\index.html:951
+#: .\templates\pages\index.html:955
 msgid "UI/UX Designer"
 msgstr "UI/UX -Designer"
 
-#: .\templates\pages\index.html:954
+#: .\templates\pages\index.html:958
 msgid ""
 "A highly skilled UI/UX Designer with expertise in creating innovative user "
 "interfaces and seamless user experiences. Focused on achieving a balance "
@@ -2526,11 +2553,11 @@ msgstr ""
 "mich immer, Ideen in außergewöhnliche Designs zu verwandeln, die zum Erfolg "
 "des Projekts beitragen und eine beispiellose Benutzererfahrung liefern."
 
-#: .\templates\pages\index.html:967
+#: .\templates\pages\index.html:971
 msgid "Frontend Designer"
 msgstr "Frontend Designer"
 
-#: .\templates\pages\index.html:970
+#: .\templates\pages\index.html:974
 msgid ""
 "An exceptional Frontend Developer with expertise in transforming designs "
 "into interactive, user-friendly websites and applications. Focused on "
@@ -2546,7 +2573,7 @@ msgstr ""
 "atemberaubenden und vollständig integrierten digitalen Schnittstellen zum "
 "Leben zu erwecken."
 
-#: .\templates\pages\index.html:986
+#: .\templates\pages\index.html:990
 msgid ""
 "A professional female Project Manager with extensive experience in "
 "successfully planning and executing projects. She is responsible for "
@@ -2565,11 +2592,11 @@ msgstr ""
 "zu einem wichtigen Partner für den Projekterfolg macht und sie zu den "
 "gewünschten Ergebnissen führt."
 
-#: .\templates\pages\index.html:1024
+#: .\templates\pages\index.html:1028
 msgid "What is SOFTmsg?"
 msgstr "Was ist SOFTmsg?"
 
-#: .\templates\pages\index.html:1029
+#: .\templates\pages\index.html:1033
 msgid ""
 "SOFTmsg is a marketplace for ready-to-use web projects. You can install and "
 "run applications instantly with one click, without needing programming "
@@ -2579,11 +2606,11 @@ msgstr ""
 "Anwendungen mit nur einem Klick installieren und ausführen, ganz ohne "
 "Programmierkenntnisse."
 
-#: .\templates\pages\index.html:1039
+#: .\templates\pages\index.html:1043
 msgid "Do I need programming skills to use SOFTmsg?"
 msgstr "Brauche ich Programmierkenntnisse, um SOFTmsg zu nutzen?"
 
-#: .\templates\pages\index.html:1044
+#: .\templates\pages\index.html:1048
 msgid ""
 "No. The platform is designed to be simple and user-friendly. Just choose a "
 "project, click install, and it will be deployed automatically on your server."
@@ -2592,11 +2619,11 @@ msgstr ""
 "ein Projekt aus, klicken Sie auf Installieren, und es wird automatisch auf "
 "Ihrem Server bereitgestellt."
 
-#: .\templates\pages\index.html:1054
+#: .\templates\pages\index.html:1058
 msgid "What payment options are available?"
 msgstr "Welche Zahlungsmöglichkeiten stehen zur Verfügung?"
 
-#: .\templates\pages\index.html:1059
+#: .\templates\pages\index.html:1063
 msgid ""
 "SOFTmsg offers both free and paid plans. Paid plans can be purchased using "
 "credit cards, PayPal, and in some regions local payment methods."
@@ -2605,11 +2632,11 @@ msgstr ""
 "Kostenpflichtige Pläne können mit Kreditkarten, PayPal oder in einigen "
 "Regionen mit lokalen Zahlungsmethoden erworben werden."
 
-#: .\templates\pages\index.html:1069
+#: .\templates\pages\index.html:1073
 msgid "Can I customize the projects?"
 msgstr "Kann ich die Projekte anpassen?"
 
-#: .\templates\pages\index.html:1074
+#: .\templates\pages\index.html:1078
 msgid ""
 "Yes. You can adjust settings directly from the dashboard, and if the project "
 "is open-source you can also download and modify the source code."
@@ -2618,11 +2645,11 @@ msgstr ""
 "Projekt Open-Source ist, können Sie auch den Quellcode herunterladen und "
 "ändern."
 
-#: .\templates\pages\index.html:1084
+#: .\templates\pages\index.html:1088
 msgid "Is there a free trial?"
 msgstr "Gibt es eine kostenlose Testversion?"
 
-#: .\templates\pages\index.html:1089
+#: .\templates\pages\index.html:1093
 msgid ""
 "Yes. Many projects include a free plan or trial version so you can test them "
 "before upgrading to a paid subscription."
@@ -2631,11 +2658,11 @@ msgstr ""
 "sodass Sie sie ausprobieren können, bevor Sie auf ein kostenpflichtiges "
 "Abonnement umsteigen."
 
-#: .\templates\pages\index.html:1099
+#: .\templates\pages\index.html:1103
 msgid "How can I get support?"
 msgstr "Wie kann ich Support erhalten?"
 
-#: .\templates\pages\index.html:1104
+#: .\templates\pages\index.html:1108
 msgid ""
 "You can reach support through live chat and email. We also provide a "
 "knowledge base with guides, tutorials, and troubleshooting steps."
@@ -2644,7 +2671,7 @@ msgstr ""
 "wir eine Wissensdatenbank mit Anleitungen, Tutorials und "
 "Problemlösungsanweisungen bereit."
 
-#: .\templates\pages\index.html:1134
+#: .\templates\pages\index.html:1138
 msgid ""
 "Do you want to develop a custom program that <span class='text-"
 "primary'>meets your specific needs?"
@@ -2652,11 +2679,11 @@ msgstr ""
 "Möchten Sie ein benutzerdefiniertes Programm entwickeln, das <span class = "
 "'text-primary'> Ihre spezifischen Anforderungen erfüllt?"
 
-#: .\templates\pages\index.html:1139
+#: .\templates\pages\index.html:1143
 msgid "Contact Form"
 msgstr "Kontaktformular"
 
-#: .\templates\pages\index.html:1143
+#: .\templates\pages\index.html:1147
 #: .\templates\pages\services\HRManagement.html:26
 #: .\templates\pages\services\HRManagement.html:820
 #: .\templates\pages\services\PatientManagement.html:25
@@ -2667,7 +2694,7 @@ msgstr "Kontaktformular"
 msgid "Contact us"
 msgstr "Kontaktieren Sie uns"
 
-#: .\templates\pages\index.html:1147
+#: .\templates\pages\index.html:1151
 msgid ""
 "Fill out the contact form now, and our dedicated team is ready to provide "
 "you with the support you need and turn your dreams into reality. Take the "
@@ -2677,115 +2704,115 @@ msgstr ""
 "bereit, Ihnen die Unterstützung zu bieten, die Sie benötigen, und verwandeln "
 "Sie Ihre Träume in die Realität. Machen Sie den ersten Schritt zum Erfolg!"
 
-#: .\templates\pages\index.html:1160 .\templates\parts\footer.html:19
+#: .\templates\pages\index.html:1164 .\templates\parts\footer.html:19
 #: .\templates\parts\footer.html:20
 msgid "Email address"
 msgstr "E-Mail-Adresse"
 
-#: .\templates\pages\index.html:1167
+#: .\templates\pages\index.html:1171
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
-#: .\templates\pages\index.html:1184
+#: .\templates\pages\index.html:1188
 msgid "Project Description"
 msgstr "Projektbeschreibung"
 
-#: .\templates\pages\index.html:1188
+#: .\templates\pages\index.html:1192
 msgid "Enter a detailed description of your project."
 msgstr "Geben Sie eine detaillierte Beschreibung Ihres Projekts ein."
 
-#: .\templates\pages\index.html:1193
+#: .\templates\pages\index.html:1197
 msgid "Examples of similar websites"
 msgstr "Beispiele für ähnliche Websites"
 
-#: .\templates\pages\index.html:1197
+#: .\templates\pages\index.html:1201
 msgid "Provide examples or links to designs and websites you like."
 msgstr ""
 "Geben Sie Beispiele oder Links zu Designs und Websites an, die Sie mögen."
 
-#: .\templates\pages\index.html:1210
+#: .\templates\pages\index.html:1214
 msgid ""
 "By sending this form I confirm that I have read and accept the Privacy Policy"
 msgstr ""
 "Durch das Senden dieses Formulars bestätige ich, dass ich die "
 "Datenschutzrichtlinie gelesen und akzeptiert habe"
 
-#: .\templates\pages\index.html:1212
+#: .\templates\pages\index.html:1216
 msgid "You must agree before submitting."
 msgstr "Sie müssen sich vor dem Einreichen zustimmen."
 
-#: .\templates\pages\index.html:1219
+#: .\templates\pages\index.html:1223
 msgid "Submit"
 msgstr "Einreichen"
 
-#: .\templates\pages\index.html:1345
+#: .\templates\pages\index.html:1349
 msgid "No programming needed – we handle setup and hosting"
 msgstr ""
 "Keine Programmierkenntnisse erforderlich – wir kümmern uns um Installation "
 "und Hosting"
 
-#: .\templates\pages\index.html:1346
+#: .\templates\pages\index.html:1350
 msgid "Manage all your deployed projects in one place"
 msgstr "Verwalten Sie alle Ihre bereitgestellten Projekte an einem Ort"
 
-#: .\templates\pages\index.html:1347
+#: .\templates\pages\index.html:1351
 msgid "A marketplace of open-source projects, ready to launch"
 msgstr "Ein Marktplatz für Open-Source-Projekte, sofort startbereit"
 
-#: .\templates\pages\index.html:1348
+#: .\templates\pages\index.html:1352
 msgid "Your marketplace for ready-to-use web projects"
 msgstr "Ihr Marktplatz für sofort nutzbare Webprojekte"
 
-#: .\templates\pages\index.html:1349
+#: .\templates\pages\index.html:1353
 msgid "Deploy projects with just one click in one dashboard"
 msgstr "Projekte mit nur einem Klick über ein Dashboard bereitstellen"
 
-#: .\templates\pages\index.html:1350
+#: .\templates\pages\index.html:1354
 msgid "No programming needed – we set it up for you"
 msgstr "Keine Programmierung nötig – wir richten alles für Sie ein"
 
-#: .\templates\pages\index.html:1351
+#: .\templates\pages\index.html:1355
 msgid "Manage all your apps, domains, and hosting in one dashboard"
 msgstr ""
 "Verwalten Sie alle Ihre Apps, Domains und Ihr Hosting in einem Dashboard"
 
-#: .\templates\pages\index.html:1352
+#: .\templates\pages\index.html:1356
 msgid "Open-source projects, install and run instantly"
 msgstr "Open-Source-Projekte, sofort installieren und ausführen"
 
-#: .\templates\pages\index.html:1367
+#: .\templates\pages\index.html:1371
 msgid "One-Click Deploy"
 msgstr "Bereitstellung mit einem Klick"
 
-#: .\templates\pages\index.html:1368
+#: .\templates\pages\index.html:1372
 msgid "Ready-to-Use Code"
 msgstr "Fertig nutzbarer Code"
 
-#: .\templates\pages\index.html:1369
+#: .\templates\pages\index.html:1373
 msgid "Easy Configuration"
 msgstr "Einfache Konfiguration"
 
-#: .\templates\pages\index.html:1370
+#: .\templates\pages\index.html:1374
 msgid "Secure Setup"
 msgstr "Sichere Einrichtung"
 
-#: .\templates\pages\index.html:1371
+#: .\templates\pages\index.html:1375
 msgid "Server Ready"
 msgstr "Serverbereit"
 
-#: .\templates\pages\index.html:1372
+#: .\templates\pages\index.html:1376
 msgid "Import/Export Projects"
 msgstr "Projekte importieren/exportieren"
 
-#: .\templates\pages\index.html:1373
+#: .\templates\pages\index.html:1377
 msgid "Collaborate Easily"
 msgstr "Einfache Zusammenarbeit"
 
-#: .\templates\pages\index.html:1374
+#: .\templates\pages\index.html:1378
 msgid "Responsive Design"
 msgstr "Responsives Design"
 
-#: .\templates\pages\index.html:1376
+#: .\templates\pages\index.html:1380
 msgid "Guaranteed Updates"
 msgstr "Garantierte Updates"
 
@@ -3824,6 +3851,18 @@ msgstr "Melden Sie sich aus"
 #: .\templates\parts\navbar.html:99
 msgid "Sign Up"
 msgstr "Melden Sie sich an"
+
+msgid "for management systems"
+msgstr "für Managementsysteme"
+
+
+#~ msgid ""
+#~ "A versatile software suite transforming businesses of all sizes by "
+#~ "simplifying complex systems into efficient work environments."
+#~ msgstr ""
+#~ "Eine vielseitige Software -Suite, die Unternehmen aller Größen "
+#~ "verwandelt, indem komplexe Systeme in effiziente Arbeitsumgebungen "
+#~ "vereinfacht werden."
 
 #~ msgid "IT tickets"
 #~ msgstr "Es Tickets"

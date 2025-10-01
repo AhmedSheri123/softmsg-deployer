@@ -48,32 +48,35 @@ function randomGen() {
   
   
   // Toast Alert
-  const toastBox = document.querySelector('#toast-box')
-  function showToast(toastID, username, msg, img) {
-      if (img == '') {
-        img = default_img_profile
-      }
-    html = `
-  
-      <!-- Then put toasts within -->
-      <div class="toast" role="alert" id="toast${toastID}" aria-live="assertive" aria-atomic="true">
+  const toastBox = document.querySelector('#toast-box');
+
+function showToast(toastID, username, msg, img, duration = 10000) { // مدة بالمللي ثانية
+    if (img == '') {
+        img = default_img_profile;
+    }
+
+    const html = `
+    <div class="toast" role="alert" id="toast${toastID}" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
-          <img src="${img}" class="rounded me-2" alt="..." width="50" style="border-radius: 100% !important;">
-          <strong class="me-auto">${username}</strong>
-          <small class="text-body-secondary">الان</small>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <img src="${img}" class="rounded me-2" alt="..." width="50" style="border-radius: 100% !important;">
+            <strong class="me-auto">${username}</strong>
+            <small class="text-body-secondary">الان</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-          ${msg}
+            ${msg}
         </div>
-      </div>
-    `
-  
-  
-    toastBox.insertAdjacentHTML("beforeend", html)
-    $(`#toast${toastID}`).toast('show');
-  
-  };
+    </div>
+    `;
+
+    toastBox.insertAdjacentHTML("beforeend", html);
+
+    // استدعاء toast مع تحديد مدة العرض
+    const toastElement = document.getElementById(`toast${toastID}`);
+    const bsToast = new bootstrap.Toast(toastElement, { delay: duration });
+    bsToast.show();
+};
+
 
 
 
