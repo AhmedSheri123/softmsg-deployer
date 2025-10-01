@@ -294,7 +294,7 @@ class ProjectReview(models.Model):
 
 class ProjectDBConfig(models.Model):
     project = models.OneToOneField(AvailableProject, on_delete=models.CASCADE, related_name="db_config")
-    
+    service_name = models.CharField(max_length=50, null=True, help_text="service name in project docker compose template, for example=wordpress, db")
     db_name = models.CharField(max_length=255, help_text="POSTGRES_DB")
     db_user = models.CharField(max_length=255, blank=True, null=True, help_text="POSTGRES_USER")
     db_password = models.CharField(max_length=255, blank=True, null=True, help_text="POSTGRES_PASS")

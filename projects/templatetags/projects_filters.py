@@ -63,3 +63,32 @@ def get_project_language_tech_tree(project):
                 else:
                     lines.append(f"     └─ {t}")
     return "\n".join(lines)
+
+@register.simple_tag
+def get_deployment_compose_env(deployment_id, service_name, var_name):
+    print(deployment_id, service_name, var_name)
+    try:
+        deployment = Deployment.objects.get(id=deployment_id)
+    except Deployment.DoesNotExist:
+        return 'N/A'
+
+    compose = deployment.render_deployment_compose()
+    services = compose.get("services", {})
+    service = services.get(service_name)
+    if not service:
+        return 'N/A'
+
+    env = service.get('environment', {})
+    var_value = 'N/A'
+
+    # إذا environment dict
+    if isinstance(env, dict):
+        var_value = env.get(var_name, 'N/A')
+    # إذا environment قائمة من السلاسل
+    elif isinstance(env, list):
+        for item in env:
+            if isinstance(item, str) and item.startswith(f"{var_name}="):
+                var_value = item.split("=", 1)[1]
+                break
+
+    return var_value

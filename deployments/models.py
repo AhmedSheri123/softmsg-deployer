@@ -35,7 +35,8 @@ class Deployment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(AvailableProject, on_delete=models.CASCADE)
     deployment_name = models.CharField(max_length=50, blank=True, null=True)
-    
+    compose_template = models.TextField(null=True, blank=True)
+
     ip_address = models.GenericIPAddressField(blank=True, null=True)
     version = models.CharField(max_length=50, default="1.0")
     progress = models.IntegerField(choices=SERVICE_PROGRESS, null=True)
@@ -83,13 +84,11 @@ class Deployment(models.Model):
             return dc.first().domain
         return 'N/A'
     
-    @property
-    def backend_domain(self):
-        pc = self.project.containers.all()
-        if pc.filter(type='backend').exists():
-            return self.containers.get(project_container__type='backend').domain
-        else:return 'N/A'
-
+    def get_domain_by_service_name(self, service_name):
+        dc = self.containers.filter(service_name=service_name)
+        if dc:
+            return dc.first().domain
+        return 'N/A'
 
 
 
@@ -208,6 +207,11 @@ class Deployment(models.Model):
     # ------------------- Compose Rendering -------------------
     def docker_compose(self):
         return yaml.safe_load(self.project.docker_compose_template)
+
+    def render_deployment_compose(self):
+        if self.compose_template:
+            return yaml.safe_load(self.compose_template) 
+        return {}   
         
     def render_dc_compose(self):
         """Render docker-compose مع volumes فريدة لكل Deployment"""

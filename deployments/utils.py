@@ -179,6 +179,9 @@ def run_docker(deployment):
     """
     try:
         compose_yaml = deployment.render_docker_resolved_compose_template()
+        deployment.compose_template = compose_yaml
+        deployment.save()
+
         logger.info(f"compose_yaml!!!-----> {compose_yaml}")
 
         compose_file_path = get_compose_file_path(deployment)

@@ -1,5 +1,6 @@
 {% extends "dashboard_base.html" %}
 {% load i18n %}
+{% load projects_filters %}
 
 {% block sheri %}
 
@@ -88,6 +89,7 @@
     <div class="bg-body-tertiary p-4 rounded">
         <div class="row row-cols-1 row-cols-md-2 g-3">
 
+            <!-- User Info -->
             <div class="col">
                 <label class="form-label">
                     <i class="fa-solid fa-user"></i> {% trans "Username" %}
@@ -95,6 +97,7 @@
                 <input type="text" class="form-control" disabled value="{{ deployment.user.username }}">
             </div>
 
+            <!-- Project Info -->
             <div class="col">
                 <label class="form-label">
                     <i class="fa-solid fa-box"></i> {% trans "Project Name" %}
@@ -102,6 +105,7 @@
                 <input type="text" class="form-control" disabled value="{{ deployment.project.name }}">
             </div>
 
+            <!-- Plan Info -->
             <div class="col">
                 <label class="form-label">
                     <i class="fa-solid fa-server"></i> {% trans "Plan" %}
@@ -109,6 +113,7 @@
                 <input type="text" class="form-control" disabled value="{{ deployment.plan.name }}">
             </div>
 
+            <!-- Domain -->
             <div class="col">
                 <label class="form-label">
                     <i class="fa-solid fa-globe"></i> {% trans "Domain" %}
@@ -116,6 +121,7 @@
                 <input type="text" dir="ltr" class="form-control" disabled value="{{ deployment.domain|default:"N/A" }}">
             </div>
 
+            <!-- Status -->
             <div class="col">
                 <label class="form-label">
                     <i class="fa-solid fa-signal"></i> {% trans "Status" %}
@@ -128,6 +134,7 @@
                 </span>
             </div>
 
+            <!-- Progress -->
             <div class="col">
                 <label class="form-label">
                     <i class="fa-solid fa-bars-progress"></i> {% trans "Progress" %}
@@ -142,12 +149,67 @@
                     {{ deployment.get_progress_display }}
                 </span>
             </div>
-
         </div>
     </div>
 </div>
 <!-- End Deployment Info -->
 
+{% if deployment.project.db_config %}
+<!-- Database Info -->
+<div class="container p-4">
+    <h5>{% trans "Database Info" %}</h5>
+    <div class="bg-body-tertiary p-4 rounded">
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+            <!-- Database Config -->
+            
+            <div class="col">
+                <label class="form-label">
+                    <i class="fa-solid fa-database"></i> {% trans "Database Host" %}
+                </label>
+                <input type="text" class="form-control" disabled 
+                value="
+                {% for container in deployment.containers.all %}
+                {% if container.service_name == deployment.project.db_config.service_name %}
+                {{container.domain}}
+                {% endif %}
+                {% endfor %}
+                 ">
+            </div>
+            {% get_deployment_compose_env deployment.id deployment.project.db_config.service_name deployment.project.db_config.db_name as db_name %}
+            {% get_deployment_compose_env deployment.id deployment.project.db_config.service_name deployment.project.db_config.db_user as db_user %}
+            {% get_deployment_compose_env deployment.id deployment.project.db_config.service_name deployment.project.db_config.db_password as db_password %}
+            <div class="col">
+                <label class="form-label">
+                    <i class="fa-solid fa-database"></i> {% trans "Database Name" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{ db_name }}">
+            </div>
+
+            <div class="col">
+                <label class="form-label">
+                    <i class="fa-solid fa-user-lock"></i> {% trans "Database User" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{ db_user|default:'N/A' }}">
+            </div>
+
+            <div class="col">
+                <label class="form-label">
+                    <i class="fa-solid fa-key"></i> {% trans "Database Password" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{ db_password|default:'N/A' }}">
+            </div>
+
+            <div class="col">
+                <label class="form-label">
+                    <i class="fa-solid fa-network-wired"></i> {% trans "Database Port" %}
+                </label>
+                <input type="text" class="form-control" disabled value="{{ "5432"|default:'N/A' }}">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Database Info -->
+{% endif %}
 
 <!-- Subscription -->
 <div class="container p-4">
