@@ -1,4 +1,5 @@
 {% extends base_template %}
+{% load static %}
 {% load i18n %}
 {% load projects_filters %}
 
@@ -15,7 +16,7 @@
 <meta property="og:description" content="{% trans 'Discover and install ready projects, apps, and control panels instantly.' %}">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta property="og:type" content="website">
-<meta property="og:image" content="{{ static 'img/softmsg-logo.png' }}">
+<meta property="og:image" content="{% static 'img/softmsg-logo.png' %}">
 
 <!-- CSS -->
 <link rel="stylesheet" href="https://unpkg.com/sal.js/dist/sal.css">
