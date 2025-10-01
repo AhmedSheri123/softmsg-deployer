@@ -167,13 +167,7 @@
                     <i class="fa-solid fa-database"></i> {% trans "Database Host" %}
                 </label>
                 <input type="text" class="form-control" disabled 
-                value="
-                {% for container in deployment.containers.all %}
-                {% if container.service_name == deployment.project.db_config.service_name %}
-                {{container.domain}}
-                {% endif %}
-                {% endfor %}
-                 ">
+                value="{% for container in deployment.containers.all %}{% if container.service_name == deployment.project.db_config.service_name %}{{container.domain}}{% endif %}{% endfor %}">
             </div>
             {% get_deployment_compose_env deployment.id deployment.project.db_config.service_name deployment.project.db_config.db_name as db_name %}
             {% get_deployment_compose_env deployment.id deployment.project.db_config.service_name deployment.project.db_config.db_user as db_user %}
@@ -203,7 +197,7 @@
                 <label class="form-label">
                     <i class="fa-solid fa-network-wired"></i> {% trans "Database Port" %}
                 </label>
-                <input type="text" class="form-control" disabled value="{{ "5432"|default:'N/A' }}">
+                <input type="text" class="form-control" disabled value="{{ "5433"|default:'N/A' }}">
             </div>
         </div>
     </div>

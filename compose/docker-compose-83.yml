@@ -1,0 +1,52 @@
+version: '3.9'
+services:
+  db_83_app:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: db-83_db
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: 73e56f39985b4e29
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+    - C:\containers\mnt\vol_83\db-83_var_lib_mysql:/var/lib/mysql
+    container_name: db-83
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024m
+    networks:
+    - deploy_network
+  wordpress_83_app:
+    image: wordpress:latest
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db_83_app:3306
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: 93c485848b9d49f9
+      WORDPRESS_DB_NAME: db-83_db
+    depends_on:
+    - db_83_app
+    volumes:
+    - C:\containers\mnt\vol_83\wordpress-83_var_www_html:/var/www/html
+    labels:
+      traefik.enable: 'true'
+      traefik.http.routers.wordpress-83.rule: Host(`wordpress-83.softmsg.com`)
+      traefik.http.routers.wordpress-83.entrypoints: web,websecure
+      traefik.http.routers.wordpress-83.tls.certresolver: myresolver
+      traefik.http.services.wordpress-83.loadbalancer.server.port: 80
+    container_name: wordpress-83
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024m
+    networks:
+    - deploy_network
+volumes:
+  db-83_var_lib_mysql: null
+  wordpress-83_var_www_html: null
+networks:
+  deploy_network:
+    external: true

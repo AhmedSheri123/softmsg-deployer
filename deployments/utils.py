@@ -168,9 +168,20 @@ def update_deployment(deployment, progress, status):
     logger.info(f"Deployment {deployment.id} updated: progress={progress}, status={status}")
 
 def get_compose_file_path(deployment):
+    compose_yaml = deployment.compose_template
     compose_file = f"docker-compose-{deployment.id}.yml"
     compose_dir = BASE_DIR / "compose"
     compose_file_path = compose_dir / compose_file
+
+    # حذف الملف القديم إذا كان موجود
+    if compose_file_path.exists():
+        compose_file_path.unlink()
+        logger.info(f"Old compose file {compose_file_path} removed")
+
+    # كتابة ملف الـ compose الجديد
+    compose_file_path.write_text(compose_yaml)
+    logger.info(f"Compose file {compose_file_path} created")
+
     return compose_file_path
     
 def run_docker(deployment):
@@ -178,22 +189,11 @@ def run_docker(deployment):
     تشغيل جميع حاويات الـ Deployment باستخدام docker-compose مع project name فريد
     """
     try:
-        compose_yaml = deployment.render_docker_resolved_compose_template()
-        deployment.compose_template = compose_yaml
-        deployment.save()
-
+        compose_yaml = deployment.compose_template
         logger.info(f"compose_yaml!!!-----> {compose_yaml}")
 
         compose_file_path = get_compose_file_path(deployment)
 
-        # حذف الملف القديم إذا كان موجود
-        if compose_file_path.exists():
-            compose_file_path.unlink()
-            logger.info(f"Old compose file {compose_file_path} removed")
-
-        # كتابة ملف الـ compose الجديد
-        compose_file_path.write_text(compose_yaml)
-        logger.info(f"Compose file {compose_file_path} created")
 
         # project name فريد لكل deployment
         project_name = deployment.deployment_name

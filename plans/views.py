@@ -85,6 +85,9 @@ def ApplySubscription(request, order_id):
 
             deployment.create_xfs_volume(plan.storage)
             # تشغيل الـ Docker containers
+            compose_yaml = deployment.render_docker_resolved_compose_template()
+            deployment.compose_template = compose_yaml
+            deployment.save()
             success = run_docker(deployment)
             if success:
                 deployment.project.installs += 1

@@ -12,6 +12,7 @@ import re
 import logging
 import yaml
 import shutil
+import uuid
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
@@ -297,7 +298,8 @@ class Deployment(models.Model):
         if context is None:
             context = {
                 "deployment": self,
-                "compose": self.render_dc_compose()
+                "compose": self.render_dc_compose(),
+                "_uuid_cache": {}
             }
 
         # recursive handling
@@ -319,6 +321,40 @@ class Deployment(models.Model):
             logger.debug("resolve_placeholder: expr=%s parts=%s", expr, parts)
 
             try:
+                # ---- uuid.<cache_id>.<length> ----
+                if parts[0] == "uuid":
+                    cache_id = "default"   # لو ما حطيت cache_id
+                    length = 32
+
+                    if len(parts) == 2:  
+                        # ممكن يكون بس طول أو cache_id
+                        if parts[1].isdigit():
+                            length = int(parts[1])
+                        else:
+                            cache_id = parts[1]
+
+                    elif len(parts) >= 3:
+                        cache_id = parts[1]
+                        if parts[2].isdigit():
+                            length = int(parts[2])
+
+                    if "_uuid_cache" not in context:
+                        context["_uuid_cache"] = {}
+
+                    cache_key = f"uuid.{cache_id}.{length}"
+
+                    if cache_key in context["_uuid_cache"]:
+                        result = context["_uuid_cache"][cache_key]
+                    else:
+                        raw_uuid = uuid.uuid4().hex
+                        result = raw_uuid[:length]
+                        context["_uuid_cache"][cache_key] = result
+
+                    logger.debug("uuid resolved (cached): %s -> %s", expr, result)
+                    return result
+
+
+            
                 # ---- dc.<service_name>.<field> ----
                 if parts[0] == "dc" and len(parts) >= 3:
                     service_name = parts[1]

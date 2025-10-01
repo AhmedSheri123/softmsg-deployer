@@ -68,7 +68,14 @@ class AvailableProject(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True, null=True, verbose_name=_("Publication Date"))
     
 
-    docker_compose_template = models.TextField(null=True, blank=True)
+    docker_compose_template = models.TextField(null=True, blank=True, 
+                                               help_text="""
+                                            {container.<service_name>.<field>}
+                                            {deployment.<field>}
+                                            {dc.<service_name>.<field>}
+                                            {uuid.mydb.16}
+                                            {uuid.wordpress.8}
+                                            """)
     which_service_has_main_domain = models.CharField(blank=True, null=True, max_length=50, help_text="enter service name from docker compose template, for example=wordpress, db")
 
     def __str__(self):
