@@ -394,7 +394,7 @@ function stopSpiner(btn) {
 
 hardRestartBtn.addEventListener("click", () => {
     startSpiner(hardRestartBtn)
-    fetch("{% url 'restart_deployment' deployment.id %}", {method: "POST", headers: {'X-CSRFToken': '{{ csrf_token }}'}})
+    fetch("{% url 'hard_restart_deployment' deployment.id %}", {method: "POST", headers: {'X-CSRFToken': '{{ csrf_token }}'}})
     .then(res => res.json())
     .then(data => alert(data.message))
     .catch(err => console.error(err)).finally(() => {
@@ -404,7 +404,7 @@ hardRestartBtn.addEventListener("click", () => {
 
 restartBtn.addEventListener("click", () => {
     startSpiner(restartBtn)
-    fetch("{% url 'hard_restart_deployment' deployment.id %}", {method: "POST", headers: {'X-CSRFToken': '{{ csrf_token }}'}})
+    fetch("{% url 'restart_deployment' deployment.id %}", {method: "POST", headers: {'X-CSRFToken': '{{ csrf_token }}'}})
     .then(res => res.json())
     .then(data => alert(data.message))
     .catch(err => console.error(err)).finally(() => {

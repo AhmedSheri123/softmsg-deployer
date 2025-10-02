@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
-from .utils import run_docker, delete_docker, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, hard_restart, get_storage_usage
+from .utils import run_docker, delete_docker_compose, restart_docker, get_container_usage, start_docker, stop_docker, rebuild_docker, hard_restart, get_storage_usage
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, FileResponse, Http404
@@ -19,6 +19,12 @@ def rebuild_project(request, deployment_id):
     deployment = Deployment.objects.get(
         id=deployment_id,
     )
+    deployment.uuid_cache = {}
+    deployment.save()
+
+    compose_yaml = deployment.render_docker_resolved_compose_template()
+    deployment.compose_template = compose_yaml
+    deployment.save()
 
     # استدعاء السكربت لإنشاء Docker container
     success = rebuild_docker(deployment)
@@ -139,7 +145,7 @@ def deployment_usage_api(request, deployment_id):
 def delete_deployment(request, deployment_id):
     deployment = Deployment.objects.get(id=deployment_id)
     if deployment:
-        delete_docker(deployment)
+        delete_docker_compose(deployment)
     deployment.delete()
     return redirect('my_deployments')
 
@@ -157,6 +163,11 @@ def restart_deployment(request, deployment_id):
 @csrf_exempt
 def hard_restart_deployment(request, deployment_id):
     deployment = get_object_or_404(Deployment, id=deployment_id, user=request.user)
+
+    compose_yaml = deployment.render_docker_resolved_compose_template()
+    deployment.compose_template = compose_yaml
+    deployment.save()
+
     try:
         hard_restart(deployment)
         return JsonResponse({"success": True, "message": "Device restarted"})

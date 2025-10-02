@@ -9,6 +9,9 @@ import logging
 import os
 import time
 import subprocess
+import shutil
+import re
+
 from django.conf import settings
 BASE_DIR = settings.BASE_DIR
 
@@ -101,11 +104,7 @@ def expand_env(value, fixed_env):
         return {k: expand_env(v, fixed_env) for k, v in value.items()}
     else:
         return value
-import docker
-from docker.errors import NotFound, APIError
-import logging
 
-logger = logging.getLogger(__name__)
 
 # ---------------- Project containers ----------------
 def create_project_container(container):
@@ -167,278 +166,101 @@ def update_deployment(deployment, progress, status):
     deployment.save()
     logger.info(f"Deployment {deployment.id} updated: progress={progress}, status={status}")
 
-def get_compose_file_path(deployment):
+
+
+
+
+def get_compose_bin():
+    """إرجاع الأمر الصحيح لـ docker-compose (قديم أو جديد)."""
+    if shutil.which("docker-compose"):
+        return ["docker-compose"]
+    elif shutil.which("docker"):
+        return ["docker", "compose"]
+    else:
+        raise RuntimeError("Neither docker-compose nor docker compose found!")
+
+
+def sanitize_project_name(name: str) -> str:
+    """تنظيف اسم المشروع ليتوافق مع Docker."""
+    return re.sub(r'[^a-zA-Z0-9_-]', '-', name)
+
+
+def get_compose_file_path(deployment, rewrite=True):
+    """إرجاع مسار ملف الـ compose (مع خيار إعادة الإنشاء)."""
     compose_yaml = deployment.compose_template
     compose_file = f"docker-compose-{deployment.id}.yml"
     compose_dir = BASE_DIR / "compose"
     compose_file_path = compose_dir / compose_file
 
-    # حذف الملف القديم إذا كان موجود
-    if compose_file_path.exists():
-        compose_file_path.unlink()
-        logger.info(f"Old compose file {compose_file_path} removed")
+    compose_dir.mkdir(parents=True, exist_ok=True)
 
-    # كتابة ملف الـ compose الجديد
-    compose_file_path.write_text(compose_yaml)
-    logger.info(f"Compose file {compose_file_path} created")
+    if rewrite:
+        if compose_file_path.exists():
+            compose_file_path.unlink()
+            logger.info(f"Old compose file {compose_file_path} removed")
+
+        compose_file_path.write_text(compose_yaml)
+        logger.info(f"Compose file {compose_file_path} created")
 
     return compose_file_path
-    
-def run_docker(deployment):
+
+
+def run_compose_command(deployment, command: list, success_status=None, fail_status=3, rewrite=False):
     """
-    تشغيل جميع حاويات الـ Deployment باستخدام docker-compose مع project name فريد
+    تشغيل docker-compose مع project name فريد.
     """
     try:
-        compose_yaml = deployment.compose_template
-        logger.info(f"compose_yaml!!!-----> {compose_yaml}")
+        compose_file_path = get_compose_file_path(deployment, rewrite=rewrite)
+        project_name = sanitize_project_name(deployment.deployment_name)
 
-        compose_file_path = get_compose_file_path(deployment)
+        full_cmd = get_compose_bin() + ["-f", str(compose_file_path), "-p", project_name] + command
+        logger.debug(f"Running command: {' '.join(full_cmd)}")
 
-
-        # project name فريد لكل deployment
-        project_name = deployment.deployment_name
-
-        # تشغيل docker-compose
-        result = subprocess.run(
-            ["docker-compose", "-f", str(compose_file_path), "-p", project_name, "up", "-d"],
-            capture_output=True,
-            text=True
-        )
+        result = subprocess.run(full_cmd, capture_output=True, text=True)
 
         if result.returncode == 0:
-            update_deployment(deployment, progress=4, status=2)  # Running
-            logger.info(f"Deployment {deployment.id} succeeded with project name {project_name}")
+            if success_status is not None:
+                update_deployment(deployment, progress=4, status=success_status)
+            logger.info(f"Deployment {deployment.id} succeeded: {result.stdout.strip()}")
             return True
         else:
-            update_deployment(deployment, progress=5, status=3)  # Failed
-            logger.error(f"Deployment {deployment.id} failed: {result.stderr}")
+            update_deployment(deployment, progress=5, status=fail_status)
+            logger.error(f"Deployment {deployment.id} failed: {result.stderr.strip()}")
             return False
 
     except Exception as e:
-        update_deployment(deployment, progress=5, status=3)  # Failed
+        update_deployment(deployment, progress=5, status=fail_status)
         logger.exception(f"Deployment {deployment.id} crashed: {e}")
         return False
 
 
-def start_docker_compose(deployment):
-    """
-    تشغيل جميع حاويات الـ Deployment التي تم إيقافها مسبقًا.
-    """
-    try:
-        compose_file_path = get_compose_file_path(deployment)
-        if not compose_file_path.exists():
-            logger.warning(f"Compose file {compose_file_path} does not exist")
-            return False
-        # project name فريد لكل deployment
-        project_name = deployment.deployment_name
+# دوال مختصرة
+def run_docker(deployment):
+    return run_compose_command(deployment, ["up", "-d"], success_status=2, rewrite=True)
 
-        # تشغيل الحاويات
-        result = subprocess.run(
-            ["docker-compose", "-f", str(compose_file_path), "-p", project_name, "start"],
-            capture_output=True,
-            text=True
-        )
+def start_docker(deployment):
+    return run_compose_command(deployment, ["start"], success_status=2)
 
-        if result.returncode == 0:
-            update_deployment(deployment, progress=5, status=2)  # وضع نشط
-            logger.info(f"Deployment {deployment.id} started successfully")
-            return True
-        else:
-            logger.error(f"Failed to start deployment {deployment.id}: {result.stderr}")
-            return False
+def stop_docker(deployment):
+    return run_compose_command(deployment, ["stop"], success_status=1)
 
-    except Exception as e:
-        logger.exception(f"Error starting deployment {deployment.id}: {e}")
-        return False
+def restart_docker(deployment):
+    return run_compose_command(deployment, ["restart"], success_status=2)
 
-
-def stop_docker_compose(deployment):
-    """
-    إيقاف وإزالة جميع حاويات الـ Deployment باستخدام docker-compose
-    """
-    try:
-
-        compose_file_path = get_compose_file_path(deployment)
-        if not compose_file_path.exists():
-            logger.warning(f"Compose file {compose_file_path} does not exist")
-            return False
-        # project name فريد لكل deployment
-        project_name = deployment.deployment_name
-
-        # تنفيذ docker-compose down
-        result = subprocess.run(
-            ["docker-compose", "-f", str(compose_file_path), "-p", project_name, "stop"],
-            capture_output=True,
-            text=True
-        )
-
-
-        if result.returncode == 0:
-            update_deployment(deployment, progress=5, status=1)  # Stopped
-            logger.info(f"Deployment {deployment.id} stopped successfully with project name {project_name}")
-            return True
-        else:
-            logger.error(f"Failed to stop deployment {deployment.id}: {result.stderr}")
-            return False
-
-    except Exception as e:
-        logger.exception(f"Error stopping deployment {deployment.id}: {e}")
-        return False
-
-def restart_docker_compose(deployment):
-    """
-    إيقاف وإزالة جميع حاويات الـ Deployment باستخدام docker-compose
-    """
-    try:
-
-        compose_file_path = get_compose_file_path(deployment)
-        if not compose_file_path.exists():
-            logger.warning(f"Compose file {compose_file_path} does not exist")
-            return False
-        # project name فريد لكل deployment
-        project_name = deployment.deployment_name
-
-        # تنفيذ docker-compose down
-        result = subprocess.run(
-            ["docker-compose", "-f", str(compose_file_path), "-p", project_name, "restart"],
-            capture_output=True,
-            text=True
-        )
-
-
-        if result.returncode == 0:
-            update_deployment(deployment, progress=5, status=1)  # Stopped
-            logger.info(f"Deployment {deployment.id} stopped successfully with project name {project_name}")
-            return True
-        else:
-            logger.error(f"Failed to stop deployment {deployment.id}: {result.stderr}")
-            return False
-
-    except Exception as e:
-        logger.exception(f"Error stopping deployment {deployment.id}: {e}")
-        return False
-
-    
 def delete_docker_compose(deployment):
-    """
-    إيقاف وإزالة جميع حاويات الـ Deployment باستخدام docker-compose
-    """
-    try:
-
-        compose_file_path = get_compose_file_path(deployment)
-        if not compose_file_path.exists():
-            logger.warning(f"Compose file {compose_file_path} does not exist")
-            return False
-        # project name فريد لكل deployment
-        project_name = deployment.deployment_name
-
-        # تنفيذ docker-compose down
-        result = subprocess.run(
-            ["docker-compose", "-f", str(compose_file_path), "-p", project_name, "down", "-v"],
-            capture_output=True,
-            text=True
-        )
-
-        if result.returncode == 0:
-            update_deployment(deployment, progress=5, status=1)  # Stopped
-            logger.info(f"Deployment {deployment.id} stopped successfully with project name {project_name}")
-            return True
-        else:
-            logger.error(f"Failed to stop deployment {deployment.id}: {result.stderr}")
-            return False
-
-    except Exception as e:
-        logger.exception(f"Error stopping deployment {deployment.id}: {e}")
-        return False
-
+    return run_compose_command(deployment, ["down", "-v"], success_status=1)
 
 def hard_stop_docker_compose(deployment):
-    """
-    إيقاف وإزالة جميع حاويات الـ Deployment باستخدام docker-compose
-    """
-    try:
+    return run_compose_command(deployment, ["down"], success_status=1)
 
-        compose_file_path = get_compose_file_path(deployment)
-        if not compose_file_path.exists():
-            logger.warning(f"Compose file {compose_file_path} does not exist")
-            return False
-        # project name فريد لكل deployment
-        project_name = deployment.deployment_name
-
-        # تنفيذ docker-compose down
-        result = subprocess.run(
-            ["docker-compose", "-f", str(compose_file_path), "-p", project_name, "down"],
-            capture_output=True,
-            text=True
-        )
-
-        if result.returncode == 0:
-            update_deployment(deployment, progress=5, status=1)  # Stopped
-            logger.info(f"Deployment {deployment.id} stopped successfully with project name {project_name}")
-            return True
-        else:
-            logger.error(f"Failed to stop deployment {deployment.id}: {result.stderr}")
-            return False
-
-    except Exception as e:
-        logger.exception(f"Error stopping deployment {deployment.id}: {e}")
-        return False
-
-
-def delete_docker(deployment):
-    client = docker.from_env()
+def rebuild_docker(deployment):
     delete_docker_compose(deployment)
-    # حذف الـ volume المركزي
-    try:
-        deployment.remove_xfs_volume()
-    except Exception as e:
-        logger.error(f"Failed to remove XFS volume for deployment {deployment.id}: {e}")
-    
-    return True
-
-def rebuild_docker(deployment: Deployment):
-    delete_docker(deployment)
     return run_docker(deployment)
 
+def hard_restart(deployment):
+    hard_stop_docker_compose(deployment)
+    return run_docker(deployment)
 
-def restart_docker(deployment: Deployment):
-    client = docker.from_env()
-    all_ok = True
-
-    s = restart_docker_compose(deployment)
-
-
-    deployment.status = 2 if all_ok else 3  # Running أو Failed
-    deployment.save()
-    return all_ok
-
-
-def hard_restart(deployment: Deployment):
-    client = docker.from_env()
-    s = hard_stop_docker_compose(deployment)
-    r = run_docker(deployment)
-
-
-def stop_docker(deployment: Deployment):
-    client = docker.from_env()
-    all_ok = True
-
-    s = stop_docker_compose(deployment)
-
-    deployment.status = 1  # Stopped
-    deployment.save()
-    return all_ok
-
-
-def start_docker(deployment: Deployment):
-    client = docker.from_env()
-
-    all_ok = True
-    s = start_docker_compose(deployment)
-
-    deployment.status = 2 if all_ok else 3
-    deployment.save()
-    return all_ok
 
 
 import subprocess

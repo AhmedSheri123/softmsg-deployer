@@ -1,6 +1,6 @@
 #deployments\models.py
 
-from django.db import models
+from django.db import models, transaction, DatabaseError
 from django.contrib.auth.models import User
 from projects.models import AvailableProject
 from django.utils import timezone
@@ -13,7 +13,6 @@ import logging
 import yaml
 import shutil
 import uuid
-
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
@@ -37,6 +36,7 @@ class Deployment(models.Model):
     project = models.ForeignKey(AvailableProject, on_delete=models.CASCADE)
     deployment_name = models.CharField(max_length=50, blank=True, null=True)
     compose_template = models.TextField(null=True, blank=True)
+    uuid_cache = models.JSONField(default=dict, blank=True)
 
     ip_address = models.GenericIPAddressField(blank=True, null=True)
     version = models.CharField(max_length=50, default="1.0")
@@ -283,23 +283,25 @@ class Deployment(models.Model):
 
 
 
+
+
     def resolve_placeholders(self, value, context=None):
         """
         يدعم:
         {container.<service_name>.<field>}
         {deployment.<field>}
         {dc.<service_name>.<field>}
-        هذه النسخة:
-        - recursive على dict/list
-        - تمرير context ثابت (compose المعد من render_dc_compose)
-        - logging تشخيصي لكل placeholder يتم محاولة حله
-        - يدعم استبدال placeholders داخل المفاتيح (keys) والقيم (values)
+        {uuid.<cache_id>.<length>}
         """
+
+        # تهيئة context لأول مرة
         if context is None:
+            if not self.uuid_cache:
+                self.uuid_cache = {}
             context = {
                 "deployment": self,
                 "compose": self.render_dc_compose(),
-                "_uuid_cache": {}
+                "_uuid_cache": dict(self.uuid_cache)  # نسخة آمنة
             }
 
         # recursive handling
@@ -323,16 +325,14 @@ class Deployment(models.Model):
             try:
                 # ---- uuid.<cache_id>.<length> ----
                 if parts[0] == "uuid":
-                    cache_id = "default"   # لو ما حطيت cache_id
+                    cache_id = "default"
                     length = 32
 
-                    if len(parts) == 2:  
-                        # ممكن يكون بس طول أو cache_id
+                    if len(parts) == 2:
                         if parts[1].isdigit():
                             length = int(parts[1])
                         else:
                             cache_id = parts[1]
-
                     elif len(parts) >= 3:
                         cache_id = parts[1]
                         if parts[2].isdigit():
@@ -343,40 +343,40 @@ class Deployment(models.Model):
 
                     cache_key = f"uuid.{cache_id}.{length}"
 
-                    if cache_key in context["_uuid_cache"]:
-                        result = context["_uuid_cache"][cache_key]
-                    else:
+                    # استخدم القديم إذا موجود، وإلا خزّن جديد
+                    if cache_key not in context["_uuid_cache"]:
                         raw_uuid = uuid.uuid4().hex
-                        result = raw_uuid[:length]
-                        context["_uuid_cache"][cache_key] = result
+                        context["_uuid_cache"][cache_key] = raw_uuid[:length]
 
-                    logger.debug("uuid resolved (cached): %s -> %s", expr, result)
+                    result = context["_uuid_cache"][cache_key]
+                    logger.debug("uuid resolved: %s -> %s", expr, result)
                     return result
 
-
-            
                 # ---- dc.<service_name>.<field> ----
                 if parts[0] == "dc" and len(parts) >= 3:
                     service_name = parts[1]
                     subkeys = parts[2:]
 
-                    dc_obj = DeploymentContainer.objects.filter(deployment=self, service_name=service_name).first()
+                    dc_obj = DeploymentContainer.objects.filter(
+                        deployment=self, service_name=service_name
+                    ).first()
                     if not dc_obj:
                         logger.debug("dc not found: deployment=%s service_name=%s", self.id, service_name)
                         return match.group(0)
+
                     node = dc_obj
                     for k in subkeys:
                         node = getattr(node, k, None)
                         if node is None:
                             logger.debug("dc field not found: %s on %s", k, dc_obj)
                             return match.group(0)
-                    logger.debug("dc resolved: %s -> %s", expr, node)
+
                     return str(node)
 
                 # ---- container.<service_name>.<field> ----
                 if parts[0] == "container" and len(parts) >= 2:
                     service_name = parts[1]
-                    subkeys = parts[2:]  # باقي الحقول، يمكن أن تكون فارغة
+                    subkeys = parts[2:]
 
                     services = context.get("compose", {}).get("services", {})
                     node = None
@@ -384,7 +384,7 @@ class Deployment(models.Model):
                     for svc_name, svc_conf in services.items():
                         if svc_conf.get("service_name") == service_name:
                             node = svc_conf
-                            new_service_name = svc_name  # الاسم الجديد بعد إضافة _id
+                            new_service_name = svc_name
                             break
 
                     if node is None:
@@ -392,20 +392,15 @@ class Deployment(models.Model):
                         return match.group(0)
 
                     if not subkeys:
-                        # إذا لم يتم تحديد أي field، أرجع اسم الخدمة الجديد
                         return new_service_name
 
-                    # استمر للوصول للحقل المطلوب
                     for k in subkeys:
                         node = node.get(k) if isinstance(node, dict) else None
                         if node is None:
                             logger.debug("field %s not found in container %s", k, service_name)
                             return match.group(0)
 
-                    logger.debug("container resolved: %s -> %s", expr, node)
                     return str(node)
-
-
 
                 # ---- deployment.<field> ----
                 if parts[0] == "deployment" and len(parts) >= 2:
@@ -415,22 +410,30 @@ class Deployment(models.Model):
                         if node is None:
                             logger.debug("deployment field not found: %s", k)
                             return match.group(0)
-                    logger.debug("deployment resolved: %s -> %s", expr, node)
                     return str(node)
 
                 return match.group(0)
+
             except Exception as e:
                 logger.exception("Error while resolving placeholder %s: %s", expr, e)
                 return match.group(0)
 
-        # نعمل عدة مرات لأن placeholders ممكن تكون متداخلة
+        # كرر الاستبدال عدة مرات (عشان nested placeholders)
         prev = value
         for _ in range(5):
             new = pattern.sub(replacer, prev)
             if new == prev:
                 break
             prev = new
+
+        # تحديث uuid_cache وحفظه إذا تغير
+        if "_uuid_cache" in context:
+            if self.uuid_cache != context["_uuid_cache"]:
+                self.uuid_cache = context["_uuid_cache"]
+                self.save(update_fields=["uuid_cache"])
+
         return prev
+
 
 
 
@@ -440,7 +443,7 @@ class Deployment(models.Model):
         ثم نستدعي resolve_placeholders مرة واحدة على whole structure (recursive)
         """
         compose = self.render_dc_compose()
-        context = {"deployment": self, "compose": compose}
+        context = {"deployment": self, "compose": compose, "_uuid_cache": dict(self.uuid_cache) or {}}
         resolved = self.resolve_placeholders(compose, context=context)
         return resolved
 
