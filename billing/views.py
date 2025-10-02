@@ -17,8 +17,10 @@ def ServicePayment(request, orderID):
     order = ServicePaymentOrderModel.objects.get(orderID=orderID)
     plan = order.plan
     price = order.price
+    user = request.user
+    userprofile = user.userprofile
 
-    if price <= 0:
+    if price <= 0 or user.is_superuser:
         if order.order_type == '1':
             return ApplySubscription(request, order.id)
         elif order.order_type == '2':
@@ -26,8 +28,7 @@ def ServicePayment(request, orderID):
         elif order.order_type == '3':
             return ApplyUpgradePlan(request, order.id)
 
-    user = request.user
-    userprofile = user.userprofile
+
     index_url = request.build_absolute_uri('/')
     index_url = index_url.rsplit('/', 1)[0]              
     cancelUrl= index_url + reverse('CancellingOrder', kwargs={'orderID': orderID})
