@@ -209,6 +209,8 @@ class ProjectContainer(models.Model):
     technology = models.CharField(max_length=50, choices=TECHNOLOGY_CHOICES, blank=True, null=True)
     language = models.CharField(max_length=50, choices=LANGUAGE_CHOICES, blank=True, null=True)
 
+    def __str__(self):
+        return f'{self.project}-{self.service_name}'
 
 class Action(models.Model):
     label = models.CharField(_("Label"), max_length=100)

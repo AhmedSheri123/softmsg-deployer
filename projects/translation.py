@@ -3,7 +3,7 @@ from .models import Action, ActionParameter, EnvVarsTitle, EnvVar, AvailableProj
 
 @register(AvailableProject)
 class AvailableProjectTranslationOptions(TranslationOptions):
-    fields = ('description', 'install_steps', 'about')
+    fields = ('name', 'description', 'install_steps', 'about')
 
 @register(Action)
 class ActionTranslationOptions(TranslationOptions):

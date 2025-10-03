@@ -18,17 +18,17 @@ class EnvVarsTitleAdmin(TabbedTranslationAdmin):
 
 # هذه المودلز غير مترجمة، نستخدم ModelAdmin عادي
 @admin.register(Action)
-class ActionAdmin(admin.ModelAdmin):
-    list_display = ('label',)
+class ActionAdmin(TabbedTranslationAdmin):
+    # list_display = ('label',)
     search_fields = ('label', 'command')
 
 @admin.register(ActionParameter)
-class ActionParameterAdmin(admin.ModelAdmin):
+class ActionParameterAdmin(TabbedTranslationAdmin):
     list_display = ('action', 'display_label', 'name', 'data_type', 'required', 'default')
     search_fields = ('name', 'label')
 
 @admin.register(EnvVar)
-class EnvVarAdmin(admin.ModelAdmin):
+class EnvVarAdmin(TabbedTranslationAdmin):
     list_display = ('title', 'key', 'label', 'is_secret', 'required', 'default_value')
     search_fields = ('key', 'label')
 
