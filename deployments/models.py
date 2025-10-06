@@ -226,16 +226,17 @@ class Deployment(models.Model):
         services = compose.get("services", {})
         new_services = {}
         all_volumes = {}
+        deployment_network = f"{self.deployment_name}_net"
 
         for name, config in services.items():
-            # احصل على container_name من DeploymentContainer
+            # الحصول على container_name و dc_name من DeploymentContainer
             dc = DeploymentContainer.objects.get(deployment=self, service_name=name)
             new_name = dc.dc_name
             container_name = dc.container_name
             config["container_name"] = container_name
             config["service_name"] = name
 
-            # إعداد الموارد
+            # إعداد الموارد CPU و RAM
             if "deploy" not in config:
                 config["deploy"] = {"resources": {"limits": {}}}
             if "limits" not in config["deploy"]["resources"]:
@@ -243,13 +244,19 @@ class Deployment(models.Model):
             config["deploy"]["resources"]["limits"]["cpus"] = str(float(self.plan.cpu))
             config["deploy"]["resources"]["limits"]["memory"] = f"{self.plan.ram}m"
 
+            # depends_on محسّن باستخدام dc_name الصحيح
             if "depends_on" in config:
-                config["depends_on"] = [f"{dep}_{self.id}_app" for dep in config["depends_on"]]
+                dcs = DeploymentContainer.objects.filter(deployment=self)
+                config["depends_on"] = [
+                    dcs.get(service_name=dep).dc_name
+                    for dep in config["depends_on"]
+                    if dcs.filter(service_name=dep).exists()
+                ]
 
-            # الشبكة
-            config["networks"] = ["deploy_network"]
+            # الشبكة: كل Deployment لديه شبكة واحدة + Traefik
+            config["networks"] = ["traefik_net", deployment_network]
 
-            # إعداد volumes فريدة لكل container
+            # إعداد Volumes فريدة وآمنة لكل container
             if "volumes" in config:
                 new_volumes = []
                 for vol_idx, vol in enumerate(config["volumes"]):
@@ -258,13 +265,11 @@ class Deployment(models.Model):
                     else:
                         container_path = vol if isinstance(vol, str) else f"/vol{vol_idx}"
 
-                    # اجعل اسم المجلد فريد باستخدام self.id واسم container
-                    folder_name = f"{container_name}_{container_path.strip('/').replace('/', '_')}"
-                    host_path = os.path.join(volume_base_path, folder_name)
+                    # تنظيف اسم المجلد ليصبح صالح على Windows وLinux
+                    safe_path = re.sub(r'[^a-zA-Z0-9_-]', '_', container_path.strip('/'))
+                    folder_name = f"{container_name}_{safe_path}"
+                    host_path = os.path.normpath(os.path.join(volume_base_path, folder_name))
                     os.makedirs(host_path, exist_ok=True)
-
-                    if storage_data["system"] == "Windows":
-                        host_path = host_path.replace("/", "\\")
 
                     new_volumes.append(f"{host_path}:{container_path}")
                     all_volumes[folder_name] = None
@@ -275,7 +280,10 @@ class Deployment(models.Model):
 
         compose["services"] = new_services
         compose["volumes"] = all_volumes
-        compose["networks"] = {"deploy_network": {"external": True}}
+        compose["networks"] = {
+            "traefik_net": {"external": True},
+            deployment_network: {"driver": "bridge"}
+        }
 
         logger.info("Docker-compose rendering completed")
         return compose

@@ -36,7 +36,7 @@ def run_container(client, **kwargs):
         return None
 
 
-def ensure_network(client, name="deploy_network"):
+def ensure_network(client, name="traefik_net"):
     try:
         client.networks.get(name)
     except NotFound:
@@ -119,7 +119,7 @@ def create_project_container(container):
         return False
 
     # الشبكة
-    network_name = config.get("network") or "deploy_network"
+    network_name = config.get("network") or "traefik_net"
     try:
         client.networks.get(network_name)
     except NotFound:

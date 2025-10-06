@@ -25,12 +25,12 @@ def ensure_traefik_running(client):
         client.containers.get("traefik")
         logger.info("Traefik already running")
     except docker.errors.NotFound:
-        # إنشاء شبكة deploy_network إذا لم تكن موجودة
+        # إنشاء شبكة traefik_net إذا لم تكن موجودة
         try:
-            client.networks.get("deploy_network")
+            client.networks.get("traefik_net")
         except docker.errors.NotFound:
-            client.networks.create("deploy_network", driver="bridge")
-            logger.info("Network 'deploy_network' created")
+            client.networks.create("traefik_net", driver="bridge")
+            logger.info("Network 'traefik_net' created")
 
         traefik_yml = "/opt/traefik/traefik.yml"  # ملف Traefik على Ubuntu
         acme_file = "/opt/traefik/acme.json"
@@ -43,7 +43,7 @@ def ensure_traefik_running(client):
             "traefik:latest",
             name="traefik",
             detach=True,
-            network="deploy_network",
+            network="traefik_net",
             ports={"80/tcp": 80, "443/tcp": 443},
             volumes={
                 traefik_yml: {"bind": "/traefik.yml", "mode": "ro"},
@@ -73,7 +73,7 @@ def run_container(client, **kwargs):
         logger.error(f"Failed to run container: {str(e)}")
         return None
     
-def ensure_network(client, name="deploy_network"):
+def ensure_network(client, name="traefik_net"):
     try:
         client.networks.get(name)
     except NotFound:
@@ -163,7 +163,7 @@ def create_project_db_container(deployment):
                 "POSTGRES_PASSWORD": db_pass,
             },
             volumes={volume_db: {"bind": "/var/lib/postgresql/data", "mode": "rw"}},
-            network="deploy_network",
+            network="traefik_net",
             restart_policy={"Name": "unless-stopped"}
         )
 
@@ -247,7 +247,7 @@ def create_project_container(deployment):
             cpu_quota=cpu_quota,
             volumes={volume_media: {'bind': '/app/media', 'mode': 'rw'}},
             environment=final_env,
-            network="deploy_network",
+            network="traefik_net",
             restart_policy={"Name": "unless-stopped"}
         )
         if container:
@@ -301,7 +301,7 @@ def create_project_frontend_container(deployment):
             name=container_name,
             labels=labels,
             detach=True,
-            network="deploy_network",
+            network="traefik_net",
             restart_policy={"Name": "unless-stopped"}
         )
 
@@ -315,7 +315,7 @@ def create_project_redis_container(deployment: Deployment):
             name=deployment.redis_container_name,
             detach=True,
             restart_policy={"Name": "always"},
-            network="deploy_network"
+            network="traefik_net"
         )
         logger.info(f"Redis container created: {container.name}")
         return True
@@ -341,7 +341,7 @@ def run_docker(deployment: Deployment):
     deployment.save()
 
     # إعداد الشبكة و Traefik
-    ensure_traefik(client, network_name="deploy_network")
+    ensure_traefik(client, network_name="traefik_net")
 
     # تحميل الصور
     ensure_image(client, deployment.project.docker_image_name)
