@@ -179,15 +179,37 @@ def add_review(request, project_id):
     return JsonResponse({"success": True, "review": review_data})
 
 
-def project_autocomplete(request):
-    q = request.GET.get('q', '')
-    projects = AvailableProject.objects.filter(Q(name__icontains=q)|Q(description__icontains=q))[:10]
+from django.db.models.functions import Lower
 
-    # اجعل safe=False لإرسال قائمة JSON مباشرة
-    data = [{"id": p.id, "name": p.name, 
-            "image":(p.image.url if p.image else "https://placehold.co/600x400?text=not+image"),
-            "url":reverse('project_details', kwargs={"project_id":p.id})} for p in projects]
+def project_autocomplete(request):
+    query = request.GET.get('q', '').strip()  # إزالة الفراغات الزائدة
+    if not query:
+        return JsonResponse([], safe=False)
+
+    # تحويل query إلى lowercase لتجنب مشاكل case sensitivity
+    query_lower = query.lower()
+
+    # البحث في الاسم والوصف مع تجاهل حالة الأحرف
+    projects = AvailableProject.objects.annotate(
+        name_lower=Lower('name'),
+        description_lower=Lower('description')
+    ).filter(
+        Q(name_lower__icontains=query_lower) | Q(description_lower__icontains=query_lower)
+    ).only('id', 'name', 'image')[:10]
+
+    # تجهيز البيانات للإرجاع
+    data = [
+        {
+            "id": project.id,
+            "name": project.name,
+            "image": project.image.url if project.image else "https://placehold.co/600x400?text=not+image",
+            "url": reverse('project_details', kwargs={"project_id": project.id}),
+        }
+        for project in projects
+    ]
+
     return JsonResponse(data, safe=False)
+
 
 
 def get_project_source_code(request, project_id):
